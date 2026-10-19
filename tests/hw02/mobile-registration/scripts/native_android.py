@@ -8,6 +8,7 @@ from pathlib import Path
 import re
 import subprocess
 import time
+import tempfile
 from datetime import datetime, timezone
 
 
@@ -47,7 +48,7 @@ def bounds(node):
 
 
 def visible(node, tree):
-    if node.get("visible-to-user") is False:
+    if node.get("hidden") is True or node.get("visible-to-user") is False:
         return False
     x1, y1, x2, y2 = bounds(node)
     for window in tree:
@@ -109,14 +110,27 @@ class NativeAndroid:
         self.adb = sdk / "platform-tools/adb.exe"
         self.input_receipts = []
         self.submission_count = 0
-        evidence.mkdir(parents=True, exist_ok=False)
+        self.scratch = tempfile.TemporaryDirectory(prefix="mr-native-")
+        self.pending_images = {}
+        self.saved_images = []
+        self.actions = []
+        evidence.mkdir(parents=True, exist_ok=True)
         if not self.android.is_file() or not self.adb.is_file():
             raise HarnessError("Android CLI/adb not found in the selected SDK")
 
     def trace(self, event, **data):
-        with (self.evidence / "trace.jsonl").open("a", encoding="utf-8") as stream:
-            stream.write(json.dumps({"at": utc_now(), "event": event, **data},
-                                    ensure_ascii=False) + "\n")
+        # Keep only bounded diagnostics in memory; never persist full UI trees.
+        if event in {"command_error", "input_receipt"}:
+            self.actions.append({"at": utc_now(), "event": event,
+                                 **{k: v for k, v in data.items() if k != "tree"}})
+            self.actions = self.actions[-6:]
+
+    def begin_case(self):
+        self.input_receipts = []
+        self.submission_count = 0
+        self.pending_images = {}
+        self.saved_images = []
+        self.actions = []
 
     def command(self, argv, *, binary=False):
         self.trace("command", argv=[str(item) for item in argv])
@@ -143,8 +157,8 @@ class NativeAndroid:
 
     def layout(self):
         # Read the UTF-8 file, not console text rendered through a Windows code page.
-        path = self.evidence / "layout.latest.json"
-        self.cli("layout", f"--device={self.serial}", "--full", f"--output={path}")
+        path = Path(self.scratch.name) / "layout.json"
+        self.cli("layout", f"--device={self.serial}", "--full", "--no-idle", f"--output={path}")
         try:
             tree = json.loads(path.read_text(encoding="utf-8-sig"))
         except (OSError, ValueError) as error:
@@ -155,34 +169,51 @@ class NativeAndroid:
         return tree
 
     def capture(self, name):
-        # Images are created only during a later, explicitly requested run.
+        # Hold input/feedback in memory until a failing assertion needs evidence.
+        png = self.adb_command("exec-out", "screencap", "-p", binary=True)
+        self.pending_images[name] = {"png": png, "captured_at": utc_now()}
+        return name
+
+    def save_failure_images(self, prefix):
         try:
             from PIL import Image
         except ImportError as error:
             raise HarnessError("Pillow is required to export real JPG evidence") from error
-        png = self.adb_command("exec-out", "screencap", "-p", binary=True)
-        original = self.evidence / f"{name}.original.png"
-        jpg = self.evidence / f"{name}.jpg"
-        if original.exists() or jpg.exists():
-            raise HarnessError(f"Refusing to overwrite screenshot {name}")
-        try:
-            original.write_bytes(png)
-            with Image.open(io.BytesIO(png)) as image:
-                if image.format != "PNG":
-                    raise HarnessError("adb did not return a PNG screenshot")
-                image.convert("RGB").save(jpg, format="JPEG", quality=95)
-            with Image.open(jpg) as image:
-                if image.format != "JPEG":
-                    raise HarnessError("Screenshot export is not JPEG")
-                image.verify()
-        except (OSError, ValueError) as error:
-            raise HarnessError(f"Cannot export screenshot evidence: {error}") from error
-        self.trace("screenshot", original=original.name, jpg=jpg.name)
-        return jpg.name
+        # One input and one actual image, never a duplicate case-ended screenshot.
+        names = list(self.pending_images)
+        inputs = [n for n in names if n.endswith("-input")]
+        actuals = [n for n in names if "dialog" in n or n == "confirmation-presence"]
+        if not actuals:
+            self.capture("failure-state")
+            actuals = ["failure-state"]
+        for kind, name in [("input", inputs[-1] if inputs else None), ("actual", actuals[-1])]:
+            if name is None:
+                continue
+            saved = self.pending_images[name]
+            jpg = self.evidence / f"{prefix}-{kind}.jpg"
+            try:
+                with Image.open(io.BytesIO(saved["png"])) as image:
+                    if image.format != "PNG":
+                        raise HarnessError("adb did not return a PNG screenshot")
+                    size = image.size
+                    with jpg.open("xb") as stream:
+                        image.convert("RGB").save(stream, format="JPEG", quality=95)
+                with Image.open(jpg) as image:
+                    image.load()
+                    if image.format != "JPEG" or image.size != size:
+                        raise HarnessError("Screenshot export is not a valid JPEG")
+            except (OSError, ValueError) as error:
+                raise HarnessError(f"Cannot export screenshot evidence: {error}") from error
+            self.saved_images.append({"path": "images/" + jpg.name, "state": kind,
+                                      "captured_at": saved["captured_at"]})
+        return self.saved_images
 
     def hide_keyboard(self):
         state = self.adb_command("shell", "dumpsys", "input_method")
-        if re.search(r"(?:mInputShown|mIsInputViewShown)=true", state):
+        # The IME service keeps mIsInputViewShown=true after its window closes.
+        # Only the input manager's current visibility may trigger Back; a second
+        # Back would leave the SUT instead of dismissing a keyboard.
+        if re.search(r"\bmInputShown=true\b", state):
             self.cli("input", f"--device={self.serial}", "key", "back")
             self.layout()
 
@@ -248,8 +279,15 @@ class NativeAndroid:
     def open_registration(self, *, restart):
         if restart:
             # Restart the client only: never clear Expo data, seed/reset DB or start backend.
+            self.adb_command("shell", "cmd", "statusbar", "collapse")
             self.adb_command("shell", "am", "force-stop", self.package)
-            self.adb_command("shell", "am", "start", "-a", "android.intent.action.VIEW",
+            # Expo Go can finish a cold deep-link LauncherActivity before its
+            # experience store is ready. Initialize its launcher first; this is
+            # app setup and never retries a Register submission.
+            self.adb_command("shell", "am", "start", "-W", "-n",
+                             f"{self.package}/.LauncherActivity")
+            self.layout()
+            self.adb_command("shell", "am", "start", "-W", "-a", "android.intent.action.VIEW",
                              "-d", self.expo_url, self.package)
             self.wait(lambda t: any(label(x) == "eshop mobile" for x in texts(t)),
                       "EShop loaded in Expo Go")
@@ -257,6 +295,7 @@ class NativeAndroid:
         tree = self.layout()
         if any(label(x).startswith("chào,") for x in texts(tree)):
             raise HarnessError("P0 requires a logged-out client")
+        # Keep the client/session alive while following S: Home -> Login -> Register.
         self.tap_text("EShop Mobile")
         self.wait(lambda t: any(label(x) == "danh sách sản phẩm" for x in texts(t)), "Home")
         self.tap_text("Đăng nhập")
@@ -296,11 +335,20 @@ class NativeAndroid:
         if "EDITABLE" not in node.get("interactions", []):
             raise HarnessError(f"Field {role} is not editable")
         self.tap_node(node)
-        self.layout()  # Re-observe after focus before addressing the focused input.
+        focused_tree = self.layout()
+        focused_node = fields(focused_tree).get(role)
+        if focused_node and not visible(focused_node, focused_tree):
+            # Inline validation expands the form; the IME can hide a focused
+            # password field. Dismiss IME, preserving focus, before replacement.
+            self.hide_keyboard()
+            focused_tree = self.layout()
+            focused_node = fields(focused_tree).get(role)
+        if not focused_node or not visible(focused_node, focused_tree):
+            raise HarnessError(f"Focused {role} is not visible; no input or submit delivered")
         # Positional argv preserves empty strings, $, %, &, spaces and Unicode.
         # Do not use adb 'input text', shell quoting, %s, ASCII conversion or --submit.
         self.cli("input", f"--device={self.serial}", "text", value,
-                 "class=EditText,focused=true", "--match=single")
+                 "class=EditText,focused=true", "--match=single", "--wait=1500")
         tree = self.layout()
         current = fields(tree).get(role)
         if not current:
@@ -341,6 +389,7 @@ class NativeAndroid:
                        and label(n.get("content-desc", n.get("text", ""))) == "đăng ký"
                        and visible(n, tree)]
             if len(buttons) == 1:
+                self.capture(f"step-{step}-input")
                 # Count delivery before sending: never retry an ambiguous submit.
                 self.submission_count += 1
                 self.tap_node(buttons[0])
@@ -394,6 +443,10 @@ class NativeAndroid:
             # Login labels are state, not validation error feedback.
             if is_registration(tree):
                 feedback.update(added)
+                # The same validation message can remain visible across attempts.
+                # Its presence after submit is evidence even when no text changed.
+                feedback.update(value for value in texts(tree) if re.search(
+                    r"mật khẩu quá yếu|không hợp lệ|đăng ký thất bại", value.casefold()))
             joined = " ".join(feedback).casefold()
             if (re.search(r"thành công|success", joined)
                     and not re.search(r"không.*thành công|thất bại|fail|error|lỗi", joined)):
@@ -402,13 +455,11 @@ class NativeAndroid:
                          r"unable to resolve host|không thể kết nối|networkerror", joined):
                 raise HarnessError("Native feedback indicates a connection/setup problem")
             if is_login(tree) or feedback:
-                self.capture(f"step-{step}-result")
                 return {"at": utc_now(), "feedback": sorted(feedback),
                         "success_signal": success_signal, "dialog_seen": dialog_seen,
                         "login": is_login(tree), "registration": is_registration(tree),
                         "timed_out": False}
             time.sleep(0.2)
-        self.capture(f"step-{step}-result")
         tree = self.layout()
         return {"at": utc_now(), "feedback": sorted(feedback),
                 "success_signal": success_signal, "dialog_seen": dialog_seen,

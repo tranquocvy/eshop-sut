@@ -177,7 +177,7 @@ def evaluate(attempt, before, after, observation):
 
 
 def execute_case(case, native, accounts, api_url, result, timeout):
-    native.open_registration(restart=True)
+    native.open_registration(restart=False)
     form = native.inspect_form()
     result["form"] = form
     if case["kind"] == "confirmation_presence":
@@ -220,6 +220,9 @@ def execute_case(case, native, accounts, api_url, result, timeout):
         receipt_start = len(native.input_receipts)
         native.fill(attempt, form, password_only=attempt["fill"] == "password_only")
         before_step = accounts.snapshot(emails)
+        result["pending_attempt"] = {"step": step, "input": deepcopy(attempt),
+                                     "at": utc_now(), "before": before_step,
+                                     "input_receipts": native.input_receipts[receipt_start:]}
         observation = native.submit(step)  # Exactly one delivery per documented step.
         check_connection(api_url)
         after = accounts.settled(emails, timeout)
@@ -230,6 +233,7 @@ def execute_case(case, native, accounts, api_url, result, timeout):
                 "input_receipts": native.input_receipts[receipt_start:],
                 "problems": problems}
         result["attempts"].append(item)
+        result.pop("pending_attempt", None)
         if problems:
             # Remaining sequence steps depend on this step's documented state.
             # Keep them not performed; do not repair DB or repeat a submit.
@@ -240,111 +244,198 @@ def execute_case(case, native, accounts, api_url, result, timeout):
         raise HarnessError("Native submission count differs from the documented sequence")
 
 
-def write_results(path, run):
-    counts = {status: sum(c["status"] == status for c in run["cases"])
-              for status in ("passed", "failed", "blocked", "not_run")}
-    run["counts"] = {"designed": len(run["cases"]), **counts,
-                     "executed": counts["passed"] + counts["failed"],
-                     "not_executed": counts["blocked"] + counts["not_run"]}
+def compact_attempt(attempt):
+    observations = []
+    for email, before in attempt["before"].items():
+        after = attempt["after"][email]
+        old_ids = {row["id"] for row in before}
+        observations.append({"email": email, "count_before": len(before), "count_after": len(after),
+                             "existing_rows_unchanged": all(row in after for row in before),
+                             "new_accounts": [{k: row[k] for k in ("id", "name", "email")}
+                                              for row in after if row["id"] not in old_ids]})
+    return {"step": attempt["step"], "input": {k: v for k, v in attempt["input"].items() if k != "fill"},
+            "ui": attempt["observation"], "accounts": observations,
+            "assertion_failures": attempt["problems"],
+            "input_verification": [{"field": r["field"], "readback": r["readback"]}
+                                   for r in attempt["input_receipts"]]}
+
+
+def actual_text(result):
+    if result.get("assertions"):
+        return ("Full-form inspection: " + "; ".join(result["assertions"]["problems"])
+                if result["assertions"]["problems"] else "Independent editable Confirmation field observed.")
+    parts = []
+    for step in result["steps"]:
+        changes = [f'{a["count_before"]}→{a["count_after"]}' for a in step["accounts"]
+                   if a["count_before"] != a["count_after"]]
+        ui = step["ui"]
+        message = "báo thành công" if ui["success_signal"] else (
+            "có phản hồi từ chối" if ui["feedback"] else "không feedback")
+        parts.append(f'bước {step["step"]}: tài khoản ' + ("/".join(changes) if changes else "không đổi")
+                     + "; " + message + "; " + ("Đăng nhập" if ui["login"] else "form Đăng ký"))
+    if result["status"] == "blocked":
+        parts.append(result["reason"])
+    return "; ".join(parts)
+
+
+def write_shared(path, shared):
+    selected = {}
+    run_types = {r["id"]: r.get("purpose") for r in shared["runs"]}
+    for case in shared["cases"]:
+        selected[case["id"]] = next(r for r in reversed(case["results"])
+                                     if run_types.get(r["run_id"]) != "harness_probe")
+    statuses = [r["status"] for r in selected.values()]
+    counts = {key: statuses.count(key) for key in ("passed", "failed", "blocked", "not_run")}
+    executed = counts["passed"] + counts["failed"]
+    shared["summary"] = {"designed": len(statuses), **counts, "executed": executed,
+                         "not_executed": counts["blocked"] + counts["not_run"],
+                         "completed_status_entries": len(statuses) - counts["not_run"],
+                         "interrupted_cases": [k for k, r in selected.items() if r.get("interrupted")],
+                         "never_started": sum(r["status"] == "not_run" and not r.get("started_at")
+                                              for r in selected.values()),
+                         "pass_rate_executed_percent": round(100 * counts["passed"] / executed, 2) if executed else 0}
+    shared["selected_results"] = {k: r["run_id"] for k, r in selected.items()}
+    shared["counting_policy"] = ("Latest recorded main/resume result per unique TC, selected_results maps TC to run. "
+                                 "Prior attempts/probes remain in history. executed=passed+failed; "
+                                 "blocked/not_run are not executed. Interrupted submissions are not replayed.")
     temporary = path.with_suffix(".json.tmp")
-    temporary.write_text(json.dumps(run, ensure_ascii=False, indent=2) + "\n",
-                         encoding="utf-8", newline="\n")
+    temporary.write_text(json.dumps(shared, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n")
     temporary.replace(path)
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--execute", action="store_true", help="Explicitly permit a real native run")
-    parser.add_argument("--manifest", type=Path, required=True,
-                        help="Existing services.json linking backend runtime DB and API URL")
+    parser.add_argument("--execute", action="store_true")
+    parser.add_argument("--manifest", type=Path, required=True)
     parser.add_argument("--sdk", type=Path, default=REPO.parent/".runtime/android-sdk")
     parser.add_argument("--device", default="emulator-5554")
-    parser.add_argument("--expo-url", default="exp://10.0.2.2:8081")
+    parser.add_argument("--expo-url", default="exp://10.0.2.2:8083")
     parser.add_argument("--package", default="host.exp.exponent")
     parser.add_argument("--namespace", default="t02r01")
     parser.add_argument("--run-id", default=datetime.now(timezone.utc).strftime("MR-%Y%m%dT%H%M%SZ"))
-    parser.add_argument("--output", type=Path, default=FEATURE/"evidence")
     parser.add_argument("--case", nargs="+", dest="selected")
     parser.add_argument("--timeout", type=float, default=30)
     args = parser.parse_args()
     if not args.execute:
         parser.error("No execution requested. Add --execute only when a real run is authorized.")
-    if (not re.fullmatch(r"[A-Za-z0-9_-]+", args.namespace)
-            or not re.fullmatch(r"[A-Za-z0-9_-]+", args.run_id) or args.timeout <= 0):
-        parser.error("Invalid namespace/run ID/timeout")
-    try:
-        catalogue = load_catalogue(args.namespace)
-        manifest = read_json(args.manifest)
-        # This path is required explicitly by the existing environment manifest.
-        db_path = Path(manifest["backend_database"])
-        if not db_path.is_absolute():
-            raise HarnessError("Manifest backend_database must be an absolute runtime path")
-        api_url = manifest["mobile_api_url"]
-        accounts = ReadOnlyAccounts(db_path)
-    except (HarnessError, KeyError, OSError) as error:
-        parser.error(str(error))
-    selected = set(args.selected or [case["id"] for case in catalogue["cases"]])
-    if not selected or selected - {case["id"] for case in catalogue["cases"]}:
+    if not re.fullmatch(r"[A-Za-z0-9_-]+", args.namespace) or not re.fullmatch(r"[A-Za-z0-9_-]+", args.run_id):
+        parser.error("Invalid namespace/run ID")
+    catalogue = load_catalogue(args.namespace)
+    manifest = read_json(args.manifest)
+    path = FEATURE / "results.json"
+    shared = read_json(path)
+    if shared.get("schema_version") != 2 or shared.get("design_version") != catalogue["design_version"]:
+        parser.error("A compatible shared results.json is required before resuming")
+    if any(r["id"] == args.run_id for r in shared["runs"]):
+        parser.error("Run ID already exists; preserve history")
+    if [c["id"] for c in shared["cases"]] != [c["id"] for c in catalogue["cases"]]:
+        parser.error("Shared results and catalogue disagree")
+    if any(c["expected"] != d["expected_text"] for c, d in zip(shared["cases"], catalogue["cases"])):
+        parser.error("Expected outcomes differ from the reviewed catalogue")
+    accounts = ReadOnlyAccounts(manifest["backend_database"])
+    api_url = manifest["mobile_api_url"]
+    selected = set(args.selected or [c["id"] for c in shared["cases"]
+                                    if c["results"][-1]["status"] in {"blocked", "not_run"}])
+    if not selected or selected - {c["id"] for c in catalogue["cases"]}:
         parser.error("Unknown/empty TC selection")
-    run_root = args.output.resolve()/args.run_id
-    run_root.mkdir(parents=True, exist_ok=False)
-    run = {"run_id": args.run_id, "started_at": utc_now(), "target": "native-android",
-           "namespace": args.namespace, "selected": sorted(selected),
-           "manifest": str(args.manifest.resolve()), "database": str(accounts.path),
-           "api_url": api_url, "device": args.device, "expo_url": args.expo_url,
-           "sut_source_commit_from_manifest": manifest.get("source_commit"),
-           "documents": catalogue["documents"],
-           "implementation_sha256": {p.name: hashlib.sha256(p.read_bytes()).hexdigest()
-                                     for p in (FEATURE/"scripts").glob("*.py")},
-           "cases": [{"id": c["id"], "status": "not_run", "technique": c["technique"],
-                      "traceability": c["traceability"], "expected_text": c["expected_text"],
-                      "document_line": c["document_line"], "attempts": [], "limitations": []}
-                     for c in catalogue["cases"]]}
-    result_path = run_root/"results.json"
-    write_results(result_path, run)
+    check_connection(api_url)
+    # Record safe read-only preflight for interrupted TC29 before touching its form.
+    before_resume = accounts.snapshot(["mr." + args.namespace + ".tc29@example.com",
+                                      "mr." + args.namespace + ".tc26@example.com", "TEST@eshop.com"])
+    environment = deepcopy(shared["runs"][0]["environment"])
+    environment.pop("harness_diff", None)
+    environment["prior_harness_revision"] = "MR-RUN-01; current implementation hashes recorded in this run"
+    environment["harness_changes"] = ("Reuse native session; --no-idle layout plus explicit readiness predicates; "
+                                       "dismiss IME if inline validation hides the focused field; "
+                                       "observe visible validation even when unchanged from previous attempt; "
+                                       "one shared result file; no layout dumps or trace files; "
+                                       "JPG only for new failure groups. No business/expected changes.")
+    revision = subprocess.run(["git", "rev-parse", "HEAD"], cwd=REPO, capture_output=True, text=True, check=True)
+    run = {"id": args.run_id, "purpose": "resume", "state": "running", "started_at": utc_now(),
+           "namespace": args.namespace, "selected": sorted(selected), "source_commit": revision.stdout.strip(),
+           "sources": {"documents": catalogue["documents"], "design_version": catalogue["design_version"],
+                       "implementation_sha256": {p.name: hashlib.sha256(p.read_bytes()).hexdigest()
+                                                  for p in (FEATURE/"scripts").glob("*.py")}},
+           "environment": environment, "executor": "OpenAI Codex via Android CLI/adb; SQLite observations read-only",
+           "resume_preflight": {email: len(rows) for email, rows in before_resume.items()}}
+    shared["runs"].append(run)
+    shared["selected_run_id"] = args.run_id
+    write_shared(path, shared)
+    native = NativeAndroid(args.sdk.resolve(), args.device, args.expo_url, args.package, FEATURE/"images", args.timeout)
+    consecutive_harness_errors = 0
+    failure_groups = {}
     try:
-        # Fail before the first native test if screenshot export is unavailable.
-        import PIL.Image  # noqa: F401
-        check_connection(api_url)
-        revision = subprocess.run(["git", "rev-parse", "HEAD"], cwd=REPO,
-                                  capture_output=True, text=True, check=False)
-        run["test_commit"] = revision.stdout.strip() if revision.returncode == 0 else None
-        for case, result in zip(catalogue["cases"], run["cases"]):
+        for case, entry in zip(catalogue["cases"], shared["cases"]):
             if case["id"] not in selected:
                 continue
-            result["started_at"] = utc_now()
-            native = None
+            native.begin_case()
+            result = {"run_id": args.run_id, "started_at": utc_now(), "status": "not_run",
+                      "attempts": [], "limitations": []}
+            entry["results"].append(result)
+            write_shared(path, shared)
             try:
-                native = NativeAndroid(args.sdk.resolve(), args.device, args.expo_url,
-                                       args.package, run_root/case["id"], args.timeout)
                 execute_case(case, native, accounts, api_url, result, args.timeout)
                 result["status"] = "passed"
             except CaseFailure as error:
                 result.update(status="failed", reason=str(error))
             except (HarnessError, OSError, ValueError) as error:
                 result.update(status="blocked", reason=str(error))
+            except KeyboardInterrupt:
+                result.update(status="not_run", interrupted=True,
+                              reason="Interrupted; inspect native screen and account state before resuming")
+                raise
             finally:
-                if native is not None:
-                    result["submissions"] = native.submission_count
-                    try:
-                        native.capture("case-ended")
-                    except HarnessError as error:
-                        result["limitations"].append(f"Final screenshot unavailable: {error}")
-                        if result["status"] == "passed":
-                            result.update(status="blocked", reason="Required JPG evidence unavailable")
+                result["submissions"] = native.submission_count
+                result["steps"] = [compact_attempt(a) for a in result.pop("attempts")]
+                if result.get("pending_attempt"):
+                    pending = result.pop("pending_attempt")
+                    result["incomplete_attempt"] = {"step": pending["step"], "input": pending["input"],
+                                                    "at": pending["at"], "submission_count": native.submission_count,
+                                                    "readbacks": [{"field": r["field"], "readback": r["readback"]}
+                                                                  for r in pending["input_receipts"]]}
                 result["finished_at"] = utc_now()
-                result["evidence_directory"] = case["id"]
-                write_results(result_path, run)
-    except (ImportError, HarnessError, OSError) as error:
-        run["run_error"] = str(error)
-        for result in run["cases"]:
-            if result["id"] in selected and result["status"] == "not_run":
-                result.update(status="blocked", reason=str(error))
+                result["actual"] = actual_text(result)
+                if result["status"] == "failed":
+                    # Share an image only when the oracle group AND assertion failures match.
+                    rule_group = re.match(r"R\d+", case["traceability"]).group(0)
+                    problems = [p for step in result["steps"] for p in step["assertion_failures"]]
+                    signature = (rule_group, tuple(re.sub(r"'[^']*'", "<identity>", p) for p in problems),
+                                 tuple(result.get("assertions", {}).get("problems", [])))
+                    if signature in failure_groups:
+                        result["images"] = failure_groups[signature]
+                        result["shared_image_note"] = "Representative image from same rule/assertion failure group; own observations retained."
+                    else:
+                        try:
+                            result["images"] = native.save_failure_images(args.run_id + "-" + case["id"])
+                            failure_groups[signature] = result["images"]
+                            shared["images"].extend({**img, "tc": case["id"], "run_id": args.run_id}
+                                                    for img in result["images"])
+                        except HarnessError as error:
+                            result["limitations"].append("Failure image unavailable: " + str(error))
+                write_shared(path, shared)
+                print(json.dumps({"case": case["id"], "status": result["status"],
+                                  "actual": result["actual"]}, ensure_ascii=False), flush=True)
+            if result["status"] == "blocked":
+                if result.get("reason", "").startswith("C-guard:"):
+                    # Known product-schema dependency, not a repeated transport failure.
+                    consecutive_harness_errors = 0
+                    continue
+                consecutive_harness_errors += 1
+                if result["submissions"] or consecutive_harness_errors >= 2:
+                    run["stop_reason"] = "Uncertain submitted state or repeated harness error; no further automatic replay."
+                    break
+            else:
+                consecutive_harness_errors = 0
+        run["state"] = "stopped" if run.get("stop_reason") else "finished"
+    except KeyboardInterrupt:
+        run.update(state="interrupted", stop_reason="User interrupted; inspect screen/account state before any resume")
+        raise
     finally:
         run["finished_at"] = utc_now()
-        write_results(result_path, run)
-    print(json.dumps({"results": str(result_path), **run["counts"]}, ensure_ascii=False))
-    return 1 if run["counts"]["failed"] or run["counts"]["blocked"] else 0
+        write_shared(path, shared)
+        native.scratch.cleanup()
+    print(json.dumps(shared["summary"], ensure_ascii=False), flush=True)
+    return 0
 
 
 if __name__ == "__main__":
