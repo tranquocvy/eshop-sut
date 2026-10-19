@@ -1,0 +1,4 @@
+interface:
+  display_name: "Course AI Log"
+  short_description: "Ghi AI log và điền biểu mẫu cho từng bài tập"
+  default_prompt: "Dùng $course-ai-log cập nhật log và biểu mẫu AI cho task vừa làm theo đề hiện hành."
