@@ -1,0 +1,1488 @@
+{
+  "schema_version": 1,
+  "design_version": "0.3",
+  "namespace": "t02r01",
+  "target": "native-android",
+  "documents": {
+    "design.md": "8462f8694c37f9ba7457165406c4b69dae0c3f8ace94826879868c42740a26b3",
+    "test-cases.md": "41242ac4452c551ef577d2f062cb7baa0b26a7706e74ea69fabbf8bde0b63a0f"
+  },
+  "cases": [
+    {
+      "id": "MR-TC01",
+      "technique": "Domain",
+      "traceability": "R01–09,R11; D02,D03",
+      "document_line": 31,
+      "precondition_text": "P0; E01 mới",
+      "input_text": "Bộ mặc định của TC01",
+      "steps_text": "S",
+      "expected_text": "ACCEPT. Control cho bộ dữ liệu hợp lệ; S1 FR-01 dòng 32–36, S2. Không credit R10",
+      "kind": "single",
+      "requires_confirmation": false,
+      "requires_existing": [],
+      "requires_absent": [
+        "mr.t02r01.tc01@example.com"
+      ],
+      "protect_existing": [],
+      "attempts": [
+        {
+          "name": "Nguyen Van A",
+          "email": "mr.t02r01.tc01@example.com",
+          "password": "Abcde1!x",
+          "confirmation": "Abcde1!x",
+          "expected": "ACCEPT",
+          "fill": "all_fields"
+        }
+      ]
+    },
+    {
+      "id": "MR-TC02",
+      "technique": "Domain+BVA",
+      "traceability": "R01; D01; B06-0",
+      "document_line": 32,
+      "precondition_text": "P0; E02 mới",
+      "input_text": "N=`\"\"` (0 ký tự)",
+      "steps_text": "S",
+      "expected_text": "REJECT vì thiếu Họ Tên; R01/S1:32",
+      "kind": "single",
+      "requires_confirmation": false,
+      "requires_existing": [],
+      "requires_absent": [
+        "mr.t02r01.tc02@example.com"
+      ],
+      "protect_existing": [],
+      "attempts": [
+        {
+          "name": "",
+          "email": "mr.t02r01.tc02@example.com",
+          "password": "Abcde1!x",
+          "confirmation": "Abcde1!x",
+          "expected": "REJECT",
+          "fill": "all_fields"
+        }
+      ]
+    },
+    {
+      "id": "MR-TC03",
+      "technique": "Domain+BVA",
+      "traceability": "R01; D02; B06-1",
+      "document_line": 33,
+      "precondition_text": "P0; E03 mới; A01",
+      "input_text": "N=`V` (1 ký tự)",
+      "steps_text": "S",
+      "expected_text": "ACCEPT với tên nonempty; R01,R11/S1:32,36; A01 chưa có min tên khác",
+      "kind": "single",
+      "requires_confirmation": false,
+      "requires_existing": [],
+      "requires_absent": [
+        "mr.t02r01.tc03@example.com"
+      ],
+      "protect_existing": [],
+      "attempts": [
+        {
+          "name": "V",
+          "email": "mr.t02r01.tc03@example.com",
+          "password": "Abcde1!x",
+          "confirmation": "Abcde1!x",
+          "expected": "ACCEPT",
+          "fill": "all_fields"
+        }
+      ]
+    },
+    {
+      "id": "MR-TC04",
+      "technique": "Domain+BVA",
+      "traceability": "R01; D02; B06-2",
+      "document_line": 34,
+      "precondition_text": "P0; E04 mới; A01",
+      "input_text": "N=`Vy` (2 ký tự)",
+      "steps_text": "S",
+      "expected_text": "ACCEPT; R01,R11/S1:32,36 và A01",
+      "kind": "single",
+      "requires_confirmation": false,
+      "requires_existing": [],
+      "requires_absent": [
+        "mr.t02r01.tc04@example.com"
+      ],
+      "protect_existing": [],
+      "attempts": [
+        {
+          "name": "Vy",
+          "email": "mr.t02r01.tc04@example.com",
+          "password": "Abcde1!x",
+          "confirmation": "Abcde1!x",
+          "expected": "ACCEPT",
+          "fill": "all_fields"
+        }
+      ]
+    },
+    {
+      "id": "MR-TC05",
+      "technique": "Domain",
+      "traceability": "R01; D02",
+      "document_line": 35,
+      "precondition_text": "P0; E05 mới; A01",
+      "input_text": "N=`Trần Quốc Vỹ`",
+      "steps_text": "S",
+      "expected_text": "ACCEPT; tên được cung cấp và không có rule ASCII-only; R01,R11/S1:32,36 và A01",
+      "kind": "single",
+      "requires_confirmation": false,
+      "requires_existing": [],
+      "requires_absent": [
+        "mr.t02r01.tc05@example.com"
+      ],
+      "protect_existing": [],
+      "attempts": [
+        {
+          "name": "Trần Quốc Vỹ",
+          "email": "mr.t02r01.tc05@example.com",
+          "password": "Abcde1!x",
+          "confirmation": "Abcde1!x",
+          "expected": "ACCEPT",
+          "fill": "all_fields"
+        }
+      ]
+    },
+    {
+      "id": "MR-TC06",
+      "technique": "Domain",
+      "traceability": "R02; D04",
+      "document_line": 36,
+      "precondition_text": "P0; N/P hợp lệ",
+      "input_text": "E=`\"\"`",
+      "steps_text": "S",
+      "expected_text": "REJECT vì thiếu Email; R02/S1:32–33",
+      "kind": "single",
+      "requires_confirmation": false,
+      "requires_existing": [],
+      "requires_absent": [
+        ""
+      ],
+      "protect_existing": [],
+      "attempts": [
+        {
+          "name": "Nguyen Van A",
+          "email": "",
+          "password": "Abcde1!x",
+          "confirmation": "Abcde1!x",
+          "expected": "REJECT",
+          "fill": "all_fields"
+        }
+      ]
+    },
+    {
+      "id": "MR-TC07",
+      "technique": "Domain",
+      "traceability": "R02; D05",
+      "document_line": 37,
+      "precondition_text": "P0; chuỗi E chưa tồn tại",
+      "input_text": "E=`mr.t02r01.tc07.example.com`",
+      "steps_text": "S",
+      "expected_text": "REJECT vì thiếu `@`; R02/S1:33",
+      "kind": "single",
+      "requires_confirmation": false,
+      "requires_existing": [],
+      "requires_absent": [
+        "mr.t02r01.tc07.example.com"
+      ],
+      "protect_existing": [],
+      "attempts": [
+        {
+          "name": "Nguyen Van A",
+          "email": "mr.t02r01.tc07.example.com",
+          "password": "Abcde1!x",
+          "confirmation": "Abcde1!x",
+          "expected": "REJECT",
+          "fill": "all_fields"
+        }
+      ]
+    },
+    {
+      "id": "MR-TC08",
+      "technique": "Domain",
+      "traceability": "R02; D06",
+      "document_line": 38,
+      "precondition_text": "P0; chuỗi E chưa tồn tại",
+      "input_text": "E=`@example.com`",
+      "steps_text": "S",
+      "expected_text": "REJECT vì thiếu local-part; R02/S1:33",
+      "kind": "single",
+      "requires_confirmation": false,
+      "requires_existing": [],
+      "requires_absent": [
+        "@example.com"
+      ],
+      "protect_existing": [],
+      "attempts": [
+        {
+          "name": "Nguyen Van A",
+          "email": "@example.com",
+          "password": "Abcde1!x",
+          "confirmation": "Abcde1!x",
+          "expected": "REJECT",
+          "fill": "all_fields"
+        }
+      ]
+    },
+    {
+      "id": "MR-TC09",
+      "technique": "Domain",
+      "traceability": "R02; D07",
+      "document_line": 39,
+      "precondition_text": "P0; chuỗi E chưa tồn tại",
+      "input_text": "E=`mr.t02r01.tc09@`",
+      "steps_text": "S",
+      "expected_text": "REJECT vì thiếu domain; R02/S1:33",
+      "kind": "single",
+      "requires_confirmation": false,
+      "requires_existing": [],
+      "requires_absent": [
+        "mr.t02r01.tc09@"
+      ],
+      "protect_existing": [],
+      "attempts": [
+        {
+          "name": "Nguyen Van A",
+          "email": "mr.t02r01.tc09@",
+          "password": "Abcde1!x",
+          "confirmation": "Abcde1!x",
+          "expected": "REJECT",
+          "fill": "all_fields"
+        }
+      ]
+    },
+    {
+      "id": "MR-TC10",
+      "technique": "Domain",
+      "traceability": "R02; D08",
+      "document_line": 40,
+      "precondition_text": "P0; chuỗi E chưa tồn tại",
+      "input_text": "E=`mr t02r01.tc10@example.com` (space sau `mr`)",
+      "steps_text": "S",
+      "expected_text": "REJECT vì space trong local-part không quote của địa chỉ đơn giản; R02/S1:33; không xét trim",
+      "kind": "single",
+      "requires_confirmation": false,
+      "requires_existing": [],
+      "requires_absent": [
+        "mr t02r01.tc10@example.com"
+      ],
+      "protect_existing": [],
+      "attempts": [
+        {
+          "name": "Nguyen Van A",
+          "email": "mr t02r01.tc10@example.com",
+          "password": "Abcde1!x",
+          "confirmation": "Abcde1!x",
+          "expected": "REJECT",
+          "fill": "all_fields"
+        }
+      ]
+    },
+    {
+      "id": "MR-TC11",
+      "technique": "Domain",
+      "traceability": "R02; D09",
+      "document_line": 41,
+      "precondition_text": "P0; chuỗi E chưa tồn tại",
+      "input_text": "E=`mr.t02r01.tc11@@example.com`",
+      "steps_text": "S",
+      "expected_text": "REJECT vì hai `@` liên tiếp, không quote; R02/S1:33",
+      "kind": "single",
+      "requires_confirmation": false,
+      "requires_existing": [],
+      "requires_absent": [
+        "mr.t02r01.tc11@@example.com"
+      ],
+      "protect_existing": [],
+      "attempts": [
+        {
+          "name": "Nguyen Van A",
+          "email": "mr.t02r01.tc11@@example.com",
+          "password": "Abcde1!x",
+          "confirmation": "Abcde1!x",
+          "expected": "REJECT",
+          "fill": "all_fields"
+        }
+      ]
+    },
+    {
+      "id": "MR-TC12",
+      "technique": "Domain",
+      "traceability": "R03; D10",
+      "document_line": 42,
+      "precondition_text": "P0; xác nhận `test@eshop.com` tồn tại theo fixture; ghi count trước ca",
+      "input_text": "E=`test@eshop.com`; N/P nominal",
+      "steps_text": "S",
+      "expected_text": "REJECT duplicate nguyên chuỗi; account count của E không tăng, dữ liệu account cũ không đổi; R03/S1:33; fixture từ README:24",
+      "kind": "single",
+      "requires_confirmation": false,
+      "requires_existing": [
+        "test@eshop.com"
+      ],
+      "requires_absent": [],
+      "protect_existing": [
+        "test@eshop.com"
+      ],
+      "attempts": [
+        {
+          "name": "Nguyen Van A",
+          "email": "test@eshop.com",
+          "password": "Abcde1!x",
+          "confirmation": "Abcde1!x",
+          "expected": "REJECT",
+          "fill": "all_fields"
+        }
+      ]
+    },
+    {
+      "id": "MR-TC13",
+      "technique": "Domain (state)",
+      "traceability": "R03,R11; D03,D11",
+      "document_line": 43,
+      "precondition_text": "P0; E13 chưa tồn tại",
+      "input_text": "Cả hai submit dùng E13, N/P nominal",
+      "steps_text": "S lần 1 → quay lại form native → nhập lại cùng dữ liệu → S bước 3–4 lần 2",
+      "expected_text": "Lần 1 ACCEPT, lần 2 REJECT duplicate; sau hai submit chỉ có 1 account E13; R03,R11/S1:33,36",
+      "kind": "repeat_registration",
+      "requires_confirmation": false,
+      "requires_existing": [],
+      "requires_absent": [
+        "mr.t02r01.tc13@example.com"
+      ],
+      "protect_existing": [],
+      "attempts": [
+        {
+          "name": "Nguyen Van A",
+          "email": "mr.t02r01.tc13@example.com",
+          "password": "Abcde1!x",
+          "confirmation": "Abcde1!x",
+          "expected": "ACCEPT",
+          "fill": "all_fields"
+        },
+        {
+          "name": "Nguyen Van A",
+          "email": "mr.t02r01.tc13@example.com",
+          "password": "Abcde1!x",
+          "confirmation": "Abcde1!x",
+          "expected": "REJECT",
+          "fill": "all_fields"
+        }
+      ]
+    },
+    {
+      "id": "MR-TC14",
+      "technique": "Domain",
+      "traceability": "R04; D12",
+      "document_line": 51,
+      "precondition_text": "P0; E14 mới",
+      "input_text": "P=`\"\"`",
+      "steps_text": "S",
+      "expected_text": "REJECT thiếu password; R04/S1:32. Không dùng ca này credit từng rule class count",
+      "kind": "single",
+      "requires_confirmation": false,
+      "requires_existing": [],
+      "requires_absent": [
+        "mr.t02r01.tc14@example.com"
+      ],
+      "protect_existing": [],
+      "attempts": [
+        {
+          "name": "Nguyen Van A",
+          "email": "mr.t02r01.tc14@example.com",
+          "password": "",
+          "confirmation": "",
+          "expected": "REJECT",
+          "fill": "all_fields"
+        }
+      ]
+    },
+    {
+      "id": "MR-TC15",
+      "technique": "Domain+BVA",
+      "traceability": "R05; D13; B01-7",
+      "document_line": 52,
+      "precondition_text": "P0; E15 mới",
+      "input_text": "P=`Abcde1!` (7)",
+      "steps_text": "S",
+      "expected_text": "REJECT vì 7<8, các nhóm ký tự khác đủ; R05/S1:34",
+      "kind": "single",
+      "requires_confirmation": false,
+      "requires_existing": [],
+      "requires_absent": [
+        "mr.t02r01.tc15@example.com"
+      ],
+      "protect_existing": [],
+      "attempts": [
+        {
+          "name": "Nguyen Van A",
+          "email": "mr.t02r01.tc15@example.com",
+          "password": "Abcde1!",
+          "confirmation": "Abcde1!",
+          "expected": "REJECT",
+          "fill": "all_fields"
+        }
+      ]
+    },
+    {
+      "id": "MR-TC16",
+      "technique": "Domain+BVA",
+      "traceability": "R05–09,R11; D14,D16,D20,D22; B01-8,B02-1,B04-1,B05-1",
+      "document_line": 53,
+      "precondition_text": "P0; E16 mới",
+      "input_text": "P=`Abcde1!x` (8; U1,L5,D1,S1)",
+      "steps_text": "S",
+      "expected_text": "ACCEPT tại ngưỡng 8, đúng một hoa/số/S; R05–09,R11/S1:34,36",
+      "kind": "single",
+      "requires_confirmation": false,
+      "requires_existing": [],
+      "requires_absent": [
+        "mr.t02r01.tc16@example.com"
+      ],
+      "protect_existing": [],
+      "attempts": [
+        {
+          "name": "Nguyen Van A",
+          "email": "mr.t02r01.tc16@example.com",
+          "password": "Abcde1!x",
+          "confirmation": "Abcde1!x",
+          "expected": "ACCEPT",
+          "fill": "all_fields"
+        }
+      ]
+    },
+    {
+      "id": "MR-TC17",
+      "technique": "Domain+BVA",
+      "traceability": "R05; D14; B01-9",
+      "document_line": 54,
+      "precondition_text": "P0; E17 mới",
+      "input_text": "P=`Abcde1!xy` (9)",
+      "steps_text": "S",
+      "expected_text": "ACCEPT phía trên ngưỡng, không chỉ đúng 8 mới được chấp nhận; R05,R11/S1:34,36",
+      "kind": "single",
+      "requires_confirmation": false,
+      "requires_existing": [],
+      "requires_absent": [
+        "mr.t02r01.tc17@example.com"
+      ],
+      "protect_existing": [],
+      "attempts": [
+        {
+          "name": "Nguyen Van A",
+          "email": "mr.t02r01.tc17@example.com",
+          "password": "Abcde1!xy",
+          "confirmation": "Abcde1!xy",
+          "expected": "ACCEPT",
+          "fill": "all_fields"
+        }
+      ]
+    },
+    {
+      "id": "MR-TC18",
+      "technique": "Domain+BVA",
+      "traceability": "R06; D15; B02-0",
+      "document_line": 55,
+      "precondition_text": "P0; E18 mới",
+      "input_text": "P=`abcde1!x` (8; U0,L6,D1,S1)",
+      "steps_text": "S",
+      "expected_text": "REJECT chỉ vì thiếu chữ hoa; R06/S1:34",
+      "kind": "single",
+      "requires_confirmation": false,
+      "requires_existing": [],
+      "requires_absent": [
+        "mr.t02r01.tc18@example.com"
+      ],
+      "protect_existing": [],
+      "attempts": [
+        {
+          "name": "Nguyen Van A",
+          "email": "mr.t02r01.tc18@example.com",
+          "password": "abcde1!x",
+          "confirmation": "abcde1!x",
+          "expected": "REJECT",
+          "fill": "all_fields"
+        }
+      ]
+    },
+    {
+      "id": "MR-TC19",
+      "technique": "Domain+BVA",
+      "traceability": "R06; D16; B02-2",
+      "document_line": 56,
+      "precondition_text": "P0; E19 mới",
+      "input_text": "P=`ABcde1!x` (8; U2,L4,D1,S1)",
+      "steps_text": "S",
+      "expected_text": "ACCEPT với 2 chữ hoa; R06,R11/S1:34,36",
+      "kind": "single",
+      "requires_confirmation": false,
+      "requires_existing": [],
+      "requires_absent": [
+        "mr.t02r01.tc19@example.com"
+      ],
+      "protect_existing": [],
+      "attempts": [
+        {
+          "name": "Nguyen Van A",
+          "email": "mr.t02r01.tc19@example.com",
+          "password": "ABcde1!x",
+          "confirmation": "ABcde1!x",
+          "expected": "ACCEPT",
+          "fill": "all_fields"
+        }
+      ]
+    },
+    {
+      "id": "MR-TC20",
+      "technique": "Domain+BVA",
+      "traceability": "R07; D17; B03-0",
+      "document_line": 57,
+      "precondition_text": "P0; E20 mới",
+      "input_text": "P=`ABCDE1!X` (8; U6,L0,D1,S1)",
+      "steps_text": "S",
+      "expected_text": "REJECT chỉ vì thiếu chữ thường; R07/S1:34",
+      "kind": "single",
+      "requires_confirmation": false,
+      "requires_existing": [],
+      "requires_absent": [
+        "mr.t02r01.tc20@example.com"
+      ],
+      "protect_existing": [],
+      "attempts": [
+        {
+          "name": "Nguyen Van A",
+          "email": "mr.t02r01.tc20@example.com",
+          "password": "ABCDE1!X",
+          "confirmation": "ABCDE1!X",
+          "expected": "REJECT",
+          "fill": "all_fields"
+        }
+      ]
+    },
+    {
+      "id": "MR-TC21",
+      "technique": "Domain+BVA",
+      "traceability": "R07; D18; B03-1",
+      "document_line": 58,
+      "precondition_text": "P0; E21 mới",
+      "input_text": "P=`ABCDa1!X` (8; U5,L1,D1,S1)",
+      "steps_text": "S",
+      "expected_text": "ACCEPT đúng 1 chữ thường; R07,R11/S1:34,36",
+      "kind": "single",
+      "requires_confirmation": false,
+      "requires_existing": [],
+      "requires_absent": [
+        "mr.t02r01.tc21@example.com"
+      ],
+      "protect_existing": [],
+      "attempts": [
+        {
+          "name": "Nguyen Van A",
+          "email": "mr.t02r01.tc21@example.com",
+          "password": "ABCDa1!X",
+          "confirmation": "ABCDa1!X",
+          "expected": "ACCEPT",
+          "fill": "all_fields"
+        }
+      ]
+    },
+    {
+      "id": "MR-TC22",
+      "technique": "Domain+BVA",
+      "traceability": "R07; D18; B03-2",
+      "document_line": 59,
+      "precondition_text": "P0; E22 mới",
+      "input_text": "P=`ABCDab1!` (8; U4,L2,D1,S1)",
+      "steps_text": "S",
+      "expected_text": "ACCEPT với 2 chữ thường; R07,R11/S1:34,36",
+      "kind": "single",
+      "requires_confirmation": false,
+      "requires_existing": [],
+      "requires_absent": [
+        "mr.t02r01.tc22@example.com"
+      ],
+      "protect_existing": [],
+      "attempts": [
+        {
+          "name": "Nguyen Van A",
+          "email": "mr.t02r01.tc22@example.com",
+          "password": "ABCDab1!",
+          "confirmation": "ABCDab1!",
+          "expected": "ACCEPT",
+          "fill": "all_fields"
+        }
+      ]
+    },
+    {
+      "id": "MR-TC23",
+      "technique": "Domain+BVA",
+      "traceability": "R08; D19; B04-0",
+      "document_line": 60,
+      "precondition_text": "P0; E23 mới",
+      "input_text": "P=`Abcdef!x` (8; U1,L6,D0,S1)",
+      "steps_text": "S",
+      "expected_text": "REJECT chỉ vì thiếu chữ số; R08/S1:34",
+      "kind": "single",
+      "requires_confirmation": false,
+      "requires_existing": [],
+      "requires_absent": [
+        "mr.t02r01.tc23@example.com"
+      ],
+      "protect_existing": [],
+      "attempts": [
+        {
+          "name": "Nguyen Van A",
+          "email": "mr.t02r01.tc23@example.com",
+          "password": "Abcdef!x",
+          "confirmation": "Abcdef!x",
+          "expected": "REJECT",
+          "fill": "all_fields"
+        }
+      ]
+    },
+    {
+      "id": "MR-TC24",
+      "technique": "Domain+BVA",
+      "traceability": "R08; D20; B04-2",
+      "document_line": 61,
+      "precondition_text": "P0; E24 mới",
+      "input_text": "P=`Abcde12!` (8; U1,L4,D2,S1)",
+      "steps_text": "S",
+      "expected_text": "ACCEPT với 2 chữ số; R08,R11/S1:34,36",
+      "kind": "single",
+      "requires_confirmation": false,
+      "requires_existing": [],
+      "requires_absent": [
+        "mr.t02r01.tc24@example.com"
+      ],
+      "protect_existing": [],
+      "attempts": [
+        {
+          "name": "Nguyen Van A",
+          "email": "mr.t02r01.tc24@example.com",
+          "password": "Abcde12!",
+          "confirmation": "Abcde12!",
+          "expected": "ACCEPT",
+          "fill": "all_fields"
+        }
+      ]
+    },
+    {
+      "id": "MR-TC25",
+      "technique": "Domain+BVA",
+      "traceability": "R09; D21; B05-0",
+      "document_line": 62,
+      "precondition_text": "P0; E25 mới",
+      "input_text": "P=`Abcde12x` (8; U1,L5,D2,S0; chỉ alphanumeric)",
+      "steps_text": "S",
+      "expected_text": "REJECT vì hoàn toàn thiếu special; R09/S1:34",
+      "kind": "single",
+      "requires_confirmation": false,
+      "requires_existing": [],
+      "requires_absent": [
+        "mr.t02r01.tc25@example.com"
+      ],
+      "protect_existing": [],
+      "attempts": [
+        {
+          "name": "Nguyen Van A",
+          "email": "mr.t02r01.tc25@example.com",
+          "password": "Abcde12x",
+          "confirmation": "Abcde12x",
+          "expected": "REJECT",
+          "fill": "all_fields"
+        }
+      ]
+    },
+    {
+      "id": "MR-TC26",
+      "technique": "Domain+BVA",
+      "traceability": "R09; D22; B05-2",
+      "document_line": 63,
+      "precondition_text": "P0; E26 mới",
+      "input_text": "P=`Abcde1!!` (8; U1,L4,D1,S2)",
+      "steps_text": "S",
+      "expected_text": "ACCEPT với 2 special `!`; R09,R11/S1:34,36",
+      "kind": "single",
+      "requires_confirmation": false,
+      "requires_existing": [],
+      "requires_absent": [
+        "mr.t02r01.tc26@example.com"
+      ],
+      "protect_existing": [],
+      "attempts": [
+        {
+          "name": "Nguyen Van A",
+          "email": "mr.t02r01.tc26@example.com",
+          "password": "Abcde1!!",
+          "confirmation": "Abcde1!!",
+          "expected": "ACCEPT",
+          "fill": "all_fields"
+        }
+      ]
+    },
+    {
+      "id": "MR-TC27",
+      "technique": "Domain (membership)",
+      "traceability": "R09; D22",
+      "document_line": 64,
+      "precondition_text": "P0; E27 mới",
+      "input_text": "P=`Abcde1@x`",
+      "steps_text": "S",
+      "expected_text": "ACCEPT với `@` là special duy nhất; R09,R11/S1:34,36",
+      "kind": "single",
+      "requires_confirmation": false,
+      "requires_existing": [],
+      "requires_absent": [
+        "mr.t02r01.tc27@example.com"
+      ],
+      "protect_existing": [],
+      "attempts": [
+        {
+          "name": "Nguyen Van A",
+          "email": "mr.t02r01.tc27@example.com",
+          "password": "Abcde1@x",
+          "confirmation": "Abcde1@x",
+          "expected": "ACCEPT",
+          "fill": "all_fields"
+        }
+      ]
+    },
+    {
+      "id": "MR-TC28",
+      "technique": "Domain (membership)",
+      "traceability": "R09; D22",
+      "document_line": 65,
+      "precondition_text": "P0; E28 mới",
+      "input_text": "P=`Abcde1$x`",
+      "steps_text": "S",
+      "expected_text": "ACCEPT với `$` là special duy nhất; R09,R11/S1:34,36",
+      "kind": "single",
+      "requires_confirmation": false,
+      "requires_existing": [],
+      "requires_absent": [
+        "mr.t02r01.tc28@example.com"
+      ],
+      "protect_existing": [],
+      "attempts": [
+        {
+          "name": "Nguyen Van A",
+          "email": "mr.t02r01.tc28@example.com",
+          "password": "Abcde1$x",
+          "confirmation": "Abcde1$x",
+          "expected": "ACCEPT",
+          "fill": "all_fields"
+        }
+      ]
+    },
+    {
+      "id": "MR-TC29",
+      "technique": "Domain (membership)",
+      "traceability": "R09; D22",
+      "document_line": 66,
+      "precondition_text": "P0; E29 mới",
+      "input_text": "P=`Abcde1%x`",
+      "steps_text": "S",
+      "expected_text": "ACCEPT với `%` là special duy nhất; R09,R11/S1:34,36",
+      "kind": "single",
+      "requires_confirmation": false,
+      "requires_existing": [],
+      "requires_absent": [
+        "mr.t02r01.tc29@example.com"
+      ],
+      "protect_existing": [],
+      "attempts": [
+        {
+          "name": "Nguyen Van A",
+          "email": "mr.t02r01.tc29@example.com",
+          "password": "Abcde1%x",
+          "confirmation": "Abcde1%x",
+          "expected": "ACCEPT",
+          "fill": "all_fields"
+        }
+      ]
+    },
+    {
+      "id": "MR-TC30",
+      "technique": "Domain (membership)",
+      "traceability": "R09; D22",
+      "document_line": 67,
+      "precondition_text": "P0; E30 mới",
+      "input_text": "P=`Abcde1*x`",
+      "steps_text": "S",
+      "expected_text": "ACCEPT với `*` là special duy nhất; R09,R11/S1:34,36",
+      "kind": "single",
+      "requires_confirmation": false,
+      "requires_existing": [],
+      "requires_absent": [
+        "mr.t02r01.tc30@example.com"
+      ],
+      "protect_existing": [],
+      "attempts": [
+        {
+          "name": "Nguyen Van A",
+          "email": "mr.t02r01.tc30@example.com",
+          "password": "Abcde1*x",
+          "confirmation": "Abcde1*x",
+          "expected": "ACCEPT",
+          "fill": "all_fields"
+        }
+      ]
+    },
+    {
+      "id": "MR-TC31",
+      "technique": "Domain (membership)",
+      "traceability": "R09; D22",
+      "document_line": 68,
+      "precondition_text": "P0; E31 mới",
+      "input_text": "P=`Abcde1?x`",
+      "steps_text": "S",
+      "expected_text": "ACCEPT với `?` là special duy nhất; R09,R11/S1:34,36",
+      "kind": "single",
+      "requires_confirmation": false,
+      "requires_existing": [],
+      "requires_absent": [
+        "mr.t02r01.tc31@example.com"
+      ],
+      "protect_existing": [],
+      "attempts": [
+        {
+          "name": "Nguyen Van A",
+          "email": "mr.t02r01.tc31@example.com",
+          "password": "Abcde1?x",
+          "confirmation": "Abcde1?x",
+          "expected": "ACCEPT",
+          "fill": "all_fields"
+        }
+      ]
+    },
+    {
+      "id": "MR-TC32",
+      "technique": "Domain (membership)",
+      "traceability": "R09; D22",
+      "document_line": 69,
+      "precondition_text": "P0; E32 mới",
+      "input_text": "P=`Abcde1&x`",
+      "steps_text": "S",
+      "expected_text": "ACCEPT với `&` là special duy nhất; R09,R11/S1:34,36",
+      "kind": "single",
+      "requires_confirmation": false,
+      "requires_existing": [],
+      "requires_absent": [
+        "mr.t02r01.tc32@example.com"
+      ],
+      "protect_existing": [],
+      "attempts": [
+        {
+          "name": "Nguyen Van A",
+          "email": "mr.t02r01.tc32@example.com",
+          "password": "Abcde1&x",
+          "confirmation": "Abcde1&x",
+          "expected": "ACCEPT",
+          "fill": "all_fields"
+        }
+      ]
+    },
+    {
+      "id": "MR-TC33",
+      "technique": "Domain (form schema)",
+      "traceability": "R10; D23",
+      "document_line": 77,
+      "precondition_text": "P0; không cần C-guard",
+      "input_text": "Không submit; form ban đầu",
+      "steps_text": "S bước 1, quan sát đủ form và scroll nếu cần để tìm Confirmation",
+      "expected_text": "Có trường Xác nhận mật khẩu, nhập được độc lập với P. Không suy chỉ từ một viewport; R10/S1:35",
+      "kind": "confirmation_presence",
+      "requires_confirmation": false,
+      "requires_existing": [],
+      "requires_absent": [],
+      "protect_existing": [],
+      "attempts": []
+    },
+    {
+      "id": "MR-TC34",
+      "technique": "Domain",
+      "traceability": "R10; D24",
+      "document_line": 78,
+      "precondition_text": "P0 + C-guard; E34 mới",
+      "input_text": "N/E34/P nominal; C=`\"\"`",
+      "steps_text": "S, để trống C",
+      "expected_text": "REJECT vì không khớp với P nonempty; R10/S1:35. Nếu không có field thì không thực hiện được ca equality này",
+      "kind": "single",
+      "requires_confirmation": true,
+      "requires_existing": [],
+      "requires_absent": [
+        "mr.t02r01.tc34@example.com"
+      ],
+      "protect_existing": [],
+      "attempts": [
+        {
+          "name": "Nguyen Van A",
+          "email": "mr.t02r01.tc34@example.com",
+          "password": "Abcde1!x",
+          "confirmation": "",
+          "expected": "REJECT",
+          "fill": "all_fields"
+        }
+      ]
+    },
+    {
+      "id": "MR-TC35",
+      "technique": "Domain",
+      "traceability": "R10; D26",
+      "document_line": 79,
+      "precondition_text": "P0 + C-guard; E35 mới",
+      "input_text": "P=`Abcde1!x`, C=`Abcde1!y` (đều 8, khác ký tự cuối)",
+      "steps_text": "S",
+      "expected_text": "REJECT dù hai chuỗi cùng độ dài; R10/S1:35",
+      "kind": "single",
+      "requires_confirmation": true,
+      "requires_existing": [],
+      "requires_absent": [
+        "mr.t02r01.tc35@example.com"
+      ],
+      "protect_existing": [],
+      "attempts": [
+        {
+          "name": "Nguyen Van A",
+          "email": "mr.t02r01.tc35@example.com",
+          "password": "Abcde1!x",
+          "confirmation": "Abcde1!y",
+          "expected": "REJECT",
+          "fill": "all_fields"
+        }
+      ]
+    },
+    {
+      "id": "MR-TC36",
+      "technique": "Domain",
+      "traceability": "R10; D27",
+      "document_line": 80,
+      "precondition_text": "P0 + C-guard; E36 mới",
+      "input_text": "P=`Abcde1!x`, C=`Abcde1!` (7, là prefix của P)",
+      "steps_text": "S",
+      "expected_text": "REJECT vì không bằng nhau; R10/S1:35, không gán minimum length riêng cho C",
+      "kind": "single",
+      "requires_confirmation": true,
+      "requires_existing": [],
+      "requires_absent": [
+        "mr.t02r01.tc36@example.com"
+      ],
+      "protect_existing": [],
+      "attempts": [
+        {
+          "name": "Nguyen Van A",
+          "email": "mr.t02r01.tc36@example.com",
+          "password": "Abcde1!x",
+          "confirmation": "Abcde1!",
+          "expected": "REJECT",
+          "fill": "all_fields"
+        }
+      ]
+    },
+    {
+      "id": "MR-TC37",
+      "technique": "Domain",
+      "traceability": "R10,R11; D25",
+      "document_line": 81,
+      "precondition_text": "P0 + C-guard; E37 mới",
+      "input_text": "P=C=`Abcde1!x`, N/E37 nominal",
+      "steps_text": "S, nhập C thật rồi submit",
+      "expected_text": "ACCEPT và chuyển sang Đăng nhập; R10,R11/S1:35–36; đây mới là control trực tiếp của confirmation",
+      "kind": "single",
+      "requires_confirmation": true,
+      "requires_existing": [],
+      "requires_absent": [
+        "mr.t02r01.tc37@example.com"
+      ],
+      "protect_existing": [],
+      "attempts": [
+        {
+          "name": "Nguyen Van A",
+          "email": "mr.t02r01.tc37@example.com",
+          "password": "Abcde1!x",
+          "confirmation": "Abcde1!x",
+          "expected": "ACCEPT",
+          "fill": "all_fields"
+        }
+      ]
+    },
+    {
+      "id": "MR-TC38",
+      "technique": "Domain (state)",
+      "traceability": "R05,R03,R11; D13,D14,D28",
+      "document_line": 82,
+      "precondition_text": "P0; E38 mới; giữ nguyên DB giữa hai submit",
+      "input_text": "Lần 1 P=`Abcde1!` (7); lần 2 sửa P=`Abcde1!x` (8); cùng N/E38; sửa C theo P nếu có",
+      "steps_text": "S với P7 → kiểm tra không có account E38 → sửa P/C trên form → submit một lần nữa → quan sát dữ liệu/màn hình",
+      "expected_text": "Lần 1 REJECT, E38 chưa được tạo; lần 2 ACCEPT; cuối sequence có đúng 1 account E38. R05,R03,R11/S1:33–36",
+      "kind": "correct_password",
+      "requires_confirmation": false,
+      "requires_existing": [],
+      "requires_absent": [
+        "mr.t02r01.tc38@example.com"
+      ],
+      "protect_existing": [],
+      "attempts": [
+        {
+          "name": "Nguyen Van A",
+          "email": "mr.t02r01.tc38@example.com",
+          "password": "Abcde1!",
+          "confirmation": "Abcde1!",
+          "expected": "REJECT",
+          "fill": "all_fields"
+        },
+        {
+          "name": "Nguyen Van A",
+          "email": "mr.t02r01.tc38@example.com",
+          "password": "Abcde1!x",
+          "confirmation": "Abcde1!x",
+          "expected": "ACCEPT",
+          "fill": "password_only"
+        }
+      ]
+    },
+    {
+      "id": "MR-TC39",
+      "technique": "Domain (interaction)",
+      "traceability": "R03,R06; D10,D15,D29",
+      "document_line": 83,
+      "precondition_text": "P0; `test@eshop.com` tồn tại; ghi count/dữ liệu trước ca",
+      "input_text": "E=`test@eshop.com`, P=`abcde1!x` (thiếu hoa), N nominal",
+      "steps_text": "S",
+      "expected_text": "REJECT, không thêm/sửa account đã tồn tại. Bất kỳ rule invalid nào được thông báo trước đều được; không credit đã tới check uniqueness nếu password chặn trước. R03,R06/S1:33–34",
+      "kind": "single",
+      "requires_confirmation": false,
+      "requires_existing": [
+        "test@eshop.com"
+      ],
+      "requires_absent": [],
+      "protect_existing": [
+        "test@eshop.com"
+      ],
+      "attempts": [
+        {
+          "name": "Nguyen Van A",
+          "email": "test@eshop.com",
+          "password": "abcde1!x",
+          "confirmation": "abcde1!x",
+          "expected": "REJECT",
+          "fill": "all_fields"
+        }
+      ]
+    },
+    {
+      "id": "MR-TC40",
+      "technique": "Domain (interior sample)",
+      "traceability": "R05–09,R11; D14",
+      "document_line": 84,
+      "precondition_text": "P0; E40 mới",
+      "input_text": "P=`Ab1!Ab1!Ab1!Ab1!Ab1!Ab1!Ab1!Ab1!Ab1!Ab1!Ab1!Ab1!Ab1!Ab1!Ab1!Ab1!` (64 = `Ab1!` ×16); C=P nếu có",
+      "steps_text": "S",
+      "expected_text": "ACCEPT; thỏa ngưỡng tối thiểu và đủ nhóm ký tự, chưa có max được công bố; R05–09,R11/S1:34,36. Đây là điểm dài đại diện, không phải biên trên",
+      "kind": "single",
+      "requires_confirmation": false,
+      "requires_existing": [],
+      "requires_absent": [
+        "mr.t02r01.tc40@example.com"
+      ],
+      "protect_existing": [],
+      "attempts": [
+        {
+          "name": "Nguyen Van A",
+          "email": "mr.t02r01.tc40@example.com",
+          "password": "Ab1!Ab1!Ab1!Ab1!Ab1!Ab1!Ab1!Ab1!Ab1!Ab1!Ab1!Ab1!Ab1!Ab1!Ab1!Ab1!",
+          "confirmation": "Ab1!Ab1!Ab1!Ab1!Ab1!Ab1!Ab1!Ab1!Ab1!Ab1!Ab1!Ab1!Ab1!Ab1!Ab1!Ab1!",
+          "expected": "ACCEPT",
+          "fill": "all_fields"
+        }
+      ]
+    },
+    {
+      "id": "MR-TC41",
+      "technique": "Domain",
+      "traceability": "R01; D30; Q01",
+      "document_line": 92,
+      "precondition_text": "P0; E41 mới",
+      "input_text": "N=` ` (1 space), E41/P nominal",
+      "steps_text": "S, nhập đúng 1 space, không tự trim trước bằng tool",
+      "expected_text": "REJECT vì tên sau trim rỗng; R01/S1:32 và review S7/Q01",
+      "kind": "single",
+      "requires_confirmation": false,
+      "requires_existing": [],
+      "requires_absent": [
+        "mr.t02r01.tc41@example.com"
+      ],
+      "protect_existing": [],
+      "attempts": [
+        {
+          "name": " ",
+          "email": "mr.t02r01.tc41@example.com",
+          "password": "Abcde1!x",
+          "confirmation": "Abcde1!x",
+          "expected": "REJECT",
+          "fill": "all_fields"
+        }
+      ]
+    },
+    {
+      "id": "MR-TC42",
+      "technique": "Domain",
+      "traceability": "R03; D31; Q02",
+      "document_line": 93,
+      "precondition_text": "P0; `test@eshop.com` tồn tại; `TEST@eshop.com` chưa có nguyên chuỗi",
+      "input_text": "E=`TEST@eshop.com`, N/P nominal",
+      "steps_text": "S, giữ đúng case; quan sát hai email theo so sánh phân biệt case",
+      "expected_text": "ACCEPT tạo đúng 1 account `TEST@eshop.com`, account `test@eshop.com` cũ giữ nguyên. Email khác case là hai chuỗi khác theo review S7/Q02; R03/S1:33",
+      "kind": "single",
+      "requires_confirmation": false,
+      "requires_existing": [
+        "test@eshop.com"
+      ],
+      "requires_absent": [
+        "TEST@eshop.com"
+      ],
+      "protect_existing": [
+        "test@eshop.com"
+      ],
+      "attempts": [
+        {
+          "name": "Nguyen Van A",
+          "email": "TEST@eshop.com",
+          "password": "Abcde1!x",
+          "confirmation": "Abcde1!x",
+          "expected": "ACCEPT",
+          "fill": "all_fields"
+        }
+      ]
+    },
+    {
+      "id": "MR-TC43",
+      "technique": "Domain",
+      "traceability": "R02–03; D32; Q03",
+      "document_line": 94,
+      "precondition_text": "P0; E43 canonical và chuỗi có space đều chưa tồn tại",
+      "input_text": "E=` mr.t02r01.tc43@example.com ` (1 space đầu/cuối), N/P nominal",
+      "steps_text": "S, nhập cả space; kiểm tra Ecanon và chuỗi nguyên nhập sau submit",
+      "expected_text": "ACCEPT, chỉ tạo account với email `mr.t02r01.tc43@example.com` đã trim; không lưu email có space. R02–03/S1:33 và review S7/Q03",
+      "kind": "single",
+      "requires_confirmation": false,
+      "requires_existing": [],
+      "requires_absent": [
+        " mr.t02r01.tc43@example.com ",
+        "mr.t02r01.tc43@example.com"
+      ],
+      "protect_existing": [],
+      "attempts": [
+        {
+          "name": "Nguyen Van A",
+          "email": " mr.t02r01.tc43@example.com ",
+          "password": "Abcde1!x",
+          "confirmation": "Abcde1!x",
+          "expected": "ACCEPT",
+          "fill": "all_fields"
+        }
+      ]
+    },
+    {
+      "id": "MR-TC44",
+      "technique": "Domain",
+      "traceability": "R09; D33; Q04",
+      "document_line": 95,
+      "precondition_text": "P0; E44 mới",
+      "input_text": "P=`Abcde1#x` (8 code point, special duy nhất `#`)",
+      "steps_text": "S",
+      "expected_text": "ACCEPT vì `#` là dấu Unicode thuộc Punctuation; R09/S1:34 và review S7/Q04, không giới hạn special trong S0",
+      "kind": "single",
+      "requires_confirmation": false,
+      "requires_existing": [],
+      "requires_absent": [
+        "mr.t02r01.tc44@example.com"
+      ],
+      "protect_existing": [],
+      "attempts": [
+        {
+          "name": "Nguyen Van A",
+          "email": "mr.t02r01.tc44@example.com",
+          "password": "Abcde1#x",
+          "confirmation": "Abcde1#x",
+          "expected": "ACCEPT",
+          "fill": "all_fields"
+        }
+      ]
+    },
+    {
+      "id": "MR-TC45",
+      "technique": "Domain",
+      "traceability": "R09; D34; Q04",
+      "document_line": 96,
+      "precondition_text": "P0; E45 mới",
+      "input_text": "P=`Abcde1 x` (8 code point, 1 space giữa `1` và `x`, không có dấu/ký hiệu)",
+      "steps_text": "S, không thay space bằng `!`",
+      "expected_text": "REJECT vì space không đáp ứng yêu cầu special; các nhóm khác và độ dài vẫn hợp lệ. R09/S1:34 và review S7/Q04",
+      "kind": "single",
+      "requires_confirmation": false,
+      "requires_existing": [],
+      "requires_absent": [
+        "mr.t02r01.tc45@example.com"
+      ],
+      "protect_existing": [],
+      "attempts": [
+        {
+          "name": "Nguyen Van A",
+          "email": "mr.t02r01.tc45@example.com",
+          "password": "Abcde1 x",
+          "confirmation": "Abcde1 x",
+          "expected": "REJECT",
+          "fill": "all_fields"
+        }
+      ]
+    },
+    {
+      "id": "MR-TC46",
+      "technique": "Domain+BVA",
+      "traceability": "R05; D13,D35; B01-7; Q05",
+      "document_line": 97,
+      "precondition_text": "P0; E46 mới; nhập được emoji nguyên vẹn",
+      "input_text": "P=`Abc1!😀d` (7 code point, 8 UTF-16 unit), C=P nếu có",
+      "steps_text": "S, giữ nguyên chuỗi Unicode",
+      "expected_text": "REJECT vì 7<8 code point, dù đủ 8 UTF-16 unit. Có đủ hoa/thường/số/special. Ngưỡng R05/S1:34 và đơn vị review S7/Q05",
+      "kind": "single",
+      "requires_confirmation": false,
+      "requires_existing": [],
+      "requires_absent": [
+        "mr.t02r01.tc46@example.com"
+      ],
+      "protect_existing": [],
+      "attempts": [
+        {
+          "name": "Nguyen Van A",
+          "email": "mr.t02r01.tc46@example.com",
+          "password": "Abc1!😀d",
+          "confirmation": "Abc1!😀d",
+          "expected": "REJECT",
+          "fill": "all_fields"
+        }
+      ]
+    },
+    {
+      "id": "MR-TC47",
+      "technique": "Domain+BVA",
+      "traceability": "R05; D14,D35; B01-8; Q05",
+      "document_line": 105,
+      "precondition_text": "P0; E47 mới; nhập được emoji nguyên vẹn",
+      "input_text": "P=`Abc1!😀de` (8 code point, 9 UTF-16 unit), C=P nếu có",
+      "steps_text": "S, giữ nguyên chuỗi Unicode",
+      "expected_text": "ACCEPT tại ngưỡng 8 code point, đủ các nhóm ký tự. R05,R11/S1:34,36 và review S7/Q05",
+      "kind": "single",
+      "requires_confirmation": false,
+      "requires_existing": [],
+      "requires_absent": [
+        "mr.t02r01.tc47@example.com"
+      ],
+      "protect_existing": [],
+      "attempts": [
+        {
+          "name": "Nguyen Van A",
+          "email": "mr.t02r01.tc47@example.com",
+          "password": "Abc1!😀de",
+          "confirmation": "Abc1!😀de",
+          "expected": "ACCEPT",
+          "fill": "all_fields"
+        }
+      ]
+    },
+    {
+      "id": "MR-TC48",
+      "technique": "Domain+BVA",
+      "traceability": "R05; D14,D35; B01-9; Q05",
+      "document_line": 106,
+      "precondition_text": "P0; E48 mới; nhập được emoji nguyên vẹn",
+      "input_text": "P=`Abc1!😀def` (9 code point, 10 UTF-16 unit), C=P nếu có",
+      "steps_text": "S, giữ nguyên chuỗi Unicode",
+      "expected_text": "ACCEPT phía trên ngưỡng; không chỉ chấp nhận đúng 8. R05,R11/S1:34,36 và review S7/Q05",
+      "kind": "single",
+      "requires_confirmation": false,
+      "requires_existing": [],
+      "requires_absent": [
+        "mr.t02r01.tc48@example.com"
+      ],
+      "protect_existing": [],
+      "attempts": [
+        {
+          "name": "Nguyen Van A",
+          "email": "mr.t02r01.tc48@example.com",
+          "password": "Abc1!😀def",
+          "confirmation": "Abc1!😀def",
+          "expected": "ACCEPT",
+          "fill": "all_fields"
+        }
+      ]
+    },
+    {
+      "id": "MR-TC49",
+      "technique": "Domain (membership)",
+      "traceability": "R09; D33; Q04",
+      "document_line": 107,
+      "precondition_text": "P0; E49 mới",
+      "input_text": "P=`Abcde1_x` (8 code point, special duy nhất `_`)",
+      "steps_text": "S",
+      "expected_text": "ACCEPT vì `_` thuộc Punctuation; R09,R11/S1:34,36 và review S7/Q04",
+      "kind": "single",
+      "requires_confirmation": false,
+      "requires_existing": [],
+      "requires_absent": [
+        "mr.t02r01.tc49@example.com"
+      ],
+      "protect_existing": [],
+      "attempts": [
+        {
+          "name": "Nguyen Van A",
+          "email": "mr.t02r01.tc49@example.com",
+          "password": "Abcde1_x",
+          "confirmation": "Abcde1_x",
+          "expected": "ACCEPT",
+          "fill": "all_fields"
+        }
+      ]
+    },
+    {
+      "id": "MR-TC50",
+      "technique": "Domain (membership)",
+      "traceability": "R05,R09; D33; Q04",
+      "document_line": 108,
+      "precondition_text": "P0; E50 mới; nhập được emoji nguyên vẹn",
+      "input_text": "P=`Abcdef1😀` (8 code point, special duy nhất `😀`)",
+      "steps_text": "S, giữ nguyên emoji",
+      "expected_text": "ACCEPT vì emoji này thuộc Symbol; có đủ hoa/thường/số, đủ 8 code point. R05,R09,R11/S1:34,36 và review S7/Q04–05",
+      "kind": "single",
+      "requires_confirmation": false,
+      "requires_existing": [],
+      "requires_absent": [
+        "mr.t02r01.tc50@example.com"
+      ],
+      "protect_existing": [],
+      "attempts": [
+        {
+          "name": "Nguyen Van A",
+          "email": "mr.t02r01.tc50@example.com",
+          "password": "Abcdef1😀",
+          "confirmation": "Abcdef1😀",
+          "expected": "ACCEPT",
+          "fill": "all_fields"
+        }
+      ]
+    },
+    {
+      "id": "MR-TC51",
+      "technique": "Domain (membership)",
+      "traceability": "R09; D33; Q04",
+      "document_line": 109,
+      "precondition_text": "P0; E51 mới",
+      "input_text": "P=`Abcde1—x` (8 code point, special duy nhất là em dash `—`, không phải dấu trừ)",
+      "steps_text": "S",
+      "expected_text": "ACCEPT vì `—` thuộc Punctuation; R09,R11/S1:34,36 và review S7/Q04",
+      "kind": "single",
+      "requires_confirmation": false,
+      "requires_existing": [],
+      "requires_absent": [
+        "mr.t02r01.tc51@example.com"
+      ],
+      "protect_existing": [],
+      "attempts": [
+        {
+          "name": "Nguyen Van A",
+          "email": "mr.t02r01.tc51@example.com",
+          "password": "Abcde1—x",
+          "confirmation": "Abcde1—x",
+          "expected": "ACCEPT",
+          "fill": "all_fields"
+        }
+      ]
+    },
+    {
+      "id": "MR-TC52",
+      "technique": "Domain (membership)",
+      "traceability": "R09; D33; Q04",
+      "document_line": 110,
+      "precondition_text": "P0; E52 mới",
+      "input_text": "P=`Abcde1€x` (8 code point, special duy nhất `€`)",
+      "steps_text": "S",
+      "expected_text": "ACCEPT vì `€` thuộc Symbol; R09,R11/S1:34,36 và review S7/Q04",
+      "kind": "single",
+      "requires_confirmation": false,
+      "requires_existing": [],
+      "requires_absent": [
+        "mr.t02r01.tc52@example.com"
+      ],
+      "protect_existing": [],
+      "attempts": [
+        {
+          "name": "Nguyen Van A",
+          "email": "mr.t02r01.tc52@example.com",
+          "password": "Abcde1€x",
+          "confirmation": "Abcde1€x",
+          "expected": "ACCEPT",
+          "fill": "all_fields"
+        }
+      ]
+    },
+    {
+      "id": "MR-TC53",
+      "technique": "Domain (interaction)",
+      "traceability": "R02–03; D36; Q03",
+      "document_line": 111,
+      "precondition_text": "P0; `test@eshop.com` đã tồn tại; ghi count/dữ liệu trước ca",
+      "input_text": "E=` test@eshop.com ` (1 space đầu/cuối), N/P nominal",
+      "steps_text": "S, không trim trước bằng tool; quan sát cả Ecanon và chuỗi có space",
+      "expected_text": "REJECT vì sau trim email trùng `test@eshop.com`; không tạo account mới ở cả hai dạng và không sửa account cũ. R03/S1:33 và review S7/Q02–03",
+      "kind": "single",
+      "requires_confirmation": false,
+      "requires_existing": [
+        "test@eshop.com"
+      ],
+      "requires_absent": [
+        " test@eshop.com "
+      ],
+      "protect_existing": [
+        "test@eshop.com"
+      ],
+      "attempts": [
+        {
+          "name": "Nguyen Van A",
+          "email": " test@eshop.com ",
+          "password": "Abcde1!x",
+          "confirmation": "Abcde1!x",
+          "expected": "REJECT",
+          "fill": "all_fields"
+        }
+      ]
+    },
+    {
+      "id": "MR-TC54",
+      "technique": "Domain (interaction)",
+      "traceability": "R05,R09; D37; Q04",
+      "document_line": 112,
+      "precondition_text": "P0; E54 mới",
+      "input_text": "P=`Abc1! xy` (8 code point, có `!` và 1 space sau `!`), C=P nếu có",
+      "steps_text": "S, giữ đúng space trong P; không trim password",
+      "expected_text": "ACCEPT vì `!` thỏa special, space không bị dùng để thay special và chưa có rule cấm mọi space. R05,R09,R11/S1:34,36 và cách áp dụng review S7/Q04",
+      "kind": "single",
+      "requires_confirmation": false,
+      "requires_existing": [],
+      "requires_absent": [
+        "mr.t02r01.tc54@example.com"
+      ],
+      "protect_existing": [],
+      "attempts": [
+        {
+          "name": "Nguyen Van A",
+          "email": "mr.t02r01.tc54@example.com",
+          "password": "Abc1! xy",
+          "confirmation": "Abc1! xy",
+          "expected": "ACCEPT",
+          "fill": "all_fields"
+        }
+      ]
+    }
+  ]
+}
