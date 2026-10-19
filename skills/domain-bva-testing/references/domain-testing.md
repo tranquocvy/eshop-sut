@@ -12,7 +12,9 @@
 6. **Test:** hiện thực điểm thành dữ liệu có thể nhập, setup, bước và expected. Chỉ ra khi điều kiện không thể tới qua UI nhưng tới được qua API; đó là hai lớp kiểm tra khác nhau.
 7. **Coverage:** kiểm tra mỗi mục tiêu miền/rule có TC, và TC đó có thực sự chạm được điều kiện. Test bị validation trước chặn không chứng minh đã kiểm tra rule phía sau.
 
-## Những bảng cần có
+## Các thành phần mô hình
+
+Khi sinh TC nhanh, có thể gộp các thông tin này vào bảng TC và rationale. Tách thành các bảng riêng khi cần giải thích từng bước; không bắt buộc dựng một tài liệu đầy đủ cho mọi yêu cầu sinh test.
 
 | Bảng | Trường hữu ích |
 | --- | --- |

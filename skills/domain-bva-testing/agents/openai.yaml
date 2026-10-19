@@ -1,0 +1,4 @@
+interface:
+  display_name: "Domain Testing & BVA"
+  short_description: "Sinh test case từ miền và giá trị biên"
+  default_prompt: "Dùng $domain-bva-testing sinh test case Domain/BVA cho feature được cung cấp, không chạy SUT."

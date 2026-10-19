@@ -24,6 +24,8 @@ Kết quả tìm kiếm có xuất hiện bài HW02/EShop của sinh viên khác
 
 ## Quyết định cho HW02
 
-Xây **một skill chính với bốn mô-đun**, đúng bốn nhiệm vụ §6; helper chỉ xử lý phép tính biên có input rõ, không nhận đã test SUT. Không tìm thấy trong các nguồn đã kiểm tra một bộ có thể dùng nguyên trạng để đáp ứng đồng thời cách dạy chưa được cung cấp, audit/AI gaps và hồ sơ bug của HW02. Đây là kết luận giới hạn ở phạm vi khảo sát, không phải khẳng định không ai trên Internet có bộ phù hợp.
+Tổ chức thành **hai skill dùng độc lập**: `domain-bva-testing` chỉ thiết kế/sinh TC; `test-execution-reporting` nhận TC để thực thi, phân tích gaps và báo cáo khi được giao. Cách tách này đáp ứng nhu cầu sinh test nhanh mà không chờ setup, chạy SUT hoặc viết hồ sơ kết quả. Helper chỉ xử lý phép tính biên có input rõ, không nhận đã test SUT.
+
+Kết quả khảo sát ban đầu không tìm thấy một bộ có thể dùng nguyên trạng để đáp ứng đồng thời cách dạy chưa được cung cấp, audit/AI gaps và hồ sơ bug của HW02. Đây là kết luận giới hạn ở phạm vi khảo sát, không phải khẳng định không ai trên Internet có bộ phù hợp. Nguồn bug-report-forensics được dùng cho phần thực thi/báo lỗi đã tách, không mở rộng phạm vi mặc định của skill sinh TC.
 
 Tình trạng phương pháp: **cần đối chiếu slide Domain Testing/BVA khi được bổ sung**. Tình trạng kỹ thuật của bộ phải dựa vào kiểm chứng thực tế được báo trong phiên; validation cấu trúc/helper không thay một demo trên feature thật.

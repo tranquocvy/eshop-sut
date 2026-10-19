@@ -37,8 +37,8 @@ Muốn lưu JSON thì thêm `--output <duong-dan-output.json>` với đường d
 
 - Hiện thực mỗi điểm bằng dữ liệu cụ thể, giữ các rule khác hợp lệ và setup đủ để tới đúng nhánh.
 - Ghi expected của cả hai phía từ requirement, không suy ra chỉ từ điểm được helper tạo.
-- Với thời gian: định nghĩa mốc t0, đồng hồ/đơn vị, δ và sai số; lưu thời điểm đo. `sleep 30` không chứng minh request đến đúng mốc 30 giây.
-- Coverage thiết kế = số items có TC / tổng items đã xác định; coverage thực thi = số items thực sự được exercise / tổng items. Một fail vẫn có thể exercise item; một blocked/not run không được tự tính là đã exercise.
+- Với thời gian: thiết kế rõ mốc t0, đồng hồ/đơn vị, δ, sai số và cách quan sát để người chạy thực hiện được. Một bước `sleep 30` không tự bảo đảm request đến đúng mốc 30 giây; không chạy SUT để kiểm tra thời điểm trong lượt sinh TC.
+- Coverage thiết kế = số items có TC / tổng items đã xác định. Đây là ánh xạ từ mô hình sang TC; không dùng nó làm bằng chứng đã thực thi các điểm đó.
 - Không gọi tỷ lệ trên inventory tự chọn là “100% mọi biên của phần mềm”; nêu nguồn, phạm vi và mục chưa biết.
 
-Đầu ra BVA phải giải thích từng bước, bảng boundary/coverage items, TC ánh xạ và lý do cho các ngoại lệ; JSON điểm biên không thay báo cáo phương pháp.
+Đầu ra BVA có TC với giá trị biên, expected có nguồn và lý do chọn điểm. Khi task yêu cầu giải thích từng bước, thêm bảng boundary/coverage items và ngoại lệ. JSON điểm biên chỉ hỗ trợ tính dữ liệu, không thay bộ TC hoặc tự tạo expected.

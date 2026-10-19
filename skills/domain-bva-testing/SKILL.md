@@ -1,13 +1,13 @@
 ---
 name: domain-bva-testing
-description: Thiết kế và thực hiện kiểm thử từ đặc tả bằng Domain Testing và Boundary Value Analysis, giải thích từng bước, đối chiếu AI gaps và báo lỗi có bằng chứng. Dùng cho HW02 EShop hoặc feature khác có đặc tả; hỗ trợ Web, API và Mobile, không tự sửa nghiệp vụ SUT.
+description: Sinh và rà soát test case từ đặc tả bằng Domain Testing và Boundary Value Analysis. Dùng khi cần thiết kế TC, phân tích miền hoặc chọn giá trị biên cho Web, API hay Mobile; kết thúc ở bộ test, không thực thi SUT hay lập báo cáo kết quả.
 ---
 
-# Domain Testing + BVA — trợ lý kiểm thử theo từng bước
+# Domain Testing + BVA — thiết kế và sinh test case
 
-Nhận một feature và các nguồn liên quan, rồi thực hiện phần được giao theo bốn nhiệm vụ: **Domain Testing → Boundary Value Analysis → AI gap analysis → Bug reporting**. Execution cung cấp bằng chứng cho hai nhiệm vụ sau. Không biến yêu cầu “dùng skill” thành một prompt chung sinh test và kết luận đã kiểm thử xong.
+Nhận đặc tả feature và sinh bộ test theo luồng **Test basis → Domain Testing → BVA → Kiểm tra thiết kế → Test cases**. Dừng khi bộ test đáp ứng phạm vi được giao. Không tự khởi động ứng dụng, chạy test trên SUT, chụp bằng chứng, tạo bug report hay gọi skill khác sau khi sinh TC.
 
-Đây là bộ kỹ thuật có thể đóng gói cùng bài nộp. Không chứa thông tin sinh viên, đường dẫn cá nhân, số liệu chạy sẵn hoặc quyền Git/GitHub mặc định. Nội dung được viết mới sau khảo sát cộng đồng; nguồn, lựa chọn và giới hạn nằm ở [research](references/research.md).
+Đây là bộ thiết kế test có thể dùng độc lập hoặc đóng gói cùng bài nộp. Nguồn khảo sát và phương pháp nằm ở [research](references/research.md). Execution, AI gap analysis chính thức và báo cáo kết quả thuộc skill riêng `test-execution-reporting`, chỉ dùng khi người dùng giao phần đó.
 
 ## Đầu vào và cách bắt đầu
 
@@ -15,12 +15,14 @@ Xác định từ task, nguồn hiện có hoặc hỏi đúng phần thiếu:
 
 - Feature, phạm vi/pool nếu có; requirement và API contract liên quan.
 - Tài liệu bài giảng/phương pháp được giao; đặc biệt định nghĩa Domain Testing và biến thể BVA.
-- Repo/commit SUT, đường chạy, lớp kiểm thử (Web/native/API), môi trường và dữ liệu chuẩn bị.
-- Phần được giao: chỉ design, design + execution, review, hay toàn bộ; thư mục output và tracker khi cần đăng bug.
+- Lớp mục tiêu của TC (Web/native/API), dữ liệu và precondition; repo/commit hoặc source liên quan nếu cần đọc thêm để hiểu luồng.
+- Phần thiết kế được giao: Domain, BVA hoặc cả hai; mức diễn giải và định dạng đầu ra. Tận dụng dữ liệu đã có, không yêu cầu setup SUT chỉ để sinh TC.
 
-Đọc hướng dẫn áp dụng và tài liệu hiện có. Tận dụng thông tin đã biết, không bắt người dùng điền lại một bảng hỏi mỗi lần. Gặp thiếu nguồn thì làm phần độc lập; chỉ dừng hành động phụ thuộc thực sự vào điểm chưa rõ. Yêu cầu chỉ thiết kế không cho phép tự chạy app, reset dữ liệu hoặc đăng issue.
+Đọc đặc tả/bài giảng được cung cấp và phần source thực sự liên quan; không quét toàn repo khi đã đủ test basis. Gặp thiếu nguồn thì tiếp tục phần thiết kế có căn cứ, đánh dấu giả định/câu hỏi đúng chỗ. Thiếu môi trường chạy không chặn thiết kế test.
 
-Ghi `method_profile` trong báo cáo:
+Khi yêu cầu “sinh TC nhanh”, trả bảng TC và các giả định/lý do chọn dữ liệu cần thiết; không dựng một báo cáo feature đầy đủ. Khi bài yêu cầu giải thích từng bước, trình bày thêm mô hình miền, inventory biên và coverage theo [quy cách bộ test](references/test-case-contract.md). Cả hai cách đều kết thúc ở thiết kế. Chỉ sinh TC cho kỹ thuật được giao; yêu cầu chỉ BVA có thể cần xác định miền nền nhưng không bắt buộc sinh thêm bộ TC Domain riêng.
+
+Khi task cần giải thích phương pháp, nêu `method_profile` trong phần mô tả thiết kế:
 
 | Profile | Điều kiện sử dụng |
 | --- | --- |
@@ -35,11 +37,11 @@ Ghi `method_profile` trong báo cáo:
 
 Đọc đặc tả trước, dùng source để tìm luồng/điểm quan sát và nghi vấn, không dùng lỗi implementation làm expected. Lập rule IDs và nguồn; tách **confirmed**, **assumption**, **unresolved**. Các giả định chưa xác nhận không dùng để kết luận bug chắc chắn.
 
-Xác định biến dữ liệu, biến trạng thái/thời gian cần thiết, đơn vị đo và điều kiện trước. Phân biệt yêu cầu nghiệp vụ với giới hạn biểu diễn, giới hạn UI và dữ liệu seed. Giữ một snapshot thiết kế AI ban đầu để phục vụ gap analysis; bản này không phải log hội thoại đầy đủ.
+Xác định biến dữ liệu, biến trạng thái/thời gian cần thiết, đơn vị đo và điều kiện trước. Phân biệt yêu cầu nghiệp vụ với giới hạn biểu diễn, giới hạn UI và dữ liệu seed. Khi cần theo dõi AI gaps về sau, giữ bản thiết kế đầu qua phiên bản file hoặc nguồn hội thoại hiện có; không bắt buộc tạo báo cáo/snapshot riêng cho mọi lượt sinh TC nhanh.
 
 ### 1. Domain Testing
 
-Đọc [domain-testing](references/domain-testing.md), rồi tạo:
+Đọc [domain-testing](references/domain-testing.md), rồi phân tích các nội dung sau. Khi sinh nhanh, có thể tóm tắt trong TC/rationale; tách thành bảng chi tiết khi task yêu cầu:
 
 1. Bảng biến và các rule chi phối.
 2. Mô hình miền/partition cùng lý do chọn cách phân chia, ranh giới và ràng buộc liên biến.
@@ -57,32 +59,16 @@ Không chỉ liệt kê happy path hoặc bảng EP rồi tự nhận đã làm 
 
 Giữ phần diễn giải BVA riêng với Domain Testing dù một TC có thể mang cả hai nhãn. Không đếm cùng TC hai lần trong tổng số test. Độ bao phủ thiết kế không phải độ bao phủ đã thực thi hoặc tỷ lệ pass.
 
-### 3. Review, execution và AI gap analysis
+### 3. Kiểm tra và hoàn thiện thiết kế
 
-Đọc [ai-gap-analysis](references/ai-gap-analysis.md). Trước chạy, kiểm tra dữ liệu/expected/khả năng tiếp cận từng miền và các phụ thuộc. Tự tiếp tục phần thiết kế nháp có đủ nguồn; không tự nhận người học đã review vì agent vừa kiểm tra lại.
+Đối chiếu từng rule/miền/biên với TC: dữ liệu và expected có nguồn, đúng dấu bằng/độ phân giải, giữ các điều kiện khác hợp lệ, có precondition để tiếp cận rule mục tiêu. Bổ sung ca thiếu và gộp ca trùng khi vẫn giữ được truy vết. Đây là tự kiểm tra thiết kế của AI, không phải xác nhận sinh viên đã review.
 
-Nếu task cho phép execution, chạy theo [execution-and-bugs](references/execution-and-bugs.md): ghi setup, phiên bản, lớp chạy, actual, timestamp, status và evidence thật. Thiếu field/control của SUT là actual hoặc blocker cần giải thích, không phải lý do bỏ TC để tăng tỷ lệ đẹp.
-
-Sau review/chạy, so sánh snapshot ban đầu với các bổ sung/sửa có nguồn. Báo lỗi hoặc test AI bỏ sót thực sự, nguyên nhân có căn cứ, độ chắc chắn và kết quả kiểm tra lại. Không bịa một “AI missed” từ lỗi đã được AI nêu trước khi thiết kế hoặc từ case chưa chạy.
-
-### 4. Bug reporting
-
-Với mỗi sai khác có oracle và bằng chứng, chuẩn bị báo cáo Markdown theo [execution-and-bugs](references/execution-and-bugs.md). Phân biệt nghi vấn static, bug tái hiện, lỗi setup/harness và test flaky. Dẫn screenshot, test/run và requirement; không sửa SUT/assertion để làm test pass.
-
-Đối với HW02, đích đăng bug là **GitHub Issues của nhóm** theo đề §6, kèm ảnh bug; fork cá nhân không tự thay thế trang nhóm. Nếu đã được giao đăng và có đích/quyền rõ thì thực hiện, không hỏi lại. Chưa được giao thì hoàn thành nội dung/ảnh local và ghi phần còn thiếu; bản local chưa phải issue đã đăng. Kiểm tra trùng issue trước khi tạo, không tự bình luận/nhắn người khác.
+Nếu sửa bộ test đã có, giữ ID và bản gốc/diff cần đối chiếu. Khi cần AI gap analysis về sau, giữ được phiên bản AI ban đầu; không tái tạo một bản “ban đầu” từ kết quả cuối. Không cần viết bảng gap, bug report hoặc AI Critique trong lượt sinh TC.
 
 ## Đầu ra
 
-Dùng [report-contract](references/report-contract.md) và `assets/feature-report.template.md` để tạo/cập nhật báo cáo. Mặc định một báo cáo feature, một snapshot thiết kế ban đầu và evidence gắn run; chỉ tách thêm dữ liệu/script khi cần chạy, không tạo báo cáo phụ cho mọi lần gọi.
+Dùng [test-case-contract](references/test-case-contract.md); khi cần lưu file, có mẫu `assets/test-cases.template.md`. Đầu ra tối thiểu là **TC ID, technique, rule/domain/boundary liên quan, precondition, input, steps, expected và nguồn expected**. Trình bày trong chat hoặc file theo yêu cầu, giữ định dạng/bộ ID đã có.
 
-Đáp ứng rõ bốn phần §6, kèm traceability **Rule → Domain/Boundary → TC → Run → Bug → Issue** và kết luận còn thiếu. Expected có nguồn; dữ liệu chưa chạy không được có actual/pass giả. Khi làm feature khác, đọc lại đặc tả thay vì tái dùng ngưỡng/FR/test data của EShop.
+Truy vết của skill này dừng ở **Rule → Domain/Boundary → TC**. Nếu cung cấp số lượng, chỉ tính unique TC đã thiết kế và coverage thiết kế có mẫu số rõ. Không điền Actual/Pass/Fail từ suy đoán; nếu file hiện có yêu cầu trạng thái thì để `Not Run`. Không sửa kết quả chạy thật đang có khi chỉ cập nhật thiết kế.
 
-Nếu bài yêu cầu commit từng bước, giữ đầu ra theo bước có thể commit độc lập và nhắc phần Git chưa hoàn tất. Chỉ commit/push khi có ủy quyền; không dựng lịch sử giả sau khi làm xong. Không đặt tối thiểu số test/bug, code coverage %, framework hay CI làm tiêu chí môn nếu đề không có.
-
-## AI audit và demo
-
-Giữ được prompt/output thật, snapshot, diff và nguồn review cho log/audit. Nếu phiên có skill ghi AI log và đã được giao dùng, chuyển các nguồn này cho quy trình đó; nếu không, bảo toàn dữ liệu hiện có và báo phạm vi chưa ghi, không bịa log. Skill này không phụ thuộc vào một công cụ ghi log riêng để chạy.
-
-Đọc [demo](references/demo.md) khi chuẩn bị §7: dùng skill trên một feature hoàn chỉnh, quay nguồn → Domain → BVA → review → chạy thật → gap/bug → summary. Chỉ có file skill hoặc video sinh test chưa chứng minh demo đầu cuối. Không tự upload, tạo YouTube link hoặc nhận đã quay video khi chưa thực hiện.
-
-Kết thúc một lượt bằng file đã tạo/sửa, phương pháp đang dùng, số liệu có nguồn và phần tiếp theo. Nói rõ kết quả là design-only, đã chạy, đã được người học review hay còn provisional. Không dùng lời khẳng định “đủ 100 điểm” thay cho bằng chứng.
+Chạy helper tính điểm biên là kiểm tra phép suy ra dữ liệu, không phải thực thi test trên SUT. Khi làm feature khác, đọc lại đặc tả thay vì tái dùng ngưỡng/FR/test data của EShop. Không thêm quota test, coverage %, framework, execution, report hay demo làm điều kiện để hoàn tất một lượt sinh TC.
