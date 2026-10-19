@@ -1,68 +1,32 @@
 # Báo cáo kiểm thử — <feature>
 
-> Template báo cáo, chưa phải dữ liệu/kết quả bài thật. Lấy thiết kế từ bộ TC đầu vào và kết quả từ run thật. Chỉ dùng các phần thuộc task; không sinh lại TC để điền đủ mẫu.
+> Khung gợi ý; chỉ dùng phần thuộc task. Lấy số liệu/actual từ kết quả thật, không sinh thêm bộ file để điền đủ mẫu.
 
-## 1. Phạm vi, test basis và phương pháp
+## 1. Phạm vi và môi trường
 
-Feature/pool, file TC và phiên bản, requirement/API/bài giảng, method_profile từ thiết kế, commit SUT, lớp kiểm thử, dữ liệu, câu hỏi còn mở. Nêu phần nào confirmed, assumption hoặc unresolved.
+Bộ TC/thiết kế và phiên bản; run ID, thời gian/múi giờ, SUT/test revision/diff, layer, môi trường và fixture. Người/công cụ chạy; review có thật. Dẫn thiết kế Domain/BVA và nguồn expected thay vì chép lại toàn bộ.
 
-## 2. Domain Testing — giải thích từng bước
+## 2. Kết quả chung
 
-Dẫn chiếu hoặc chèn phần thiết kế đã có; không phân tích và sinh lại trong lượt chỉ thực thi/report.
+Nguồn kết quả; cách chọn run khi có rerun. Unique TC designed/executed/passed/failed/blocked/not run; coverage đã exercise nếu thuộc task. Không dùng pass rate thay coverage hoặc cộng trùng TC có nhiều nhãn.
 
-### Rules, variables và mô hình miền
+Nêu dữ liệu mặc định và ý nghĩa ký hiệu một lần. Đạt (passed), Không đạt (failed), Bị chặn (blocked), Chưa chạy (not_run); ca bị ngắt ghi rõ dở dang. Input dưới đây là dữ liệu dự kiến theo TC; actual mới phản ánh phần đã thực hiện.
 
-| ID | Biến/điều kiện | Rule/source | Miền/predicate | Rationale và điểm đại diện |
+| TC có link về thiết kế | Nội dung kiểm tra / input chính | Expected | Actual | Kết luận / bug |
 | --- | --- | --- | --- | --- |
 
-### Domain test cases và coverage
+Mỗi hàng phải đủ để đối chiếu expected với actual và hiểu kết luận, không cần mở JSON. Input chính là phần khác dữ liệu mặc định; expected tóm tắt đúng bản đã duyệt, nguồn chi tiết ở link TC. Actual ngắn nhưng cụ thể; observation chi tiết/sequence có thể ở nguồn chung. Giữ expected cho ca chưa chạy, nhưng không viết actual giả. Có thể chia bảng theo nhóm chức năng; không bắt screenshot hoặc thư mục riêng cho mỗi TC. Link bug tới detail/ảnh bên dưới.
 
-| TC ID | Rule/domain IDs | Precondition/input | Steps | Expected và nguồn | Lớp chạy |
-| --- | --- | --- | --- | --- | --- |
+## 3. Bug và evidence cần thiết
 
-Nêu cách chọn điểm theo bài giảng, ràng buộc liên biến, coverage thiết kế và phần chưa bao phủ.
+Mỗi bug: oracle, TC/run, precondition/input, steps, expected/actual, mức ảnh hưởng, tần suất thực đã thử và trạng thái/URL issue. Phân biệt requirement với quy ước bổ sung. Dùng lại ảnh chung cho TC cùng bug.
 
-## 3. Boundary Value Analysis — giải thích từng bước
+Nhúng JPG và caption trạng thái/capture time; thêm ảnh input khi cần hiểu lỗi. Metadata đặt ở đây hoặc nguồn chung, không cần index mặc định. Phân biệt ảnh SUT và ảnh trang Issues.
 
-Dẫn chiếu hoặc chèn inventory/TC BVA từ thiết kế đầu vào. Phần thiếu được ghi rõ để bổ sung riêng.
+## 4. AI gap analysis — khi thuộc phạm vi
 
-| Boundary ID | Rule và hai miền | Dấu bằng/đơn vị/step | Profile, coverage items | TC IDs |
-| --- | --- | --- | --- | --- |
+Bản AI đầu/review có nguồn, thiếu/sai cụ thể, nguồn phát hiện, nguyên nhân có căn cứ hoặc giả thuyết, người sửa và kết quả kiểm tra lại. Không bịa gap hoặc biến mọi bổ sung sau chốt policy thành AI bỏ sót.
 
-Giải thích phép suy ra, điểm không biểu diễn được và phần không có thứ tự. Không tự điền max hoặc tỷ lệ coverage khi chưa có inventory.
+## 5. Tổng kết
 
-## 4. Review và execution
-
-Ai review, review gì, chỉnh sửa nào có nguồn. Nếu chưa review/chưa chạy thì ghi rõ.
-
-| Run ID | TC/revision | Environment/commit/layer | Timestamp | Actual | Status | Evidence ID / file / Bug |
-| --- | --- | --- | --- | --- | --- | --- |
-
-Tách coverage thiết kế, coverage đã exercise và pass rate; không đếm trùng TC mang hai nhãn kỹ thuật.
-
-### Evidence và ảnh kết quả
-
-Dẫn chỉ mục evidence của run. Chèn ảnh JPG thật khi task/đề yêu cầu, dùng đường dẫn tương đối và caption nêu TC/run, bước, thời gian capture và trạng thái chứng minh. Phân biệt ảnh symptom trên SUT với ảnh trang GitHub issue. Không để ảnh rời không liên kết tới actual.
-
-| Evidence ID | TC / Run / Bug | File hoặc entry log | Capture time | Nội dung chứng minh / nguồn ảnh |
-| --- | --- | --- | --- | --- |
-
-## 5. AI gap analysis
-
-| Gap ID | Bản AI ban đầu | Thiếu/sai | Nguồn phát hiện | Nguyên nhân/độ chắc chắn | Sửa/ai làm/kết quả |
-| --- | --- | --- | --- | --- | --- |
-
-Nếu chưa phát hiện gap, ghi phạm vi đối chiếu và kết quả thực, không bịa một trường hợp.
-
-## 6. Bug reporting
-
-| Bug ID | Requirement/oracle | TC/run | Expected/actual | Repro/evidence | Trạng thái/issue URL |
-| --- | --- | --- | --- | --- | --- |
-
-Mỗi bug có screenshot khi xác nhận và theo yêu cầu bài. Nghi vấn source giữ nhãn static/suspected, không tính thành bug runtime đã tái hiện.
-
-## 7. Tổng kết và truy vết
-
-Unique test designed, executed, passed, failed, blocked/not run; bugs đã xác nhận; coverage phạm vi; AI log/artifact sources; commit từng bước và link demo nếu đã có. Phần chưa hoàn tất phải được ghi đúng, không tự điền số liệu minh họa.
-
-Khi xuất theo task/đề, kiểm tra định dạng báo cáo, ảnh nhúng/caption đọc được, các file evidence tồn tại và số liệu nhất quán. Không nhận đã có PDF hoặc ảnh issue nếu chưa xuất/chụp thật.
+Kết quả chính, giới hạn/blocked và việc còn lại trong task. Kiểm tra số liệu, link và ảnh nhúng trong Markdown. Chưa đăng issue/review thì ghi đúng trạng thái.

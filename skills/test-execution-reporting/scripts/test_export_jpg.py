@@ -40,6 +40,25 @@ class ExportJpgTests(unittest.TestCase):
             self.assertTrue(all(channel >= 245 for channel in result.getpixel((0, 0))))
         self.assertNotIn("captured_at", metadata)
         self.assertIn("converted_at", metadata)
+        self.assertTrue(metadata["source_retained"])
+
+    def test_temporary_png_can_be_removed_after_verified_export(self):
+        metadata = export_jpg(self.source, self.destination, remove_source=True)
+        self.assertFalse(self.source.exists())
+        self.assertFalse(metadata["source_retained"])
+        with Image.open(self.destination) as saved:
+            saved.load()
+            self.assertEqual(saved.format, "JPEG")
+            self.assertEqual(saved.size, (320, 100))
+
+    def test_remove_source_refuses_non_png_and_keeps_it(self):
+        source = self.root / "provided.jpg"
+        Image.new("RGB", (80, 40), "blue").save(source, format="JPEG")
+        before = source.read_bytes()
+        with self.assertRaises(ValueError):
+            export_jpg(source, self.destination, remove_source=True)
+        self.assertEqual(source.read_bytes(), before)
+        self.assertFalse(self.destination.exists())
 
     def test_existing_jpeg_input_is_supported_without_changing_original(self):
         source = self.root / "source.jpg"
@@ -54,8 +73,9 @@ class ExportJpgTests(unittest.TestCase):
         self.destination.write_bytes(b"Existing evidence must stay unchanged")
         before = self.destination.read_bytes()
         with self.assertRaises(ValueError):
-            export_jpg(self.source, self.destination)
+            export_jpg(self.source, self.destination, remove_source=True)
         self.assertEqual(self.destination.read_bytes(), before)
+        self.assertTrue(self.source.exists())
 
     def test_same_source_and_destination_are_rejected(self):
         before = self.source.read_bytes()
@@ -95,11 +115,13 @@ class ExportJpgTests(unittest.TestCase):
 
     def test_command_line_exports_verified_file_and_metadata(self):
         completed = subprocess.run([sys.executable, "-B", str(Path(__file__).with_name("export_jpg.py")),
-            "--input", str(self.source), "--output", str(self.destination)], capture_output=True)
+            "--input", str(self.source), "--output", str(self.destination), "--remove-source"], capture_output=True)
         self.assertEqual(completed.returncode, 0, completed.stderr.decode("utf-8", errors="replace"))
         metadata = json.loads(completed.stdout)
         self.assertEqual(metadata["output_format"], "JPEG")
         self.assertTrue(self.destination.is_file())
+        self.assertFalse(self.source.exists())
+        self.assertFalse(metadata["source_retained"])
 
 
 if __name__ == "__main__":

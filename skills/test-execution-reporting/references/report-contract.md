@@ -1,35 +1,33 @@
-# Dữ liệu báo cáo và truy vết
+# Kết quả chung và báo cáo
 
-Dùng `assets/feature-report.template.md` khi được giao báo cáo feature; giữ tài liệu hiện có khi cập nhật. Bộ TC và mô hình Domain/BVA là đầu vào đã thiết kế, được dẫn chiếu/chèn đúng phiên bản; không tự sinh lại để hoàn thiện template. Không điền số liệu giả.
+Một nguồn kết quả phục vụ cả bộ TC; report là bản đọc/tổng hợp từ nguồn đó. Dùng output phù hợp của runner, không nhân bản dữ liệu thành JSON + CSV + bảng phụ chỉ vì có thể. CSV là lựa chọn khi người đọc/công cụ cần.
 
-## Chuỗi ID
+## Nội dung tối thiểu
 
-Giữ hệ thống ID đã có, hoặc dùng `<feature>-R01`, `-D01`, `-B01`, `-TC01`, `-RUN01`, `-BUG01`, `-GAP01` khi chưa có. Đây là quy ước gợi ý, không phải mã giảng viên. Rule ID nội bộ không thay FR gốc.
+- **Run:** ID, thời gian/múi giờ, SUT/test revision hoặc diff, layer/môi trường, fixture và người/công cụ thực thi; lưu một lần mỗi run.
+- **TC:** ID, run ID, expected/nguồn tham chiếu, actual cụ thể, status, observations/assertions cần chứng minh; bug/ảnh nếu có. Sequence chứa các bước và state liên quan ngay trong entry TC.
+- **Evidence:** observation đã lưu hoặc tham chiếu ảnh/đoạn log. Ảnh có capture time và trạng thái chứng minh; không bắt file riêng cho mỗi TC.
 
-| Đối tượng | Nội dung |
-| --- | --- |
-| Rule | ID, điều kiện/expected, nguồn, confirmed/assumption/unresolved |
-| Domain | ID, biến/predicate, rule IDs, rationale, điểm đại diện |
-| Boundary | ID, rule/domain IDs, hai phía/dấu bằng, đơn vị/step, profile, coverage items |
-| Test | ID, technique labels, rule/domain/boundary-item IDs, lớp chạy, precondition, dữ liệu thật, steps, expected, nguồn expected |
-| Run | ID, TC/revision, actual, status, thời gian, executor, environment/commit, evidence và bug liên quan |
-| Evidence | ID, TC/run/bug liên quan, file hoặc entry log, capture time, trạng thái/bước chứng minh, nguồn/derivative nếu có |
-| Gap | ID, bản AI ban đầu, thiếu/sai, nguồn phát hiện, nguyên nhân/độ chắc chắn, sửa/ai làm/kết quả |
-| Bug | ID, oracle, TC/run, expected/actual, repro, screenshot, trạng thái và issue URL |
+Ví dụ entry pass: UI chuyển Login; account theo email 0→1; name/email đúng. Các giá trị phải được quan sát thật, không chỉ có nhãn passed. Chỉ lưu dữ liệu cần đối chiếu, không đính toàn bộ DB/layout hoặc secrets.
 
-Không ép một test phải có cả domain ID và boundary ID: test Domain chỉ ánh xạ mục tiêu tương ứng; test bổ trợ UI không tự trở thành BVA. TC cùng dữ liệu nhưng khác precondition/layer/oracle có thể là TC khác; chỉ gộp khi vẫn chứng minh được từng mục tiêu.
+Giữ lịch sử rerun trong nguồn chung bằng run ID. Nếu summary dùng kết quả mới nhất thì nêu quy ước; không xóa lần failed/blocked trước. Run bị ngắt ghi bước dở dang và lý do; không tự gán đã pass/fail. Nếu framework đã có lịch sử phù hợp thì tham chiếu output gốc.
 
-## Coverage và số liệu
+## Bản report
 
-- Công bố tập requirement/domain/boundary items trong phạm vi và mục chưa rõ. Mỗi item có TC IDs và bằng chứng exercise nếu đã chạy.
-- Tính riêng coverage thiết kế, coverage đã exercise và tỷ lệ pass. Không dùng count test nhiều để chứng minh đủ mọi miền.
-- Lấy summary từ cùng bộ TC và run/revision được công bố; giữ lịch sử rerun riêng. Không trộn kết quả từ SUT commits khác mà không giải thích.
-- Đếm bug theo bug IDs được xác nhận, giữ static suspected riêng. Một bug ảnh hưởng nhiều test không nhân thành nhiều bug.
+Dùng [template](../assets/feature-report.template.md) tùy task: phạm vi/môi trường → bảng kết quả → bug/gap và summary. Dẫn bộ thiết kế/TC đúng phiên bản; chỉ chèn lại mô hình Domain/BVA khi sản phẩm cần. Không lập bảng truy vết thứ hai nếu nguồn hiện có đã đủ.
 
-## Hoàn tất phần được giao
+`report.md` phải đủ để người học review kết quả mà không cần đọc JSON cho từng TC. Bảng gợi ý: **TC có link về thiết kế | Nội dung kiểm tra / input chính | Expected | Actual | Kết luận / bug**. Nêu dữ liệu mặc định và giải thích ký hiệu một lần; mỗi hàng chỉ ghi input khác biệt và expected ngắn, giữ ý nghĩa của oracle đã duyệt. Với sequence, giữ các lần chuyển trạng thái và điều kiện cuối; không rút gọn thành chỉ expected của bước đầu. Input của ca chưa chạy là dữ liệu dự kiến, không phải xác nhận đã nhập. Expected vẫn hiển thị cho ca blocked/not_run; actual ghi rõ điểm chặn hoặc chưa có quan sát.
 
-Kết quả và số liệu phải truy vết tới TC/run/evidence thực; ghi đúng phần chưa chạy hoặc chưa xác minh. Chưa có review của người học thì giữ trạng thái đó. Không yêu cầu lập đủ báo cáo bài tập, AI audit hoặc demo để kết thúc một task chỉ chạy test/viết summary.
+Dùng nhãn dễ hiểu kèm status gốc: Đạt (passed), Không đạt (failed), Bị chặn (blocked), Chưa chạy (not_run); ca bị ngắt ghi rõ dở dang. Có thể chia bảng theo nhóm chức năng để dễ đọc, không thêm bảng chi tiết trùng lặp. Link TC dẫn tới tài liệu gốc, bug dẫn tới detail/ảnh ngay trong report. JSON giữ chi tiết assertion/lịch sử để kiểm tra sâu; không biến JSON thành tài liệu bắt buộc phải đọc để biết vì sao TC đạt hay không đạt. Không ghi sinh viên đã nghiệm thu nếu chưa có review thật.
 
-Theo [quy cách evidence](evidence.md), ảnh cần xuất mặc định là JPG, được dẫn/nhúng với caption; giữ chỉ mục nối tới kết quả TC và bug. Tạo đúng định dạng tài liệu task/đề yêu cầu khi được giao xuất báo cáo, gồm Markdown + PDF cho HW02 trong phạm vi đó; kiểm tra ảnh, liên kết và số liệu ở bản xuất cuối.
+Mỗi bug có precondition/input, steps, expected/actual, oracle, TC/run, ảnh và trạng thái issue. Đặt detail trong report; chỉ tách file bug khi cần dùng/nộp riêng. Nhiều TC cùng lỗi dùng chung bug/ảnh khi có căn cứ. Phân biệt requirement với giả định/quy ước bổ sung.
 
-Khi được giao tổng hợp HW02, giữ bốn phần Domain/BVA/gaps/bugs theo đề: lấy hai phần thiết kế từ bộ đầu vào, thêm kết quả/gap/bug có nguồn. Nếu còn thiếu thiết kế, slide, review, issue, audit, commit hoặc demo thì ghi đúng phần thiếu, không tự nhận toàn bộ HW02 đã hoàn tất.
+AI gaps chỉ phân tích khi được giao, từ bản đầu/review có nguồn và kết quả thật. Không tạo lại mô hình/bản AI ban đầu để điền đủ report. Thiếu lịch sử hoặc chưa phát hiện gap thì ghi đúng phạm vi đó.
+
+## Số liệu và kiểm tra cuối
+
+- `executed = passed + failed`; `not_executed = blocked + not_run`; tổng là unique TC trong phạm vi. Nêu cách xử lý rerun, không đếm lượt chạy thành TC mới.
+- Tách coverage thiết kế, coverage đã exercise và pass rate. Chỉ nhận item đã exercise khi TC thật sự tới điều kiện/bước đó; sequence thiếu bước chưa chứng minh trọn sequence.
+- Report lấy số liệu từ nguồn chung; ảnh/link tồn tại, caption khớp actual. Metadata/index ảnh đặt trong report hoặc kết quả; không mặc định thêm file index/manifest.
+- Kiểm tra bản Markdown đọc được: input/expected/actual/kết luận khớp nhau, giải thích ký hiệu, link đúng và ảnh cần thiết hiển thị. Không sinh thêm định dạng cho mọi summary.
+- Ghi đúng phần chưa chạy/review/đăng Issues hoặc định dạng chưa có. Không tự ghi AI audit, commit/push, demo hay nộp bài để kết thúc một task execution/report.

@@ -7,7 +7,7 @@ Một demo có thể thể hiện hai chặng riêng: `domain-bva-testing` sinh 
 3. Cho thấy mô hình Domain, điểm đại diện và cách suy ra một vài TC; người học giải thích một lựa chọn quan trọng.
 4. Cho thấy inventory biên, biến thể, độ phân giải và cách ra dữ liệu. Nếu chạy helper, giải thích input lấy từ đâu và helper không tạo oracle.
 5. Review thật một output; giữ chỉnh sửa hoặc xác nhận có căn cứ. Nếu quay lại sau khi bài đã làm, ghi là demo/run mới.
-6. Kết thúc chặng thiết kế và gọi riêng `test-execution-reporting` với bộ TC vừa bàn giao. Chạy trên đúng giao diện/native và cho xem kết quả liên kết; ghi run/evidence thật, không đổi assertion để xanh.
+6. Kết thúc chặng thiết kế và gọi riêng `test-execution-reporting` với bộ TC vừa bàn giao. Chạy đúng giao diện/native, cho xem kết quả chung theo TC/run và JPG cần thiết cho bug; không cần bộ file/ảnh cho từng TC. Không đổi assertion để xanh.
 7. Nêu một gap thực nếu có và một bug tái hiện nếu có; cho thấy report và issue có ảnh khi đã đăng. Không bịa bug để có clip.
 8. Cho thấy summary/coverage/AI log liên quan và điều còn thiếu. Tự giải thích được source expected và giới hạn của kỹ thuật.
 

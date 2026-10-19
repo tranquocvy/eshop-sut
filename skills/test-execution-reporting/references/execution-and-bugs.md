@@ -2,15 +2,17 @@
 
 ## Thực thi đúng lớp và đúng dữ liệu
 
-Chỉ chạy khi task bao hàm execution. Trước chạy, đọc setup và kiểm tra các tác động reset/seed; không restart/reset một phiên đang có dữ liệu cần giữ. Tách sửa cấu hình môi trường khỏi sửa logic SUT, ghi rõ diff cần thiết.
+Chỉ chạy khi task bao hàm execution. Dùng setup/runner hiện có; kiểm tra tác động reset/seed và ghi diff cấu hình cần thiết riêng với nghiệp vụ SUT. Không mặc định dựng backend/dataset/framework mới cho mọi feature.
 
-Mỗi run ghi ID, thời gian có múi giờ, commit SUT/test, lớp Web/native/API, môi trường, fixture/setup, TC, actual và evidence. Request/response phải từ run thật; lưu exit code thật. Test runner trả lỗi cần được phân loại thay vì bỏ qua.
+Chọn flow ngắn nhất đáp ứng TC: mở form → kiểm tra precondition → nhập/submit → quan sát/assertion → ghi vào kết quả chung. Giữ app/session chạy khi phù hợp, dọn input hoặc navigate về form thay vì mở lại emulator/Expo/browser mỗi TC. Chỉ reset theo TC hoặc khi cần phục hồi môi trường; không reset giữa các bước sequence.
 
-Áp dụng [quy cách evidence và JPG](evidence.md): lưu bằng chứng ngay trong run, ánh xạ từng kết quả tới file/entry cụ thể. Ảnh screenshot cần xuất dùng JPG khi task không chỉ định khác; giữ nguồn và kiểm tra ảnh thực sự là JPEG, đọc được trước khi dùng trong báo cáo/issue.
+Run ID, thời gian/múi giờ, revision, layer, môi trường và fixture lưu một lần mỗi run. TC là entry chứa actual, status và observation/refs cần thiết. Request/response và exit code phải từ thao tác thật. Không nhân bản catalogue hay một bộ result/ảnh cho từng TC/probe. Xem [evidence](evidence.md) khi cần chọn/chụp bằng chứng.
 
-Status đề xuất: `passed`, `failed`, `blocked`, `not_run`. Khi summary dùng bốn trạng thái này, quy ước `executed = passed + failed`, `not_executed = blocked + not_run`; tổng unique TC = executed + not_executed. Nếu dùng quy ước khác thì công bố. Không đếm số lần rerun thành số TC thiết kế. Chỉ đánh dấu coverage item đã exercise nếu biết test thực sự đi tới nó.
+Status: `passed`, `failed`, `blocked`, `not_run`; `executed = passed + failed`, `not_executed = blocked + not_run`. Giữ lịch sử và đếm unique TC, không đếm rerun thành TC mới. Coverage chỉ nhận điều kiện/bước thật sự đã exercise.
 
-Web responsive không phải native Mobile. API chạy được chỉ chứng minh API trong phạm vi đã kiểm tra; cart state/UI validation có thể khác lớp API. Với control chưa tồn tại, ghi actual thiếu control và bug/blocker liên quan thay vì sửa giao diện hoặc bỏ test.
+Web responsive không thay native Mobile; API/DB phụ trợ không chứng minh UI đã chạy. Field thiếu thì ghi schema failure/blocker phù hợp; TC phụ thuộc field đó giữ blocked, không thêm field giả hoặc bỏ TC.
+
+Khi harness lỗi, giữ chẩn đoán ngắn và phân loại riêng. Có thể retry thao tác đọc an toàn khi hợp lý; không tự retry submit, reset hoặc tiếp tục sequence khi state không rõ. Lỗi lặp lại thì dừng phần bị ảnh hưởng để sửa/kiểm chứng, không tạo chuỗi probe nặng hoặc lặp lỗi qua cả suite. Khi bị ngắt, giữ kết quả đã ghi và dấu bước dở dang; kiểm tra state trước khi resume.
 
 ## Xác định bug và tái hiện
 
@@ -25,7 +27,7 @@ Web responsive không phải native Mobile. API chạy được chỉ chứng mi
 - Requirement/oracle/source; feature và TC/run liên quan.
 - Môi trường/commit, preconditions và dữ liệu.
 - Steps có thể tái hiện, expected và actual tách riêng.
-- Screenshot bug; log hoặc request/response bổ sung khi cần. Không dùng ảnh chụp source làm ảnh bug giao diện.
+- Evidence phù hợp oracle; JPG khi cần chứng minh lỗi UI hoặc task yêu cầu, log/request/response khi phù hợp. Không dùng ảnh chụp source làm ảnh bug giao diện.
 - Tần suất đã đo; mức ảnh hưởng có lý do, priority chỉ là đề xuất nếu chưa có quyết định nhóm.
 - Trạng thái xác minh, workaround nếu thực đã thử, issue URL/trạng thái đăng.
 

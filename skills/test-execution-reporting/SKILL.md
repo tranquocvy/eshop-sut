@@ -1,50 +1,40 @@
 ---
 name: test-execution-reporting
-description: Thực thi bộ TC đã có, lưu evidence truy vết tới từng kết quả, xuất ảnh JPG và báo cáo theo task/đề. Dùng khi chạy test, phân tích AI gaps hoặc tổng hợp test summary/bug report; hỗ trợ report-only từ dữ liệu thật, không tự sinh lại bộ TC.
+description: Chạy bộ TC đã có và tổng hợp kết quả thật thành báo cáo gọn, với kết quả chung và ảnh JPG cần thiết cho bug. Dùng cho execution, report-only hoặc AI gap analysis; không sinh lại bộ TC.
 ---
 
-# Thực thi test và báo cáo kết quả
+# Thực thi test và báo cáo
 
-Nhận **bộ TC đã thiết kế** và phần công việc được giao. Chạy test khi được yêu cầu, hoặc lập báo cáo từ dữ liệu đã có. Không bắt sinh lại TC bằng một skill khác trước khi dùng. Nguồn phương pháp báo lỗi và phạm vi tách skill nằm ở [research](references/research.md).
+Nhận TC đã thiết kế, giữ ID, dữ liệu, precondition, steps và expected. Execution cho phép chạy SUT; report-only dùng kết quả đã có. Không bắt gọi lại skill thiết kế trước khi thực hiện.
 
-## Đầu vào và phạm vi
+## Luồng mặc định
 
-- Bộ TC/phiên bản, precondition, input, steps, expected và nguồn; nhận TC từ bất kỳ tác giả/công cụ nào.
-- Phạm vi: execution, report-only, AI gap analysis, bug report hoặc kết hợp. Yêu cầu “viết report” không tự cho phép chạy lại app.
-- Khi chạy: repo/commit, lớp Web/native/API, môi trường, cách setup và dữ liệu. Khi báo cáo: run/evidence thực đã có và scope của chúng.
-- Khi phân tích AI gaps: bản AI ban đầu, bản sửa và lịch sử review; thiếu phần nào thì nói rõ, không phục dựng.
-- Yêu cầu đầu ra của task/đề: nơi lưu báo cáo/evidence, ảnh cần có, định dạng tài liệu và tracker. Mặc định ảnh cần xuất dùng `.jpg` theo lựa chọn người dùng; đề chỉ định khác thì tuân định dạng đó và nêu rõ.
+1. Xác định bộ TC/phiên bản, lớp Web/native/API và môi trường. Tận dụng setup/runner đang có, chỉ chuẩn bị phần cần thiết. Nêu ngắn flow và đầu ra trước đợt chạy lớn.
+2. Chạy đúng bước của TC, ghi actual từ quan sát/assertion thật. Giữ session/app đang chạy khi precondition cho phép; chỉ restart/reset khi TC hoặc trạng thái môi trường đòi hỏi. Giữ state giữa các bước sequence.
+3. Ghi vào **một nguồn kết quả chung** của bộ test. Mỗi TC là một entry, không phải một thư mục/bộ file. Run ID, thời gian, revision và môi trường lưu một lần mỗi run; từng TC tham chiếu run đó. Dùng lại output phù hợp của runner, không nhân bản cùng dữ liệu thành nhiều JSON/CSV/bảng phụ.
+4. Xuất report Markdown từ nguồn chung: summary, bảng TC, bugs và coverage/gaps thuộc phạm vi được giao. Bảng phải cho người đọc đối chiếu ngay nội dung kiểm tra/input chính → expected → actual → kết luận, có link về bộ TC và bug. Dẫn lại thiết kế đã có; không chép toàn bộ để làm report dài hơn.
 
-Tận dụng thông tin đã có. TC thiếu oracle/precondition thì làm phần độc lập và chỉ rõ mục chưa thể chạy; không tự mở rộng thành một đợt thiết kế Domain/BVA. Nếu runtime phát hiện cần thêm test, ghi đề xuất hoặc gap rồi giữ phần bổ sung riêng theo yêu cầu người dùng.
+Khi chưa có cấu trúc phù hợp: `results.json` cho toàn bộ TC và lịch sử run, `report.md` là bản chính để người học đọc và nghiệm thu, `images/` cho JPG cần thiết. Chỉ thêm CSV, file bug hoặc index riêng khi task/cách dùng cần. Không tạo bản kết quả gồm một TC và hàng chục TC `not_run` cho mỗi lần thử harness.
 
-## 1. Thực thi khi được giao
+## Evidence vừa đủ
 
-Đọc [execution-and-bugs](references/execution-and-bugs.md). Kiểm tra setup, phiên bản, dữ liệu, khả năng tái hiện và tác động reset/seed trước chạy. Dùng runner hoặc công cụ phù hợp đang có; không bắt buộc dựng framework mới cho mọi feature.
+- Mỗi TC đã chạy có actual cụ thể và observation/assertion hỗ trợ, ví dụ UI tới Login và account 0→1. **Mobile không bắt buộc screenshot cho mọi TC.** Chỉ kiểm tra DB/API phụ trợ khi oracle cần; chúng không thay thao tác native.
+- Chụp bug hoặc trạng thái UI cần chứng minh; thêm ảnh input khi cần hiểu lỗi. Nhiều TC cùng bug có thể dẫn tới chung ảnh. Không chụp trùng “result” và “case-ended”.
+- Xuất JPG thật và mở kiểm tra. PNG tạm do task tạo được xóa sau khi JPG hợp lệ; có thể chuyển trong bộ nhớ để không ghi PNG. Không tự xóa ảnh người dùng cung cấp. Xem [evidence](references/evidence.md) khi capture/xuất ảnh.
+- Lưu observation/assertion ngắn trong kết quả chung. Không dump toàn bộ layout sau mỗi thao tác, DB dump hoặc bật recorder phụ cho mọi TC. Chỉ bật log debug giới hạn khi cần điều tra lỗi; không đưa log thừa vào bộ bàn giao.
 
-Chạy đúng lớp của TC, ghi actual, thời gian, môi trường, status, exit code và evidence từ thao tác thật. Giữ ID/revision; không đổi expected theo code lỗi, sửa nghiệp vụ SUT hoặc bỏ failed/blocked để báo cáo đẹp. Test chưa chạy giữ `not_run`; API không tự chứng minh UI/native đã chạy.
+## Giữ tính đúng đắn
 
-## Evidence và ảnh JPG
+Giữ `passed`, `failed`, `blocked`, `not_run`; không đổi expected theo code, sửa nghiệp vụ hay bỏ lỗi để làm kết quả xanh. Lỗi setup/harness khác bug sản phẩm. Không dùng toast làm chứng cứ duy nhất khi expected yêu cầu dữ liệu đã lưu.
 
-Đọc [quy cách evidence](references/evidence.md) trước khi chạy hoặc xuất ảnh. Mỗi kết quả đã chạy phải có nguồn kiểm chứng phù hợp, truy được **TC/revision → Run → Evidence → Bug/Issue nếu có**. Ghi thời gian capture và môi trường; giữ lịch sử rerun, ảnh gốc và tên file ổn định theo run.
+Giữ lịch sử run/rerun thật trong nguồn chung; summary đếm unique TC theo kết quả được chọn và nêu quy ước đó. Coverage thiết kế, coverage đã exercise và pass rate tính riêng. Khi bị ngắt, ghi bước dở dang; không nhận đã hoàn tất hoặc tự submit lại khi chưa rõ lần trước đã tạo dữ liệu chưa.
 
-Khi task/đề cần screenshot, chụp từ phiên chạy thật và xuất JPG đọc được. Nếu nguồn là PNG, dùng `scripts/export_jpg.py` để chuyển định dạng thật; không đổi mỗi phần mở rộng và không tạo ảnh bằng AI. Báo cáo phải dẫn tới ảnh/log cụ thể, có caption nói rõ trạng thái nào được chứng minh. Không bắt mọi TC đều có JPG khi request/response hoặc runner log mới là evidence phù hợp.
+Khi lỗi harness lặp lại, dừng phần bị ảnh hưởng, lưu chẩn đoán ngắn và sửa/kiểm chứng trước khi mở rộng chạy. Không tạo hàng loạt probe, framework hoặc dịch vụ phụ để tiếp tục một luồng chưa ổn định. Chi tiết execution/bug ở [execution-and-bugs](references/execution-and-bugs.md).
 
-## 2. AI gap analysis khi có phạm vi được giao
+## Báo cáo và giới hạn
 
-Đọc [ai-gap-analysis](references/ai-gap-analysis.md), đối chiếu bản AI ban đầu với review và kết quả chạy. Bỏ sót có thể được phát hiện từ review thiết kế mà chưa có runtime; khi đó chỉ kết luận thiếu/sai trong thiết kế, không nhận đã tái hiện bug.
+Đọc [report-contract](references/report-contract.md) khi tổng hợp; [template report](assets/feature-report.template.md) là gợi ý, chỉ dùng mục phù hợp. Đọc [AI gap analysis](references/ai-gap-analysis.md) khi được giao phần này; dùng bản đầu/review có nguồn, không dựng lại lịch sử hoặc bịa gap.
 
-Ghi case/rule/oracle bị thiếu hoặc sai, nguồn phát hiện, tác động, nguyên nhân có căn cứ hay giả thuyết, người thực hiện sửa và kết quả kiểm tra lại nếu có. Không tạo lỗi AI giả hoặc một bản “AI ban đầu” từ file cuối.
+HW02 yêu cầu bug trong Markdown và GitHub Issues kèm ảnh. Chuẩn bị detail trong report; chỉ đăng khi được giao và tracker rõ. Kiểm tra số liệu, link, ảnh nhúng và cách giải thích kết luận trong Markdown. Chưa đăng issue thì ghi đúng trạng thái.
 
-## 3. Bug report và GitHub Issues
-
-Với sai khác có oracle và bằng chứng, rút gọn bước tái hiện; phân biệt bug sản phẩm với lỗi setup/harness, dữ liệu hoặc static suspected. Báo cáo gồm precondition, steps, expected/actual, phiên bản, TC/run và screenshot phù hợp. Chi tiết ở [execution-and-bugs](references/execution-and-bugs.md).
-
-HW02 §6 yêu cầu bug trong Markdown và GitHub Issues của nhóm, kèm ảnh bug. Chuẩn bị nội dung local; đăng khi đã được giao với đích/quyền rõ, kiểm tra trùng và kiểm tra issue sau đăng. Không mặc định fork cá nhân là tracker nhóm. Bản local chưa phải issue đã đăng.
-
-## 4. Tổng hợp và kết thúc
-
-Dùng [report-contract](references/report-contract.md) và `assets/feature-report.template.md` khi cần báo cáo feature. Tái sử dụng phần thiết kế đã có bằng dẫn chiếu hoặc chèn đúng phiên bản; không chờ sinh lại mô hình Domain/BVA mới được báo kết quả.
-
-Tổng hợp unique TC designed/executed/passed/failed/blocked/not run, coverage thực có bằng chứng, bug/gap và phần còn thiếu. Công bố cách đếm; không cộng rerun thành TC mới hay trộn commits/layers không giải thích. Report-only giữ nguyên dữ liệu nguồn, không tạo run/ảnh/actual giả; có thể xuất JPG từ ảnh nguồn đã có và ghi đúng thời gian capture ban đầu.
-
-Đầu ra theo task: kết quả TC, chỉ mục evidence và ảnh JPG cần thiết; summary/bug/gap cùng định dạng báo cáo được yêu cầu. Khi giao xuất báo cáo theo HW02 §14, tạo Markdown + PDF trong phạm vi đó, kiểm tra layout và ảnh nhúng; không coi mới có Markdown là đã xuất PDF. Nếu thiếu công cụ thì giữ nguồn và báo đúng định dạng chưa tạo. Không tự ghi AI audit, commit/push, upload video hay nộp bài. Kịch bản demo phối hợp hai skill nằm ở [demo](references/demo.md), chỉ đọc khi chuẩn bị demo.
+Không tự ghi AI audit, commit/push, upload video hoặc nộp bài. Chỉ đọc [demo](references/demo.md) khi chuẩn bị demo; [research](references/research.md) lưu nguồn phương pháp.

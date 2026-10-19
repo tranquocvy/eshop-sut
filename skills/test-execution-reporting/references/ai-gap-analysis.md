@@ -2,7 +2,7 @@
 
 ## Giữ diễn biến để phân tích thật
 
-Trước review/execution, giữ `ai-initial-design.md` cho phiên bản AI ban đầu (rule/domain/boundary/TC) và các nguồn tạo ra nó. Khi người dùng sửa, giữ diff hoặc revision cụ thể. Snapshot này không thay log prompt/output của từng tương tác.
+Dùng bản AI ban đầu, commit hoặc snapshot đã có cùng nguồn tạo ra nó. Khi sửa, đối chiếu diff/revision cụ thể. Chỉ snapshot nếu cần giữ bản chưa được lưu; không sao chép cùng bộ thiết kế sang nhiều thư mục. Snapshot không thay log prompt/output.
 
 Nếu đã có version ban đầu, tiếp tục lịch sử đang có; không tạo lại một bản “AI ban đầu” từ bản cuối. Nếu không còn bản gốc hoặc người học chưa review, báo phần thiếu; không dựng trải nghiệm để đủ nội dung critique.
 
