@@ -1,0 +1,4 @@
+interface:
+  display_name: "Test Execution & Reporting"
+  short_description: "Chạy TC, lưu evidence/JPG và xuất báo cáo"
+  default_prompt: "Dùng $test-execution-reporting chạy bộ TC đã có, lưu evidence cùng ảnh JPG cần thiết và xuất báo cáo theo yêu cầu task."
