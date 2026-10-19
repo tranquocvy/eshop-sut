@@ -1,0 +1,27 @@
+{
+  "variable": "parcel_count_SYNTHETIC_EXAMPLE",
+  "unit": "parcel",
+  "step": "1",
+  "origin": "0",
+  "min_value": "0",
+  "max_value": null,
+  "scope_note": "Ví dụ giả lập: hệ thống minh họa chấp nhận 5 đến 12 kiện, không phải dữ liệu HW02.",
+  "edges": [
+    {
+      "id": "LOWER",
+      "left": "4",
+      "right": "5",
+      "left_partition": "too_few",
+      "right_partition": "accepted",
+      "source_ref": "Synthetic example: 5 <= count <= 12"
+    },
+    {
+      "id": "UPPER",
+      "left": "12",
+      "right": "13",
+      "left_partition": "accepted",
+      "right_partition": "too_many",
+      "source_ref": "Synthetic example: 5 <= count <= 12"
+    }
+  ]
+}
