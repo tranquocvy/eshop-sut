@@ -1,0 +1,128 @@
+# T03 — FR-14 Category Management: thiết kế Domain và BVA
+
+**Thiết kế v0.2 — 20/10/2026 (UTC+7), Vỹ đã review và chốt phạm vi thiết kế.** Sau khi xem hai file hoàn thiện, Vỹ yêu cầu commit. Phạm vi vẫn là thiết kế, tất cả TC Not Run. Bộ TC tại [test-cases.md](test-cases.md). Bản AI v0.1 nguyên gốc được giữ tại `HW02/.runtime/design-baselines/fr14-categories-ai-v0.1/` ngoài repo; không tái tạo từ bản sửa.
+
+## 1. Test basis và phạm vi
+
+Lớp chính: **Web Admin**. API bổ trợ kiểm tra required ở phía server và quyền của từng thao tác thay đổi danh mục. API không thay bằng chứng thao tác Web. Baseline repo lúc đọc: `62e34ecbcce65a8c803625ca8d210dfd9176dbbe`; thay đổi Mobile đang có không thuộc T03 và được giữ nguyên.
+
+| Nguồn | Vị trí | Vai trò |
+| --- | --- | --- |
+| S1 | [README](../../../README.md), FR-14, dòng 186–189 | Admin Thêm/Xem/Xóa; tên bắt buộc, không rỗng |
+| S2 | [README](../../../README.md), FR-12, dòng 174–179 | Phân hệ Admin chỉ cho admin; POST/PUT/DELETE categories cần JWT hợp lệ và role admin |
+| S3 | [API specification](../../../api_specification.md), §3.4 | GET/POST `/api/categories`; PUT/DELETE `/api/categories/:id`; POST nhận JSON name |
+| S4 | [App.jsx](../../../frontend-admin/src/App.jsx), dòng 7, 35–75, 142–161, 188–216, 294–336; [server.js](../../../backend/server.js), dòng 100–110, 243–278; [database.js](../../../backend/database.js), bảng categories và seed | Xác định trường nhập, nút, endpoint, `localStorage.adminToken`, điểm quan sát và cách chuẩn bị dữ liệu; không lấy implementation làm expected |
+| S5 | [Đề HW02](../../../../2026.HW02.Domain%20Testing_En.md), §6; [quyết định T01](../../../../T01-setup/ENVIRONMENT.md), mục Phạm vi và nguồn phương pháp | Yêu cầu giải thích từng bước; phương pháp đã chọn |
+| S6 | [Tài liệu tự học của giảng viên](https://www.fit.hcmus.edu.vn/~lqvu/Courses/SoftwareTesting/istqb-foundation-selfstudy.html#sec-4-2), Chương 4.2, mục BVA; bản PDF local ở `HW01/ISTQB Foundation Level (CTFL v4.0.1).pdf`, trang 44 theo T01 | Chọn biên hợp lệ và hai hàng xóm |
+| S7 | Cem Kaner, [Teaching Domain Testing: A Status Report](https://www.kaner.com/pdfs/domain_testing_cseet.pdf), §2; references Domain/BVA của skill được gọi | Phân miền, chọn đại diện theo rủi ro, xem xét nhiều biến và trạng thái |
+
+`method_profile`: **Domain = reference-provisional** theo S7, chưa có slide Domain riêng. **BVA = lecture-aligned với tài liệu tự học S6** đã chọn ở T01; profile `course-guide-3-value`, lấy `b−δ, b, b+δ` quanh biên hợp lệ. Đã đối chiếu mục BVA trên trang giảng viên trong lượt này. Không gọi tập điểm này là profile helper `istqb-3`, không gán trình tự của skill thành thuật toán chính thức của môn.
+
+Không thiết kế feature FR-12 tổng quát: chỉ lấy quyền cần thiết cho Category Management. Không thiết kế CRUD sản phẩm, security audit, execution, bug report hoặc AI log. Tên “Category CRUD” và PUT trong S3 chưa đủ xác định oracle Sửa đầy đủ: giữ quyền PUT trong phạm vi, để nghiệp vụ Update ở Q01.
+
+## 2. Bước 0 — Rules, giả định và điểm chưa rõ
+
+| Rule | Điều kiện/kết quả đúng | Trạng thái và nguồn |
+| --- | --- | --- |
+| CAT-R01 | Admin xem được các danh mục hiện có; hiển thị đúng danh mục/tên trong bộ dữ liệu kiểm soát, kể cả khi danh sách rỗng | Confirmed: S1; GET S3. Đối chiếu tập dữ liệu, không áp thứ tự sắp xếp |
+| CAT-R02 | Admin thêm được danh mục có tên hợp lệ; danh mục mới xem lại được | Confirmed: S1; POST/body S3. Mẫu có nội dung rõ ràng, không tự thêm min 2, max hoặc uniqueness |
+| CAT-R03 | Tên bắt buộc, không rỗng; thiếu name, null hoặc chuỗi rỗng không cung cấp một tên, phải từ chối thêm | Confirmed: S1; cách đưa dữ liệu qua JSON theo S3. Không yêu cầu exact message/error code |
+| CAT-R04 | Admin xóa được danh mục tồn tại; thao tác theo ID chỉ ảnh hưởng đúng danh mục đích | Confirmed: S1 + DELETE theo ID ở S3; ca thành công dùng danh mục không có sản phẩm tham chiếu |
+| CAT-R05 | Khách chưa đăng nhập và user thường không được vào phân hệ Admin để quản lý danh mục | Confirmed: S2; không suy thành cấm GET categories công khai |
+| CAT-R06 | Mọi POST/PUT/DELETE categories cần JWT hợp lệ; thiếu/không hợp lệ thì từ chối, không thay đổi dữ liệu | Confirmed: S2 |
+| CAT-R07 | JWT hợp lệ nhưng role user không đủ quyền POST/PUT/DELETE categories; từ chối, không thay đổi dữ liệu | Confirmed: S2 |
+
+| ID | Loại | Cách xử lý |
+| --- | --- | --- |
+| A01 | Assumption môi trường | Dữ liệu độc lập giữa TC, không có người sửa đồng thời; người thực thi chuẩn bị fixture riêng. Lượt này chỉ mô tả fixture, chưa tạo/xóa bản ghi |
+| A02 | Assumption dữ liệu | Tên có chữ nhìn thấy như `A`, `AB`, `Đồ học tập T03` là tên hợp lệ theo rule duy nhất đã nêu; nếu có policy ngoài đặc tả thì phải cập nhật nguồn/oracle |
+| Q01 | Unresolved | Body/validation/kết quả Update khi admin hợp lệ chưa được S3 mô tả đủ. Chưa sinh TC chức năng Sửa; TC17/20/23/29/32 chỉ đánh giá quyền PUT, không credit Update |
+| Q02 | Unresolved | Tên chỉ gồm whitespace; trim khi lưu; chuẩn hóa Unicode/case. Không kế thừa quy ước đã review cho Mobile sang danh mục |
+| Q03 | Unresolved | Tên trùng có được phép; giới hạn trên/cách đếm độ dài Unicode; kiểu JSON số/array/object. Không lấy giới hạn tên sản phẩm 255 hoặc schema SQLite làm requirement danh mục |
+| Q04 | Unresolved | Xóa danh mục đang có sản phẩm: chặn, cascade hay gỡ liên kết? Ca xóa thành công chỉ dùng danh mục không được tham chiếu |
+| Q05 | Unresolved một phần | Xóa ID không tồn tại: chưa quy định status/message hoặc idempotency. TC24 chỉ có oracle chắc chắn là không xóa/đổi danh mục khác |
+| Q06 | Giới hạn phạm vi | S2 không bắt buộc GET categories phải dành riêng cho admin. Chưa thêm ca yêu cầu guest/user bị chặn GET; JWT hết hạn và các biến thể invalid khác ngoài malformed/sửa payload/sửa chữ ký chưa lấy mẫu riêng, không công bố bao phủ mọi lỗi JWT |
+
+Q01–Q06 ghi nhận giới hạn đặc tả/phạm vi, không phải các quyết định đang chờ Vỹ chốt để hoàn tất bộ thiết kế này. Việc duyệt bộ TC không xác nhận thêm policy cho các mục unresolved.
+
+Đọc tĩnh S4 cho thấy cần chú ý required ở form/server và role trong middleware. Đây chỉ là căn cứ chọn điểm dễ phát hiện sai phạm; không ghi kết luận bug runtime, không lấy phản hồi success/500 trong code làm oracle.
+
+## 3. Bước 1 — Biến và quan hệ miền
+
+| Biến | Kiểu, nominal và đơn vị | Rule/ràng buộc |
+| --- | --- | --- |
+| Op, Layer | View/Create/Delete; PUT chỉ kiểm tra quyền. Web hoặc API | R01–R07; ghi rõ lớp từng TC |
+| N, Presence | Chuỗi tên; nominal `Đồ học tập T03`; JSON có/thiếu name, null | R02–R03. Missing/null khác chuỗi rỗng về biểu diễn |
+| L | Độ dài tên trên tập mẫu ASCII `{A,B}`; số nguyên không âm, bước 1 ký tự | R03: rỗng L=0, tên mẫu hợp lệ L≥1. ASCII tránh phải chốt code point/code unit/byte Unicode |
+| Auth | Không token; token không hợp lệ (sai định dạng, sửa payload, sửa chữ ký); token hợp lệ của user; token hợp lệ của admin | R05–R07; nominal admin hợp lệ. Role/Auth không phải trục số cho BVA |
+| Entry, StoredToken | Điểm vào Web: Login hoặc tải lại trang từ token đã lưu; nominal phiên admin | R05; TC33 dùng token user hợp lệ trong `localStorage.adminToken`, không đi qua handler Admin Login |
+| C | Tập bản ghi danh mục hiện có; nominal fixture C3 | R01–R04; trạng thái 0/1/nhiều bản ghi |
+| Target, Ref | ID đích thuộc/không thuộc C; số sản phẩm tham chiếu danh mục đích | R04; nominal Target∈C và Ref=0. ID là membership, không là khoảng 1..maxID |
+
+Mô hình cho thay đổi dữ liệu: `JWT_valid AND role=admin`. Create còn cần có name không rỗng; Delete thành công cần Target∈C và ca đã kiểm soát Ref=0. Khi kiểm tra required dùng admin hợp lệ; khi kiểm tra quyền dùng tên hợp lệ/ID tồn tại để tránh lỗi dữ liệu che lỗi quyền. Không lấy tích Descartes toàn bộ N×Auth×Op×C.
+
+## 4. Bước 2 — Domain, điểm đại diện và lý do
+
+Các mục tiêu dưới đây thuộc các chiều khác nhau, có thể chồng nhau; không nhận toàn bảng là một partition rời nhau. Trong chiều Auth, bốn nhóm được phân biệt bằng sự tồn tại, tính hợp lệ và role của token; nhóm invalid được lấy mẫu thêm theo ba nguyên nhân sai khác nhau. Trong chiều N, whitespace-only và kiểu JSON khác vẫn là vùng chưa có oracle, không tính vào coverage có căn cứ.
+
+| Domain | Predicate/điểm đại diện | Rule | TC | Lý do chọn |
+| --- | --- | --- | --- | --- |
+| CAT-D01 | View: C=∅ | R01 | 01 | Empty state không giữ dòng cũ/lỗi tải giả |
+| CAT-D02 | View: C=C1, một bản ghi | R01 | 02 | Không bỏ sót bản ghi duy nhất |
+| CAT-D03 | View: C=C3, ba tên/ID khác nhau | R01 | 03 | Không hiển thị thiếu/trộn tên; không áp thứ tự |
+| CAT-D04 | Create: name có nội dung; `Đồ học tập T03`, `A`, `AB` | R02 | 04,06,07,25,26 | Mẫu tiếng Việt thực tế và mẫu rất ngắn ở Web/API; kiểm tra không tự thêm min 2 |
+| CAT-D05 | Create: name=`""` | R03 | 05,10 | UI và server là hai lớp; UI chặn không chứng minh server chặn |
+| CAT-D06 | Create: JSON `{}` | R03 | 08 | Phân biệt required với chỉ kiểm tra chuỗi rỗng |
+| CAT-D07 | Create: JSON `{"name":null}` | R03 | 09 | Null không cung cấp một tên; khác missing |
+| CAT-D08 | Delete: Target∈C3, Ref=0; chọn bản ghi giữa theo fixture | R04 | 11 | Xóa đúng ID, giữ hai bản ghi còn lại |
+| CAT-D09 | Delete: Target∈C1, Ref=0; sau xóa C=∅ | R04,R01 | 12 | Chuyển trạng thái có một→rỗng, tránh dòng cũ |
+| CAT-D10 | Delete: Target∉C3; ứng viên ID `999999` được xác nhận vắng | R04 | 24 | Kiểm tra không tác động bản ghi khác; không bịa status/message |
+| CAT-D11 | Web: guest, không có phiên admin | R05 | 13 | Cổng vào phân hệ Admin |
+| CAT-D12 | Web: tài khoản user hợp lệ | R05 | 14 | Đã xác thực vẫn không có quyền admin |
+| CAT-D13 | API: thiếu Authorization, Op∈{POST,DELETE,PUT} | R06 | 15–17 | Chặn trước khi thay đổi dữ liệu, từng endpoint riêng |
+| CAT-D14 | API: `Bearer not-a-jwt`, cùng ba Op | R06 | 18–20 | Không chỉ kiểm tra header có tồn tại |
+| CAT-D15 | API: JWT hợp lệ role user, cùng ba Op | R07 | 21–23 | Phân biệt xác thực và phân quyền; từng endpoint riêng |
+| CAT-D16 | Admin hợp lệ + dữ liệu hợp lệ; Web gửi POST/DELETE thật, API POST trực tiếp | R02,R04,R06,R07 | 04,11,12,25,26 | Control dương để tránh “chặn tất cả”; không credit quyền PUT dương |
+| CAT-D17 | API: TP sửa payload TU từ role user thành admin nhưng giữ chữ ký cũ; Op∈{POST,DELETE,PUT} | R06 | 27–29 | Token vẫn đúng cấu trúc nhưng nội dung không còn được chữ ký xác thực; không chỉ kiểm tra parse JWT hoặc tin role đã sửa |
+| CAT-D18 | API: TS giữ header/payload của TA, lật một bit byte đầu chữ ký; cùng ba Op | R06 | 30–32 | Chỉ sai chữ ký, payload vẫn là admin hợp lệ; phân biệt với token malformed hoặc role user |
+| CAT-D19 | Web: `localStorage.adminToken=TU`, mở lại trang không qua Admin Login | R05 | 33 | Kiểm tra quyền khi khôi phục phiên, độc lập với kiểm tra role trong handler Login |
+
+TC04 tạo→tải lại→xem; TC11/12 xóa→tải lại→xem. Đây là tương tác trạng thái trực tiếp của FR-14, không phải bộ state-transition riêng. ID fixture chỉ định danh dữ liệu, không tạo biên ID số học.
+
+## 5. Bước 3 — BVA riêng
+
+Từ tên bắt buộc/không rỗng, xét lát cắt tên chỉ gồm chữ ASCII: miền invalid `L=0`, miền valid `L≥1`; biên hợp lệ `b=1`, δ=1 ký tự. Profile S6 suy ra `1−1=0`, `1`, `1+1=2`. Tại dấu bằng L=1, tên `A` được chấp nhận. Các biến khác giữ admin hợp lệ, tên chưa tồn tại, không có thao tác đồng thời.
+
+| Boundary | Nguồn/hai miền | Đơn vị, bước, dấu bằng | Coverage items → dữ liệu → TC |
+| --- | --- | --- | --- |
+| CAT-B01 | R03, S1; ASCII rỗng / nonempty | Ký tự ASCII, δ=1; L=1 hợp lệ; lớp Web Admin | B01-0: L=0 → `""` → 05; B01-1: L=1 → `A` → 06; B01-2: L=2 → `AB` → 07 |
+| CAT-B02 | R03, S1; cùng biên tên nhưng gọi POST trực tiếp | Ký tự ASCII, δ=1; L=1 hợp lệ; lớp API, TA hợp lệ | B02-0: L=0 → `{"name":""}` → 10; B02-1: L=1 → `{"name":"A"}` → 25; B02-2: L=2 → `{"name":"AB"}` → 26 |
+
+B01/B02 là cùng biên nghiệp vụ tại hai lớp đưa dữ liệu vào, không phải hai ngưỡng khác nhau. Inventory có 6 items theo `(layer,L)` vì Web validation có thể ngăn request tới server. TC10 giữ nguyên input/steps/expected từ v0.1, chỉ bổ sung nhãn BVA và B02-0; không tạo một TC rỗng API trùng lặp.
+
+Không có cận trên được đặc tả nên không sinh max−1/max/max+1. Không sinh độ dài âm. Missing/null là Domain, không phải hàng xóm số của L=0. Các số lượng danh mục 0/1/3 là trạng thái lấy mẫu Domain, không tự gán thành BVA vì chưa có ngưỡng số lượng danh mục được phép. Role và membership ID không có thứ tự để dùng ±1. Không thêm BVA thời gian JWT khi chưa có policy thời hạn.
+
+## 6. Bước 4 — Hoàn thiện TC và tự kiểm tra thiết kế
+
+Mỗi hàng TC xác định technique, rule/domain/boundary, precondition, input, steps và expected kèm nguồn. Các bước dùng chung/fixture được định nghĩa ngay trong bộ TC; các ca API ghi rõ phương thức và body. Đã đối chiếu để ca quyền không dùng tên rỗng hoặc ID không tồn tại, và ca required luôn có admin hợp lệ. Exact toast, mã HTTP thành công/lỗi, thứ tự danh sách và dialog xác nhận xóa không phải oracle khi chưa có đặc tả.
+
+| Truy vết/coverage thiết kế | Ánh xạ | Số lượng |
+| --- | --- | --- |
+| R01 | TC01–03,04,12 | 1 rule có TC |
+| R02 | TC04,06,07,25,26 | 1 rule có TC |
+| R03 | TC05–10,25,26 | 1 rule có TC |
+| R04 | TC11,12,24 | 1 rule có TC; TC24 chỉ invariant theo ID |
+| R05 | TC13,14,33 | 1 rule có TC |
+| R06 | TC15–20,27–32 | 1 rule có TC |
+| R07 | TC21–23 | 1 rule có TC |
+| Domain | D01–D19 theo bảng §4 | **19/19 mục tiêu miền đã chọn có TC** |
+| Quyền API âm theo method | 5 nhóm dữ liệu Auth × 3 methods = 15 tổ hợp ở D13–D15,D17–D18 | **15/15 tổ hợp đã chọn có TC** |
+| BVA | B01-0/1/2 và B02-0/1/2 | **6/6 items theo lớp Web/API đã xác định có TC** |
+
+Tổng **33 TC unique**: **27 Domain**, **6 Domain + BVA** (TC05–07,10,25,26). Không cộng đôi hai nhãn. Đây là coverage thiết kế trên inventory đã công bố, không là coverage thực thi hoặc bằng chứng việc phân miền đã bao quát mọi rủi ro. Các biến thể invalid JWT chưa lấy mẫu và Q01–Q06 không được tính là đã bao phủ. Vỹ đã review hai file v0.2 và yêu cầu commit; phần thiết kế trong phạm vi này đã hoàn tất. Không điền Actual/Pass/Fail hoặc kết luận bug.
+
+### Lịch sử điều chỉnh
+
+- v0.1: 24 TC ban đầu, đã giữ bản gốc ngoài repo tại đường dẫn đầu tài liệu.
+- v0.2: giữ TC01–24; thêm TC25–26 cho API tên dài 1/2; TC27–29 cho sửa payload; TC30–32 cho sửa chữ ký; TC33 cho mở lại Admin từ token user đã lưu. TC10 thêm nhãn BVA; cập nhật miền/biên/truy vết tương ứng.
+- Review ngày 20/10/2026: Vỹ đã đọc hai file hoàn thiện và yêu cầu commit. Ghi nhận duyệt phạm vi thiết kế; không thay đổi expected cho Q01–Q06, không thực thi SUT.
