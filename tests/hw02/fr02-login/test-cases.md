@@ -1,0 +1,74 @@
+# FR-02 — Bộ TC v0.1
+
+Ngày 20/10/2026; Vỹ đã đọc, review và xác nhận cả design.md và test-cases.md trong hội thoại. Bộ TC v0.1 đã được duyệt về thiết kế. **Tất cả 45 TC: Not Run.** Rule/miền/biên và nguồn S1/S2/Axx theo [design.md](design.md). W=Web, A=API; Domain+BVA là hai nhãn của cùng TC.
+
+## Quy ước thực hiện
+
+- U=`test@eshop.com` / P=`Test1234!`; V=`admin@eshop.com` / `Admin123!`; X=`fr02.absent@example.com` phải xác nhận không tồn tại. Sai password Z=`Wrong123!`. Không suy fixture seed vẫn nguyên: xác minh trước mỗi run.
+- F0: U tồn tại, counter=0, không khóa, client chưa đăng nhập, không token cũ. Reset fixture giữa TC trong môi trường test có kiểm soát, không restart/import database.js vì có DROP TABLE. F0(V) tương tự cho V. Đây là thiết kế setup, chưa thao tác DB.
+- Fn: từ F0 gửi n lần sai Z nối tiếp, chờ hoàn tất từng request và ghi trạng thái/counter. Nếu không đạt trạng thái cần thiết do lỗi trước, ghi không tiếp cận được; không tự chữa setup rồi báo sequence pass.
+- FL: fixture khóa tại t0 với n=3 và deadline yêu cầu t0+30s. Có thể dùng chuỗi thật nếu đạt, hoặc fixture khóa trực tiếp có ghi rõ để cô lập timing. Không lấy `locked_until` sai từ SUT làm deadline expected. Mỗi timing TC có FL mới.
+- Web: mở `/login`, nhập đúng dữ liệu và bấm submit một lần; ghi UI, request/response, token client và counter read-only khi TC yêu cầu. API: POST `/api/login` JSON qua HTTP; ghi status/body và trạng thái counter/lock sau xử lý. DB chỉ là điểm quan sát; không thay kết quả UI. Chờ commit cập nhật hoàn tất khi đọc counter, ghi thời điểm; timeout quan sát phải công bố, không gán lỗi race chỉ từ một lần đọc sớm.
+- Đối với mọi TC bị từ chối: không cấp token mới, không chuyển sang trạng thái đã đăng nhập, có phản hồi lỗi phù hợp. S1 không ấn định HTTP code lỗi hay nguyên văn thông báo. Policy Axx chỉ là đề xuất, sai khác chưa đủ kết luận vi phạm đặc tả.
+- “Đúng 30s/±1ms” dùng protocol đồng hồ trong design §4. Nếu không đạt độ chính xác hoặc request không tới điểm đích, giữ Not Run/ghi không chạm điểm khi thực thi; không giả kết quả từ sleep. Không thay thao tác Web bằng API rồi tính Web đã chạy.
+
+## Web — 19 TC
+
+| ID FR02- | Technique; trace | Precondition | Input và steps | Expected và nguồn |
+| --- | --- | --- | --- | --- |
+| W01 | Domain; D01,D11; R01,R06 | F0 | Login U/P; quan sát JWT được lưu phía client; mở màn hình hồ sơ tạo GET /api/users/me | Thành công; nhận JWT; client gửi Authorization: Bearer đúng token, hồ sơ đúng U. S1/S2; không ép storage cụ thể |
+| W02 | Domain; D01; R01 | F0(V) | Login V/Admin123! | Thành công với tài khoản V; S1/S2; không suy thêm yêu cầu giao diện admin |
+| W03 | Domain; D02; R02 | F0 | Login U/Z một lần; đọc counter/lock | Counter 0→1, chưa khóa; thông báo chung, không token. S1 |
+| W04 | Domain+BVA; D02; B01=2; R02,R03 | F1 | Login U/Z lần thứ 2; đọc counter; sau đó thử U/P | Counter 1→2, chưa khóa; U/P vẫn thành công. S1; success reset lưu trữ theo A01 |
+| W05 | Domain+BVA; D02; B01=3; R02,R03 | F2 | Login U/Z lần 3; sau hoàn tất thử U/P trong <30s | Counter 2→3; khóa kích hoạt, đúng P cũng bị từ chối. S1; t0 tại request thứ 3 |
+| W06 | Domain; D03; R05 | Hai lần F0 độc lập | Lần 1 U/Z; lần 2 X/P; so thông báo hiển thị | Cả hai từ chối; không phân biệt tồn tại tài khoản hoặc chi tiết field sai. S1; không yêu cầu timing bằng nhau |
+| W07 | Domain; D04; R07 | F0 | Kiểm tra DOM input email; nhập plainaddress/P rồi submit | type=email; HTML5 từ chối email sai, không phát login request; S1 |
+| W08 | Domain; D04; R07 | F0 | Nhập a@/P rồi submit | HTML5 chặn định dạng không hợp lệ, không gửi login request; S1 |
+| W09 | Domain; D05; A02 | F0 | Email rỗng, P đúng; submit | Chặn thiếu email, không login request/không đổi counter; A02, chưa phải rule HTML required xác nhận |
+| W10 | Domain; D05; A02 | F0 | U, password rỗng; submit | Chặn thiếu password, không login request/không đổi counter; A02 |
+| W11 | Domain; D06; R03,A01 | FL | Tại τ=10s login U/P | Không đăng nhập dù P đúng; S1. Counter/deadline không đổi theo A01 |
+| W12 | Domain+BVA; D06; B01=4; R03,A01 | FL tạo từ đúng 3 lần sai đã hoàn tất | Tại τ=10s gửi U/Z, lần sai thứ 4; đọc counter/deadline | Vẫn khóa, không token; S1. Counter giữ 3, deadline không gia hạn là A01 |
+| W13 | Domain+BVA; D06; B02=29.999; R04 | FL mới; có clock/trace đủ chính xác | Login U/P để server xử lý tại t0+29999ms | Vẫn bị khóa, không token; S1/R04 với quy ước đo design §4 |
+| W14 | Domain+BVA; D07; B02=30.000; R04 | FL mới; có clock/trace đủ chính xác | Login U/P để xử lý tại t0+30000ms | Không từ chối vì khóa cũ; login thành công; S1/R04, quy ước equality design §4 |
+| W15 | Domain+BVA; D07; B02=30.001; R04 | FL mới; có clock/trace đủ chính xác | Login U/P để xử lý tại t0+30001ms | Thành công; S1/R04 với protocol đo design §4 |
+| W16 | Domain; D08; R08,A01 | F0 | Login Z,Z,P; logout/clear client session không đổi DB; login Z,Z,P; tất cả trên U | Hai P đều thành công; sau success, hai sai sau không cộng vào chuỗi cũ gây khóa. S1/R08. Counter mỗi success=0 theo A01 |
+| W17 | Domain; D09; A03 | FL(U), F0(V) | Trong khóa U login V đúng | V thành công, U vẫn khóa; A03; phát hiện khóa dùng chung toàn cục |
+| W18 | Domain; D09; A03 | FL(U) | Reload trang; thử U/P; mở phiên trình duyệt độc lập thử U/P trước 30s | Cả hai vẫn từ chối, không né khóa bằng state client; A03 |
+| W19 | Domain; D10; R01 | Fixture tài khoản riêng short.fr02@example.com có credential đúng `Ab1!`, n=0, không khóa | Login short.fr02@example.com / Ab1! | Thành công theo R01/S1; FR-02 không yêu cầu password ≥8. Fixture tạo trực tiếp có kiểm soát; không tính thành test đăng ký |
+
+## API — 26 TC
+
+| ID FR02- | Technique; trace | Precondition | Input và steps | Expected và nguồn |
+| --- | --- | --- | --- | --- |
+| A01 | Domain; D01,D11; R01,R06 | F0 | POST {email:U,password:P}; dùng token GET /api/users/me với Bearer | 200, token JWT, user đúng U; token được chấp nhận và hồ sơ đúng U. S1/S2; client storage kiểm riêng W01 |
+| A02 | Domain; D02; R02 | F0 | POST U/Z; đọc counter và lock | Từ chối; counter 0→1, chưa khóa; S1 |
+| A03 | Domain+BVA; D02; B01=2; R02,R03 | F1 | POST U/Z; đọc counter; POST U/P sau đó | 1→2, chưa khóa; đúng P thành công. S1 |
+| A04 | Domain+BVA; D02; B01=3; R02,R03 | F2 | POST U/Z; đọc counter/t0; POST U/P trước 30s | 2→3, khóa bắt đầu; P đúng không cấp token. S1 |
+| A05 | Domain; D03; R05 | Hai F0 độc lập | POST U/Z và X/P; so body lỗi | Cả hai từ chối; không tiết lộ account tồn tại/field sai. S1; status lỗi cụ thể chưa chốt |
+| A06 | Domain; D06; R03,A01 | FL | POST U/P tại τ=10s | Từ chối vì đang khóa; S1. Không thay counter/deadline theo A01 |
+| A07 | Domain+BVA; D06; B01=4; R03,A01 | FL bằng chuỗi 3 sai | POST U/Z lần thứ 4 tại τ=10s; quan sát deadline | Vẫn khóa; S1. Không tăng counter/gia hạn theo A01 |
+| A08 | Domain+BVA; D06; B02=29.999; R04 | FL mới, protocol timing | POST U/P được xử lý t0+29999ms | Từ chối, không token; S1/R04 + protocol design §4 |
+| A09 | Domain+BVA; D07; B02=30.000; R04 | FL mới, protocol timing | POST U/P xử lý t0+30000ms | 200/token/user đúng U; S1/S2, quy ước equality |
+| A10 | Domain+BVA; D07; B02=30.001; R04 | FL mới, protocol timing | POST U/P xử lý t0+30001ms | 200/token/user đúng U; S1/S2 |
+| A11 | Domain; D07; A01,R02 | FL mới | Sau t0+31s POST U/Z, đọc counter; tiếp tục U/Z; sau đó U/P | Chuỗi mới có counter 1 rồi 2, chưa khóa; P đúng thành công. Reset sau expiry thuộc A01; mỗi tăng +1 thuộc R02 |
+| A12 | Domain; D05; A02 | F0 | POST {password:P} (thiếu email) | Từ chối có kiểm soát, không 500/token, counter không đổi; A02 |
+| A13 | Domain; D05; A02 | F0 | POST {email:U} (thiếu password) | Như A12; A02; phân biệt absent với chuỗi rỗng |
+| A14 | Domain; D05; A02 | F0 | POST {email:"",password:P} | Từ chối có kiểm soát, không token/500, counter không đổi; A02 |
+| A15 | Domain; D05; A02 | F0 | POST {email:U,password:""} | Từ chối có kiểm soát, không token/500, counter không đổi; A02 |
+| A16 | Domain; D05; A02 | F0 | POST {email:null,password:P} | Từ chối có kiểm soát, không token/500, counter không đổi; A02 |
+| A17 | Domain; D05; A02 | F0 | POST {email:U,password:null} | Từ chối có kiểm soát, không token/500, counter không đổi; A02 |
+| A18 | Domain; D05; A02 | F0 | POST {email:["test@eshop.com"],password:P} | Từ chối sai kiểu, không ép thành tài khoản hợp lệ; không 500/token/counter đổi; A02 |
+| A19 | Domain; D05; A02 | F0 | POST {email:U,password:{value:"Test1234!"}} | Từ chối sai kiểu có kiểm soát, không 500/token/counter đổi; A02 |
+| A20 | Domain; D08; R08,A01 | F0 | POST U với Z,Z,P,Z,Z,P nối tiếp; đọc state sau mỗi request | Hai success đều 200/token; success ngắt chuỗi, không khóa do cộng dồn qua success. R08/S1; DB reset=0 theo A01 |
+| A21 | Domain; D09; A03 | FL(U), F0(V) | Client HTTP mới POST U/P; POST V đúng password | U vẫn bị khóa; V thành công; A03, không suy khóa theo IP |
+| A22 | Domain; D10; A04 | F0 | POST U/password=`test1234!` | Từ chối, không token; tăng đúng 1 nếu coi đây là attempt xác thực sai; A04/R02. Phát hiện đổi case password |
+| A23 | Domain; D10; A04 | F0 | POST U/password=` Test1234! ` | Từ chối, không trim password; counter +1; A04/R02 |
+| A24 | Domain; D12; A04 | F0 | POST email=`' OR 1=1 --`, password=Z | Không bypass/không token, lỗi có kiểm soát không lộ SQL/stack; A04. Không dùng payload này thay TC HTML5 Web |
+| A25 | Domain; D12; A04 | F0; fixture U có reset_token marker `FR02_PRIVATE` để phát hiện leak, không gọi reset flow | POST U/P; inspect toàn response body | Thành công nhưng không lộ password P hay reset_token marker trong user/body; A04. S2 cho phép user nhưng không mô tả field nhạy cảm |
+| A26 | Domain; D13; A05 | F1; hai kết nối sẵn sàng; ghi thời điểm server nhận/xử lý | Phát hai POST U/Z chồng lấn; chờ cả hai hoàn tất, đọc counter/lock; thử U/P trong khóa | Hai attempt được ghi đủ, counter cuối=3, khóa; P đúng bị từ chối. A05/R02/R03; nếu không có overlap thì chưa chạm mục tiêu concurrency |
+
+## Ghi chú coverage và bàn giao
+
+Các field JSON U/P/Z là ký hiệu thay bằng giá trị chuỗi ở quy ước, không gửi nguyên ký hiệu. Setup không phải verdict. Counter tăng +1 áp dụng các attempt sai có tài khoản tồn tại và credential hợp lệ về kiểu; invalid input theo A02 là policy đề xuất đã được giữ trong bộ thiết kế Vỹ duyệt, chưa phải requirement được đặc tả xác nhận.
+
+45 ID unique, không tính các request trong sequence là TC mới. 19 Web + 26 API. Hai lớp có B01={2,3,4}, B02={29.999,30,30.001}; kết quả API không chứng minh Web đã chạy. Ca có assumption được giữ riêng nguồn expected, không chuyển thành confirmed chỉ vì được AI bổ sung. Các khảo sát Q01 nằm ở design, chưa tính là TC có oracle xác định.
