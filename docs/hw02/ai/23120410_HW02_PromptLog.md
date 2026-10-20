@@ -1473,3 +1473,233 @@ Phần token sẽ tách hai biến thể: sửa payload nhưng giữ chữ ký c
 
 Đã tự kiểm tra tính nhất quán. **Tất cả Not Run**, chưa gọi SUT.
 ```
+
+Phạm vi: Bốn lượt được chỉ định: phát hiện thiếu GitHub Issues Mobile; bổ sung skill về đăng/chụp trang issue; đăng tám issue và lưu JPG/log; bổ sung skill về link evidence cho từng TC đã chạy. Không gồm các lượt sửa report Mobile, giải thích log và commit sau đó.
+
+<a id="msg-36be906c669996d7cbf9"></a>
+
+## P-027
+
+- Timestamp: 13:34:03 20/10/2026 (UTC+07:00)
+- Công cụ: OpenAI Codex
+- Model: gpt-6.1-sol
+
+### Prompt
+
+```text
+cái skill execution + report hình như nó thiếu phần đưa lên github issue hay sao ấy, phần mobile tôi check trên github chưa thấy issue
+```
+
+<a id="msg-52fdc5c24fe9ab8d3080"></a>
+
+### Output
+
+#### Phản hồi 1 — 13:34:07 20/10/2026 (UTC+07:00)
+
+- Công cụ: OpenAI Codex
+- Model: gpt-6.1-sol
+
+```text
+Mình sẽ kiểm tra lại skill `test-execution-reporting`, report Mobile và tracker GitHub để xác định phần đăng issue đang thiếu ở hướng dẫn hay chưa được thực hiện.
+```
+
+<a id="msg-08d9ee95bc956da054ce"></a>
+
+#### Phản hồi 2 — 13:35:45 20/10/2026 (UTC+07:00)
+
+- Công cụ: OpenAI Codex
+- Model: gpt-6.1-sol
+
+```text
+**Đúng, phần Mobile chưa được đăng GitHub Issues.** Mình vừa kiểm tra cả open/closed: tracker hiện chưa có issue nào. [GitHub Issues](https://github.com/tranquocvy/eshop-sut/issues).
+
+Skill **đã có hướng dẫn GitHub**, nhưng phần này còn yếu:
+
+- [SKILL.md:38](C:/Users/DELL/.codex/skills/test-execution-reporting/SKILL.md:38) nói chuẩn bị bug rồi đăng khi được giao và tracker rõ.
+- Luồng mặc định chỉ liệt kê đến xuất report, chưa đưa bước đối chiếu/tạo Issues và cập nhật URL thành một chặng rõ ràng.
+
+Report Mobile cũng ghi **“chưa đăng GitHub Issues”**. Đây là phần công việc Mobile chưa hoàn tất; push file report không tự tạo issue.
+
+Hiện có **8 nhóm phát hiện**: 4 vi phạm requirement và 4 sai khác quy ước S7. Khi đưa lên Issues phải giữ rõ phân loại này, kèm steps, expected/actual, TC/run và ảnh; không biến 15 TC fail thành 15 issue.
+
+Cần bổ sung luồng skill: **kiểm chứng bug → kiểm tra trùng → tạo/cập nhật issue có ảnh → kiểm tra issue đã tồn tại → ghi URL vào report**. Điều kiện đăng cần dựa trên phạm vi đã giao, tránh bỏ sót chặng này khi hoàn thiện bài HW02.
+```
+
+<a id="msg-0453443a1aeea0f60e1a"></a>
+
+## P-028
+
+- Timestamp: 13:37:18 20/10/2026 (UTC+07:00)
+- Công cụ: OpenAI Codex
+- Model: gpt-6.1-sol
+
+### Prompt
+
+```text
+bổ sung vào skill đi. thêm nữa là phải chụp ảnh màn hình github issue để làm bằng chứng. vì đề yêu cầu
+```
+
+<a id="msg-96e206efddc89656f05e"></a>
+
+### Output
+
+#### Phản hồi 1 — 13:37:23 20/10/2026 (UTC+07:00)
+
+- Công cụ: OpenAI Codex
+- Model: gpt-6.1-sol
+
+```text
+Mình sẽ dùng skill `skill-creator` để cập nhật `test-execution-reporting`: thêm chặng tạo/cập nhật GitHub Issues, kiểm tra ảnh bug trong issue, chụp trang issue thật làm bằng chứng và ghi URL vào report. Mình sẽ đồng bộ bản local và bản trong repo; lượt này chỉ sửa skill.
+```
+
+<a id="msg-7b6ce7b445a761db34aa"></a>
+
+#### Phản hồi 2 — 13:38:50 20/10/2026 (UTC+07:00)
+
+- Công cụ: OpenAI Codex
+- Model: gpt-6.1-sol
+
+```text
+Skill hiện có nhắc GitHub nhưng chưa đưa việc đăng issue và chụp trang issue vào điều kiện hoàn tất. Mình sẽ bổ sung rõ hai loại bằng chứng: ảnh lỗi từ SUT đính trong issue, và ảnh trang issue đã đăng để đối chiếu trong report.
+```
+
+<a id="msg-84bea6b5329eb2a416db"></a>
+
+#### Phản hồi 3 — 13:40:20 20/10/2026 (UTC+07:00)
+
+- Công cụ: OpenAI Codex
+- Model: gpt-6.1-sol
+
+```text
+Đã cập nhật [test-execution-reporting](C:/Users/DELL/.codex/skills/test-execution-reporting/SKILL.md):
+
+- Tạo/cập nhật GitHub Issues khi thuộc phạm vi được giao.
+- Kiểm tra nội dung và ảnh lỗi hiển thị trong issue.
+- Với HW02, bắt buộc chụp trang issue đã đăng, lưu JPG và dẫn ảnh cùng URL, thời gian chụp vào report.
+- Thiếu ảnh trang issue thì chưa được coi là hoàn tất phần Issues.
+
+Bản local và bản trong repo đã đồng bộ, kiểm tra hợp lệ. Lượt này chỉ sửa skill, chưa đăng issue.
+```
+
+<a id="msg-f3b061c972ae96d0c800"></a>
+
+## P-029
+
+- Timestamp: 13:42:05 20/10/2026 (UTC+07:00)
+- Công cụ: OpenAI Codex
+- Model: gpt-6.1-sol
+
+### Prompt
+
+```text
+thử dùng skill [$test-execution-reporting](C:\Users\DELL\\.codex\skills\test-execution-reporting\SKILL.md) để update issue của mobile lên github và chụp log / img jpg lưu bằng chứng
+```
+
+<a id="msg-76812adb010d77b655c8"></a>
+
+### Output
+
+#### Phản hồi 1 — 13:42:09 20/10/2026 (UTC+07:00)
+
+- Công cụ: OpenAI Codex
+- Model: gpt-6.1-sol
+
+```text
+Mình sẽ dùng `test-execution-reporting` để đưa các bug Mobile đã ghi nhận lên GitHub, kiểm tra ảnh lỗi trong từng issue, chụp trang issue thành JPG và cập nhật bằng chứng vào report. Mình sẽ dùng kết quả chạy hiện có, không chạy lại Mobile.
+```
+
+<a id="msg-8245dc1c1c319a0836c0"></a>
+
+#### Phản hồi 2 — 13:43:15 20/10/2026 (UTC+07:00)
+
+- Công cụ: OpenAI Codex
+- Model: gpt-6.1-sol
+
+```text
+Repository `tranquocvy/eshop-sut` hiện chưa có issue và tài khoản đang có quyền đăng. Mình sẽ đăng 8 nhóm phát hiện theo report: 4 lỗi requirement và 4 sai khác quy ước S7 đã duyệt, ghi rõ phân loại để tránh hiểu cả 8 là lỗi đặc tả.
+```
+
+<a id="msg-f43e163b61f38fd5edfd"></a>
+
+#### Phản hồi 3 — 13:46:04 20/10/2026 (UTC+07:00)
+
+- Công cụ: OpenAI Codex
+- Model: gpt-6.1-sol
+
+```text
+Đã đăng đủ 8 issue, từ #1 đến #8. Các ảnh lỗi dùng URL cố định tới file JPG đã có trong repo; mình đang mở từng issue để kiểm tra ảnh tải được và lưu ảnh trang GitHub cùng thời gian chụp.
+```
+
+<a id="msg-031c42b3f9df11ac75ce"></a>
+
+#### Phản hồi 4 — 13:47:45 20/10/2026 (UTC+07:00)
+
+- Công cụ: OpenAI Codex
+- Model: gpt-6.1-sol
+
+```text
+Đã kiểm tra ảnh trên cả 8 issue và lưu 8 JPG trang issue, cùng 1 ảnh tổng quan danh sách. Mình đang bổ sung URL, thời gian đăng/chụp và log kiểm tra vào `report.md` và `results.json`; kết quả 54 TC giữ nguyên.
+```
+
+<a id="msg-8d08c3d1ae7f41f5e752"></a>
+
+#### Phản hồi 5 — 13:48:59 20/10/2026 (UTC+07:00)
+
+- Công cụ: OpenAI Codex
+- Model: gpt-6.1-sol
+
+```text
+Đã đăng đủ [8 GitHub Issues Mobile (#1–#8)](https://github.com/tranquocvy/eshop-sut/issues): 4 lỗi requirement và 4 sai khác S7, có phân loại rõ.
+
+- Lưu **8 JPG trang issue + 1 JPG tổng quan**.
+- [Report](D:/Workspace/SoftwareTesting/HW02/eshop-sut/tests/hw02/mobile-registration/report.md) đã có URL, ảnh và thời gian chụp.
+- [results.json](D:/Workspace/SoftwareTesting/HW02/eshop-sut/tests/hw02/mobile-registration/results.json) lưu log đăng và xác minh.
+
+Đã kiểm tra ảnh hiển thị trên cả 8 issue. Giữ nguyên kết quả 54 TC; chưa commit/push.
+
+![Danh sách 8 GitHub Issues Mobile](D:/Workspace/SoftwareTesting/HW02/eshop-sut/tests/hw02/mobile-registration/images/MR-GitHub-issues.jpg)
+```
+
+<a id="msg-335afed53aaee172819f"></a>
+
+## P-030
+
+- Timestamp: 13:51:16 20/10/2026 (UTC+07:00)
+- Công cụ: OpenAI Codex
+- Model: gpt-6.1-sol
+
+### Prompt
+
+```text
+update skill, với mỗi test đượ chạy, ở report phải link tới log hoặc img báo cáo, hiện tại chỉ có bug báo cáo thôi
+```
+
+<a id="msg-f8f27246e6e1c07ba030"></a>
+
+### Output
+
+#### Phản hồi 1 — 13:51:26 20/10/2026 (UTC+07:00)
+
+- Công cụ: OpenAI Codex
+- Model: gpt-6.1-sol
+
+```text
+Mình sẽ cập nhật skill để mỗi TC đã chạy có link evidence ngay tại dòng kết quả trong report. TC pass có thể dẫn tới log/assertion trong kết quả chung, không bắt chụp thêm ảnh; các TC fail vẫn có link bug và bằng chứng tương ứng.
+```
+
+<a id="msg-ee3b7d691d15d68959c0"></a>
+
+#### Phản hồi 2 — 13:52:43 20/10/2026 (UTC+07:00)
+
+- Công cụ: OpenAI Codex
+- Model: gpt-6.1-sol
+
+```text
+Đã cập nhật [skill](C:/Users/DELL/.codex/skills/test-execution-reporting/SKILL.md) và template report:
+
+- Mỗi TC đã chạy, **kể cả pass**, phải có link log/assertion hoặc JPG ngay trong dòng kết quả.
+- Evidence phải đúng TC/run; chỉ link bug hoặc results chung ở đầu report chưa đủ.
+- Không bắt chụp ảnh cho mọi TC nếu đã có log.
+
+Bản local và repo đã đồng bộ, kiểm tra hợp lệ. Lượt này chỉ sửa skill, chưa sửa report Mobile.
+```

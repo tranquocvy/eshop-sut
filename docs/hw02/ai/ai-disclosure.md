@@ -74,13 +74,13 @@ Với mỗi tính năng đã chọn, thực hiện các nhiệm vụ sau:
 oke tiếp tục dùng skill để tiếp tục chạy test `$test-execution-reporting`
 ```
 
-Các lượt còn lại được ghi trong [Prompt Log](23120410_HW02_PromptLog.md), gồm 27 mục P-000–P-026 theo phạm vi được giao. P-008–P-014 là thiết kế/review, P-015 triển khai code; P-016–P-023 là execution, review flow/evidence và sửa skill/report. [P-024](23120410_HW02_PromptLog.md#msg-2642f1f9f300cb746a59)–[P-026](23120410_HW02_PromptLog.md#msg-7614bb5c1dae4235dc44) là ba lượt sinh, rà lại và bổ sung bộ thiết kế Category Management. Đây chưa phải toàn bộ lịch sử dùng AI của HW02.
+Các lượt còn lại được ghi trong [Prompt Log](23120410_HW02_PromptLog.md), gồm 31 mục P-000–P-030 theo phạm vi được giao. P-008–P-014 là thiết kế/review, P-015 triển khai code; P-016–P-023 là execution, review flow/evidence và sửa skill/report. [P-024](23120410_HW02_PromptLog.md#msg-2642f1f9f300cb746a59)–[P-026](23120410_HW02_PromptLog.md#msg-7614bb5c1dae4235dc44) là ba lượt sinh, rà lại và bổ sung bộ thiết kế Category Management. P-027–P-030 là bốn lượt kiểm tra thiếu Issues Mobile, sửa skill, đăng/chụp issue và bổ sung yêu cầu link evidence từng TC. Các lượt sửa report/commit tiếp theo không được đưa vào phạm vi log lần này. Đây chưa phải toàn bộ lịch sử dùng AI của HW02.
 
 ### 4. Phần cụ thể AI đóng góp
 
 Codex xây và sửa ba skill `course-ai-log`, `domain-bva-testing`, `test-execution-reporting`, cùng template và helper. Với Mobile Registration, Codex đọc FR-01/FR-20, lập mô hình miền, chọn điểm BVA và viết hai tài liệu thiết kế; sau review của tôi, bộ test từ 46 lên 54 TC, có 37 mục tiêu miền và 18 boundary items. Codex triển khai catalogue/runner từ hai tài liệu đã duyệt; bước implementation ban đầu chỉ kiểm tra tĩnh.
 
-Trong execution, Codex thao tác trên Android native, dùng SQLite chỉ đọc làm oracle phụ trợ, sửa các lỗi harness và đối chiếu actual với expected. Codex còn thu gọn skill và output theo góp ý của tôi: một nguồn results.json, report Markdown dễ đọc và JPG cần thiết. Kết quả cuối có 35 pass, 15 fail và bốn blocked do thiếu Confirmation; tám nhóm phát hiện gồm bốn vi phạm requirement và bốn sai khác S7. Report/results và history không được dùng để nhận đã đăng GitHub Issues.
+Trong execution, Codex thao tác trên Android native, dùng SQLite chỉ đọc làm oracle phụ trợ, sửa các lỗi harness và đối chiếu actual với expected. Codex còn thu gọn skill và output theo góp ý của tôi: một nguồn results.json, report Markdown dễ đọc và JPG cần thiết. Kết quả cuối có 35 pass, 15 fail và bốn blocked do thiếu Confirmation; tám nhóm phát hiện gồm bốn vi phạm requirement và bốn sai khác S7. Ở bản report trước, GitHub Issues chưa được đăng. Sau khi tôi phát hiện và giao bổ sung tại P-027–P-029, Codex đăng tám issue, kiểm tra 14 ảnh SUT hiển thị và lưu tám JPG trang issue cùng một JPG danh sách; URL, thời gian và log thao tác nằm trong report/results. Việc này dùng kết quả cũ, không chạy lại SUT. Ở P-030, Codex cập nhật skill để mỗi TC đã chạy có link log/ảnh đúng TC/run, kể cả pass; lượt đó chưa sửa report Mobile.
 
 Với T03 Category Management, Codex dùng skill `domain-bva-testing` đọc FR-14/FR-12 và API, tạo `design.md`, `test-cases.md` ban đầu có 24 TC. Sau yêu cầu bổ sung của tôi, Codex thêm TC25–33, cập nhật TC10 và truy vết thành 33 TC, 19 mục tiêu miền, 6 BVA items theo lớp Web/API. Hai file đã được lưu tại commit `b84417b`; toàn bộ TC Category vẫn Not Run.
 
@@ -93,6 +93,8 @@ Khi bắt đầu execution, tôi yêu cầu dừng để xem flow, nhận thấy
 Tôi đã kiểm tra hai file report/results rồi yêu cầu commit riêng runner và report. Báo cáo giữ rõ 50 TC được đánh giá, bốn TC Confirmation bị chặn; coverage exercise không đồng nghĩa tỷ lệ pass. Các kiểm tra tĩnh ban đầu và việc tôi đọc tài liệu được phân biệt với thao tác chạy native do Codex thực hiện. Chi tiết và các phiên bản nằm trong AI Audit Report.
 
 Với Category, tôi đã đọc bộ 24 TC và hỏi lại liệu đã đủ theo đặc tả và lý thuyết Domain/BVA. Sau phần rà soát của Codex, tôi yêu cầu thêm tên dài 1/2 ký tự ở API, token bị sửa payload/chữ ký trên các phương thức thay đổi dữ liệu và mở lại Admin từ token user đã lưu. Codex thực hiện sửa file, giữ bản đầu và diff; tôi đọc hai file hoàn thiện rồi yêu cầu commit. Việc review thiết kế này không phải xác nhận kết quả chạy Category.
+
+Tôi đã kiểm tra GitHub và nhận thấy Mobile chưa có issue, rồi yêu cầu bổ sung vào skill cùng ảnh trang issue theo đề. Tôi tiếp tục giao Codex đăng các phát hiện và yêu cầu skill bắt link log/ảnh cho từng TC. Codex thực hiện đăng, mở lại issue để kiểm tra ảnh và lưu bằng chứng; đây là thao tác của Codex theo yêu cầu của tôi. Mốc file `e1fe254` còn có các sửa report sau P-030; các lượt đó không nằm trong bốn prompt được chọn lần này. Xem [A-02/A-05 và phiên bản đối chiếu](artifacts.md).
 
 ### 6. Trích dẫn
 
@@ -111,6 +113,8 @@ Với Category, tôi đã đọc bộ 24 TC và hỏi lại liệu đã đủ th
 [7] Mobile Registration, [report/kết quả runtime và evidence](https://github.com/tranquocvy/eshop-sut/blob/62e34ecbcce65a8c803625ca8d210dfd9176dbbe/tests/hw02/mobile-registration/report.md), commit `62e34ec`; skill execution/reporting [bản gọn](https://github.com/tranquocvy/eshop-sut/blob/cbf1ba939c9a0b41281ccc1f053096ee60035897/skills/test-execution-reporting/SKILL.md), commit `cbf1ba9`.
 
 [8] Category Management, [thiết kế và TC trước/sau bổ sung — A-06](artifacts.md#a-06--thiết-kế-category-management), v0.2 tại commit `b84417b`; test basis EShop FR-14/FR-12 và API §3.4. Ba prompt gốc ở P-024–P-026.
+
+[9] Mobile Issues và quy tắc evidence, P-027–P-030 trong [Prompt Log](23120410_HW02_PromptLog.md#msg-36be906c669996d7cbf9); [GitHub Issues](https://github.com/tranquocvy/eshop-sut/issues), [report/log/bằng chứng hiện hành](../../../tests/hw02/mobile-registration/report.md), mốc local `e1fe254`.
 
 ## 3. Cam đoan trung thực
 

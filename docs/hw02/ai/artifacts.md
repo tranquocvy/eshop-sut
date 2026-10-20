@@ -18,6 +18,8 @@ Output ban đầu và bản sửa được trích nguyên văn trong audit, mụ
 - [Bản thu gọn — cbf1ba9](https://github.com/tranquocvy/eshop-sut/tree/cbf1ba939c9a0b41281ccc1f053096ee60035897/skills/test-execution-reporting).
 - [Thay đổi giữa hai mốc](https://github.com/tranquocvy/eshop-sut/compare/8018b73e9e0d9066efdb1ffe3512303e033a6cb4...cbf1ba939c9a0b41281ccc1f053096ee60035897); [kết quả kiểm tra helper](verification/design-execution-helpers.txt).
 
+- Bổ sung GitHub/evidence theo P-027/P-028/P-030, đã lưu tại **commit local `e1fe254040122e449ff184412853f9a8a0d72059`**: [SKILL.md](../../../skills/test-execution-reporting/SKILL.md), [quy trình GitHub](../../../skills/test-execution-reporting/references/execution-and-bugs.md), [report contract](../../../skills/test-execution-reporting/references/report-contract.md), [evidence](../../../skills/test-execution-reporting/references/evidence.md), [template](../../../skills/test-execution-reporting/assets/feature-report.template.md). Bản trước thay đổi nằm tại commit `6631d92`; không sao chép thêm toàn bộ skill vào hồ sơ AI. P-030 chỉ sửa hướng dẫn, chưa áp dụng lại lên report.
+
 ## A-03 — Thiết kế Mobile Account Registration
 
 - AI đầu v0.1, 46 TC: [design nguyên văn](history/mobile-registration-v0.1-design.md.txt), [TC nguyên văn](history/mobile-registration-v0.1-test-cases.md.txt).
@@ -33,6 +35,10 @@ Output ban đầu và bản sửa được trích nguyên văn trong audit, mụ
 - [Kết quả run đầu chưa từng commit](history/mobile-initial-results.json): 18 pass, 9 fail, một blocked; TC29 dở dang.
 - [Report](https://github.com/tranquocvy/eshop-sut/blob/62e34ecbcce65a8c803625ca8d210dfd9176dbbe/tests/hw02/mobile-registration/report.md), [results](https://github.com/tranquocvy/eshop-sut/blob/62e34ecbcce65a8c803625ca8d210dfd9176dbbe/tests/hw02/mobile-registration/results.json) và [ảnh](https://github.com/tranquocvy/eshop-sut/tree/62e34ecbcce65a8c803625ca8d210dfd9176dbbe/tests/hw02/mobile-registration/images) tại `62e34ec`: 35 pass, 15 fail, bốn blocked.
 - [Thay đổi từ implementation tới harness đã sửa](https://github.com/tranquocvy/eshop-sut/compare/b8b1d2b18203a0ebf0a24352890da1e80fc0d5fc...b1c122bd0f00bc982d19093abad0776f0434d04e).
+
+- Bản trước bổ sung Issues (`62e34ec`) được đánh giá **INCOMPLETE** về phần hồ sơ GitHub theo §6.4/§14, dù kết quả execution vẫn được giữ. P-029 đã bổ sung **8 issue, 14 ảnh lỗi hiển thị và 9 JPG trang/danh sách issue**, không chạy lại SUT.
+- Mốc bổ sung file đã commit local `e1fe254040122e449ff184412853f9a8a0d72059`: [report](../../../tests/hw02/mobile-registration/report.md), [results/log thao tác](../../../tests/hw02/mobile-registration/results.json), [ảnh tổng quan](../../../tests/hw02/mobile-registration/images/MR-GitHub-issues.jpg). Tám ảnh riêng có tên `MR-BUG01-issue.jpg` đến `MR-BUG08-issue.jpg`, được dẫn trong từng bug của report. File mốc này còn có các sửa report sau bốn lượt được chọn; không gán những sửa đó cho P-029/P-030.
+- Đăng trên tracker: [#1](https://github.com/tranquocvy/eshop-sut/issues/1), [#2](https://github.com/tranquocvy/eshop-sut/issues/2), [#3](https://github.com/tranquocvy/eshop-sut/issues/3), [#4](https://github.com/tranquocvy/eshop-sut/issues/4), [#5](https://github.com/tranquocvy/eshop-sut/issues/5), [#6](https://github.com/tranquocvy/eshop-sut/issues/6), [#7](https://github.com/tranquocvy/eshop-sut/issues/7), [#8](https://github.com/tranquocvy/eshop-sut/issues/8). MR-BUG05–08 ghi rõ sai khác S7. Dùng link tương đối cho các file commit local, không mặc định commit đã được push lên GitHub.
 
 ## A-06 — Thiết kế Category Management
 
