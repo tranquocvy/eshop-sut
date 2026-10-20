@@ -1901,3 +1901,71 @@ Không sửa SUT, chưa commit/push.
 
 ![Ba issue T03](D:/Workspace/SoftwareTesting/HW02/eshop-sut/tests/hw02/fr14-categories/images/CAT-GitHub-issues.jpg)
 ```
+
+Phạm vi: Một lượt sinh thiết kế Domain/BVA T04 FR-07 được chỉ định, gồm prompt và toàn bộ phản hồi tiến độ/kết quả. Lời xác nhận review chỉ dùng làm căn cứ artifact; không thêm lượt hỏi done, commit hoặc ghi log thành prompt.
+
+<a id="msg-fbcf3eb8ed26537524e3"></a>
+
+## P-033
+
+- Timestamp: 15:28:20 20/10/2026 (UTC+07:00)
+- Công cụ: OpenAI Codex
+
+### Prompt
+
+```text
+dùng [$domain-bva-testing](C:\Users\DELL\\.codex\skills\domain-bva-testing\SKILL.md) để làm \*\***T04 — FR-07: Shopping Cart (25 điểm)**\*\* | Lặp chu trình cho thêm/gộp sản phẩm, số lượng, giá trị hiển thị, xóa và giỏ trống. | Đủ sản phẩm như T02; có dữ liệu cố định để kiểm tra số lượng/số học, kiểm chứng trên Web; API bổ trợ được ghi riêng. Khuyến khi thêm tc để phủ đầy các trường hợp, không cần lượt bỏ vì đặc tả không đủ
+```
+
+<a id="msg-771523c1004a1f1fbe83"></a>
+
+### Output
+
+#### Phản hồi 1 — 15:28:24 20/10/2026 (UTC+07:00)
+
+- Công cụ: OpenAI Codex
+
+```text
+Mình sẽ dùng skill **domain-bva-testing**, đọc đề FR-07, dữ liệu T02 và tài liệu hiện có để thiết kế bộ Domain/BVA cho giỏ hàng. Mình sẽ bổ sung các ca có giá trị phủ, ghi rõ oracle giả định và tách ca Web với API bổ trợ; lượt này dừng ở thiết kế TC theo phạm vi skill.
+```
+
+<a id="msg-55cd98fef8de66c2c4d3"></a>
+
+#### Phản hồi 2 — 15:28:53 20/10/2026 (UTC+07:00)
+
+- Công cụ: OpenAI Codex
+
+```text
+FR-07 yêu cầu gộp sản phẩm cùng ID, có nút +/−, xác nhận trước khi xóa và nhãn “Tổng cộng”. FR-06 quy định số lượng là số nguyên dương, tối thiểu 1; chưa có giới hạn tối đa.
+
+Đọc source cho thấy giỏ Web và API dùng hai trạng thái riêng. Mình sẽ giữ thao tác và quan sát Web làm lớp chính, thiết kế dữ liệu số học cố định, rồi bổ sung các ca nhập sai, thao tác liên tiếp và thay đổi trạng thái giỏ. Đây mới là căn cứ chọn TC, chưa phải kết quả chạy hay kết luận lỗi.
+```
+
+<a id="msg-698f214099f939915aa6"></a>
+
+#### Phản hồi 3 — 15:32:18 20/10/2026 (UTC+07:00)
+
+- Công cụ: OpenAI Codex
+
+```text
+Bản thiết kế đã có **34 TC Web và 14 TC API bổ trợ**, dùng cả năm sản phẩm seed và các phép tính cố định để đối chiếu. Các ca bổ sung gồm cùng tên khác ID, xóa dòng giữa/dòng cuối, phục hồi sau nhập sai, thao tác nhanh và số lượng lớn.
+
+Mình đang rà lần cuối ID, phép tính và truy vết. Các kỳ vọng chưa được đặc tả xác nhận—như giữ giỏ sau reload hay validation nghiệp vụ API—đã được ghi riêng là giả định hoặc khảo sát.
+```
+
+<a id="msg-82551215016c76b67448"></a>
+
+#### Phản hồi 4 — 15:32:30 20/10/2026 (UTC+07:00)
+
+- Công cụ: OpenAI Codex
+
+```text
+Đã tạo bộ thiết kế T04 — FR-07 gồm **48 TC: 34 Web và 14 API bổ trợ**:
+
+- [Thiết kế Domain/BVA](D:/Workspace/SoftwareTesting/HW02/eshop-sut/tests/hw02/fr07-cart/design.md)
+- [Bộ test case](D:/Workspace/SoftwareTesting/HW02/eshop-sut/tests/hw02/fr07-cart/test-cases.md)
+
+Phủ thêm/gộp, số lượng, số học, hiển thị, xác nhận xóa và giỏ trống; có dữ liệu cố định và ca mở rộng. Oracle giả định được ghi riêng.
+
+Đã kiểm tra đủ 48 ID duy nhất. **Tất cả Not Run**; theo skill được gọi, lượt này dừng ở thiết kế, chưa thực thi Web hay lập báo cáo kết quả.
+```

@@ -62,3 +62,11 @@ Các file `.md.txt` giữ nguyên byte của output Markdown ban đầu; phần 
 - Ba bug: [#9 — tên rỗng/thiếu/null](https://github.com/tranquocvy/eshop-sut/issues/9), [#10 — user JWT được POST/PUT/DELETE](https://github.com/tranquocvy/eshop-sut/issues/10), [#11 — Admin khôi phục phiên từ user token](https://github.com/tranquocvy/eshop-sut/issues/11). Log tạo/xác minh/chụp trong `bugs[].github_activity`; ảnh SUT và ảnh trang issue là hai loại bằng chứng riêng.
 - Giữ cảnh báo teardown `Target closed` của RUN01 và thay đổi harness trước RUN02; không tự retry mutation hoặc đổi verdict để làm xanh. Coverage exercise 7/7 rule, 19/19 mục tiêu miền, 6/6 BVA items chỉ áp dụng inventory đã duyệt; PUT mới kiểm tra quyền, không nhận đã kiểm thử nghiệp vụ Update đầy đủ.
 - Sinh viên đã nói “tôi đã kiểm tra report rồi, commit cho t03 đi”; dùng làm căn cứ review report và mốc commit, không thêm lượt này vào hai prompt được chọn ghi log. Không mặc định mốc local đã push lên GitHub.
+
+## A-09 — Thiết kế T04 Shopping Cart
+
+- [P-033](23120410_HW02_PromptLog.md#msg-fbcf3eb8ed26537524e3) giữ nguyên prompt và đủ bốn phản hồi AI ngày 20/10/2026, 15:28:20–15:32:30 (UTC+7).
+- AI đầu v0.1: [design nguyên văn](history/cart-v0.1-design.md.txt), [TC nguyên văn](history/cart-v0.1-test-cases.md.txt). Bản sao giữ byte đầu ra trước cập nhật trạng thái review.
+- Hai file đã được Vỹ đọc và xác nhận, commit local `475165e35a7c13988abf86bc10a988ab7a6b34f1`: [design](../../../tests/hw02/fr07-cart/design.md), [test cases](../../../tests/hw02/fr07-cart/test-cases.md). Chỉ sửa ghi chú review; 48 TC và expected giữ nguyên. Chưa mặc định commit đã push.
+- 34 TC Web và 14 TC API bổ trợ; cả năm sản phẩm seed, phép tính cố định, 16 mục tiêu miền, bốn inventory biên tách requirement/assumption. Tất cả Not Run; không có kết quả kiểm chứng Web/API trong artifact này.
+- Căn cứ review lúc 15:35:30 (UTC+7): “tôi đã đọc và xác nhận các tc hiện có. Tôi không thấy mục nào cần tôi verify, done?” Lời này không được thêm thành prompt mới ngoài phạm vi P-033; không suy thành đã chạy test hoặc xác nhận mọi giả định là requirement.

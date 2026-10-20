@@ -8,7 +8,7 @@
 
 *Biểu mẫu được FIT@HCMUS điều chỉnh từ Med Kharbach, PhD (2026), AI Use Policy Templates for Higher Education. Giấy phép CC BY-NC-SA 4.0.*
 
-> Bản nháp khai báo việc xây/sửa ba skill, thiết kế, triển khai, thực thi và báo cáo Mobile Account Registration, cùng thiết kế/review, implementation và execution/report Category Management; tiếp tục bổ sung theo tiến độ HW02.
+> Bản nháp khai báo việc xây/sửa ba skill, thiết kế, triển khai, thực thi và báo cáo Mobile Account Registration, cùng thiết kế/review, implementation và execution/report Category Management, và thiết kế/review Shopping Cart; tiếp tục bổ sung theo tiến độ HW02.
 
 ## 1. Thông tin môn học và sinh viên
 
@@ -32,7 +32,7 @@ OpenAI Codex, model gpt-6.1-sol.
 ### 2. Giai đoạn nào của bài tập có dùng AI
 
 - [x] Outline: tổ chức quy trình AI log, thiết kế test và thực thi/báo cáo.
-- [x] Viết nháp: hướng dẫn skill, quy cách biểu mẫu, bộ thiết kế Domain/BVA và TC Mobile Registration, Category Management.
+- [x] Viết nháp: hướng dẫn skill, quy cách biểu mẫu, bộ thiết kế Domain/BVA và TC Mobile Registration, Category Management, Shopping Cart.
 - [x] Phản hồi: đối chiếu HW01, giải thích Domain/BVA, cách đọc bộ test và ranh giới giữa đặc tả với giả định.
 - [x] Sửa chữa: cải thiện log, tách hai skill kỹ thuật, cập nhật thiết kế và thu gọn skill/evidence/report; sửa lỗi harness khi execution.
 - [x] Code: helper đồng bộ log, tính điểm biên, xuất JPG, các kiểm tra helper và bộ code triển khai 54 TC Mobile Registration và 33 TC Category Management.
@@ -84,6 +84,8 @@ Trong execution, Codex thao tác trên Android native, dùng SQLite chỉ đọc
 
 Với T03 Category Management, Codex dùng skill `domain-bva-testing` đọc FR-14/FR-12 và API, tạo `design.md`, `test-cases.md` ban đầu có 24 TC. Sau yêu cầu bổ sung của tôi, Codex thêm TC25–33, cập nhật TC10 và truy vết thành 33 TC, 19 mục tiêu miền, 6 BVA items theo lớp Web/API. Hai file đã được lưu tại commit `b84417b`; đó là trạng thái thiết kế trước execution. Theo [P-031](23120410_HW02_PromptLog.md#msg-078e737e05a56044cac5), Codex triển khai runner/catalogue 33 TC và kiểm tra tĩnh, chưa chạy SUT ở lượt đầu. Theo [P-032](23120410_HW02_PromptLog.md#msg-ecff2281e0534402997b), Codex chạy 12 TC Web/21 TC API trong runtime riêng, ghi 25 pass, 8 fail, 0 blocked và 0 not_run; hoàn thiện report có log cho từng TC, đăng ba issue #9–#11 và lưu 8 JPG actual + 3 JPG trang issue + 1 JPG danh sách. Các sửa harness và bản implementation ban đầu được giữ tại [A-07/A-08](artifacts.md#a-07--code-test-t03-category-management).
 
+Với T04 Shopping Cart, tôi dùng skill `domain-bva-testing` ở [P-033](23120410_HW02_PromptLog.md#msg-fbcf3eb8ed26537524e3). Codex tạo thiết kế và 48 TC (34 Web, 14 API bổ trợ), dùng năm sản phẩm seed cùng số học cố định; tách rule FR-07/FR-06 với oracle giả định và khảo sát. Các file có mô hình miền, inventory biên, dữ liệu và expected, chưa có kết quả chạy. Xem [A-09](artifacts.md#a-09--thiết-kế-t04-shopping-cart).
+
 ### 5. Cách tôi rà soát / chỉnh sửa / xác minh đầu ra AI
 
 Tôi đã đọc output AI log, cung cấp HW01 để đối chiếu và yêu cầu sửa thành skill dùng chung. Tôi đề xuất tách thiết kế khỏi execution/reporting để sinh TC nhanh, yêu cầu evidence rõ và JPG theo task. Với bộ TC Mobile, tôi hỏi lại lý thuyết/cách đọc và review tên, whitespace, case email, trim, special và Unicode code point; Codex cập nhật thiết kế theo các ý kiến này. Ở bước implementation, tôi giữ nguyên output vì dựa trên hai tài liệu đã duyệt.
@@ -97,6 +99,8 @@ Với Category, tôi đã đọc bộ 24 TC và hỏi lại liệu đã đủ th
 Tôi đã kiểm tra GitHub và nhận thấy Mobile chưa có issue, rồi yêu cầu bổ sung vào skill cùng ảnh trang issue theo đề. Tôi tiếp tục giao Codex đăng các phát hiện và yêu cầu skill bắt link log/ảnh cho từng TC. Codex thực hiện đăng, mở lại issue để kiểm tra ảnh và lưu bằng chứng; đây là thao tác của Codex theo yêu cầu của tôi. Mốc file `e1fe254` còn có các sửa report sau P-030; các lượt đó không nằm trong bốn prompt được chọn lần này. Xem [A-02/A-05 và phiên bản đối chiếu](artifacts.md).
 
 Với execution Category, tôi đã kiểm tra report rồi yêu cầu commit. Việc thao tác Web/API, đối chiếu DB, sửa harness, đăng issue và chụp bằng chứng do Codex thực hiện. Hai lượt được chọn ghi log lần này là implementation và execution/report; lời xác nhận review được dùng làm căn cứ, không thêm thành prompt mới. Kết quả T03 tại commit local `94fd43c`; chưa coi việc đọc report là xác nhận sinh viên tự chạy hoặc kiểm tra từng assertion.
+
+Với Shopping Cart, tôi đã đọc và xác nhận các TC hiện có, sau đó yêu cầu commit hai file. Codex giữ nguyên nội dung 48 TC, chỉ cập nhật ghi chú review. Đây là xác nhận bộ thiết kế; không phải xác nhận đã kiểm chứng Web/API hoặc mọi giả định là requirement.
 
 ### 6. Trích dẫn
 
@@ -119,6 +123,8 @@ Với execution Category, tôi đã kiểm tra report rồi yêu cầu commit. V
 [9] Mobile Issues và quy tắc evidence, P-027–P-030 trong [Prompt Log](23120410_HW02_PromptLog.md#msg-36be906c669996d7cbf9); [GitHub Issues](https://github.com/tranquocvy/eshop-sut/issues), [report/log/bằng chứng hiện hành](../../../tests/hw02/mobile-registration/report.md), mốc local `e1fe254`.
 
 [10] T03 implementation/execution, [P-031](23120410_HW02_PromptLog.md#msg-078e737e05a56044cac5) và [P-032](23120410_HW02_PromptLog.md#msg-ecff2281e0534402997b); [artifact A-07/A-08](artifacts.md#a-07--code-test-t03-category-management), report/results và ảnh tại commit local `94fd43c`.
+
+[11] Shopping Cart, [P-033](23120410_HW02_PromptLog.md#msg-fbcf3eb8ed26537524e3), [A-09 và hai phiên bản thiết kế](artifacts.md#a-09--thiết-kế-t04-shopping-cart); FR-07/FR-06 và đề HW02 §6.1–6.2.
 
 ## 3. Cam đoan trung thực
 
