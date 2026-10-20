@@ -1,6 +1,6 @@
 ---
 name: domain-bva-testing
-description: Sinh và rà soát test case từ đặc tả bằng Domain Testing và Boundary Value Analysis. Dùng khi cần thiết kế TC, phân tích miền hoặc chọn giá trị biên cho Web, API hay Mobile; kết thúc ở bộ test, không thực thi SUT hay lập báo cáo kết quả.
+description: Sinh và rà soát test case bằng Domain Testing và Boundary Value Analysis, chủ động bổ sung ca để tăng coverage của feature. Dùng khi cần thiết kế TC, phân tích miền hoặc chọn giá trị biên cho Web, API hay Mobile; kết thúc ở bộ test, không thực thi SUT hay lập báo cáo kết quả.
 ---
 
 # Domain Testing + BVA — thiết kế và sinh test case
@@ -20,6 +20,8 @@ Xác định từ task, nguồn hiện có hoặc hỏi đúng phần thiếu:
 
 Đọc đặc tả/bài giảng được cung cấp và phần source thực sự liên quan; không quét toàn repo khi đã đủ test basis. Gặp thiếu nguồn thì tiếp tục phần thiết kế có căn cứ, đánh dấu giả định/câu hỏi đúng chỗ. Thiếu môi trường chạy không chặn thiết kế test.
 
+Đề HW02 §6.1–6.2 **khuyến khích bổ sung TC để tăng độ bao phủ**. Theo quyền chủ động người dùng đã giao, tự quyết định thêm các ca có giá trị cho feature ngay trong lượt thiết kế, **kể cả ca ngoài những điều được đặc tả viết rõ; không chờ người dùng rà rồi chỉ ra từng ca hoặc duyệt từng bổ sung**. Giữ kỹ thuật/lớp mục tiêu và giới hạn feature được giao. Xem [quy cách ca bổ sung](references/test-case-contract.md#ca-bổ-sung-để-tăng-coverage) để ghi lý do và oracle minh bạch.
+
 Khi yêu cầu “sinh TC nhanh”, trả bảng TC và các giả định/lý do chọn dữ liệu cần thiết; không dựng một báo cáo feature đầy đủ. Khi bài yêu cầu giải thích từng bước, trình bày thêm mô hình miền, inventory biên và coverage theo [quy cách bộ test](references/test-case-contract.md). Cả hai cách đều kết thúc ở thiết kế. Chỉ sinh TC cho kỹ thuật được giao; yêu cầu chỉ BVA có thể cần xác định miền nền nhưng không bắt buộc sinh thêm bộ TC Domain riêng.
 
 Khi task cần giải thích phương pháp, nêu `method_profile` trong phần mô tả thiết kế:
@@ -36,6 +38,8 @@ Khi task cần giải thích phương pháp, nêu `method_profile` trong phần 
 ### 0. Test basis và bản thiết kế ban đầu
 
 Đọc đặc tả trước, dùng source để tìm luồng/điểm quan sát và nghi vấn, không dùng lỗi implementation làm expected. Lập rule IDs và nguồn; tách **confirmed**, **assumption**, **unresolved**. Các giả định chưa xác nhận không dùng để kết luận bug chắc chắn.
+
+Thiếu rule viết rõ không tự động loại một ca hữu ích khỏi bộ test. Có thể tự chọn expected tạm thời hợp lý cho ca bổ sung, ghi rõ **assumption/quy ước đề xuất**, lý do và phạm vi áp dụng; không cần chờ người dùng chốt mới thiết kế. Không để expected này mâu thuẫn requirement đã xác nhận hoặc trình bày như yêu cầu có sẵn trong đề. Nếu chưa có cơ sở chọn oracle, giữ ca như mục tiêu khảo sát và nêu điều cần quan sát, không bịa verdict hoặc tính nó là coverage đã xác minh.
 
 Xác định biến dữ liệu, biến trạng thái/thời gian cần thiết, đơn vị đo và điều kiện trước. Phân biệt yêu cầu nghiệp vụ với giới hạn biểu diễn, giới hạn UI và dữ liệu seed. Khi cần theo dõi AI gaps về sau, giữ bản thiết kế đầu qua phiên bản file hoặc nguồn hội thoại hiện có; không bắt buộc tạo báo cáo/snapshot riêng cho mọi lượt sinh TC nhanh.
 
@@ -62,6 +66,8 @@ Giữ phần diễn giải BVA riêng với Domain Testing dù một TC có th�
 ### 3. Kiểm tra và hoàn thiện thiết kế
 
 Đối chiếu từng rule/miền/biên với TC: dữ liệu và expected có nguồn, đúng dấu bằng/độ phân giải, giữ các điều kiện khác hợp lệ, có precondition để tiếp cận rule mục tiêu. Bổ sung ca thiếu và gộp ca trùng khi vẫn giữ được truy vết. Đây là tự kiểm tra thiết kế của AI, không phải xác nhận sinh viên đã review.
+
+Chủ động rà thêm khoảng trống theo rủi ro: các đường vào UI/API trong phạm vi, trạng thái/phiên, kiểu và biểu diễn dữ liệu, quan hệ liên biến và sequence liên quan. Thêm TC khi kiểm tra một miền/biên/rủi ro chưa có ca tương đương; cập nhật mô hình, nguồn oracle và inventory coverage cùng lúc. Không đợi người dùng hỏi “đã đủ chưa”, không chỉ làm đủ inventory ban đầu rồi tự nhận đủ toàn feature, và không tăng số TC bằng các biến thể trùng ý nghĩa.
 
 Nếu sửa bộ test đã có, giữ ID và bản gốc/diff cần đối chiếu. Khi cần AI gap analysis về sau, giữ được phiên bản AI ban đầu; không tái tạo một bản “ban đầu” từ kết quả cuối. Không cần viết bảng gap, bug report hoặc AI Critique trong lượt sinh TC.
 

@@ -12,6 +12,8 @@
 6. **Test:** hiện thực điểm thành dữ liệu có thể nhập, setup, bước và expected. Chỉ ra khi điều kiện không thể tới qua UI nhưng tới được qua API; đó là hai lớp kiểm tra khác nhau.
 7. **Coverage:** kiểm tra mỗi mục tiêu miền/rule có TC, và TC đó có thực sự chạm được điều kiện. Test bị validation trước chặn không chứng minh đã kiểm tra rule phía sau.
 
+Không chỉ dừng ở các rule trích nguyên văn: chủ động mở rộng mô hình/TC bằng rủi ro có ý nghĩa trong feature, kể cả hành vi chưa được đặc tả, không chờ người dùng phát hiện thiếu. Ghi rationale và tách expected xác nhận với expected theo giả định/quy ước do AI đề xuất, theo [quy cách ca bổ sung](test-case-contract.md#ca-bổ-sung-để-tăng-coverage). Source giúp xác định khả năng nhập và đường đi; hành vi hiện tại của code không tự trở thành oracle cho ca bổ sung.
+
 ## Các thành phần mô hình
 
 Khi sinh TC nhanh, có thể gộp các thông tin này vào bảng TC và rationale. Tách thành các bảng riêng khi cần giải thích từng bước; không bắt buộc dựng một tài liệu đầy đủ cho mọi yêu cầu sinh test.
@@ -31,7 +33,7 @@ Domain và BVA có thể chọn trùng dữ liệu, nhưng phần Domain vẫn p
 
 - **FR-02:** tách email/tài khoản/mật khẩu và điều kiện bộ đếm/trạng thái/thời gian; không đưa ngưỡng mật khẩu đăng ký thành rule đăng nhập. Đếm lần sai theo đặc tả, không theo code sai.
 - **FR-07:** cart rỗng/có hàng, sản phẩm mới/cùng ID, quantity và số học. Rule quantity từ FR-06 là dependency cần ghi; chưa có max thì không tự đặt max. Cart Web và cart API có thể không chung state.
-- **FR-14:** thân requirement yêu cầu Thêm/Xem/Xóa, tiêu đề CRUD/API PUT là điểm cần đối chiếu. Max tên và tên duy nhất chưa được đặc tả thì không tự thêm.
+- **FR-14:** thân requirement yêu cầu Thêm/Xem/Xóa, tiêu đề CRUD/API PUT là điểm cần đối chiếu. Có thể bổ sung ca robustness hoặc policy đề xuất về tên trùng, whitespace, độ dài khi hữu ích; ghi riêng rationale/oracle giả định, không nhận max tên hay tính duy nhất là requirement có sẵn. Không suy một ngưỡng BVA nghiệp vụ chỉ từ schema hoặc feature khác.
 - **Mobile registration:** áp quy tắc đăng ký từ FR-01 thông qua FR-20; xác định trường/luồng bằng source/UI, không sửa màn hình cho giống test. Mỗi input password chỉ làm sai điều kiện mục tiêu khi đang kiểm tra riêng điều kiện đó.
 
 Các gợi ý này là cách đọc requirement, không phải test case/kết quả chạy sẵn. Phạm vi hiện hành do người làm cung cấp quyết định.

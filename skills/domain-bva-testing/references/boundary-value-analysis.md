@@ -8,6 +8,8 @@ Mỗi boundary ghi: ID, biến, rule/source, hai miền tiếp giáp, điều ki
 
 Input rỗng/thiếu/null/sai kiểu là các miền cần kiểm tra nhưng không phải tất cả đều là điểm biên số. Email không có max được đặc tả thì không tự tạo biên độ dài 254/255. ID đang tồn tại là tập thành viên, không mặc định là một khoảng liên tục từ 1 đến max ID.
 
+Chủ động bổ sung TC ngoài đặc tả khi chúng tăng coverage của feature. Nếu xét ngưỡng/đơn vị theo assumption hoặc quy ước đề xuất, ghi rõ căn cứ và tách inventory đó khỏi biên requirement đã xác nhận. Dữ liệu dài/lớn để thăm dò robustness chưa tự chứng minh có một max nghiệp vụ; thiếu max không ngăn thêm ca hữu ích nhưng không được gắn nhãn BVA tùy ý.
+
 ## Hai profile của helper
 
 Theo ISTQB CTFL v4.0.1 §4.2.2, mỗi boundary value có các coverage items khác nhau trong 2-value và 3-value. Khi đã xác định hai partition rời rạc liền kề, ví dụ requirement minh họa `x >= 18` trên số nguyên:
