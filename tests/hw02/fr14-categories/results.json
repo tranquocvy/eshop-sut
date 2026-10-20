@@ -1,0 +1,5067 @@
+{
+  "schema_version": 1,
+  "feature": "T03 Category Management",
+  "design_version": "0.2",
+  "documents": {
+    "design.md": "c54dc2fcb7d07b259224769dfaae7b51ffa2846ea2821aad60aea18a154132d5",
+    "test-cases.md": "36983bf502b1ce8b93b7f170d464a9e60abf8a277c59489efeb0e2dcaeba698e"
+  },
+  "design_commit": "b84417b841f7a1bd5d20386132a0f333d7487fb1",
+  "counting_policy": "Unique TC, latest selected result; previous attempts remain in cases[].results",
+  "runs": [
+    {
+      "id": "CAT-RUN-01",
+      "started_at": "2026-10-20T07:35:46.329612+00:00",
+      "state": "finished_selected_cases",
+      "selected": [
+        "CAT-TC01"
+      ],
+      "source_commit": "701c913908fd19d1d8b45ec2ed212241f3c613d1",
+      "python": "3.13.12",
+      "node": "v24.14.0",
+      "admin_url": "http://localhost:5174/",
+      "api_url": "http://localhost:3000/api",
+      "runtime_database": "D:\\Workspace\\SoftwareTesting\\HW02\\.runtime\\T03-execution-20261020\\backend\\database.sqlite",
+      "sut_changes": "None; backend source copied byte-for-byte, Admin source unchanged",
+      "source_hashes": {
+        "backend/server.js": "e2263811a1690a63a7dbb4446c3fd33fb87f50d073d9f8cdfab7083a52f5e8ed",
+        "backend/database.js": "50012f35c2cf0776dd837482d76adf701f0ee40cdcb9d80143278fccde034717",
+        "frontend-admin/src/App.jsx": "f43a7ed720eb2608563ab5329edc2858f4aab913ecfb57784b30a467803c5b5f",
+        "tests/hw02/fr14-categories/scripts/run.py": "5cfc0c30c9d6b74744b9d664d1b8c61e62258048b98b4813e9aa20b3e67ce261",
+        "tests/hw02/fr14-categories/scripts/cases.json": "7fb9445a7d2c79574d058cff97938976b9230084fb1327d466b7587f2f3eb3a4"
+      },
+      "fixture_setup": "External adapter resets only this new runtime's categories/products before each independent TC; never between steps",
+      "browser": "156.0.8078.4",
+      "finished_at": "2026-10-20T07:35:47.963877+00:00",
+      "playwright": "1.64.0",
+      "harness_note": "TC01 completed UI/API/DB checks; Target closed warnings during browser teardown. Removed redundant Response.finished waits before RUN02; json/text still reads actual response bodies. No target mutation retried."
+    },
+    {
+      "id": "CAT-RUN-02",
+      "started_at": "2026-10-20T07:36:24.055021+00:00",
+      "state": "finished_selected_cases",
+      "selected": [
+        "CAT-TC02",
+        "CAT-TC03",
+        "CAT-TC04",
+        "CAT-TC05",
+        "CAT-TC06",
+        "CAT-TC07",
+        "CAT-TC08",
+        "CAT-TC09",
+        "CAT-TC10",
+        "CAT-TC11",
+        "CAT-TC12",
+        "CAT-TC13",
+        "CAT-TC14",
+        "CAT-TC15",
+        "CAT-TC16",
+        "CAT-TC17",
+        "CAT-TC18",
+        "CAT-TC19",
+        "CAT-TC20",
+        "CAT-TC21",
+        "CAT-TC22",
+        "CAT-TC23",
+        "CAT-TC24",
+        "CAT-TC25",
+        "CAT-TC26",
+        "CAT-TC27",
+        "CAT-TC28",
+        "CAT-TC29",
+        "CAT-TC30",
+        "CAT-TC31",
+        "CAT-TC32",
+        "CAT-TC33"
+      ],
+      "source_commit": "701c913908fd19d1d8b45ec2ed212241f3c613d1",
+      "python": "3.13.12",
+      "node": "v24.14.0",
+      "admin_url": "http://localhost:5174/",
+      "api_url": "http://localhost:3000/api",
+      "runtime_database": "D:\\Workspace\\SoftwareTesting\\HW02\\.runtime\\T03-execution-20261020\\backend\\database.sqlite",
+      "sut_changes": "None; backend source copied byte-for-byte, Admin source unchanged",
+      "source_hashes": {
+        "backend/server.js": "e2263811a1690a63a7dbb4446c3fd33fb87f50d073d9f8cdfab7083a52f5e8ed",
+        "backend/database.js": "50012f35c2cf0776dd837482d76adf701f0ee40cdcb9d80143278fccde034717",
+        "frontend-admin/src/App.jsx": "f43a7ed720eb2608563ab5329edc2858f4aab913ecfb57784b30a467803c5b5f",
+        "tests/hw02/fr14-categories/scripts/run.py": "9f4853e48b3786eaba8a60392264cac1dab70e3416c858f57c0a2b86a9d9ce64",
+        "tests/hw02/fr14-categories/scripts/cases.json": "7fb9445a7d2c79574d058cff97938976b9230084fb1327d466b7587f2f3eb3a4"
+      },
+      "fixture_setup": "External adapter resets only this new runtime's categories/products before each independent TC; never between steps",
+      "browser": "156.0.8078.4",
+      "finished_at": "2026-10-20T07:36:36.579881+00:00",
+      "playwright": "1.64.0"
+    }
+  ],
+  "selected_results": {
+    "CAT-TC01": "CAT-RUN-01",
+    "CAT-TC02": "CAT-RUN-02",
+    "CAT-TC03": "CAT-RUN-02",
+    "CAT-TC04": "CAT-RUN-02",
+    "CAT-TC05": "CAT-RUN-02",
+    "CAT-TC06": "CAT-RUN-02",
+    "CAT-TC07": "CAT-RUN-02",
+    "CAT-TC08": "CAT-RUN-02",
+    "CAT-TC09": "CAT-RUN-02",
+    "CAT-TC10": "CAT-RUN-02",
+    "CAT-TC11": "CAT-RUN-02",
+    "CAT-TC12": "CAT-RUN-02",
+    "CAT-TC13": "CAT-RUN-02",
+    "CAT-TC14": "CAT-RUN-02",
+    "CAT-TC15": "CAT-RUN-02",
+    "CAT-TC16": "CAT-RUN-02",
+    "CAT-TC17": "CAT-RUN-02",
+    "CAT-TC18": "CAT-RUN-02",
+    "CAT-TC19": "CAT-RUN-02",
+    "CAT-TC20": "CAT-RUN-02",
+    "CAT-TC21": "CAT-RUN-02",
+    "CAT-TC22": "CAT-RUN-02",
+    "CAT-TC23": "CAT-RUN-02",
+    "CAT-TC24": "CAT-RUN-02",
+    "CAT-TC25": "CAT-RUN-02",
+    "CAT-TC26": "CAT-RUN-02",
+    "CAT-TC27": "CAT-RUN-02",
+    "CAT-TC28": "CAT-RUN-02",
+    "CAT-TC29": "CAT-RUN-02",
+    "CAT-TC30": "CAT-RUN-02",
+    "CAT-TC31": "CAT-RUN-02",
+    "CAT-TC32": "CAT-RUN-02",
+    "CAT-TC33": "CAT-RUN-02"
+  },
+  "bugs": [
+    {
+      "id": "CAT-BUG01",
+      "title": "Tên danh mục rỗng, thiếu hoặc null vẫn được tạo qua Web/API",
+      "rule": "FR-14 / CAT-R03",
+      "severity": "Medium",
+      "classification": "requirement_violation",
+      "tests": [
+        "CAT-TC05",
+        "CAT-TC08",
+        "CAT-TC09",
+        "CAT-TC10"
+      ],
+      "representative": "CAT-TC05",
+      "expected": "Từ chối tên không có giá trị; có phản hồi thất bại/validation và giữ nguyên danh mục.",
+      "steps": [
+        "Chuẩn bị C3 (T03 Mot/T03 Hai/T03 Ba), không có sản phẩm tham chiếu; đăng nhập Admin.",
+        "Web: mở Danh mục, để trống Tên danh mục mới, bấm Thêm mới một lần rồi reload.",
+        "API: với fixture mới cho mỗi TC, POST /api/categories bằng TA, lần lượt body {}, {\"name\":null}, {\"name\":\"\"}."
+      ],
+      "impact": "Tạo bản ghi không có tên, vi phạm trường tên bắt buộc.",
+      "image": "images/CAT-TC05-actual.jpg",
+      "image_url": "https://github.com/user-attachments/assets/bda00903-2364-4496-907f-ef9280783c4e",
+      "frequency": "4 TC liên quan, mỗi TC chạy một lần; chưa đo lặp độc lập cùng input.",
+      "issue_url": "https://github.com/tranquocvy/eshop-sut/issues/9",
+      "issue_status": "Open — đã mở trang, kiểm tra ảnh SUT hiển thị và lưu JPG trang issue",
+      "issue_number": 9,
+      "github_activity": [
+        {
+          "action": "created",
+          "at": "2026-10-20T14:42:58.008064+07:00",
+          "url": "https://github.com/tranquocvy/eshop-sut/issues/9"
+        },
+        {
+          "action": "api_content_verified",
+          "at": "2026-10-20T14:42:58.550398+07:00",
+          "url": "https://github.com/tranquocvy/eshop-sut/issues/9"
+        },
+        {
+          "action": "browser_verified_and_screenshot_saved",
+          "at": "2026-10-20T07:43:52.277Z",
+          "url": "https://github.com/tranquocvy/eshop-sut/issues/9",
+          "evidence": "images/CAT-BUG01-issue.jpg",
+          "sut_image_loaded": true
+        }
+      ],
+      "issue_evidence": [
+        {
+          "issue_url": "https://github.com/tranquocvy/eshop-sut/issues/9",
+          "path": "images/CAT-BUG01-issue.jpg",
+          "capture_requested_at": "2026-10-20T07:43:49.566Z",
+          "capture_completed_by": "2026-10-20T07:43:52.277Z"
+        }
+      ],
+      "image_upload_verification": "Uploaded bytes match original JPG; browser image loaded and visually checked"
+    },
+    {
+      "id": "CAT-BUG02",
+      "title": "JWT role user vẫn được phép POST, DELETE và PUT danh mục",
+      "rule": "FR-12 / CAT-R07",
+      "severity": "High",
+      "classification": "requirement_violation",
+      "tests": [
+        "CAT-TC21",
+        "CAT-TC22",
+        "CAT-TC23"
+      ],
+      "representative": "CAT-TC21",
+      "expected": "Từ chối thao tác thay đổi dữ liệu của token user hợp lệ; giữ nguyên tập ID/tên. Không ép một mã HTTP cụ thể.",
+      "steps": [
+        "Chuẩn bị C3 và user test@eshop.com có role user. Lấy TU qua login, xác minh GET /api/users/me; không sửa role hoặc JWT.",
+        "Với fixture mới cho mỗi TC: POST /api/categories body {\"name\":\"T03 Moi\"}; DELETE /api/categories/{i2}; PUT /api/categories/{i2} body {\"name\":\"T03 Doi\"}; đều dùng Bearer TU.",
+        "Dùng TA GET và SQLite chỉ đọc đối chiếu trước/sau. PUT chỉ kiểm tra quyền, không kiểm thử đầy đủ nghiệp vụ Update."
+      ],
+      "impact": "User thường có thể tạo, xóa và sửa dữ liệu chỉ dành cho admin.",
+      "image": "images/CAT-TC21-actual.jpg",
+      "image_url": "https://github.com/user-attachments/assets/5ebe338d-6553-47c4-aa6f-db50967704ce",
+      "frequency": "3 TC liên quan, mỗi TC chạy một lần; chưa đo lặp độc lập cùng input.",
+      "issue_url": "https://github.com/tranquocvy/eshop-sut/issues/10",
+      "issue_status": "Open — đã mở trang, kiểm tra ảnh SUT hiển thị và lưu JPG trang issue",
+      "issue_number": 10,
+      "github_activity": [
+        {
+          "action": "created",
+          "at": "2026-10-20T14:42:59.274546+07:00",
+          "url": "https://github.com/tranquocvy/eshop-sut/issues/10"
+        },
+        {
+          "action": "api_content_verified",
+          "at": "2026-10-20T14:42:59.804222+07:00",
+          "url": "https://github.com/tranquocvy/eshop-sut/issues/10"
+        },
+        {
+          "action": "browser_verified_and_screenshot_saved",
+          "at": "2026-10-20T07:44:10.154Z",
+          "url": "https://github.com/tranquocvy/eshop-sut/issues/10",
+          "evidence": "images/CAT-BUG02-issue.jpg",
+          "sut_image_loaded": true
+        }
+      ],
+      "issue_evidence": [
+        {
+          "issue_url": "https://github.com/tranquocvy/eshop-sut/issues/10",
+          "path": "images/CAT-BUG02-issue.jpg",
+          "capture_requested_at": "2026-10-20T07:44:07.887Z",
+          "capture_completed_by": "2026-10-20T07:44:10.154Z"
+        }
+      ],
+      "image_upload_verification": "Uploaded bytes match original JPG; browser image loaded and visually checked"
+    },
+    {
+      "id": "CAT-BUG03",
+      "title": "Mở lại Admin từ adminToken chứa JWT user vẫn vào được quản lý danh mục",
+      "rule": "FR-12 / CAT-R05",
+      "severity": "High",
+      "classification": "requirement_violation",
+      "tests": [
+        "CAT-TC33"
+      ],
+      "representative": "CAT-TC33",
+      "expected": "Không vào được phân hệ quản lý danh mục hoặc sử dụng nút quản lý bằng phiên user; yêu cầu admin hoặc từ chối, cả sau reload.",
+      "steps": [
+        "Chuẩn bị C3 và TU hợp lệ; mở browser context mới, chưa có token admin.",
+        "Mở http://localhost:5174/, ghi nguyên TU vào localStorage.adminToken; đóng tab, mở tab mới trong cùng context. Không submit Admin Login.",
+        "Mở Danh mục nếu giao diện cho phép, reload và quan sát lại; không bấm Thêm/Xóa trong ca này."
+      ],
+      "impact": "Đường khôi phục phiên hiển thị phân hệ và các nút quản lý cho user, khác với kiểm tra role khi submit Login.",
+      "image": "images/CAT-TC33-actual.jpg",
+      "image_url": "https://github.com/user-attachments/assets/39ee739c-e40f-4c4d-93a3-843eb44835b4",
+      "frequency": "1 TC liên quan, mỗi TC chạy một lần; chưa đo lặp độc lập cùng input.",
+      "issue_url": "https://github.com/tranquocvy/eshop-sut/issues/11",
+      "issue_status": "Open — đã mở trang, kiểm tra ảnh SUT hiển thị và lưu JPG trang issue",
+      "issue_number": 11,
+      "github_activity": [
+        {
+          "action": "created",
+          "at": "2026-10-20T14:43:00.537384+07:00",
+          "url": "https://github.com/tranquocvy/eshop-sut/issues/11"
+        },
+        {
+          "action": "api_content_verified",
+          "at": "2026-10-20T14:43:01.131977+07:00",
+          "url": "https://github.com/tranquocvy/eshop-sut/issues/11"
+        },
+        {
+          "action": "browser_verified_and_screenshot_saved",
+          "at": "2026-10-20T07:44:23.803Z",
+          "url": "https://github.com/tranquocvy/eshop-sut/issues/11",
+          "evidence": "images/CAT-BUG03-issue.jpg",
+          "sut_image_loaded": true
+        }
+      ],
+      "issue_evidence": [
+        {
+          "issue_url": "https://github.com/tranquocvy/eshop-sut/issues/11",
+          "path": "images/CAT-BUG03-issue.jpg",
+          "capture_requested_at": "2026-10-20T07:44:21.829Z",
+          "capture_completed_by": "2026-10-20T07:44:23.803Z"
+        }
+      ],
+      "image_upload_verification": "Uploaded bytes match original JPG; browser image loaded and visually checked"
+    }
+  ],
+  "cases": [
+    {
+      "id": "CAT-TC01",
+      "technique": "Domain",
+      "traceability": "R01 / D01",
+      "document_line": 38,
+      "precondition_text": "PA + C0",
+      "input_text": "View danh sách rỗng",
+      "steps_text": "W-View",
+      "expected_text": "Không có dòng danh mục, không giữ dữ liệu cũ hoặc báo lỗi tải chỉ vì danh sách rỗng. R01/S1, GET S3",
+      "fixture": "C0",
+      "kind": "web_view",
+      "oracle": "view",
+      "results": [
+        {
+          "id": "CAT-TC01",
+          "status": "passed",
+          "started_at": "2026-10-20T07:35:46.989116+00:00",
+          "input": "View danh sách rỗng",
+          "expected": "Không có dòng danh mục, không giữ dữ liệu cũ hoặc báo lỗi tải chỉ vì danh sách rỗng. R01/S1, GET S3",
+          "traceability": "R01 / D01",
+          "observation": {
+            "database_before": [],
+            "fixture_ids": {
+              "missing": 999999
+            },
+            "api_before": [],
+            "login_identity": {
+              "email": "admin@eshop.com",
+              "role": "admin"
+            },
+            "web_category_reads": [
+              {
+                "status": 200,
+                "categories": []
+              },
+              {
+                "status": 200,
+                "categories": []
+              }
+            ],
+            "ui_before": [],
+            "ui_after_reload": [],
+            "database_after": [],
+            "api_after": [],
+            "fixture_setup": {
+              "fixture": "C0",
+              "prepared_at": "2026-10-20T07:35:46.989072+00:00",
+              "scope": "Only the new T03 runtime DB, before the TC action",
+              "categories": []
+            }
+          },
+          "finished_at": "2026-10-20T07:35:47.960811+00:00",
+          "run_id": "CAT-RUN-01"
+        }
+      ]
+    },
+    {
+      "id": "CAT-TC02",
+      "technique": "Domain",
+      "traceability": "R01 / D02",
+      "document_line": 39,
+      "precondition_text": "PA + C1",
+      "input_text": "View danh mục `i1, T03 Mot`",
+      "steps_text": "W-View",
+      "expected_text": "Hiển thị đúng một danh mục với tên tương ứng; reload vẫn đúng C1. R01/S1",
+      "fixture": "C1",
+      "kind": "web_view",
+      "oracle": "view",
+      "results": [
+        {
+          "id": "CAT-TC02",
+          "status": "passed",
+          "started_at": "2026-10-20T07:36:24.574609+00:00",
+          "input": "View danh mục `i1, T03 Mot`",
+          "expected": "Hiển thị đúng một danh mục với tên tương ứng; reload vẫn đúng C1. R01/S1",
+          "traceability": "R01 / D02",
+          "observation": {
+            "database_before": [
+              {
+                "id": 4,
+                "name": "T03 Mot"
+              }
+            ],
+            "fixture_ids": {
+              "i1": 4,
+              "missing": 999999
+            },
+            "api_before": [
+              {
+                "id": 4,
+                "name": "T03 Mot"
+              }
+            ],
+            "login_identity": {
+              "email": "admin@eshop.com",
+              "role": "admin"
+            },
+            "web_category_reads": [
+              {
+                "status": 200,
+                "categories": [
+                  {
+                    "id": 4,
+                    "name": "T03 Mot"
+                  }
+                ]
+              },
+              {
+                "status": 200,
+                "categories": [
+                  {
+                    "id": 4,
+                    "name": "T03 Mot"
+                  }
+                ]
+              }
+            ],
+            "ui_before": [
+              {
+                "id": 4,
+                "name": "T03 Mot"
+              }
+            ],
+            "ui_after_reload": [
+              {
+                "id": 4,
+                "name": "T03 Mot"
+              }
+            ],
+            "database_after": [
+              {
+                "id": 4,
+                "name": "T03 Mot"
+              }
+            ],
+            "api_after": [
+              {
+                "id": 4,
+                "name": "T03 Mot"
+              }
+            ],
+            "fixture_setup": {
+              "fixture": "C1",
+              "prepared_at": "2026-10-20T07:36:24.574562+00:00",
+              "scope": "Only the new T03 runtime DB, before the TC action",
+              "categories": [
+                {
+                  "id": 4,
+                  "name": "T03 Mot"
+                }
+              ]
+            }
+          },
+          "finished_at": "2026-10-20T07:36:25.270416+00:00",
+          "run_id": "CAT-RUN-02"
+        }
+      ]
+    },
+    {
+      "id": "CAT-TC03",
+      "technique": "Domain",
+      "traceability": "R01 / D03",
+      "document_line": 40,
+      "precondition_text": "PA + C3",
+      "input_text": "View ba danh mục fixture",
+      "steps_text": "W-View",
+      "expected_text": "Đủ ba ID/tên đúng cặp, không thiếu/nhân đôi dòng, không áp thứ tự. R01/S1",
+      "fixture": "C3",
+      "kind": "web_view",
+      "oracle": "view",
+      "results": [
+        {
+          "id": "CAT-TC03",
+          "status": "passed",
+          "started_at": "2026-10-20T07:36:25.281560+00:00",
+          "input": "View ba danh mục fixture",
+          "expected": "Đủ ba ID/tên đúng cặp, không thiếu/nhân đôi dòng, không áp thứ tự. R01/S1",
+          "traceability": "R01 / D03",
+          "observation": {
+            "database_before": [
+              {
+                "id": 5,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 6,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 7,
+                "name": "T03 Ba"
+              }
+            ],
+            "fixture_ids": {
+              "i1": 5,
+              "i2": 6,
+              "i3": 7,
+              "missing": 999999
+            },
+            "api_before": [
+              {
+                "id": 5,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 6,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 7,
+                "name": "T03 Ba"
+              }
+            ],
+            "login_identity": {
+              "email": "admin@eshop.com",
+              "role": "admin"
+            },
+            "web_category_reads": [
+              {
+                "status": 200,
+                "categories": [
+                  {
+                    "id": 5,
+                    "name": "T03 Mot"
+                  },
+                  {
+                    "id": 6,
+                    "name": "T03 Hai"
+                  },
+                  {
+                    "id": 7,
+                    "name": "T03 Ba"
+                  }
+                ]
+              },
+              {
+                "status": 200,
+                "categories": [
+                  {
+                    "id": 5,
+                    "name": "T03 Mot"
+                  },
+                  {
+                    "id": 6,
+                    "name": "T03 Hai"
+                  },
+                  {
+                    "id": 7,
+                    "name": "T03 Ba"
+                  }
+                ]
+              }
+            ],
+            "ui_before": [
+              {
+                "id": 5,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 6,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 7,
+                "name": "T03 Ba"
+              }
+            ],
+            "ui_after_reload": [
+              {
+                "id": 5,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 6,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 7,
+                "name": "T03 Ba"
+              }
+            ],
+            "database_after": [
+              {
+                "id": 5,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 6,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 7,
+                "name": "T03 Ba"
+              }
+            ],
+            "api_after": [
+              {
+                "id": 5,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 6,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 7,
+                "name": "T03 Ba"
+              }
+            ],
+            "fixture_setup": {
+              "fixture": "C3",
+              "prepared_at": "2026-10-20T07:36:25.281522+00:00",
+              "scope": "Only the new T03 runtime DB, before the TC action",
+              "categories": [
+                {
+                  "id": 5,
+                  "name": "T03 Mot"
+                },
+                {
+                  "id": 6,
+                  "name": "T03 Hai"
+                },
+                {
+                  "id": 7,
+                  "name": "T03 Ba"
+                }
+              ]
+            }
+          },
+          "finished_at": "2026-10-20T07:36:25.973254+00:00",
+          "run_id": "CAT-RUN-02"
+        }
+      ]
+    },
+    {
+      "id": "CAT-TC04",
+      "technique": "Domain",
+      "traceability": "R01,R02,R06,R07 / D04,D16",
+      "document_line": 41,
+      "precondition_text": "PA + CP",
+      "input_text": "N=`Đồ học tập T03`",
+      "steps_text": "W-Add(N)",
+      "expected_text": "ADD-OK; tên tiếng Việt hiển thị đúng sau reload. R02/S1; A02; token admin theo S2",
+      "fixture": "C3",
+      "kind": "web_add",
+      "name": "Đồ học tập T03",
+      "oracle": "add",
+      "results": [
+        {
+          "id": "CAT-TC04",
+          "status": "passed",
+          "started_at": "2026-10-20T07:36:25.981304+00:00",
+          "input": "N=`Đồ học tập T03`",
+          "expected": "ADD-OK; tên tiếng Việt hiển thị đúng sau reload. R02/S1; A02; token admin theo S2",
+          "traceability": "R01,R02,R06,R07 / D04,D16",
+          "observation": {
+            "database_before": [
+              {
+                "id": 8,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 9,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 10,
+                "name": "T03 Ba"
+              }
+            ],
+            "fixture_ids": {
+              "i1": 8,
+              "i2": 9,
+              "i3": 10,
+              "missing": 999999
+            },
+            "api_before": [
+              {
+                "id": 8,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 9,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 10,
+                "name": "T03 Ba"
+              }
+            ],
+            "login_identity": {
+              "email": "admin@eshop.com",
+              "role": "admin"
+            },
+            "web_category_reads": [
+              {
+                "status": 200,
+                "categories": [
+                  {
+                    "id": 8,
+                    "name": "T03 Mot"
+                  },
+                  {
+                    "id": 9,
+                    "name": "T03 Hai"
+                  },
+                  {
+                    "id": 10,
+                    "name": "T03 Ba"
+                  }
+                ]
+              },
+              {
+                "status": 200,
+                "categories": [
+                  {
+                    "id": 8,
+                    "name": "T03 Mot"
+                  },
+                  {
+                    "id": 9,
+                    "name": "T03 Hai"
+                  },
+                  {
+                    "id": 10,
+                    "name": "T03 Ba"
+                  },
+                  {
+                    "id": 11,
+                    "name": "Đồ học tập T03"
+                  }
+                ]
+              }
+            ],
+            "ui_before": [
+              {
+                "id": 8,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 9,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 10,
+                "name": "T03 Ba"
+              }
+            ],
+            "target_request": {
+              "method": "POST",
+              "path": "/categories",
+              "response": {
+                "status": 200,
+                "body": {
+                  "message": "Category created",
+                  "id": 11
+                }
+              }
+            },
+            "native_validation": false,
+            "inline_feedback": [],
+            "database_after": [
+              {
+                "id": 8,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 9,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 10,
+                "name": "T03 Ba"
+              },
+              {
+                "id": 11,
+                "name": "Đồ học tập T03"
+              }
+            ],
+            "api_after": [
+              {
+                "id": 8,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 9,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 10,
+                "name": "T03 Ba"
+              },
+              {
+                "id": 11,
+                "name": "Đồ học tập T03"
+              }
+            ],
+            "ui_after_action": [
+              {
+                "id": 8,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 9,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 10,
+                "name": "T03 Ba"
+              },
+              {
+                "id": 11,
+                "name": "Đồ học tập T03"
+              }
+            ],
+            "ui_after_reload": [
+              {
+                "id": 8,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 9,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 10,
+                "name": "T03 Ba"
+              },
+              {
+                "id": 11,
+                "name": "Đồ học tập T03"
+              }
+            ],
+            "fixture_setup": {
+              "fixture": "C3",
+              "prepared_at": "2026-10-20T07:36:25.981262+00:00",
+              "scope": "Only the new T03 runtime DB, before the TC action",
+              "categories": [
+                {
+                  "id": 8,
+                  "name": "T03 Mot"
+                },
+                {
+                  "id": 9,
+                  "name": "T03 Hai"
+                },
+                {
+                  "id": 10,
+                  "name": "T03 Ba"
+                }
+              ]
+            }
+          },
+          "finished_at": "2026-10-20T07:36:26.885759+00:00",
+          "run_id": "CAT-RUN-02"
+        }
+      ]
+    },
+    {
+      "id": "CAT-TC05",
+      "technique": "Domain + BVA",
+      "traceability": "R03 / D05 / B01-0",
+      "document_line": 42,
+      "precondition_text": "PA + CP",
+      "input_text": "N=`\"\"`, L=0",
+      "steps_text": "W-Add(N)",
+      "expected_text": "NAME-REJECT; biên dưới không hợp lệ. R03/S1",
+      "fixture": "C3",
+      "kind": "web_add",
+      "name": "",
+      "oracle": "name_reject",
+      "results": [
+        {
+          "id": "CAT-TC05",
+          "status": "failed",
+          "started_at": "2026-10-20T07:36:26.893043+00:00",
+          "input": "N=`\"\"`, L=0",
+          "expected": "NAME-REJECT; biên dưới không hợp lệ. R03/S1",
+          "traceability": "R03 / D05 / B01-0",
+          "observation": {
+            "database_before": [
+              {
+                "id": 12,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 13,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 14,
+                "name": "T03 Ba"
+              }
+            ],
+            "fixture_ids": {
+              "i1": 12,
+              "i2": 13,
+              "i3": 14,
+              "missing": 999999
+            },
+            "api_before": [
+              {
+                "id": 12,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 13,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 14,
+                "name": "T03 Ba"
+              }
+            ],
+            "login_identity": {
+              "email": "admin@eshop.com",
+              "role": "admin"
+            },
+            "web_category_reads": [
+              {
+                "status": 200,
+                "categories": [
+                  {
+                    "id": 12,
+                    "name": "T03 Mot"
+                  },
+                  {
+                    "id": 13,
+                    "name": "T03 Hai"
+                  },
+                  {
+                    "id": 14,
+                    "name": "T03 Ba"
+                  }
+                ]
+              }
+            ],
+            "ui_before": [
+              {
+                "id": 12,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 13,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 14,
+                "name": "T03 Ba"
+              }
+            ],
+            "target_request": {
+              "method": "POST",
+              "path": "/categories",
+              "response": {
+                "status": 200,
+                "body": {
+                  "message": "Category created",
+                  "id": 15
+                }
+              }
+            },
+            "native_validation": false,
+            "inline_feedback": [],
+            "database_after": [
+              {
+                "id": 12,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 13,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 14,
+                "name": "T03 Ba"
+              },
+              {
+                "id": 15,
+                "name": ""
+              }
+            ],
+            "api_after": [
+              {
+                "id": 12,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 13,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 14,
+                "name": "T03 Ba"
+              },
+              {
+                "id": 15,
+                "name": ""
+              }
+            ],
+            "ui_after_action": [
+              {
+                "id": 12,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 13,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 14,
+                "name": "T03 Ba"
+              },
+              {
+                "id": 15,
+                "name": ""
+              }
+            ],
+            "ui_after_reload": [
+              {
+                "id": 12,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 13,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 14,
+                "name": "T03 Ba"
+              },
+              {
+                "id": 15,
+                "name": ""
+              }
+            ],
+            "fixture_setup": {
+              "fixture": "C3",
+              "prepared_at": "2026-10-20T07:36:26.893014+00:00",
+              "scope": "Only the new T03 runtime DB, before the TC action",
+              "categories": [
+                {
+                  "id": 12,
+                  "name": "T03 Mot"
+                },
+                {
+                  "id": 13,
+                  "name": "T03 Hai"
+                },
+                {
+                  "id": 14,
+                  "name": "T03 Ba"
+                }
+              ]
+            }
+          },
+          "reason": "The category dataset changed unexpectedly",
+          "images": [
+            {
+              "path": "images/CAT-TC05-actual.jpg",
+              "capture_requested_at": "2026-10-20T07:36:27.785976+00:00",
+              "capture_completed_by": "2026-10-20T07:36:27.814203+00:00",
+              "state": "actual"
+            }
+          ],
+          "finished_at": "2026-10-20T07:36:27.817416+00:00",
+          "run_id": "CAT-RUN-02",
+          "bug_ids": [
+            "CAT-BUG01"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "CAT-TC06",
+      "technique": "Domain + BVA",
+      "traceability": "R02,R03 / D04 / B01-1",
+      "document_line": 43,
+      "precondition_text": "PA + CP; tên `A` chưa có",
+      "input_text": "N=`A`, L=1",
+      "steps_text": "W-Add(N)",
+      "expected_text": "ADD-OK; một ký tự đã thỏa nonempty, không tự đặt min 2. R02–03/S1, A02",
+      "fixture": "C3",
+      "kind": "web_add",
+      "name": "A",
+      "oracle": "add",
+      "results": [
+        {
+          "id": "CAT-TC06",
+          "status": "passed",
+          "started_at": "2026-10-20T07:36:27.823782+00:00",
+          "input": "N=`A`, L=1",
+          "expected": "ADD-OK; một ký tự đã thỏa nonempty, không tự đặt min 2. R02–03/S1, A02",
+          "traceability": "R02,R03 / D04 / B01-1",
+          "observation": {
+            "database_before": [
+              {
+                "id": 16,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 17,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 18,
+                "name": "T03 Ba"
+              }
+            ],
+            "fixture_ids": {
+              "i1": 16,
+              "i2": 17,
+              "i3": 18,
+              "missing": 999999
+            },
+            "api_before": [
+              {
+                "id": 16,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 17,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 18,
+                "name": "T03 Ba"
+              }
+            ],
+            "login_identity": {
+              "email": "admin@eshop.com",
+              "role": "admin"
+            },
+            "web_category_reads": [
+              {
+                "status": 200,
+                "categories": [
+                  {
+                    "id": 16,
+                    "name": "T03 Mot"
+                  },
+                  {
+                    "id": 17,
+                    "name": "T03 Hai"
+                  },
+                  {
+                    "id": 18,
+                    "name": "T03 Ba"
+                  }
+                ]
+              },
+              {
+                "status": 200,
+                "categories": [
+                  {
+                    "id": 16,
+                    "name": "T03 Mot"
+                  },
+                  {
+                    "id": 17,
+                    "name": "T03 Hai"
+                  },
+                  {
+                    "id": 18,
+                    "name": "T03 Ba"
+                  },
+                  {
+                    "id": 19,
+                    "name": "A"
+                  }
+                ]
+              }
+            ],
+            "ui_before": [
+              {
+                "id": 16,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 17,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 18,
+                "name": "T03 Ba"
+              }
+            ],
+            "target_request": {
+              "method": "POST",
+              "path": "/categories",
+              "response": {
+                "status": 200,
+                "body": {
+                  "message": "Category created",
+                  "id": 19
+                }
+              }
+            },
+            "native_validation": false,
+            "inline_feedback": [],
+            "database_after": [
+              {
+                "id": 16,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 17,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 18,
+                "name": "T03 Ba"
+              },
+              {
+                "id": 19,
+                "name": "A"
+              }
+            ],
+            "api_after": [
+              {
+                "id": 16,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 17,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 18,
+                "name": "T03 Ba"
+              },
+              {
+                "id": 19,
+                "name": "A"
+              }
+            ],
+            "ui_after_action": [
+              {
+                "id": 16,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 17,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 18,
+                "name": "T03 Ba"
+              },
+              {
+                "id": 19,
+                "name": "A"
+              }
+            ],
+            "ui_after_reload": [
+              {
+                "id": 16,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 17,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 18,
+                "name": "T03 Ba"
+              },
+              {
+                "id": 19,
+                "name": "A"
+              }
+            ],
+            "fixture_setup": {
+              "fixture": "C3",
+              "prepared_at": "2026-10-20T07:36:27.823757+00:00",
+              "scope": "Only the new T03 runtime DB, before the TC action",
+              "categories": [
+                {
+                  "id": 16,
+                  "name": "T03 Mot"
+                },
+                {
+                  "id": 17,
+                  "name": "T03 Hai"
+                },
+                {
+                  "id": 18,
+                  "name": "T03 Ba"
+                }
+              ]
+            }
+          },
+          "finished_at": "2026-10-20T07:36:28.717096+00:00",
+          "run_id": "CAT-RUN-02"
+        }
+      ]
+    },
+    {
+      "id": "CAT-TC07",
+      "technique": "Domain + BVA",
+      "traceability": "R02,R03 / D04 / B01-2",
+      "document_line": 44,
+      "precondition_text": "PA + CP; tên `AB` chưa có",
+      "input_text": "N=`AB`, L=2",
+      "steps_text": "W-Add(N)",
+      "expected_text": "ADD-OK; hàng xóm hợp lệ phía trên biên 1. R02–03/S1, A02",
+      "fixture": "C3",
+      "kind": "web_add",
+      "name": "AB",
+      "oracle": "add",
+      "results": [
+        {
+          "id": "CAT-TC07",
+          "status": "passed",
+          "started_at": "2026-10-20T07:36:28.723761+00:00",
+          "input": "N=`AB`, L=2",
+          "expected": "ADD-OK; hàng xóm hợp lệ phía trên biên 1. R02–03/S1, A02",
+          "traceability": "R02,R03 / D04 / B01-2",
+          "observation": {
+            "database_before": [
+              {
+                "id": 20,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 21,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 22,
+                "name": "T03 Ba"
+              }
+            ],
+            "fixture_ids": {
+              "i1": 20,
+              "i2": 21,
+              "i3": 22,
+              "missing": 999999
+            },
+            "api_before": [
+              {
+                "id": 20,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 21,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 22,
+                "name": "T03 Ba"
+              }
+            ],
+            "login_identity": {
+              "email": "admin@eshop.com",
+              "role": "admin"
+            },
+            "web_category_reads": [
+              {
+                "status": 200,
+                "categories": [
+                  {
+                    "id": 20,
+                    "name": "T03 Mot"
+                  },
+                  {
+                    "id": 21,
+                    "name": "T03 Hai"
+                  },
+                  {
+                    "id": 22,
+                    "name": "T03 Ba"
+                  }
+                ]
+              },
+              {
+                "status": 200,
+                "categories": [
+                  {
+                    "id": 20,
+                    "name": "T03 Mot"
+                  },
+                  {
+                    "id": 21,
+                    "name": "T03 Hai"
+                  },
+                  {
+                    "id": 22,
+                    "name": "T03 Ba"
+                  },
+                  {
+                    "id": 23,
+                    "name": "AB"
+                  }
+                ]
+              }
+            ],
+            "ui_before": [
+              {
+                "id": 20,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 21,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 22,
+                "name": "T03 Ba"
+              }
+            ],
+            "target_request": {
+              "method": "POST",
+              "path": "/categories",
+              "response": {
+                "status": 200,
+                "body": {
+                  "message": "Category created",
+                  "id": 23
+                }
+              }
+            },
+            "native_validation": false,
+            "inline_feedback": [],
+            "database_after": [
+              {
+                "id": 20,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 21,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 22,
+                "name": "T03 Ba"
+              },
+              {
+                "id": 23,
+                "name": "AB"
+              }
+            ],
+            "api_after": [
+              {
+                "id": 20,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 21,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 22,
+                "name": "T03 Ba"
+              },
+              {
+                "id": 23,
+                "name": "AB"
+              }
+            ],
+            "ui_after_action": [
+              {
+                "id": 20,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 21,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 22,
+                "name": "T03 Ba"
+              },
+              {
+                "id": 23,
+                "name": "AB"
+              }
+            ],
+            "ui_after_reload": [
+              {
+                "id": 20,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 21,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 22,
+                "name": "T03 Ba"
+              },
+              {
+                "id": 23,
+                "name": "AB"
+              }
+            ],
+            "fixture_setup": {
+              "fixture": "C3",
+              "prepared_at": "2026-10-20T07:36:28.723722+00:00",
+              "scope": "Only the new T03 runtime DB, before the TC action",
+              "categories": [
+                {
+                  "id": 20,
+                  "name": "T03 Mot"
+                },
+                {
+                  "id": 21,
+                  "name": "T03 Hai"
+                },
+                {
+                  "id": 22,
+                  "name": "T03 Ba"
+                }
+              ]
+            }
+          },
+          "finished_at": "2026-10-20T07:36:29.628563+00:00",
+          "run_id": "CAT-RUN-02"
+        }
+      ]
+    },
+    {
+      "id": "CAT-TC08",
+      "technique": "Domain",
+      "traceability": "R03 / D06",
+      "document_line": 45,
+      "precondition_text": "P0 + CP + TA",
+      "input_text": "POST `/api/categories`; `Authorization: Bearer <TA>`; body `{}`",
+      "steps_text": "A với input của hàng",
+      "expected_text": "NAME-REJECT; không có name vẫn vi phạm required dù JSON hợp lệ. R03/S1; body S3",
+      "fixture": "C3",
+      "kind": "api",
+      "method": "POST",
+      "path": "/categories",
+      "auth": "TA",
+      "body": {},
+      "oracle": "name_reject",
+      "results": [
+        {
+          "id": "CAT-TC08",
+          "status": "failed",
+          "started_at": "2026-10-20T07:36:29.636710+00:00",
+          "input": "POST `/api/categories`; `Authorization: Bearer <TA>`; body `{}`",
+          "expected": "NAME-REJECT; không có name vẫn vi phạm required dù JSON hợp lệ. R03/S1; body S3",
+          "traceability": "R03 / D06",
+          "observation": {
+            "database_before": [
+              {
+                "id": 24,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 25,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 26,
+                "name": "T03 Ba"
+              }
+            ],
+            "fixture_ids": {
+              "i1": 24,
+              "i2": 25,
+              "i3": 26,
+              "missing": 999999
+            },
+            "api_before": [
+              {
+                "id": 24,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 25,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 26,
+                "name": "T03 Ba"
+              }
+            ],
+            "target_request": {
+              "method": "POST",
+              "path": "/categories",
+              "token_variant": "TA",
+              "body": {},
+              "response": {
+                "status": 200,
+                "body": {
+                  "message": "Category created",
+                  "id": 27
+                }
+              }
+            },
+            "database_after": [
+              {
+                "id": 24,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 25,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 26,
+                "name": "T03 Ba"
+              },
+              {
+                "id": 27,
+                "name": null
+              }
+            ],
+            "api_after": [
+              {
+                "id": 24,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 25,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 26,
+                "name": "T03 Ba"
+              },
+              {
+                "id": 27,
+                "name": null
+              }
+            ],
+            "login_identity": {
+              "email": "admin@eshop.com",
+              "role": "admin"
+            },
+            "evidence_view": "Read-only Admin view after the API action; request/token variant is evidenced by target_request, not by this screenshot",
+            "fixture_setup": {
+              "fixture": "C3",
+              "prepared_at": "2026-10-20T07:36:29.636677+00:00",
+              "scope": "Only the new T03 runtime DB, before the TC action",
+              "categories": [
+                {
+                  "id": 24,
+                  "name": "T03 Mot"
+                },
+                {
+                  "id": 25,
+                  "name": "T03 Hai"
+                },
+                {
+                  "id": 26,
+                  "name": "T03 Ba"
+                }
+              ]
+            }
+          },
+          "reason": "The category dataset changed unexpectedly",
+          "images": [
+            {
+              "path": "images/CAT-TC08-actual.jpg",
+              "capture_requested_at": "2026-10-20T07:36:30.095751+00:00",
+              "capture_completed_by": "2026-10-20T07:36:30.125055+00:00",
+              "state": "actual"
+            }
+          ],
+          "finished_at": "2026-10-20T07:36:30.128133+00:00",
+          "run_id": "CAT-RUN-02",
+          "bug_ids": [
+            "CAT-BUG01"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "CAT-TC09",
+      "technique": "Domain",
+      "traceability": "R03 / D07",
+      "document_line": 46,
+      "precondition_text": "P0 + CP + TA",
+      "input_text": "POST `/api/categories`; `Authorization: Bearer <TA>`; body `{\"name\":null}`",
+      "steps_text": "A với input của hàng",
+      "expected_text": "NAME-REJECT; null không cung cấp một tên. R03/S1",
+      "fixture": "C3",
+      "kind": "api",
+      "method": "POST",
+      "path": "/categories",
+      "auth": "TA",
+      "body": {
+        "name": null
+      },
+      "oracle": "name_reject",
+      "results": [
+        {
+          "id": "CAT-TC09",
+          "status": "failed",
+          "started_at": "2026-10-20T07:36:30.136270+00:00",
+          "input": "POST `/api/categories`; `Authorization: Bearer <TA>`; body `{\"name\":null}`",
+          "expected": "NAME-REJECT; null không cung cấp một tên. R03/S1",
+          "traceability": "R03 / D07",
+          "observation": {
+            "database_before": [
+              {
+                "id": 28,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 29,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 30,
+                "name": "T03 Ba"
+              }
+            ],
+            "fixture_ids": {
+              "i1": 28,
+              "i2": 29,
+              "i3": 30,
+              "missing": 999999
+            },
+            "api_before": [
+              {
+                "id": 28,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 29,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 30,
+                "name": "T03 Ba"
+              }
+            ],
+            "target_request": {
+              "method": "POST",
+              "path": "/categories",
+              "token_variant": "TA",
+              "body": {
+                "name": null
+              },
+              "response": {
+                "status": 200,
+                "body": {
+                  "message": "Category created",
+                  "id": 31
+                }
+              }
+            },
+            "database_after": [
+              {
+                "id": 28,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 29,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 30,
+                "name": "T03 Ba"
+              },
+              {
+                "id": 31,
+                "name": null
+              }
+            ],
+            "api_after": [
+              {
+                "id": 28,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 29,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 30,
+                "name": "T03 Ba"
+              },
+              {
+                "id": 31,
+                "name": null
+              }
+            ],
+            "login_identity": {
+              "email": "admin@eshop.com",
+              "role": "admin"
+            },
+            "evidence_view": "Read-only Admin view after the API action; request/token variant is evidenced by target_request, not by this screenshot",
+            "fixture_setup": {
+              "fixture": "C3",
+              "prepared_at": "2026-10-20T07:36:30.136235+00:00",
+              "scope": "Only the new T03 runtime DB, before the TC action",
+              "categories": [
+                {
+                  "id": 28,
+                  "name": "T03 Mot"
+                },
+                {
+                  "id": 29,
+                  "name": "T03 Hai"
+                },
+                {
+                  "id": 30,
+                  "name": "T03 Ba"
+                }
+              ]
+            }
+          },
+          "reason": "The category dataset changed unexpectedly",
+          "images": [
+            {
+              "path": "images/CAT-TC09-actual.jpg",
+              "capture_requested_at": "2026-10-20T07:36:30.614640+00:00",
+              "capture_completed_by": "2026-10-20T07:36:30.642380+00:00",
+              "state": "actual"
+            }
+          ],
+          "finished_at": "2026-10-20T07:36:30.645487+00:00",
+          "run_id": "CAT-RUN-02",
+          "bug_ids": [
+            "CAT-BUG01"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "CAT-TC10",
+      "technique": "Domain + BVA",
+      "traceability": "R03 / D05 / B02-0",
+      "document_line": 47,
+      "precondition_text": "P0 + CP + TA",
+      "input_text": "POST `/api/categories`; `Authorization: Bearer <TA>`; body `{\"name\":\"\"}`",
+      "steps_text": "A với input của hàng",
+      "expected_text": "NAME-REJECT ở server; không credit từ việc TC05 bị UI chặn. R03/S1",
+      "fixture": "C3",
+      "kind": "api",
+      "method": "POST",
+      "path": "/categories",
+      "auth": "TA",
+      "body": {
+        "name": ""
+      },
+      "oracle": "name_reject",
+      "results": [
+        {
+          "id": "CAT-TC10",
+          "status": "failed",
+          "started_at": "2026-10-20T07:36:30.652018+00:00",
+          "input": "POST `/api/categories`; `Authorization: Bearer <TA>`; body `{\"name\":\"\"}`",
+          "expected": "NAME-REJECT ở server; không credit từ việc TC05 bị UI chặn. R03/S1",
+          "traceability": "R03 / D05 / B02-0",
+          "observation": {
+            "database_before": [
+              {
+                "id": 32,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 33,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 34,
+                "name": "T03 Ba"
+              }
+            ],
+            "fixture_ids": {
+              "i1": 32,
+              "i2": 33,
+              "i3": 34,
+              "missing": 999999
+            },
+            "api_before": [
+              {
+                "id": 32,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 33,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 34,
+                "name": "T03 Ba"
+              }
+            ],
+            "target_request": {
+              "method": "POST",
+              "path": "/categories",
+              "token_variant": "TA",
+              "body": {
+                "name": ""
+              },
+              "response": {
+                "status": 200,
+                "body": {
+                  "message": "Category created",
+                  "id": 35
+                }
+              }
+            },
+            "database_after": [
+              {
+                "id": 32,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 33,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 34,
+                "name": "T03 Ba"
+              },
+              {
+                "id": 35,
+                "name": ""
+              }
+            ],
+            "api_after": [
+              {
+                "id": 32,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 33,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 34,
+                "name": "T03 Ba"
+              },
+              {
+                "id": 35,
+                "name": ""
+              }
+            ],
+            "login_identity": {
+              "email": "admin@eshop.com",
+              "role": "admin"
+            },
+            "evidence_view": "Read-only Admin view after the API action; request/token variant is evidenced by target_request, not by this screenshot",
+            "fixture_setup": {
+              "fixture": "C3",
+              "prepared_at": "2026-10-20T07:36:30.651981+00:00",
+              "scope": "Only the new T03 runtime DB, before the TC action",
+              "categories": [
+                {
+                  "id": 32,
+                  "name": "T03 Mot"
+                },
+                {
+                  "id": 33,
+                  "name": "T03 Hai"
+                },
+                {
+                  "id": 34,
+                  "name": "T03 Ba"
+                }
+              ]
+            }
+          },
+          "reason": "The category dataset changed unexpectedly",
+          "images": [
+            {
+              "path": "images/CAT-TC10-actual.jpg",
+              "capture_requested_at": "2026-10-20T07:36:31.161315+00:00",
+              "capture_completed_by": "2026-10-20T07:36:31.193577+00:00",
+              "state": "actual"
+            }
+          ],
+          "finished_at": "2026-10-20T07:36:31.197065+00:00",
+          "run_id": "CAT-RUN-02",
+          "bug_ids": [
+            "CAT-BUG01"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "CAT-TC11",
+      "technique": "Domain",
+      "traceability": "R04,R06,R07 / D08,D16",
+      "document_line": 53,
+      "precondition_text": "PA + C3, Ref(i2)=0",
+      "input_text": "Xóa `i2` (`T03 Hai`)",
+      "steps_text": "W-Delete(i2)",
+      "expected_text": "Chỉ i2 biến mất, i1/i3 và tên tương ứng giữ nguyên sau reload. R04/S1; path theo ID S3",
+      "fixture": "C3",
+      "kind": "web_delete",
+      "target": "i2",
+      "oracle": "delete",
+      "results": [
+        {
+          "id": "CAT-TC11",
+          "status": "passed",
+          "started_at": "2026-10-20T07:36:31.204548+00:00",
+          "input": "Xóa `i2` (`T03 Hai`)",
+          "expected": "Chỉ i2 biến mất, i1/i3 và tên tương ứng giữ nguyên sau reload. R04/S1; path theo ID S3",
+          "traceability": "R04,R06,R07 / D08,D16",
+          "observation": {
+            "database_before": [
+              {
+                "id": 36,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 37,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 38,
+                "name": "T03 Ba"
+              }
+            ],
+            "fixture_ids": {
+              "i1": 36,
+              "i2": 37,
+              "i3": 38,
+              "missing": 999999
+            },
+            "api_before": [
+              {
+                "id": 36,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 37,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 38,
+                "name": "T03 Ba"
+              }
+            ],
+            "login_identity": {
+              "email": "admin@eshop.com",
+              "role": "admin"
+            },
+            "web_category_reads": [
+              {
+                "status": 200,
+                "categories": [
+                  {
+                    "id": 36,
+                    "name": "T03 Mot"
+                  },
+                  {
+                    "id": 37,
+                    "name": "T03 Hai"
+                  },
+                  {
+                    "id": 38,
+                    "name": "T03 Ba"
+                  }
+                ]
+              },
+              {
+                "status": 200,
+                "categories": [
+                  {
+                    "id": 36,
+                    "name": "T03 Mot"
+                  },
+                  {
+                    "id": 38,
+                    "name": "T03 Ba"
+                  }
+                ]
+              }
+            ],
+            "ui_before": [
+              {
+                "id": 36,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 37,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 38,
+                "name": "T03 Ba"
+              }
+            ],
+            "target_request": {
+              "method": "DELETE",
+              "path": "/categories/37",
+              "response": {
+                "status": 200,
+                "body": {
+                  "message": "Category deleted"
+                }
+              }
+            },
+            "native_validation": false,
+            "inline_feedback": [],
+            "database_after": [
+              {
+                "id": 36,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 38,
+                "name": "T03 Ba"
+              }
+            ],
+            "api_after": [
+              {
+                "id": 36,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 38,
+                "name": "T03 Ba"
+              }
+            ],
+            "ui_after_action": [
+              {
+                "id": 36,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 38,
+                "name": "T03 Ba"
+              }
+            ],
+            "ui_after_reload": [
+              {
+                "id": 36,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 38,
+                "name": "T03 Ba"
+              }
+            ],
+            "fixture_setup": {
+              "fixture": "C3",
+              "prepared_at": "2026-10-20T07:36:31.204503+00:00",
+              "scope": "Only the new T03 runtime DB, before the TC action",
+              "categories": [
+                {
+                  "id": 36,
+                  "name": "T03 Mot"
+                },
+                {
+                  "id": 37,
+                  "name": "T03 Hai"
+                },
+                {
+                  "id": 38,
+                  "name": "T03 Ba"
+                }
+              ]
+            }
+          },
+          "finished_at": "2026-10-20T07:36:32.144121+00:00",
+          "run_id": "CAT-RUN-02"
+        }
+      ]
+    },
+    {
+      "id": "CAT-TC12",
+      "technique": "Domain",
+      "traceability": "R01,R04 / D09,D16",
+      "document_line": 54,
+      "precondition_text": "PA + C1, Ref(i1)=0",
+      "input_text": "Xóa danh mục cuối `i1`",
+      "steps_text": "W-Delete(i1)",
+      "expected_text": "i1 bị xóa; danh sách rỗng sau reload, không còn dòng cũ. R01,R04/S1",
+      "fixture": "C1",
+      "kind": "web_delete",
+      "target": "i1",
+      "oracle": "delete",
+      "results": [
+        {
+          "id": "CAT-TC12",
+          "status": "passed",
+          "started_at": "2026-10-20T07:36:32.152097+00:00",
+          "input": "Xóa danh mục cuối `i1`",
+          "expected": "i1 bị xóa; danh sách rỗng sau reload, không còn dòng cũ. R01,R04/S1",
+          "traceability": "R01,R04 / D09,D16",
+          "observation": {
+            "database_before": [
+              {
+                "id": 39,
+                "name": "T03 Mot"
+              }
+            ],
+            "fixture_ids": {
+              "i1": 39,
+              "missing": 999999
+            },
+            "api_before": [
+              {
+                "id": 39,
+                "name": "T03 Mot"
+              }
+            ],
+            "login_identity": {
+              "email": "admin@eshop.com",
+              "role": "admin"
+            },
+            "web_category_reads": [
+              {
+                "status": 200,
+                "categories": [
+                  {
+                    "id": 39,
+                    "name": "T03 Mot"
+                  }
+                ]
+              },
+              {
+                "status": 200,
+                "categories": []
+              }
+            ],
+            "ui_before": [
+              {
+                "id": 39,
+                "name": "T03 Mot"
+              }
+            ],
+            "target_request": {
+              "method": "DELETE",
+              "path": "/categories/39",
+              "response": {
+                "status": 200,
+                "body": {
+                  "message": "Category deleted"
+                }
+              }
+            },
+            "native_validation": false,
+            "inline_feedback": [],
+            "database_after": [],
+            "api_after": [],
+            "ui_after_action": [],
+            "ui_after_reload": [],
+            "fixture_setup": {
+              "fixture": "C1",
+              "prepared_at": "2026-10-20T07:36:32.152025+00:00",
+              "scope": "Only the new T03 runtime DB, before the TC action",
+              "categories": [
+                {
+                  "id": 39,
+                  "name": "T03 Mot"
+                }
+              ]
+            }
+          },
+          "finished_at": "2026-10-20T07:36:33.028812+00:00",
+          "run_id": "CAT-RUN-02"
+        }
+      ]
+    },
+    {
+      "id": "CAT-TC13",
+      "technique": "Domain",
+      "traceability": "R05 / D11",
+      "document_line": 61,
+      "precondition_text": "P0 + C3; phiên trình duyệt mới không có adminToken",
+      "input_text": "Guest mở `http://localhost:5174/`",
+      "steps_text": "Mở URL; thử tới tab Danh mục nếu giao diện cho phép; reload và kiểm tra lại",
+      "expected_text": "Không truy cập được màn hình quản lý danh mục/nút thao tác quản lý trong phân hệ Admin; có yêu cầu xác thực hoặc từ chối. Không áp một URL redirect cụ thể. R05/S2",
+      "fixture": "C3",
+      "kind": "web_access",
+      "entry": "guest",
+      "oracle": "access_denied",
+      "results": [
+        {
+          "id": "CAT-TC13",
+          "status": "passed",
+          "started_at": "2026-10-20T07:36:33.036901+00:00",
+          "input": "Guest mở `http://localhost:5174/`",
+          "expected": "Không truy cập được màn hình quản lý danh mục/nút thao tác quản lý trong phân hệ Admin; có yêu cầu xác thực hoặc từ chối. Không áp một URL redirect cụ thể. R05/S2",
+          "traceability": "R05 / D11",
+          "observation": {
+            "database_before": [
+              {
+                "id": 40,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 41,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 42,
+                "name": "T03 Ba"
+              }
+            ],
+            "fixture_ids": {
+              "i1": 40,
+              "i2": 41,
+              "i3": 42,
+              "missing": 999999
+            },
+            "api_before": [
+              {
+                "id": 40,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 41,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 42,
+                "name": "T03 Ba"
+              }
+            ],
+            "access_before_reload": {
+              "category_navigation": false,
+              "category_panel": false,
+              "create_control": false,
+              "login_form": true,
+              "body": "Admin Login\nLogin"
+            },
+            "access_after_reload": {
+              "category_navigation": false,
+              "category_panel": false,
+              "create_control": false,
+              "login_form": true,
+              "body": "Admin Login\nLogin"
+            },
+            "database_after": [
+              {
+                "id": 40,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 41,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 42,
+                "name": "T03 Ba"
+              }
+            ],
+            "api_after": [
+              {
+                "id": 40,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 41,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 42,
+                "name": "T03 Ba"
+              }
+            ],
+            "fixture_setup": {
+              "fixture": "C3",
+              "prepared_at": "2026-10-20T07:36:33.036860+00:00",
+              "scope": "Only the new T03 runtime DB, before the TC action",
+              "categories": [
+                {
+                  "id": 40,
+                  "name": "T03 Mot"
+                },
+                {
+                  "id": 41,
+                  "name": "T03 Hai"
+                },
+                {
+                  "id": 42,
+                  "name": "T03 Ba"
+                }
+              ]
+            }
+          },
+          "finished_at": "2026-10-20T07:36:33.265568+00:00",
+          "run_id": "CAT-RUN-02"
+        }
+      ]
+    },
+    {
+      "id": "CAT-TC14",
+      "technique": "Domain",
+      "traceability": "R05 / D12",
+      "document_line": 62,
+      "precondition_text": "P0 + C3; phiên mới; user demo tồn tại, đăng nhập được ở luồng bình thường",
+      "input_text": "Email `test@eshop.com`, password `Test1234!` tại Admin Login",
+      "steps_text": "Mở Admin; nhập user hợp lệ, bấm Login một lần; thử mở Danh mục nếu có; reload kiểm tra lại",
+      "expected_text": "User thường không vào được phân hệ quản lý danh mục dù thông tin đăng nhập hợp lệ. Không đòi exact alert. R05/S2; identity là setup, không kiểm thử lockout FR-02",
+      "fixture": "C3",
+      "kind": "web_access",
+      "entry": "login_user",
+      "oracle": "access_denied",
+      "results": [
+        {
+          "id": "CAT-TC14",
+          "status": "passed",
+          "started_at": "2026-10-20T07:36:33.279029+00:00",
+          "input": "Email `test@eshop.com`, password `Test1234!` tại Admin Login",
+          "expected": "User thường không vào được phân hệ quản lý danh mục dù thông tin đăng nhập hợp lệ. Không đòi exact alert. R05/S2; identity là setup, không kiểm thử lockout FR-02",
+          "traceability": "R05 / D12",
+          "observation": {
+            "database_before": [
+              {
+                "id": 43,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 44,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 45,
+                "name": "T03 Ba"
+              }
+            ],
+            "fixture_ids": {
+              "i1": 43,
+              "i2": 44,
+              "i3": 45,
+              "missing": 999999
+            },
+            "api_before": [
+              {
+                "id": 43,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 44,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 45,
+                "name": "T03 Ba"
+              }
+            ],
+            "dialogs": [
+              {
+                "type": "alert",
+                "message": "Bạn không phải là admin!"
+              }
+            ],
+            "login_identity": {
+              "email": "test@eshop.com",
+              "role": "user"
+            },
+            "access_before_reload": {
+              "category_navigation": false,
+              "category_panel": false,
+              "create_control": false,
+              "login_form": true,
+              "body": "Admin Login\nLogin"
+            },
+            "access_after_reload": {
+              "category_navigation": false,
+              "category_panel": false,
+              "create_control": false,
+              "login_form": true,
+              "body": "Admin Login\nLogin"
+            },
+            "database_after": [
+              {
+                "id": 43,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 44,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 45,
+                "name": "T03 Ba"
+              }
+            ],
+            "api_after": [
+              {
+                "id": 43,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 44,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 45,
+                "name": "T03 Ba"
+              }
+            ],
+            "fixture_setup": {
+              "fixture": "C3",
+              "prepared_at": "2026-10-20T07:36:33.278972+00:00",
+              "scope": "Only the new T03 runtime DB, before the TC action",
+              "categories": [
+                {
+                  "id": 43,
+                  "name": "T03 Mot"
+                },
+                {
+                  "id": 44,
+                  "name": "T03 Hai"
+                },
+                {
+                  "id": 45,
+                  "name": "T03 Ba"
+                }
+              ]
+            }
+          },
+          "finished_at": "2026-10-20T07:36:33.715945+00:00",
+          "run_id": "CAT-RUN-02"
+        }
+      ]
+    },
+    {
+      "id": "CAT-TC15",
+      "technique": "Domain",
+      "traceability": "R06 / D13",
+      "document_line": 71,
+      "precondition_text": "Không Authorization ở request mục tiêu",
+      "input_text": "POST `/api/categories`; body `{\"name\":\"T03 Moi\"}`",
+      "steps_text": "A",
+      "expected_text": "AUTH-REJECT; không thêm `T03 Moi`. R06/S2",
+      "fixture": "C3",
+      "kind": "api",
+      "method": "POST",
+      "path": "/categories",
+      "auth": "none",
+      "body": {
+        "name": "T03 Moi"
+      },
+      "oracle": "auth_reject",
+      "results": [
+        {
+          "id": "CAT-TC15",
+          "status": "passed",
+          "started_at": "2026-10-20T07:36:33.725885+00:00",
+          "input": "POST `/api/categories`; body `{\"name\":\"T03 Moi\"}`",
+          "expected": "AUTH-REJECT; không thêm `T03 Moi`. R06/S2",
+          "traceability": "R06 / D13",
+          "observation": {
+            "database_before": [
+              {
+                "id": 46,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 47,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 48,
+                "name": "T03 Ba"
+              }
+            ],
+            "fixture_ids": {
+              "i1": 46,
+              "i2": 47,
+              "i3": 48,
+              "missing": 999999
+            },
+            "api_before": [
+              {
+                "id": 46,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 47,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 48,
+                "name": "T03 Ba"
+              }
+            ],
+            "target_request": {
+              "method": "POST",
+              "path": "/categories",
+              "token_variant": "none",
+              "body": {
+                "name": "T03 Moi"
+              },
+              "response": {
+                "status": 401,
+                "body": {
+                  "error": "Unauthorized"
+                }
+              }
+            },
+            "database_after": [
+              {
+                "id": 46,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 47,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 48,
+                "name": "T03 Ba"
+              }
+            ],
+            "api_after": [
+              {
+                "id": 46,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 47,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 48,
+                "name": "T03 Ba"
+              }
+            ],
+            "fixture_setup": {
+              "fixture": "C3",
+              "prepared_at": "2026-10-20T07:36:33.725828+00:00",
+              "scope": "Only the new T03 runtime DB, before the TC action",
+              "categories": [
+                {
+                  "id": 46,
+                  "name": "T03 Mot"
+                },
+                {
+                  "id": 47,
+                  "name": "T03 Hai"
+                },
+                {
+                  "id": 48,
+                  "name": "T03 Ba"
+                }
+              ]
+            }
+          },
+          "finished_at": "2026-10-20T07:36:33.775062+00:00",
+          "run_id": "CAT-RUN-02"
+        }
+      ]
+    },
+    {
+      "id": "CAT-TC16",
+      "technique": "Domain",
+      "traceability": "R06 / D13",
+      "document_line": 72,
+      "precondition_text": "Không Authorization ở request mục tiêu",
+      "input_text": "DELETE `/api/categories/<i2>`; không body",
+      "steps_text": "A",
+      "expected_text": "AUTH-REJECT; i2 vẫn tồn tại, tên cũ giữ nguyên. R06/S2",
+      "fixture": "C3",
+      "kind": "api",
+      "method": "DELETE",
+      "path": "/categories/{i2}",
+      "auth": "none",
+      "body": null,
+      "oracle": "auth_reject",
+      "results": [
+        {
+          "id": "CAT-TC16",
+          "status": "passed",
+          "started_at": "2026-10-20T07:36:33.785342+00:00",
+          "input": "DELETE `/api/categories/<i2>`; không body",
+          "expected": "AUTH-REJECT; i2 vẫn tồn tại, tên cũ giữ nguyên. R06/S2",
+          "traceability": "R06 / D13",
+          "observation": {
+            "database_before": [
+              {
+                "id": 49,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 50,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 51,
+                "name": "T03 Ba"
+              }
+            ],
+            "fixture_ids": {
+              "i1": 49,
+              "i2": 50,
+              "i3": 51,
+              "missing": 999999
+            },
+            "api_before": [
+              {
+                "id": 49,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 50,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 51,
+                "name": "T03 Ba"
+              }
+            ],
+            "target_request": {
+              "method": "DELETE",
+              "path": "/categories/50",
+              "token_variant": "none",
+              "body": null,
+              "response": {
+                "status": 401,
+                "body": {
+                  "error": "Unauthorized"
+                }
+              }
+            },
+            "database_after": [
+              {
+                "id": 49,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 50,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 51,
+                "name": "T03 Ba"
+              }
+            ],
+            "api_after": [
+              {
+                "id": 49,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 50,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 51,
+                "name": "T03 Ba"
+              }
+            ],
+            "fixture_setup": {
+              "fixture": "C3",
+              "prepared_at": "2026-10-20T07:36:33.785251+00:00",
+              "scope": "Only the new T03 runtime DB, before the TC action",
+              "categories": [
+                {
+                  "id": 49,
+                  "name": "T03 Mot"
+                },
+                {
+                  "id": 50,
+                  "name": "T03 Hai"
+                },
+                {
+                  "id": 51,
+                  "name": "T03 Ba"
+                }
+              ]
+            }
+          },
+          "finished_at": "2026-10-20T07:36:33.812419+00:00",
+          "run_id": "CAT-RUN-02"
+        }
+      ]
+    },
+    {
+      "id": "CAT-TC17",
+      "technique": "Domain",
+      "traceability": "R06 / D13",
+      "document_line": 73,
+      "precondition_text": "Không Authorization ở request mục tiêu",
+      "input_text": "PUT `/api/categories/<i2>`; body `{\"name\":\"T03 Doi\"}`",
+      "steps_text": "A",
+      "expected_text": "AUTH-REJECT; i2 không bị đổi tên. Chỉ kiểm tra quyền PUT. R06/S2",
+      "fixture": "C3",
+      "kind": "api",
+      "method": "PUT",
+      "path": "/categories/{i2}",
+      "auth": "none",
+      "body": {
+        "name": "T03 Doi"
+      },
+      "oracle": "auth_reject",
+      "results": [
+        {
+          "id": "CAT-TC17",
+          "status": "passed",
+          "started_at": "2026-10-20T07:36:33.820059+00:00",
+          "input": "PUT `/api/categories/<i2>`; body `{\"name\":\"T03 Doi\"}`",
+          "expected": "AUTH-REJECT; i2 không bị đổi tên. Chỉ kiểm tra quyền PUT. R06/S2",
+          "traceability": "R06 / D13",
+          "observation": {
+            "database_before": [
+              {
+                "id": 52,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 53,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 54,
+                "name": "T03 Ba"
+              }
+            ],
+            "fixture_ids": {
+              "i1": 52,
+              "i2": 53,
+              "i3": 54,
+              "missing": 999999
+            },
+            "api_before": [
+              {
+                "id": 52,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 53,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 54,
+                "name": "T03 Ba"
+              }
+            ],
+            "target_request": {
+              "method": "PUT",
+              "path": "/categories/53",
+              "token_variant": "none",
+              "body": {
+                "name": "T03 Doi"
+              },
+              "response": {
+                "status": 401,
+                "body": {
+                  "error": "Unauthorized"
+                }
+              }
+            },
+            "database_after": [
+              {
+                "id": 52,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 53,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 54,
+                "name": "T03 Ba"
+              }
+            ],
+            "api_after": [
+              {
+                "id": 52,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 53,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 54,
+                "name": "T03 Ba"
+              }
+            ],
+            "fixture_setup": {
+              "fixture": "C3",
+              "prepared_at": "2026-10-20T07:36:33.820011+00:00",
+              "scope": "Only the new T03 runtime DB, before the TC action",
+              "categories": [
+                {
+                  "id": 52,
+                  "name": "T03 Mot"
+                },
+                {
+                  "id": 53,
+                  "name": "T03 Hai"
+                },
+                {
+                  "id": 54,
+                  "name": "T03 Ba"
+                }
+              ]
+            }
+          },
+          "finished_at": "2026-10-20T07:36:33.869209+00:00",
+          "run_id": "CAT-RUN-02"
+        }
+      ]
+    },
+    {
+      "id": "CAT-TC18",
+      "technique": "Domain",
+      "traceability": "R06 / D14",
+      "document_line": 74,
+      "precondition_text": "Header `Authorization: Bearer not-a-jwt`",
+      "input_text": "POST `/api/categories`; body `{\"name\":\"T03 Moi\"}`",
+      "steps_text": "A",
+      "expected_text": "AUTH-REJECT; không thêm `T03 Moi`. R06/S2",
+      "fixture": "C3",
+      "kind": "api",
+      "method": "POST",
+      "path": "/categories",
+      "auth": "malformed",
+      "body": {
+        "name": "T03 Moi"
+      },
+      "oracle": "auth_reject",
+      "results": [
+        {
+          "id": "CAT-TC18",
+          "status": "passed",
+          "started_at": "2026-10-20T07:36:33.879881+00:00",
+          "input": "POST `/api/categories`; body `{\"name\":\"T03 Moi\"}`",
+          "expected": "AUTH-REJECT; không thêm `T03 Moi`. R06/S2",
+          "traceability": "R06 / D14",
+          "observation": {
+            "database_before": [
+              {
+                "id": 55,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 56,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 57,
+                "name": "T03 Ba"
+              }
+            ],
+            "fixture_ids": {
+              "i1": 55,
+              "i2": 56,
+              "i3": 57,
+              "missing": 999999
+            },
+            "api_before": [
+              {
+                "id": 55,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 56,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 57,
+                "name": "T03 Ba"
+              }
+            ],
+            "target_request": {
+              "method": "POST",
+              "path": "/categories",
+              "token_variant": "malformed",
+              "body": {
+                "name": "T03 Moi"
+              },
+              "response": {
+                "status": 403,
+                "body": {
+                  "error": "Forbidden"
+                }
+              }
+            },
+            "database_after": [
+              {
+                "id": 55,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 56,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 57,
+                "name": "T03 Ba"
+              }
+            ],
+            "api_after": [
+              {
+                "id": 55,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 56,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 57,
+                "name": "T03 Ba"
+              }
+            ],
+            "fixture_setup": {
+              "fixture": "C3",
+              "prepared_at": "2026-10-20T07:36:33.879826+00:00",
+              "scope": "Only the new T03 runtime DB, before the TC action",
+              "categories": [
+                {
+                  "id": 55,
+                  "name": "T03 Mot"
+                },
+                {
+                  "id": 56,
+                  "name": "T03 Hai"
+                },
+                {
+                  "id": 57,
+                  "name": "T03 Ba"
+                }
+              ]
+            }
+          },
+          "finished_at": "2026-10-20T07:36:33.898669+00:00",
+          "run_id": "CAT-RUN-02"
+        }
+      ]
+    },
+    {
+      "id": "CAT-TC19",
+      "technique": "Domain",
+      "traceability": "R06 / D14",
+      "document_line": 75,
+      "precondition_text": "Header `Authorization: Bearer not-a-jwt`",
+      "input_text": "DELETE `/api/categories/<i2>`; không body",
+      "steps_text": "A",
+      "expected_text": "AUTH-REJECT; i2 không bị xóa. R06/S2",
+      "fixture": "C3",
+      "kind": "api",
+      "method": "DELETE",
+      "path": "/categories/{i2}",
+      "auth": "malformed",
+      "body": null,
+      "oracle": "auth_reject",
+      "results": [
+        {
+          "id": "CAT-TC19",
+          "status": "passed",
+          "started_at": "2026-10-20T07:36:33.907242+00:00",
+          "input": "DELETE `/api/categories/<i2>`; không body",
+          "expected": "AUTH-REJECT; i2 không bị xóa. R06/S2",
+          "traceability": "R06 / D14",
+          "observation": {
+            "database_before": [
+              {
+                "id": 58,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 59,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 60,
+                "name": "T03 Ba"
+              }
+            ],
+            "fixture_ids": {
+              "i1": 58,
+              "i2": 59,
+              "i3": 60,
+              "missing": 999999
+            },
+            "api_before": [
+              {
+                "id": 58,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 59,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 60,
+                "name": "T03 Ba"
+              }
+            ],
+            "target_request": {
+              "method": "DELETE",
+              "path": "/categories/59",
+              "token_variant": "malformed",
+              "body": null,
+              "response": {
+                "status": 403,
+                "body": {
+                  "error": "Forbidden"
+                }
+              }
+            },
+            "database_after": [
+              {
+                "id": 58,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 59,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 60,
+                "name": "T03 Ba"
+              }
+            ],
+            "api_after": [
+              {
+                "id": 58,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 59,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 60,
+                "name": "T03 Ba"
+              }
+            ],
+            "fixture_setup": {
+              "fixture": "C3",
+              "prepared_at": "2026-10-20T07:36:33.907212+00:00",
+              "scope": "Only the new T03 runtime DB, before the TC action",
+              "categories": [
+                {
+                  "id": 58,
+                  "name": "T03 Mot"
+                },
+                {
+                  "id": 59,
+                  "name": "T03 Hai"
+                },
+                {
+                  "id": 60,
+                  "name": "T03 Ba"
+                }
+              ]
+            }
+          },
+          "finished_at": "2026-10-20T07:36:33.915762+00:00",
+          "run_id": "CAT-RUN-02"
+        }
+      ]
+    },
+    {
+      "id": "CAT-TC20",
+      "technique": "Domain",
+      "traceability": "R06 / D14",
+      "document_line": 76,
+      "precondition_text": "Header `Authorization: Bearer not-a-jwt`",
+      "input_text": "PUT `/api/categories/<i2>`; body `{\"name\":\"T03 Doi\"}`",
+      "steps_text": "A",
+      "expected_text": "AUTH-REJECT; i2 không bị đổi tên. R06/S2",
+      "fixture": "C3",
+      "kind": "api",
+      "method": "PUT",
+      "path": "/categories/{i2}",
+      "auth": "malformed",
+      "body": {
+        "name": "T03 Doi"
+      },
+      "oracle": "auth_reject",
+      "results": [
+        {
+          "id": "CAT-TC20",
+          "status": "passed",
+          "started_at": "2026-10-20T07:36:33.921614+00:00",
+          "input": "PUT `/api/categories/<i2>`; body `{\"name\":\"T03 Doi\"}`",
+          "expected": "AUTH-REJECT; i2 không bị đổi tên. R06/S2",
+          "traceability": "R06 / D14",
+          "observation": {
+            "database_before": [
+              {
+                "id": 61,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 62,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 63,
+                "name": "T03 Ba"
+              }
+            ],
+            "fixture_ids": {
+              "i1": 61,
+              "i2": 62,
+              "i3": 63,
+              "missing": 999999
+            },
+            "api_before": [
+              {
+                "id": 61,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 62,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 63,
+                "name": "T03 Ba"
+              }
+            ],
+            "target_request": {
+              "method": "PUT",
+              "path": "/categories/62",
+              "token_variant": "malformed",
+              "body": {
+                "name": "T03 Doi"
+              },
+              "response": {
+                "status": 403,
+                "body": {
+                  "error": "Forbidden"
+                }
+              }
+            },
+            "database_after": [
+              {
+                "id": 61,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 62,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 63,
+                "name": "T03 Ba"
+              }
+            ],
+            "api_after": [
+              {
+                "id": 61,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 62,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 63,
+                "name": "T03 Ba"
+              }
+            ],
+            "fixture_setup": {
+              "fixture": "C3",
+              "prepared_at": "2026-10-20T07:36:33.921590+00:00",
+              "scope": "Only the new T03 runtime DB, before the TC action",
+              "categories": [
+                {
+                  "id": 61,
+                  "name": "T03 Mot"
+                },
+                {
+                  "id": 62,
+                  "name": "T03 Hai"
+                },
+                {
+                  "id": 63,
+                  "name": "T03 Ba"
+                }
+              ]
+            }
+          },
+          "finished_at": "2026-10-20T07:36:33.951452+00:00",
+          "run_id": "CAT-RUN-02"
+        }
+      ]
+    },
+    {
+      "id": "CAT-TC21",
+      "technique": "Domain",
+      "traceability": "R07 / D15",
+      "document_line": 77,
+      "precondition_text": "TU hợp lệ role user; header `Authorization: Bearer <TU>`",
+      "input_text": "POST `/api/categories`; body `{\"name\":\"T03 Moi\"}`",
+      "steps_text": "A",
+      "expected_text": "AUTH-REJECT; không thêm `T03 Moi` dù token hợp lệ. R07/S2",
+      "fixture": "C3",
+      "kind": "api",
+      "method": "POST",
+      "path": "/categories",
+      "auth": "TU",
+      "body": {
+        "name": "T03 Moi"
+      },
+      "oracle": "auth_reject",
+      "results": [
+        {
+          "id": "CAT-TC21",
+          "status": "failed",
+          "started_at": "2026-10-20T07:36:33.958162+00:00",
+          "input": "POST `/api/categories`; body `{\"name\":\"T03 Moi\"}`",
+          "expected": "AUTH-REJECT; không thêm `T03 Moi` dù token hợp lệ. R07/S2",
+          "traceability": "R07 / D15",
+          "observation": {
+            "database_before": [
+              {
+                "id": 64,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 65,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 66,
+                "name": "T03 Ba"
+              }
+            ],
+            "fixture_ids": {
+              "i1": 64,
+              "i2": 65,
+              "i3": 66,
+              "missing": 999999
+            },
+            "api_before": [
+              {
+                "id": 64,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 65,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 66,
+                "name": "T03 Ba"
+              }
+            ],
+            "target_request": {
+              "method": "POST",
+              "path": "/categories",
+              "token_variant": "TU",
+              "body": {
+                "name": "T03 Moi"
+              },
+              "response": {
+                "status": 200,
+                "body": {
+                  "message": "Category created",
+                  "id": 67
+                }
+              }
+            },
+            "database_after": [
+              {
+                "id": 64,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 65,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 66,
+                "name": "T03 Ba"
+              },
+              {
+                "id": 67,
+                "name": "T03 Moi"
+              }
+            ],
+            "api_after": [
+              {
+                "id": 64,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 65,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 66,
+                "name": "T03 Ba"
+              },
+              {
+                "id": 67,
+                "name": "T03 Moi"
+              }
+            ],
+            "login_identity": {
+              "email": "admin@eshop.com",
+              "role": "admin"
+            },
+            "evidence_view": "Read-only Admin view after the API action; request/token variant is evidenced by target_request, not by this screenshot",
+            "fixture_setup": {
+              "fixture": "C3",
+              "prepared_at": "2026-10-20T07:36:33.958132+00:00",
+              "scope": "Only the new T03 runtime DB, before the TC action",
+              "categories": [
+                {
+                  "id": 64,
+                  "name": "T03 Mot"
+                },
+                {
+                  "id": 65,
+                  "name": "T03 Hai"
+                },
+                {
+                  "id": 66,
+                  "name": "T03 Ba"
+                }
+              ]
+            }
+          },
+          "reason": "The category dataset changed unexpectedly",
+          "images": [
+            {
+              "path": "images/CAT-TC21-actual.jpg",
+              "capture_requested_at": "2026-10-20T07:36:34.447132+00:00",
+              "capture_completed_by": "2026-10-20T07:36:34.473467+00:00",
+              "state": "actual"
+            }
+          ],
+          "finished_at": "2026-10-20T07:36:34.476396+00:00",
+          "run_id": "CAT-RUN-02",
+          "bug_ids": [
+            "CAT-BUG02"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "CAT-TC22",
+      "technique": "Domain",
+      "traceability": "R07 / D15",
+      "document_line": 78,
+      "precondition_text": "TU hợp lệ role user; header `Authorization: Bearer <TU>`",
+      "input_text": "DELETE `/api/categories/<i2>`; không body",
+      "steps_text": "A",
+      "expected_text": "AUTH-REJECT; i2 không bị xóa. R07/S2",
+      "fixture": "C3",
+      "kind": "api",
+      "method": "DELETE",
+      "path": "/categories/{i2}",
+      "auth": "TU",
+      "body": null,
+      "oracle": "auth_reject",
+      "results": [
+        {
+          "id": "CAT-TC22",
+          "status": "failed",
+          "started_at": "2026-10-20T07:36:34.486148+00:00",
+          "input": "DELETE `/api/categories/<i2>`; không body",
+          "expected": "AUTH-REJECT; i2 không bị xóa. R07/S2",
+          "traceability": "R07 / D15",
+          "observation": {
+            "database_before": [
+              {
+                "id": 68,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 69,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 70,
+                "name": "T03 Ba"
+              }
+            ],
+            "fixture_ids": {
+              "i1": 68,
+              "i2": 69,
+              "i3": 70,
+              "missing": 999999
+            },
+            "api_before": [
+              {
+                "id": 68,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 69,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 70,
+                "name": "T03 Ba"
+              }
+            ],
+            "target_request": {
+              "method": "DELETE",
+              "path": "/categories/69",
+              "token_variant": "TU",
+              "body": null,
+              "response": {
+                "status": 200,
+                "body": {
+                  "message": "Category deleted"
+                }
+              }
+            },
+            "database_after": [
+              {
+                "id": 68,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 70,
+                "name": "T03 Ba"
+              }
+            ],
+            "api_after": [
+              {
+                "id": 68,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 70,
+                "name": "T03 Ba"
+              }
+            ],
+            "login_identity": {
+              "email": "admin@eshop.com",
+              "role": "admin"
+            },
+            "evidence_view": "Read-only Admin view after the API action; request/token variant is evidenced by target_request, not by this screenshot",
+            "fixture_setup": {
+              "fixture": "C3",
+              "prepared_at": "2026-10-20T07:36:34.486105+00:00",
+              "scope": "Only the new T03 runtime DB, before the TC action",
+              "categories": [
+                {
+                  "id": 68,
+                  "name": "T03 Mot"
+                },
+                {
+                  "id": 69,
+                  "name": "T03 Hai"
+                },
+                {
+                  "id": 70,
+                  "name": "T03 Ba"
+                }
+              ]
+            }
+          },
+          "reason": "The category dataset changed unexpectedly",
+          "images": [
+            {
+              "path": "images/CAT-TC22-actual.jpg",
+              "capture_requested_at": "2026-10-20T07:36:34.926284+00:00",
+              "capture_completed_by": "2026-10-20T07:36:34.956921+00:00",
+              "state": "actual"
+            }
+          ],
+          "finished_at": "2026-10-20T07:36:34.959941+00:00",
+          "run_id": "CAT-RUN-02",
+          "bug_ids": [
+            "CAT-BUG02"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "CAT-TC23",
+      "technique": "Domain",
+      "traceability": "R07 / D15",
+      "document_line": 79,
+      "precondition_text": "TU hợp lệ role user; header `Authorization: Bearer <TU>`",
+      "input_text": "PUT `/api/categories/<i2>`; body `{\"name\":\"T03 Doi\"}`",
+      "steps_text": "A",
+      "expected_text": "AUTH-REJECT; i2 không bị đổi tên. R07/S2",
+      "fixture": "C3",
+      "kind": "api",
+      "method": "PUT",
+      "path": "/categories/{i2}",
+      "auth": "TU",
+      "body": {
+        "name": "T03 Doi"
+      },
+      "oracle": "auth_reject",
+      "results": [
+        {
+          "id": "CAT-TC23",
+          "status": "failed",
+          "started_at": "2026-10-20T07:36:34.969493+00:00",
+          "input": "PUT `/api/categories/<i2>`; body `{\"name\":\"T03 Doi\"}`",
+          "expected": "AUTH-REJECT; i2 không bị đổi tên. R07/S2",
+          "traceability": "R07 / D15",
+          "observation": {
+            "database_before": [
+              {
+                "id": 71,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 72,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 73,
+                "name": "T03 Ba"
+              }
+            ],
+            "fixture_ids": {
+              "i1": 71,
+              "i2": 72,
+              "i3": 73,
+              "missing": 999999
+            },
+            "api_before": [
+              {
+                "id": 71,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 72,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 73,
+                "name": "T03 Ba"
+              }
+            ],
+            "target_request": {
+              "method": "PUT",
+              "path": "/categories/72",
+              "token_variant": "TU",
+              "body": {
+                "name": "T03 Doi"
+              },
+              "response": {
+                "status": 200,
+                "body": {
+                  "message": "Category updated"
+                }
+              }
+            },
+            "database_after": [
+              {
+                "id": 71,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 72,
+                "name": "T03 Doi"
+              },
+              {
+                "id": 73,
+                "name": "T03 Ba"
+              }
+            ],
+            "api_after": [
+              {
+                "id": 71,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 72,
+                "name": "T03 Doi"
+              },
+              {
+                "id": 73,
+                "name": "T03 Ba"
+              }
+            ],
+            "login_identity": {
+              "email": "admin@eshop.com",
+              "role": "admin"
+            },
+            "evidence_view": "Read-only Admin view after the API action; request/token variant is evidenced by target_request, not by this screenshot",
+            "fixture_setup": {
+              "fixture": "C3",
+              "prepared_at": "2026-10-20T07:36:34.969452+00:00",
+              "scope": "Only the new T03 runtime DB, before the TC action",
+              "categories": [
+                {
+                  "id": 71,
+                  "name": "T03 Mot"
+                },
+                {
+                  "id": 72,
+                  "name": "T03 Hai"
+                },
+                {
+                  "id": 73,
+                  "name": "T03 Ba"
+                }
+              ]
+            }
+          },
+          "reason": "The category dataset changed unexpectedly",
+          "images": [
+            {
+              "path": "images/CAT-TC23-actual.jpg",
+              "capture_requested_at": "2026-10-20T07:36:35.409370+00:00",
+              "capture_completed_by": "2026-10-20T07:36:35.441270+00:00",
+              "state": "actual"
+            }
+          ],
+          "finished_at": "2026-10-20T07:36:35.444101+00:00",
+          "run_id": "CAT-RUN-02",
+          "bug_ids": [
+            "CAT-BUG02"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "CAT-TC24",
+      "technique": "Domain",
+      "traceability": "R04 / D10",
+      "document_line": 55,
+      "precondition_text": "P0 + C3 + TA; GET xác nhận ID `999999` vắng, nếu đã có phải chọn ID vắng khác và ghi lại",
+      "input_text": "DELETE `/api/categories/999999`; `Authorization: Bearer <TA>`; không body",
+      "steps_text": "A, dùng đúng ID vắng đã xác nhận",
+      "expected_text": "Không xóa/đổi i1/i2/i3 hoặc tạo danh mục mới. Chỉ đánh giá invariant theo ID của R04/S3; status/message/idempotency chưa có oracle (Q05)",
+      "fixture": "C3",
+      "kind": "api",
+      "method": "DELETE",
+      "path": "/categories/{missing}",
+      "auth": "TA",
+      "body": null,
+      "oracle": "unchanged",
+      "results": [
+        {
+          "id": "CAT-TC24",
+          "status": "passed",
+          "started_at": "2026-10-20T07:36:35.452130+00:00",
+          "input": "DELETE `/api/categories/999999`; `Authorization: Bearer <TA>`; không body",
+          "expected": "Không xóa/đổi i1/i2/i3 hoặc tạo danh mục mới. Chỉ đánh giá invariant theo ID của R04/S3; status/message/idempotency chưa có oracle (Q05)",
+          "traceability": "R04 / D10",
+          "observation": {
+            "database_before": [
+              {
+                "id": 74,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 75,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 76,
+                "name": "T03 Ba"
+              }
+            ],
+            "fixture_ids": {
+              "i1": 74,
+              "i2": 75,
+              "i3": 76,
+              "missing": 999999
+            },
+            "api_before": [
+              {
+                "id": 74,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 75,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 76,
+                "name": "T03 Ba"
+              }
+            ],
+            "target_request": {
+              "method": "DELETE",
+              "path": "/categories/999999",
+              "token_variant": "TA",
+              "body": null,
+              "response": {
+                "status": 200,
+                "body": {
+                  "message": "Category deleted"
+                }
+              }
+            },
+            "database_after": [
+              {
+                "id": 74,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 75,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 76,
+                "name": "T03 Ba"
+              }
+            ],
+            "api_after": [
+              {
+                "id": 74,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 75,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 76,
+                "name": "T03 Ba"
+              }
+            ],
+            "fixture_setup": {
+              "fixture": "C3",
+              "prepared_at": "2026-10-20T07:36:35.452104+00:00",
+              "scope": "Only the new T03 runtime DB, before the TC action",
+              "categories": [
+                {
+                  "id": 74,
+                  "name": "T03 Mot"
+                },
+                {
+                  "id": 75,
+                  "name": "T03 Hai"
+                },
+                {
+                  "id": 76,
+                  "name": "T03 Ba"
+                }
+              ]
+            }
+          },
+          "finished_at": "2026-10-20T07:36:35.460535+00:00",
+          "run_id": "CAT-RUN-02"
+        }
+      ]
+    },
+    {
+      "id": "CAT-TC25",
+      "technique": "Domain + BVA",
+      "traceability": "R02,R03 / D04,D16 / B02-1",
+      "document_line": 87,
+      "precondition_text": "P0 + CP + TA; tên `A` chưa có",
+      "input_text": "POST `/api/categories`; `Authorization: Bearer <TA>`; body `{\"name\":\"A\"}`, L=1",
+      "steps_text": "A với input của hàng",
+      "expected_text": "ADD-OK ở API; thêm đúng một tên `A`, danh mục cũ giữ nguyên. Tại L=1 phải chấp nhận. R02–03/S1, S3, A02",
+      "fixture": "C3",
+      "kind": "api",
+      "method": "POST",
+      "path": "/categories",
+      "auth": "TA",
+      "body": {
+        "name": "A"
+      },
+      "name": "A",
+      "oracle": "add",
+      "results": [
+        {
+          "id": "CAT-TC25",
+          "status": "passed",
+          "started_at": "2026-10-20T07:36:35.468072+00:00",
+          "input": "POST `/api/categories`; `Authorization: Bearer <TA>`; body `{\"name\":\"A\"}`, L=1",
+          "expected": "ADD-OK ở API; thêm đúng một tên `A`, danh mục cũ giữ nguyên. Tại L=1 phải chấp nhận. R02–03/S1, S3, A02",
+          "traceability": "R02,R03 / D04,D16 / B02-1",
+          "observation": {
+            "database_before": [
+              {
+                "id": 77,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 78,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 79,
+                "name": "T03 Ba"
+              }
+            ],
+            "fixture_ids": {
+              "i1": 77,
+              "i2": 78,
+              "i3": 79,
+              "missing": 999999
+            },
+            "api_before": [
+              {
+                "id": 77,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 78,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 79,
+                "name": "T03 Ba"
+              }
+            ],
+            "target_request": {
+              "method": "POST",
+              "path": "/categories",
+              "token_variant": "TA",
+              "body": {
+                "name": "A"
+              },
+              "response": {
+                "status": 200,
+                "body": {
+                  "message": "Category created",
+                  "id": 80
+                }
+              }
+            },
+            "database_after": [
+              {
+                "id": 77,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 78,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 79,
+                "name": "T03 Ba"
+              },
+              {
+                "id": 80,
+                "name": "A"
+              }
+            ],
+            "api_after": [
+              {
+                "id": 77,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 78,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 79,
+                "name": "T03 Ba"
+              },
+              {
+                "id": 80,
+                "name": "A"
+              }
+            ],
+            "fixture_setup": {
+              "fixture": "C3",
+              "prepared_at": "2026-10-20T07:36:35.468044+00:00",
+              "scope": "Only the new T03 runtime DB, before the TC action",
+              "categories": [
+                {
+                  "id": 77,
+                  "name": "T03 Mot"
+                },
+                {
+                  "id": 78,
+                  "name": "T03 Hai"
+                },
+                {
+                  "id": 79,
+                  "name": "T03 Ba"
+                }
+              ]
+            }
+          },
+          "finished_at": "2026-10-20T07:36:35.552552+00:00",
+          "run_id": "CAT-RUN-02"
+        }
+      ]
+    },
+    {
+      "id": "CAT-TC26",
+      "technique": "Domain + BVA",
+      "traceability": "R02,R03 / D04,D16 / B02-2",
+      "document_line": 88,
+      "precondition_text": "P0 + CP + TA; tên `AB` chưa có",
+      "input_text": "POST `/api/categories`; `Authorization: Bearer <TA>`; body `{\"name\":\"AB\"}`, L=2",
+      "steps_text": "A với input của hàng",
+      "expected_text": "ADD-OK ở API; thêm đúng một tên `AB`, danh mục cũ giữ nguyên. Hàng xóm hợp lệ phía trên biên. R02–03/S1, S3, A02",
+      "fixture": "C3",
+      "kind": "api",
+      "method": "POST",
+      "path": "/categories",
+      "auth": "TA",
+      "body": {
+        "name": "AB"
+      },
+      "name": "AB",
+      "oracle": "add",
+      "results": [
+        {
+          "id": "CAT-TC26",
+          "status": "passed",
+          "started_at": "2026-10-20T07:36:35.561647+00:00",
+          "input": "POST `/api/categories`; `Authorization: Bearer <TA>`; body `{\"name\":\"AB\"}`, L=2",
+          "expected": "ADD-OK ở API; thêm đúng một tên `AB`, danh mục cũ giữ nguyên. Hàng xóm hợp lệ phía trên biên. R02–03/S1, S3, A02",
+          "traceability": "R02,R03 / D04,D16 / B02-2",
+          "observation": {
+            "database_before": [
+              {
+                "id": 81,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 82,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 83,
+                "name": "T03 Ba"
+              }
+            ],
+            "fixture_ids": {
+              "i1": 81,
+              "i2": 82,
+              "i3": 83,
+              "missing": 999999
+            },
+            "api_before": [
+              {
+                "id": 81,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 82,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 83,
+                "name": "T03 Ba"
+              }
+            ],
+            "target_request": {
+              "method": "POST",
+              "path": "/categories",
+              "token_variant": "TA",
+              "body": {
+                "name": "AB"
+              },
+              "response": {
+                "status": 200,
+                "body": {
+                  "message": "Category created",
+                  "id": 84
+                }
+              }
+            },
+            "database_after": [
+              {
+                "id": 81,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 82,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 83,
+                "name": "T03 Ba"
+              },
+              {
+                "id": 84,
+                "name": "AB"
+              }
+            ],
+            "api_after": [
+              {
+                "id": 81,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 82,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 83,
+                "name": "T03 Ba"
+              },
+              {
+                "id": 84,
+                "name": "AB"
+              }
+            ],
+            "fixture_setup": {
+              "fixture": "C3",
+              "prepared_at": "2026-10-20T07:36:35.561610+00:00",
+              "scope": "Only the new T03 runtime DB, before the TC action",
+              "categories": [
+                {
+                  "id": 81,
+                  "name": "T03 Mot"
+                },
+                {
+                  "id": 82,
+                  "name": "T03 Hai"
+                },
+                {
+                  "id": 83,
+                  "name": "T03 Ba"
+                }
+              ]
+            }
+          },
+          "finished_at": "2026-10-20T07:36:35.608515+00:00",
+          "run_id": "CAT-RUN-02"
+        }
+      ]
+    },
+    {
+      "id": "CAT-TC27",
+      "technique": "Domain",
+      "traceability": "R06 / D17",
+      "document_line": 89,
+      "precondition_text": "P0 + CP; TP sửa role payload TU, giữ chữ ký cũ",
+      "input_text": "POST `/api/categories`; `Authorization: Bearer <TP>`; body `{\"name\":\"T03 Moi\"}`",
+      "steps_text": "Chuẩn bị TP từ TU hợp lệ; A với input của hàng",
+      "expected_text": "AUTH-REJECT; không thêm `T03 Moi`, không tin role admin trong payload đã sửa. R06/S2",
+      "fixture": "C3",
+      "kind": "api",
+      "method": "POST",
+      "path": "/categories",
+      "auth": "TP",
+      "body": {
+        "name": "T03 Moi"
+      },
+      "oracle": "auth_reject",
+      "results": [
+        {
+          "id": "CAT-TC27",
+          "status": "passed",
+          "started_at": "2026-10-20T07:36:35.615942+00:00",
+          "input": "POST `/api/categories`; `Authorization: Bearer <TP>`; body `{\"name\":\"T03 Moi\"}`",
+          "expected": "AUTH-REJECT; không thêm `T03 Moi`, không tin role admin trong payload đã sửa. R06/S2",
+          "traceability": "R06 / D17",
+          "observation": {
+            "database_before": [
+              {
+                "id": 85,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 86,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 87,
+                "name": "T03 Ba"
+              }
+            ],
+            "fixture_ids": {
+              "i1": 85,
+              "i2": 86,
+              "i3": 87,
+              "missing": 999999
+            },
+            "api_before": [
+              {
+                "id": 85,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 86,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 87,
+                "name": "T03 Ba"
+              }
+            ],
+            "target_request": {
+              "method": "POST",
+              "path": "/categories",
+              "token_variant": "TP",
+              "body": {
+                "name": "T03 Moi"
+              },
+              "response": {
+                "status": 403,
+                "body": {
+                  "error": "Forbidden"
+                }
+              }
+            },
+            "database_after": [
+              {
+                "id": 85,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 86,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 87,
+                "name": "T03 Ba"
+              }
+            ],
+            "api_after": [
+              {
+                "id": 85,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 86,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 87,
+                "name": "T03 Ba"
+              }
+            ],
+            "fixture_setup": {
+              "fixture": "C3",
+              "prepared_at": "2026-10-20T07:36:35.615904+00:00",
+              "scope": "Only the new T03 runtime DB, before the TC action",
+              "categories": [
+                {
+                  "id": 85,
+                  "name": "T03 Mot"
+                },
+                {
+                  "id": 86,
+                  "name": "T03 Hai"
+                },
+                {
+                  "id": 87,
+                  "name": "T03 Ba"
+                }
+              ]
+            }
+          },
+          "finished_at": "2026-10-20T07:36:35.677691+00:00",
+          "run_id": "CAT-RUN-02"
+        }
+      ]
+    },
+    {
+      "id": "CAT-TC28",
+      "technique": "Domain",
+      "traceability": "R06 / D17",
+      "document_line": 90,
+      "precondition_text": "P0 + CP; TP sửa role payload TU, giữ chữ ký cũ",
+      "input_text": "DELETE `/api/categories/<i2>`; `Authorization: Bearer <TP>`; không body",
+      "steps_text": "Chuẩn bị TP từ TU hợp lệ; A với input của hàng",
+      "expected_text": "AUTH-REJECT; i2 không bị xóa, toàn bộ danh mục giữ nguyên. R06/S2",
+      "fixture": "C3",
+      "kind": "api",
+      "method": "DELETE",
+      "path": "/categories/{i2}",
+      "auth": "TP",
+      "body": null,
+      "oracle": "auth_reject",
+      "results": [
+        {
+          "id": "CAT-TC28",
+          "status": "passed",
+          "started_at": "2026-10-20T07:36:35.686386+00:00",
+          "input": "DELETE `/api/categories/<i2>`; `Authorization: Bearer <TP>`; không body",
+          "expected": "AUTH-REJECT; i2 không bị xóa, toàn bộ danh mục giữ nguyên. R06/S2",
+          "traceability": "R06 / D17",
+          "observation": {
+            "database_before": [
+              {
+                "id": 88,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 89,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 90,
+                "name": "T03 Ba"
+              }
+            ],
+            "fixture_ids": {
+              "i1": 88,
+              "i2": 89,
+              "i3": 90,
+              "missing": 999999
+            },
+            "api_before": [
+              {
+                "id": 88,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 89,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 90,
+                "name": "T03 Ba"
+              }
+            ],
+            "target_request": {
+              "method": "DELETE",
+              "path": "/categories/89",
+              "token_variant": "TP",
+              "body": null,
+              "response": {
+                "status": 403,
+                "body": {
+                  "error": "Forbidden"
+                }
+              }
+            },
+            "database_after": [
+              {
+                "id": 88,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 89,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 90,
+                "name": "T03 Ba"
+              }
+            ],
+            "api_after": [
+              {
+                "id": 88,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 89,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 90,
+                "name": "T03 Ba"
+              }
+            ],
+            "fixture_setup": {
+              "fixture": "C3",
+              "prepared_at": "2026-10-20T07:36:35.686348+00:00",
+              "scope": "Only the new T03 runtime DB, before the TC action",
+              "categories": [
+                {
+                  "id": 88,
+                  "name": "T03 Mot"
+                },
+                {
+                  "id": 89,
+                  "name": "T03 Hai"
+                },
+                {
+                  "id": 90,
+                  "name": "T03 Ba"
+                }
+              ]
+            }
+          },
+          "finished_at": "2026-10-20T07:36:35.770024+00:00",
+          "run_id": "CAT-RUN-02"
+        }
+      ]
+    },
+    {
+      "id": "CAT-TC29",
+      "technique": "Domain",
+      "traceability": "R06 / D17",
+      "document_line": 91,
+      "precondition_text": "P0 + CP; TP sửa role payload TU, giữ chữ ký cũ",
+      "input_text": "PUT `/api/categories/<i2>`; `Authorization: Bearer <TP>`; body `{\"name\":\"T03 Doi\"}`",
+      "steps_text": "Chuẩn bị TP từ TU hợp lệ; A với input của hàng",
+      "expected_text": "AUTH-REJECT; i2 không bị đổi tên. Chỉ kiểm tra xác thực PUT. R06/S2",
+      "fixture": "C3",
+      "kind": "api",
+      "method": "PUT",
+      "path": "/categories/{i2}",
+      "auth": "TP",
+      "body": {
+        "name": "T03 Doi"
+      },
+      "oracle": "auth_reject",
+      "results": [
+        {
+          "id": "CAT-TC29",
+          "status": "passed",
+          "started_at": "2026-10-20T07:36:35.782669+00:00",
+          "input": "PUT `/api/categories/<i2>`; `Authorization: Bearer <TP>`; body `{\"name\":\"T03 Doi\"}`",
+          "expected": "AUTH-REJECT; i2 không bị đổi tên. Chỉ kiểm tra xác thực PUT. R06/S2",
+          "traceability": "R06 / D17",
+          "observation": {
+            "database_before": [
+              {
+                "id": 91,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 92,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 93,
+                "name": "T03 Ba"
+              }
+            ],
+            "fixture_ids": {
+              "i1": 91,
+              "i2": 92,
+              "i3": 93,
+              "missing": 999999
+            },
+            "api_before": [
+              {
+                "id": 91,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 92,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 93,
+                "name": "T03 Ba"
+              }
+            ],
+            "target_request": {
+              "method": "PUT",
+              "path": "/categories/92",
+              "token_variant": "TP",
+              "body": {
+                "name": "T03 Doi"
+              },
+              "response": {
+                "status": 403,
+                "body": {
+                  "error": "Forbidden"
+                }
+              }
+            },
+            "database_after": [
+              {
+                "id": 91,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 92,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 93,
+                "name": "T03 Ba"
+              }
+            ],
+            "api_after": [
+              {
+                "id": 91,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 92,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 93,
+                "name": "T03 Ba"
+              }
+            ],
+            "fixture_setup": {
+              "fixture": "C3",
+              "prepared_at": "2026-10-20T07:36:35.782624+00:00",
+              "scope": "Only the new T03 runtime DB, before the TC action",
+              "categories": [
+                {
+                  "id": 91,
+                  "name": "T03 Mot"
+                },
+                {
+                  "id": 92,
+                  "name": "T03 Hai"
+                },
+                {
+                  "id": 93,
+                  "name": "T03 Ba"
+                }
+              ]
+            }
+          },
+          "finished_at": "2026-10-20T07:36:35.816064+00:00",
+          "run_id": "CAT-RUN-02"
+        }
+      ]
+    },
+    {
+      "id": "CAT-TC30",
+      "technique": "Domain",
+      "traceability": "R06 / D18",
+      "document_line": 92,
+      "precondition_text": "P0 + CP; TS chỉ sửa byte chữ ký TA, payload admin giữ nguyên",
+      "input_text": "POST `/api/categories`; `Authorization: Bearer <TS>`; body `{\"name\":\"T03 Moi\"}`",
+      "steps_text": "Chuẩn bị TS từ TA hợp lệ; A với input của hàng",
+      "expected_text": "AUTH-REJECT; không thêm `T03 Moi` dù payload vẫn ghi admin. R06/S2",
+      "fixture": "C3",
+      "kind": "api",
+      "method": "POST",
+      "path": "/categories",
+      "auth": "TS",
+      "body": {
+        "name": "T03 Moi"
+      },
+      "oracle": "auth_reject",
+      "results": [
+        {
+          "id": "CAT-TC30",
+          "status": "passed",
+          "started_at": "2026-10-20T07:36:35.824180+00:00",
+          "input": "POST `/api/categories`; `Authorization: Bearer <TS>`; body `{\"name\":\"T03 Moi\"}`",
+          "expected": "AUTH-REJECT; không thêm `T03 Moi` dù payload vẫn ghi admin. R06/S2",
+          "traceability": "R06 / D18",
+          "observation": {
+            "database_before": [
+              {
+                "id": 94,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 95,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 96,
+                "name": "T03 Ba"
+              }
+            ],
+            "fixture_ids": {
+              "i1": 94,
+              "i2": 95,
+              "i3": 96,
+              "missing": 999999
+            },
+            "api_before": [
+              {
+                "id": 94,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 95,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 96,
+                "name": "T03 Ba"
+              }
+            ],
+            "target_request": {
+              "method": "POST",
+              "path": "/categories",
+              "token_variant": "TS",
+              "body": {
+                "name": "T03 Moi"
+              },
+              "response": {
+                "status": 403,
+                "body": {
+                  "error": "Forbidden"
+                }
+              }
+            },
+            "database_after": [
+              {
+                "id": 94,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 95,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 96,
+                "name": "T03 Ba"
+              }
+            ],
+            "api_after": [
+              {
+                "id": 94,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 95,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 96,
+                "name": "T03 Ba"
+              }
+            ],
+            "fixture_setup": {
+              "fixture": "C3",
+              "prepared_at": "2026-10-20T07:36:35.824155+00:00",
+              "scope": "Only the new T03 runtime DB, before the TC action",
+              "categories": [
+                {
+                  "id": 94,
+                  "name": "T03 Mot"
+                },
+                {
+                  "id": 95,
+                  "name": "T03 Hai"
+                },
+                {
+                  "id": 96,
+                  "name": "T03 Ba"
+                }
+              ]
+            }
+          },
+          "finished_at": "2026-10-20T07:36:35.880748+00:00",
+          "run_id": "CAT-RUN-02"
+        }
+      ]
+    },
+    {
+      "id": "CAT-TC31",
+      "technique": "Domain",
+      "traceability": "R06 / D18",
+      "document_line": 93,
+      "precondition_text": "P0 + CP; TS chỉ sửa byte chữ ký TA, payload admin giữ nguyên",
+      "input_text": "DELETE `/api/categories/<i2>`; `Authorization: Bearer <TS>`; không body",
+      "steps_text": "Chuẩn bị TS từ TA hợp lệ; A với input của hàng",
+      "expected_text": "AUTH-REJECT; i2 không bị xóa, toàn bộ danh mục giữ nguyên. R06/S2",
+      "fixture": "C3",
+      "kind": "api",
+      "method": "DELETE",
+      "path": "/categories/{i2}",
+      "auth": "TS",
+      "body": null,
+      "oracle": "auth_reject",
+      "results": [
+        {
+          "id": "CAT-TC31",
+          "status": "passed",
+          "started_at": "2026-10-20T07:36:35.891707+00:00",
+          "input": "DELETE `/api/categories/<i2>`; `Authorization: Bearer <TS>`; không body",
+          "expected": "AUTH-REJECT; i2 không bị xóa, toàn bộ danh mục giữ nguyên. R06/S2",
+          "traceability": "R06 / D18",
+          "observation": {
+            "database_before": [
+              {
+                "id": 97,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 98,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 99,
+                "name": "T03 Ba"
+              }
+            ],
+            "fixture_ids": {
+              "i1": 97,
+              "i2": 98,
+              "i3": 99,
+              "missing": 999999
+            },
+            "api_before": [
+              {
+                "id": 97,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 98,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 99,
+                "name": "T03 Ba"
+              }
+            ],
+            "target_request": {
+              "method": "DELETE",
+              "path": "/categories/98",
+              "token_variant": "TS",
+              "body": null,
+              "response": {
+                "status": 403,
+                "body": {
+                  "error": "Forbidden"
+                }
+              }
+            },
+            "database_after": [
+              {
+                "id": 97,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 98,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 99,
+                "name": "T03 Ba"
+              }
+            ],
+            "api_after": [
+              {
+                "id": 97,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 98,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 99,
+                "name": "T03 Ba"
+              }
+            ],
+            "fixture_setup": {
+              "fixture": "C3",
+              "prepared_at": "2026-10-20T07:36:35.891675+00:00",
+              "scope": "Only the new T03 runtime DB, before the TC action",
+              "categories": [
+                {
+                  "id": 97,
+                  "name": "T03 Mot"
+                },
+                {
+                  "id": 98,
+                  "name": "T03 Hai"
+                },
+                {
+                  "id": 99,
+                  "name": "T03 Ba"
+                }
+              ]
+            }
+          },
+          "finished_at": "2026-10-20T07:36:35.944291+00:00",
+          "run_id": "CAT-RUN-02"
+        }
+      ]
+    },
+    {
+      "id": "CAT-TC32",
+      "technique": "Domain",
+      "traceability": "R06 / D18",
+      "document_line": 94,
+      "precondition_text": "P0 + CP; TS chỉ sửa byte chữ ký TA, payload admin giữ nguyên",
+      "input_text": "PUT `/api/categories/<i2>`; `Authorization: Bearer <TS>`; body `{\"name\":\"T03 Doi\"}`",
+      "steps_text": "Chuẩn bị TS từ TA hợp lệ; A với input của hàng",
+      "expected_text": "AUTH-REJECT; i2 không bị đổi tên. Chỉ kiểm tra xác thực PUT. R06/S2",
+      "fixture": "C3",
+      "kind": "api",
+      "method": "PUT",
+      "path": "/categories/{i2}",
+      "auth": "TS",
+      "body": {
+        "name": "T03 Doi"
+      },
+      "oracle": "auth_reject",
+      "results": [
+        {
+          "id": "CAT-TC32",
+          "status": "passed",
+          "started_at": "2026-10-20T07:36:35.954619+00:00",
+          "input": "PUT `/api/categories/<i2>`; `Authorization: Bearer <TS>`; body `{\"name\":\"T03 Doi\"}`",
+          "expected": "AUTH-REJECT; i2 không bị đổi tên. Chỉ kiểm tra xác thực PUT. R06/S2",
+          "traceability": "R06 / D18",
+          "observation": {
+            "database_before": [
+              {
+                "id": 100,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 101,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 102,
+                "name": "T03 Ba"
+              }
+            ],
+            "fixture_ids": {
+              "i1": 100,
+              "i2": 101,
+              "i3": 102,
+              "missing": 999999
+            },
+            "api_before": [
+              {
+                "id": 100,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 101,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 102,
+                "name": "T03 Ba"
+              }
+            ],
+            "target_request": {
+              "method": "PUT",
+              "path": "/categories/101",
+              "token_variant": "TS",
+              "body": {
+                "name": "T03 Doi"
+              },
+              "response": {
+                "status": 403,
+                "body": {
+                  "error": "Forbidden"
+                }
+              }
+            },
+            "database_after": [
+              {
+                "id": 100,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 101,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 102,
+                "name": "T03 Ba"
+              }
+            ],
+            "api_after": [
+              {
+                "id": 100,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 101,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 102,
+                "name": "T03 Ba"
+              }
+            ],
+            "fixture_setup": {
+              "fixture": "C3",
+              "prepared_at": "2026-10-20T07:36:35.954586+00:00",
+              "scope": "Only the new T03 runtime DB, before the TC action",
+              "categories": [
+                {
+                  "id": 100,
+                  "name": "T03 Mot"
+                },
+                {
+                  "id": 101,
+                  "name": "T03 Hai"
+                },
+                {
+                  "id": 102,
+                  "name": "T03 Ba"
+                }
+              ]
+            }
+          },
+          "finished_at": "2026-10-20T07:36:35.988215+00:00",
+          "run_id": "CAT-RUN-02"
+        }
+      ]
+    },
+    {
+      "id": "CAT-TC33",
+      "technique": "Domain",
+      "traceability": "R05 / D19",
+      "document_line": 63,
+      "precondition_text": "P0 + C3 + TU hợp lệ; phiên trình duyệt riêng không có token admin; dùng đúng origin `http://localhost:5174`",
+      "input_text": "`localStorage` key `adminToken` chứa nguyên TU, không sửa payload",
+      "steps_text": "(1) Mở origin Admin và dùng DevTools ghi TU vào key `adminToken`. (2) Đóng tab, mở lại `http://localhost:5174/` trong cùng phiên để ứng dụng đọc token đã lưu. (3) Không submit Admin Login; thử mở Danh mục nếu giao diện cho phép. (4) Reload, kiểm tra quyền lại; GET bằng TA đối chiếu fixture nếu cần.",
+      "expected_text": "Không vào được phân hệ quản lý danh mục hoặc sử dụng nút quản lý với phiên user; phải yêu cầu tài khoản admin hoặc từ chối. Danh mục không đổi. Chỉ có response API bị chặn nhưng màn hình quản lý vẫn sử dụng được thì chưa đáp ứng oracle Web. Không yêu cầu xóa key/redirect cụ thể. R05/S2; key/điểm vào theo S4",
+      "fixture": "C3",
+      "kind": "web_access",
+      "entry": "stored_user",
+      "oracle": "access_denied",
+      "results": [
+        {
+          "id": "CAT-TC33",
+          "status": "failed",
+          "started_at": "2026-10-20T07:36:35.997549+00:00",
+          "input": "`localStorage` key `adminToken` chứa nguyên TU, không sửa payload",
+          "expected": "Không vào được phân hệ quản lý danh mục hoặc sử dụng nút quản lý với phiên user; phải yêu cầu tài khoản admin hoặc từ chối. Danh mục không đổi. Chỉ có response API bị chặn nhưng màn hình quản lý vẫn sử dụng được thì chưa đáp ứng oracle Web. Không yêu cầu xóa key/redirect cụ thể. R05/S2; key/điểm vào theo S4",
+          "traceability": "R05 / D19",
+          "observation": {
+            "database_before": [
+              {
+                "id": 103,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 104,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 105,
+                "name": "T03 Ba"
+              }
+            ],
+            "fixture_ids": {
+              "i1": 103,
+              "i2": 104,
+              "i3": 105,
+              "missing": 999999
+            },
+            "api_before": [
+              {
+                "id": 103,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 104,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 105,
+                "name": "T03 Ba"
+              }
+            ],
+            "access_before_reload": {
+              "category_navigation": true,
+              "category_panel": true,
+              "create_control": true,
+              "login_form": false,
+              "body": "EShop Admin\nDashboard\nDanh mục\nSản phẩm\nMã Giảm Giá\nĐơn hàng\nNgười dùng\nĐăng xuất\nQuản lý Danh mục\nThêm mới\nID\tTên Danh Mục\tHành động\n#103\tT03 Mot\tXóa\n#104\tT03 Hai\tXóa\n#105\tT03 Ba\tXóa"
+            },
+            "access_after_reload": {
+              "category_navigation": true,
+              "category_panel": true,
+              "create_control": true,
+              "login_form": false,
+              "body": "EShop Admin\nDashboard\nDanh mục\nSản phẩm\nMã Giảm Giá\nĐơn hàng\nNgười dùng\nĐăng xuất\nQuản lý Danh mục\nThêm mới\nID\tTên Danh Mục\tHành động\n#103\tT03 Mot\tXóa\n#104\tT03 Hai\tXóa\n#105\tT03 Ba\tXóa"
+            },
+            "database_after": [
+              {
+                "id": 103,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 104,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 105,
+                "name": "T03 Ba"
+              }
+            ],
+            "api_after": [
+              {
+                "id": 103,
+                "name": "T03 Mot"
+              },
+              {
+                "id": 104,
+                "name": "T03 Hai"
+              },
+              {
+                "id": 105,
+                "name": "T03 Ba"
+              }
+            ],
+            "fixture_setup": {
+              "fixture": "C3",
+              "prepared_at": "2026-10-20T07:36:35.997525+00:00",
+              "scope": "Only the new T03 runtime DB, before the TC action",
+              "categories": [
+                {
+                  "id": 103,
+                  "name": "T03 Mot"
+                },
+                {
+                  "id": 104,
+                  "name": "T03 Hai"
+                },
+                {
+                  "id": 105,
+                  "name": "T03 Ba"
+                }
+              ]
+            }
+          },
+          "reason": "Non-admin session can reach category management",
+          "images": [
+            {
+              "path": "images/CAT-TC33-actual.jpg",
+              "capture_requested_at": "2026-10-20T07:36:36.547935+00:00",
+              "capture_completed_by": "2026-10-20T07:36:36.574970+00:00",
+              "state": "actual"
+            }
+          ],
+          "finished_at": "2026-10-20T07:36:36.577523+00:00",
+          "run_id": "CAT-RUN-02",
+          "bug_ids": [
+            "CAT-BUG03"
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "designed": 33,
+    "passed": 25,
+    "failed": 8,
+    "blocked": 0,
+    "not_run": 0,
+    "executed": 33,
+    "not_executed": 0,
+    "pass_rate_executed_percent": 75.76
+  },
+  "coverage": {
+    "definition": "Input/state reached and oracle observed; failed items still exercised. Not correctness or all possible behaviors.",
+    "rules_exercised": [
+      "R01",
+      "R02",
+      "R03",
+      "R04",
+      "R05",
+      "R06",
+      "R07"
+    ],
+    "domains_exercised": [
+      "D01",
+      "D02",
+      "D03",
+      "D04",
+      "D05",
+      "D06",
+      "D07",
+      "D08",
+      "D09",
+      "D10",
+      "D11",
+      "D12",
+      "D13",
+      "D14",
+      "D15",
+      "D16",
+      "D17",
+      "D18",
+      "D19"
+    ],
+    "bva_items_exercised": [
+      "B01-0",
+      "B01-1",
+      "B01-2",
+      "B02-0",
+      "B02-1",
+      "B02-2"
+    ],
+    "domain_total": 19,
+    "bva_total": 6,
+    "web_executed": 12,
+    "api_executed": 21,
+    "auth_method_variants_executed": 15
+  },
+  "github_publication": {
+    "repository": "tranquocvy/eshop-sut",
+    "issues_posted": 3,
+    "issues_browser_verified": 3,
+    "sut_images_attached": 3,
+    "issue_page_jpgs": 3,
+    "overview": {
+      "path": "images/CAT-GitHub-issues.jpg",
+      "issue_url": "https://github.com/tranquocvy/eshop-sut/issues?q=is%3Aissue%20%5BT03%5D",
+      "capture_requested_at": "2026-10-20T07:45:08.895Z",
+      "capture_completed_by": "2026-10-20T07:45:10.270Z"
+    }
+  }
+}
