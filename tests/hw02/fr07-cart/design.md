@@ -1,6 +1,6 @@
 # T04 — FR-07 Shopping Cart: thiết kế Domain và BVA
 
-Thiết kế AI v0.1, ngày 20/10/2026 (UTC+7). Vỹ đã đọc và xác nhận các TC hiện có ngày 20/10/2026; giữ nguyên nội dung thiết kế, chỉ cập nhật trạng thái review. Bộ TC: [test-cases.md](test-cases.md). Tất cả **Not Run**; tài liệu này không phải báo cáo thực thi. Không đánh dấu T04 hoàn tất vì execution, evidence, báo cáo và AI log chưa thực hiện trong lượt thiết kế.
+Thiết kế v0.2, ngày 20/10/2026 (UTC+7). Giữ 48 TC v0.1 đã được Vỹ đọc và xác nhận; theo yêu cầu tiếp theo bổ sung 12 TC API A15–A26, chưa có review riêng của sinh viên cho phần mới. Bộ TC: [test-cases.md](test-cases.md). Kết quả thực thi riêng tại [report.md](report.md); phần phân tích v0.1 bên dưới giữ làm lịch sử, mục 6 ghi delta v0.2.
 
 ## 1. Test basis và phương pháp
 
@@ -24,7 +24,7 @@ Lớp chính là **Web**. API là tập bổ trợ có ID riêng, không thay b�
 
 | Rule | Điều kiện/kết quả đúng | Trạng thái, nguồn |
 | --- | --- | --- |
-| R01 | Sau mỗi thao tác thêm hợp lệ, giỏ phản ánh sản phẩm và số lượng đã thêm; có phản hồi trực quan sau bấm | Confirmed S1/S2; một click là một thao tác, không mặc định phải bấm hai lần |
+| R01 | Sau mỗi thao tác thêm hợp lệ, giỏ phản ánh sản phẩm và số lượng đã thêm; có phản hồi trực quan sau bấm | Confirmed S1/S2 cho chức năng/phản hồi. “Đúng một click” là cách cụ thể hóa thao tác của TC v0.1; đặc tả viết “sau khi bấm”, không nêu nguyên văn số click. Không đổi bước hoặc verdict Web trong lần mở rộng API |
 | R02 | Thêm cùng sản phẩm (cùng ID) làm cộng số lượng, không sinh dòng mới | Confirmed S1 |
 | R03 | Giỏ có cột Sản phẩm, Đơn giá, Số lượng với +/−, Thành tiền, Thao tác | Confirmed S1 |
 | R04 | Thành tiền từng dòng = giá × số lượng; tổng = tổng thành tiền các dòng; thay đổi phải cập nhật nhất quán | Oracle số học suy ra từ ý nghĩa S1, không lấy cách tính của source làm expected |
@@ -89,7 +89,7 @@ Không lấy tích Descartes toàn bộ q×C×Op×Session. Điểm nhiều chi�
 
 B01 chỉ xét số nguyên: 0.5/1.5 không phải “hàng xóm” khi δ=1; thuộc D07 riêng. Không suy biên tiền tối thiểu 0 cho sản phẩm vì FR-07 không cho phép tạo giá 0; không tạo BVA ID từ min/max ID seed. Giá 6.000.000/28.000.000/30.000.000 là dữ liệu số học, không là boundary giá. q=1000 và q=9007199254740992 là robustness/biểu diễn, không là giới hạn tối đa nghiệp vụ được xác nhận.
 
-## 5. Kiểm tra thiết kế và giới hạn bàn giao
+## 5. Kiểm tra thiết kế và giới hạn bàn giao v0.1 (lịch sử)
 
 - **48 unique TC:** 34 Web (W01–W34), 14 API (A01–A14). Mỗi hàng là một TC; biến thể dữ liệu trong một ca được ghi theo substep, không cộng thành TC mới. W27 là khảo sát biểu diễn, tách khỏi TC có oracle quyết định đầy đủ.
 - Domain inventory: 16/16 mục tiêu có TC, trong đó D01–D10,D16 có phần requirement xác nhận, D11/D12/D13 là các nhóm có phạm vi/nguồn như bảng, D14/D15 theo assumption. Đây là truy vết thiết kế, không là 100% mọi hành vi.
@@ -100,3 +100,26 @@ B01 chỉ xét số nguyên: 0.5/1.5 không phải “hàng xóm” khi δ=1; th
 - Chưa bao phủ mọi browser/viewport, concurrency nhiều tab, thay đổi giá giữa phiên, network retry/idempotency và login merge vì policy chưa rõ. Những giới hạn này không loại các ca bổ sung hữu ích đã thiết kế.
 
 Giữ v0.1 trong lịch sử/version trước mọi lần sửa tiếp theo; không tái tạo “AI ban đầu” từ bộ đã review.
+
+## 6. Bổ sung v0.2 — mục tiêu kiểm tra và hiện thực Web/API
+
+Vỹ yêu cầu bổ sung API sau khi đối chiếu các ca Web bị chặn. Không sửa flow một-click hoặc kết quả Web; không lấy API pass/fail thay thế chúng. Mô hình rule/miền có thể dùng chung mục tiêu nghiệp vụ, nhưng layer, fixture và oracle từng TC phải được công bố. API hiện có GET/POST cart; không bịa endpoint update/delete để nhân đôi các TC nút +/− hoặc dialog.
+
+**A08 (assumption đề xuất):** mở rộng tính toàn vẹn biểu diễn A04 sang API: quantity ngoài vùng integer an toàn của runtime phải bị từ chối hoặc được cảnh báo giới hạn xử lý rõ, không âm thầm xác nhận như dữ liệu an toàn. Chưa có max quantity nghiệp vụ; A23 là robustness, không phải BVA max. Quy tắc A03/A06 của các TC API cũ vẫn giữ trạng thái assumption.
+
+| Mục tiêu / miền và nguồn oracle | Web | API / mức tương ứng |
+| --- | --- | --- |
+| Thêm vào giỏ trống, q=1/2/3; D02/D05, R01/R04 → A03 | W02/W34/W03 | A04/A05/A15, cùng dữ liệu sản phẩm và quantity; không thay phần feedback/cột/nhãn UI |
+| Gộp cùng ID, một dòng; D03, R02 → A03 | W04/W06/W07 | A16/A18/A19 khớp fixture/sequence; A06 cũ vẫn giữ phép thử 1+3=4 |
+| Thêm ID mới, giữ dòng cũ; D04, R01/R04 → A03 | W05/W08 | A17/A20, cùng dữ liệu và tổng suy ra; API không cần trả field total |
+| Khác ID cùng tên; D04/D12, A07/A03 | W28 | A21 cho định danh/name/giá/quantity; render HTML là mục tiêu Web riêng |
+| Quantity invalid; D06–D08, R09 → A03/A06 | W10–15/W26 | A07–11 cũ (fixture AP1) cộng A24 phân số ±0.5, A25 string rỗng/chữ/space (AP2). Không tuyên bố mọi kiểu JSON tương đương lexical Web |
+| Quantity lớn; D05/D12, A04 → A03/A08 | W24/W25 | A22/A23; không dựng max nghiệp vụ |
+| Phục hồi sau input sai; D16, R01/R09 → A03 | W32 | A26 giữ cùng phiên giữa input sai và sửa hợp lệ, không reset để che dữ liệu sai |
+| Empty state; R08/D01 | W01/W20 | A03 chỉ kiểm tra dữ liệu cart rỗng; ảnh minh họa/thông báo là Web |
+| Controls/nhãn/confirm/điều hướng; R03/R05/R06/R07 | W09/W16–23/W29–31/W33 | Không có API tương đương cho UI; contract cũng chưa có endpoint chỉnh/xóa cart. Không dùng GET API để credit Back/Forward/reload Web |
+| Cú pháp nhập số khảo sát; A05 | W27 | Không tự ánh xạ chuỗi Web `2e0` thành JSON string rồi coi cùng phép thử: JSON number và string là hai representation khác nhau |
+
+**Delta coverage thiết kế:** thêm 12 unique TC, tổng **60 = 34 Web + 26 API**. Các TC mới mở rộng đường API cho các mục tiêu trong D02–D08/D12/D14–D16, không tạo miền hoặc boundary giả chỉ vì đổi layer. B01–B04 và inventory 16 mục tiêu miền cũ giữ nguyên; B04 0/1/2 đã có A07/A04/A05. Ánh xạ mới tăng số hiện thực có thể kiểm tra độc lập, không tự nâng coverage thực thi Web.
+
+Bản đã review v0.1 giữ ở commit `475165e`. Snapshot trước mở rộng (design/TC/runner/report/results) giữ local tại `HW02/.runtime/design-baselines/fr07-before-api-expansion-20261020/`. Phần mới là thiết kế theo yêu cầu hiện tại; không dựng lại output ban đầu hoặc sửa kết quả đã chạy.

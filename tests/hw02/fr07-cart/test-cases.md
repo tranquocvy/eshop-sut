@@ -1,6 +1,6 @@
 # T04 — FR-07 Shopping Cart: bộ test case
 
-AI v0.1 — 20/10/2026 (UTC+7). **48 TC, tất cả Not Run; Vỹ đã đọc và xác nhận các TC hiện có ngày 20/10/2026; nội dung TC giữ nguyên.** Nguồn R/D/B/A và giải thích từng bước tại [design.md](design.md). W = Web; A = API bổ trợ. Không có Actual/Pass/Fail suy đoán.
+Thiết kế v0.2 — 20/10/2026 (UTC+7). **60 TC: 34 Web + 26 API.** 48 TC v0.1 đã được Vỹ đọc và xác nhận; giữ nguyên ID/nội dung. A15–A26 được AI bổ sung theo yêu cầu mở rộng API của Vỹ, chưa có review riêng của sinh viên. Đây là bộ thiết kế; kết quả chạy thật ở [report.md](report.md), không điền Actual/Pass/Fail vào bảng thiết kế. Nguồn R/D/B/A và ánh xạ mục tiêu Web/API tại [design.md](design.md).
 
 ## Fixture và quy ước thao tác
 
@@ -76,6 +76,27 @@ AI v0.1 — 20/10/2026 (UTC+7). **48 TC, tất cả Not Run; Vỹ đã đọc v�
 | CART-A13 | Domain; A06/D15 | AP0; biết giá thật P=30000000 | POST id P,name đúng,price=1,quantity=2; GET TU | Theo A06 từ chối hoặc dùng giá thật: không có dòng P giá 1; nếu chấp nhận P×2 phải suy ra 60.000.000. Đây là policy giỏ API đề xuất, không mượn FR-08 total_amount làm rule price |
 | CART-A14 | Domain; A06/D15 | Hai user TU/TV khác ID; API cả hai rỗng đã GET xác nhận | Post(P,2) bằng TU; GET TU và TV | Theo A06 TU có P×2 còn TV rỗng; không rò/ghi chéo cart. Không yêu cầu Web hai user đồng bộ |
 
+## C. API bổ sung v0.2 — cùng mục tiêu nghiệp vụ với Web
+
+**AP2:** API TU độc lập, POST P×2 ngoài thao tác mục tiêu; GET xác nhận đúng một dòng P×2. **AP3:** chuẩn bị P×2,Q×3,H×4 bằng ba POST ID khác nhau rồi GET đối chiếu cả ba dòng, tổng suy ra 168.000.000 ₫. Đó là fixture API, không phải fixture của Web. Khi fixture không đạt thì ghi blocked, không sửa state nội bộ. Sequence giữ cùng TU giữa các bước; chỉ ca có substep độc lập mới dùng user mới để reset.
+
+Oracle **A03/A06** vẫn là policy API đề xuất, không tự nâng thành requirement xác nhận. **A08** bổ sung A04 sang API: JSON quantity vượt vùng số nguyên an toàn của runtime cần bị từ chối hoặc có phản hồi rõ về giới hạn xử lý; không âm thầm lưu như một quantity được đảm bảo an toàn. A08 là oracle robustness đề xuất, không là max nghiệp vụ. Mọi GET phải quan sát dữ liệu thật; thành tiền/tổng bên dưới là phép suy ra để đối chiếu giá × q, không yêu cầu API phải trả field total.
+
+| TC ID | Technique / trace | Precondition | Input và steps | Expected và nguồn |
+| --- | --- | --- | --- | --- |
+| CART-A15 | Domain; A03/D02,D05,D14; mục tiêu W03 | AP0 | Post(P,3), GET TU | Một dòng P×3, price=30000000, thành tiền suy ra 90.000.000; dữ liệu khác không phát sinh. A03 |
+| CART-A16 | Domain; A03/D03,D14; mục tiêu W04 | AP2 | Post(P,3), GET TU | Chỉ một dòng ID P,q=5, giá không đổi; tổng suy ra 150.000.000; không append hoặc replace thành q=3. A03 |
+| CART-A17 | Domain; A03/D04,D14; mục tiêu W05 | AP2 | Post(Q,3), GET TU | P×2 giữ nguyên; thêm đúng Q×3, hai ID/hai dòng; giá đúng từng sản phẩm; tổng suy ra 144.000.000. A03 |
+| CART-A18 | Domain; A03/D03,D04,D14; mục tiêu W06 | AP3 | Post(P,3), GET TU | Ba dòng P×5,Q×3,H×4; giữ nguyên Q/H, tổng suy ra 258.000.000; không phụ thuộc thứ tự dòng. A03 |
+| CART-A19 | Domain; A03/D03,D14,D16; mục tiêu W07 | AP0, cùng TU cả sequence | Post(P,1) ba lần; GET sau mỗi POST | Sau lần 1/2/3 luôn một dòng ID P, q=1/2/3; tổng suy ra 30/60/90 triệu; không mất/cộng trùng ngoài thao tác đã gửi. A03 |
+| CART-A20 | Domain; A03/D04,D14; mục tiêu W08 | AP0, cùng TU | Post lần lượt P,Q,M,H,K, mỗi q=1; GET sau mỗi bước | Mỗi bước thêm một ID mới, giữ nguyên dòng cũ; cuối đủ năm ID/giá/q đúng, tổng suy ra 113.000.000. A03; không kiểm tra cột/nhãn UI bằng API |
+| CART-A21 | Domain; A03,A07/D04,D12,D14; phần định danh/dữ liệu W28 | AP0; X/Y fixture khác ID cùng tên, giá 125000/275000 | Post(X,2), Post(Y,3), Post(X,1); GET sau mỗi bước | Sau hai bước có X×2,Y×3 tách theo ID; cuối X×3=375000,Y×3=825000, tổng suy ra 1.200.000; name giữ nguyên chuỗi fixture. A03/A07; API không chứng minh HTML được render an toàn trên Web |
+| CART-A22 | Domain robustness; A03,A04/D05,D12,D14; mục tiêu W24 | AP0 | Post(H,1000), GET TU | Nếu nhận: một dòng H,q=1000,price=6000000, tích chính xác 6.000.000.000; nếu chặn phải có phản hồi giới hạn rõ, không sinh dữ liệu sai. A03/A04; không coi 1000 là biên max |
+| CART-A23 | Domain robustness; A08/D05,D12,D15; mục tiêu W25 | AP2 | Post(Q,9007199254740992), GET TU | Theo A08: từ chối và giữ AP2, hoặc báo rõ giới hạn xử lý an toàn; không âm thầm xác nhận/lưu quantity này như số nguyên an toàn. Không kết luận max nghiệp vụ từ mẫu này |
+| CART-A24 | Domain; A03/D07,D14; mục tiêu W12/W14 | AP2 độc lập mỗi mẫu | Post(Q,0.5), rồi mẫu độc lập Post(Q,-0.5); GET mỗi request | AR từng mẫu, giữ nguyên P×2; không truncate thành 0 hoặc quantity âm. A03; đây là partition phân số, không là BVA với δ=1 |
+| CART-A25 | Domain; A06/D08,D15; phần dữ liệu W15/W26 | AP2 độc lập mỗi mẫu | POST Q với quantity lần lượt chuỗi rỗng, `abc`, ba dấu cách; GET mỗi request | Theo A06 từ chối và giữ AP2. Đây là JSON string sai kiểu; không đồng nhất với field Web rỗng hoặc browser chặn ký tự. Missing/null đã có A10 |
+| CART-A26 | Domain sequence; A03/D14,D16; mục tiêu W32 | AP2, cùng TU, không reset giữa hai bước | Post(Q,0), GET; sau đó Post(Q,2), GET | Bước sai bị từ chối, cart vẫn P×2; bước hợp lệ thêm đúng Q×2, cuối chỉ P×2,Q×2, tổng suy ra 116.000.000; không giữ dòng q=0 từ bước bị từ chối. A03 |
+
 ## Kiểm tra trước bàn giao
 
-48 ID không trùng; mỗi TC có technique, trace, precondition, input, bước, expected và nguồn. Nhóm có assumption/khảo sát giữ nguyên nhãn, không dùng để khẳng định rule có sẵn trong đề. Tất cả **Not Run**. Các điểm chưa rõ và coverage item được công bố tại design.md. Khi sửa sau review, giữ ID và bản v0.1 để đối chiếu; chưa tạo bản “đã review”, báo cáo execution hoặc log AI trong lượt này.
+60 ID không trùng; mỗi TC có technique, trace, precondition, input, bước, expected và nguồn. Nhóm có assumption/khảo sát giữ nguyên nhãn, không dùng để khẳng định rule có sẵn trong đề. Bản v0.1 có trong commit `475165e`; bản trước mở rộng và kết quả cũ được giữ local ngoài repo. Không thay verdict Web bằng kết quả API; mỗi TC mới có entry/run riêng trong results.json khi thực thi.
