@@ -1,6 +1,6 @@
 # T04 — FR-07 Shopping Cart: thiết kế Domain và BVA
 
-Thiết kế v0.2, ngày 20/10/2026 (UTC+7). Giữ 48 TC v0.1 đã được Vỹ đọc và xác nhận; theo yêu cầu tiếp theo bổ sung 12 TC API A15–A26, chưa có review riêng của sinh viên cho phần mới. Bộ TC: [test-cases.md](test-cases.md). Kết quả thực thi riêng tại [report.md](report.md); phần phân tích v0.1 bên dưới giữ làm lịch sử, mục 6 ghi delta v0.2.
+Thiết kế v0.2, ngày 20/10/2026 (UTC+7). Giữ 48 TC v0.1 đã được Vỹ đọc và xác nhận; theo yêu cầu tiếp theo bổ sung 12 TC API A15–A26, Vỹ đã xác nhận kiểm tra hồ sơ T04 và chốt hoàn tất ngày 20/10/2026. Bộ TC: [test-cases.md](test-cases.md). Kết quả thực thi riêng tại [report.md](report.md); phần phân tích v0.1 bên dưới giữ làm lịch sử, mục 6 ghi delta v0.2.
 
 ## 1. Test basis và phương pháp
 

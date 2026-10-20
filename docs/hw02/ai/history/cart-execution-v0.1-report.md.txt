@@ -1,0 +1,330 @@
+# T04 — FR-07 Shopping Cart: execution và report
+
+**20/10/2026 (UTC+7).** Codex implement và chạy bộ đã duyệt; chưa có review report của sinh viên. [Design](design.md), [48 TC](test-cases.md) giữ nguyên tại commit `475165e`; baseline code execution `46e4715`. Không sửa nghiệp vụ SUT.
+
+**Kết quả unique: 6 passed, 19 failed, 23 blocked, 0 not_run.** Executed = passed+failed = 25/48; not_executed = blocked+not_run = 23/48. Không gọi 48 lượt được thử là 48 TC đã thực thi đủ bước. Pass rate trên executed = 6/25 = 24%; đây không phải coverage.
+
+## Môi trường, fixture và cách đếm
+
+- Windows, Chromium 156.0.8078.4 qua Playwright Python; Web `http://localhost:5173`, API `http://localhost:3000/api`. Backend T03 đang chạy được tái sử dụng, không reset/restart. Dữ liệu chuẩn bị chỉ trong SQLite runtime `HW02/.runtime/T03-execution-20261020/backend/database.sqlite`; đã backup trước fixture tại runtime T04. Không ghi database trong repo.
+- P/Q/M/H/K giữ đúng tên/giá seed, ID runtime lần lượt 6/7/8/9/10; X/Y là hai sản phẩm fixture cùng tên, ID11/12, giá 125000/275000. Fixture được GET products xác nhận trước run. API dùng user thử độc lập qua register/login bình thường; không ghi JWT/password vào kết quả.
+- Web context mới mỗi TC; C1 chuẩn bị bằng nút Home “Thêm vào giỏ” một click. C2/C3 cần quantity >1: Add chi tiết một click không tạo hàng nên ghi blocked, không bấm lần hai, dùng API hoặc inject state để vượt precondition. W16/W18 tới C1 nhưng thiếu control nên blocked.
+- Một nguồn chung [results.json](results.json): `runs[]`, `cases[].results[]`, `selected_results`, `bugs`. Chọn lần mới nhất được chỉ định cho từng unique ID; giữ cả smoke và harness failure cũ. Run và thời gian chỉ lưu một lần/run, observation có timestamp thật. Mỗi link log ở bảng dưới chỉ rõ TC/run; tìm entry `cases[id] → results[run_id]` trong JSON, không dùng fragment giả cho JSON.
+
+| Run | Phạm vi / trạng thái | 20/10/2026 (UTC+7) |
+| --- | --- | --- |
+| CART-RUN-01 | Smoke W01/W02/W09/W16/W20; 5 entry. finished_selected_cases. Smoke đầu: URL SPA đổi trước DOM, sửa chờ heading Giỏ; W01/W02/W09/W16/W20 được chạy lại và chọn RUN02. Giữ lịch sử RUN01. | 15:54:18 → 15:54:25 |
+| CART-RUN-02 | Yêu cầu cả suite, dừng tại W28; 28 entry. stopped_harness. Dừng tại W28 vì Home có hai h2 cùng tên; sửa locator chờ h1 chi tiết. W28 trở đi chọn RUN03, không thay expected. | 15:54:44 → 15:54:59 |
+| CART-RUN-03 | W28–W34 và A01–A14; 21 entry. finished_selected_cases.  | 15:55:14 → 15:55:21 |
+
+## Kết quả từng TC
+
+Expected giữ nguồn và assumption trong thiết kế; “không đạt” ở A03/A06 chỉ có nghĩa không đáp ứng oracle bổ sung. Input trong ca blocked là **dự kiến**, chưa được đưa tới bước mục tiêu.
+
+### Web — 34 TC
+
+| TC / input và bước chính | Expected / nguồn | Actual | Kết luận / bug | Evidence đúng TC/run |
+| --- | --- | --- | --- | --- |
+| [CART-W01](test-cases.md) — Mở Giỏ hàng | Có minh họa và thông báo rõ giỏ trống; không dòng hàng/tổng cũ. R08/S1 | 0 dòng; có thông báo giỏ trống, không có img/svg/canvas hoặc minh họa nhìn thấy. | Không đạt (failed) [CART-BUG02](#cart-bug02) | [Log CART-W01 / CART-RUN-02](results.json); [JPG](images/CART-W01-CART-RUN-02-final-failure.jpg) |
+| [CART-W02](test-cases.md) — Add(P,1); Check(P×1) | Một click thêm đúng một dòng P, q=1, đơn giá/thành tiền/tổng 30.000.000; có phản hồi và cột/nhãn R03/R07. S1/S2 | Sau một click mỗi lần Add: 0 dòng; giỏ trống, chưa có thành tiền/tổng. Add một click đạt P×1, đúng thành tiền/tổng; R01/FR06: phản hồi trực quan sau thêm | Không đạt (failed) [CART-BUG01](#cart-bug01) | [Log CART-W02 / CART-RUN-02](results.json); [JPG](images/CART-W02-CART-RUN-02-target-add-detail.jpg) |
+| [CART-W03](test-cases.md) — Add(P,3) | Một dòng q=3; thành tiền/tổng 90.000.000; đúng giá P. R01/R04/R09 | Sau một click mỗi lần Add: 0 dòng; giỏ trống, chưa có thành tiền/tổng. Add một click đạt P×3, đúng thành tiền/tổng; R01/FR06: phản hồi trực quan sau thêm | Không đạt (failed) [CART-BUG01](#cart-bug01) | [Log CART-W03 / CART-RUN-02](results.json); [JPG](images/CART-W03-CART-RUN-02-target-add-detail.jpg) |
+| [CART-W04](test-cases.md) — Add(P,3) | Chỉ một dòng P, q=5, thành tiền/tổng 150.000.000; không replace q=3. R02/R04 | Không đạt precondition: một click Add chi tiết không thêm sản phẩm; không bấm lần hai hoặc inject state để dựng giỏ. | Bị chặn (blocked)  | [Log CART-W04 / CART-RUN-02](results.json); [JPG](images/CART-W04-CART-RUN-02-fixture-blocker.jpg) |
+| [CART-W05](test-cases.md) — Add(Q,3) | Hai dòng P×2=60.000.000 và Q×3=84.000.000; tổng 144.000.000; P giữ nguyên. R01/R04 | Không đạt precondition: một click Add chi tiết không thêm sản phẩm; không bấm lần hai hoặc inject state để dựng giỏ. | Bị chặn (blocked)  | [Log CART-W05 / CART-RUN-02](results.json); [JPG](images/CART-W05-CART-RUN-02-fixture-blocker.jpg) |
+| [CART-W06](test-cases.md) — Add(P,3) | Vẫn ba dòng; P×5=150.000.000, Q×3=84.000.000,H×4=24.000.000; tổng 258.000.000. R02/R04; tránh gộp nhầm dòng cuối | Không đạt precondition: một click Add chi tiết không thêm sản phẩm; không bấm lần hai hoặc inject state để dựng giỏ. | Bị chặn (blocked)  | [Log CART-W06 / CART-RUN-02](results.json); [JPG](images/CART-W06-CART-RUN-02-fixture-blocker.jpg) |
+| [CART-W07](test-cases.md) — Add(P,1), lặp Add(P,1) hai lần qua các lượt điều hướng bình thường | Sau lần 1/2/3: một dòng P, q=1/2/3 và tổng 30/60/90 triệu; mỗi thao tác chỉ cộng 1. R01/R02/R04 | Sau một click mỗi lần Add: 0 dòng; giỏ trống, chưa có thành tiền/tổng. Sequence 1 đúng dòng/quantity/tổng; Sequence 2 đúng dòng/quantity/tổng; Sequence 3 đúng dòng/quantity/tổng | Không đạt (failed) [CART-BUG01](#cart-bug01) | [Log CART-W07 / CART-RUN-02](results.json); [JPG](images/CART-W07-CART-RUN-02-final-failure.jpg) |
+| [CART-W08](test-cases.md) — Add lần lượt P,Q,M,H,K, mỗi q=1; Check(C5) | Năm ID/năm dòng, đúng từng tên/giá/q/thành tiền; tổng 113.000.000; không bỏ M/H/K. R01/R03/R04 | Sau một click mỗi lần Add: 0 dòng; giỏ trống, chưa có thành tiền/tổng. Sequence 1 đúng dòng/quantity/tổng; Sequence 2 đúng dòng/quantity/tổng; Sequence 3 đúng dòng/quantity/tổng; Sequence 4 đúng dòng/quantity/tổng; Sequence 5 đúng dòng/quantity/tổng | Không đạt (failed) [CART-BUG01](#cart-bug01) | [Log CART-W08 / CART-RUN-02](results.json); [JPG](images/CART-W08-CART-RUN-02-final-failure.jpg) |
+| [CART-W09](test-cases.md) — Quan sát header bảng, controls và nhãn tổng | Đủ Sản phẩm, Đơn giá, Số lượng với +/−, Thành tiền, Thao tác; nhãn chính xác “Tổng cộng”. R03/R07; ca trình bày độc lập với add | P×1, tổng 30.000.000 đúng; header Giá, không có +/−, nhãn Tổng tạm tính. | Không đạt (failed) [CART-BUG03](#cart-bug03) [CART-BUG04](#cart-bug04) | [Log CART-W09 / CART-RUN-02](results.json); [JPG](images/CART-W09-CART-RUN-02-final-failure.jpg) |
+| [CART-W10](test-cases.md) — Add(Q,0) | Reject; C2/tổng 60.000.000 giữ nguyên. R09/S2 | Không đạt precondition: một click Add chi tiết không thêm sản phẩm; không bấm lần hai hoặc inject state để dựng giỏ. | Bị chặn (blocked)  | [Log CART-W10 / CART-RUN-02](results.json); [JPG](images/CART-W10-CART-RUN-02-fixture-blocker.jpg) |
+| [CART-W11](test-cases.md) — Add(Q,−1), nhập dấu trừ ASCII | Reject; C2 giữ nguyên. R09; số âm khác biên 0 | Không đạt precondition: một click Add chi tiết không thêm sản phẩm; không bấm lần hai hoặc inject state để dựng giỏ. | Bị chặn (blocked)  | [Log CART-W11 / CART-RUN-02](results.json); [JPG](images/CART-W11-CART-RUN-02-fixture-blocker.jpg) |
+| [CART-W12](test-cases.md) — Add(Q,0.5) | Reject; không tạo q=0 hoặc dòng 0 tiền. R09 | Không đạt precondition: một click Add chi tiết không thêm sản phẩm; không bấm lần hai hoặc inject state để dựng giỏ. | Bị chặn (blocked)  | [Log CART-W12 / CART-RUN-02](results.json); [JPG](images/CART-W12-CART-RUN-02-fixture-blocker.jpg) |
+| [CART-W13](test-cases.md) — Add(Q,1.5) | Reject; không cắt thành q=1. R09 | Không đạt precondition: một click Add chi tiết không thêm sản phẩm; không bấm lần hai hoặc inject state để dựng giỏ. | Bị chặn (blocked)  | [Log CART-W13 / CART-RUN-02](results.json); [JPG](images/CART-W13-CART-RUN-02-fixture-blocker.jpg) |
+| [CART-W14](test-cases.md) — Add(Q,−0.5), nhập dấu trừ ASCII | Reject; không cắt thành 0/âm. R09 | Không đạt precondition: một click Add chi tiết không thêm sản phẩm; không bấm lần hai hoặc inject state để dựng giỏ. | Bị chặn (blocked)  | [Log CART-W14 / CART-RUN-02](results.json); [JPG](images/CART-W14-CART-RUN-02-fixture-blocker.jpg) |
+| [CART-W15](test-cases.md) — Xóa hết quantity trên Q rồi bấm Thêm một lần | Reject; không sinh NaN quantity/thành tiền hoặc tự thêm hàng khi chưa có số lượng. R09 | Không đạt precondition: một click Add chi tiết không thêm sản phẩm; không bấm lần hai hoặc inject state để dựng giỏ. | Bị chặn (blocked)  | [Log CART-W15 / CART-RUN-02](results.json); [JPG](images/CART-W15-CART-RUN-02-fixture-blocker.jpg) |
+| [CART-W16](test-cases.md) — Bấm + trên P một lần | Có nút + theo R03; theo A01 q=2, thành tiền/tổng 60.000.000; R04. Không có control thì không dùng API thay | Không có nút + để thực hiện bước chỉnh quantity (schema R03 được đánh giá tại W09). | Bị chặn (blocked)  | [Log CART-W16 / CART-RUN-02](results.json); [JPG](images/CART-W16-CART-RUN-02-missing-control.jpg) |
+| [CART-W17](test-cases.md) — Bấm − trên P một lần | Có nút −; theo A01 q=1, thành tiền/tổng 30.000.000, còn dòng. R03/R04,A01 | Không đạt precondition: một click Add chi tiết không thêm sản phẩm; không bấm lần hai hoặc inject state để dựng giỏ. | Bị chặn (blocked)  | [Log CART-W17 / CART-RUN-02](results.json); [JPG](images/CART-W17-CART-RUN-02-fixture-blocker.jpg) |
+| [CART-W18](test-cases.md) — Thử bấm −; nếu bị disable ghi trạng thái; nếu hỏi xóa thì hủy | Theo A01 không xuất hiện q≤0; chặn giảm hoặc hỏi xác nhận rồi hủy giữ C1; không xóa im lặng theo R05. Không yêu cầu duy nhất cách disable | Không có nút - để thực hiện bước chỉnh quantity (schema R03 được đánh giá tại W09). | Bị chặn (blocked)  | [Log CART-W18 / CART-RUN-02](results.json); [JPG](images/CART-W18-CART-RUN-02-missing-control.jpg) |
+| [CART-W19](test-cases.md) — Bấm Xóa Q, quan sát dialog, chọn Hủy | Dialog trước thay đổi; khi đang hỏi và sau hủy vẫn đủ P×2,Q×3,H×4; tổng 168.000.000. R05/R04 | Không đạt precondition: một click Add chi tiết không thêm sản phẩm; không bấm lần hai hoặc inject state để dựng giỏ. | Bị chặn (blocked)  | [Log CART-W19 / CART-RUN-02](results.json); [JPG](images/CART-W19-CART-RUN-02-fixture-blocker.jpg) |
+| [CART-W20](test-cases.md) — Bấm Xóa P; xác nhận đồng ý | Trước đồng ý vẫn còn P; sau đó 0 dòng, có minh họa/thông báo giỏ trống, không giữ 30.000.000. R05/R08 | P×1→0 dòng ngay sau Xóa; dialogs=[]; thông báo trống, không có minh họa. | Không đạt (failed) [CART-BUG02](#cart-bug02) [CART-BUG05](#cart-bug05) | [Log CART-W20 / CART-RUN-02](results.json); [JPG](images/CART-W20-CART-RUN-02-final-failure.jpg) |
+| [CART-W21](test-cases.md) — Xóa Q (dòng giữa), đồng ý | Chỉ Q biến mất; P×2,H×4 đúng; tổng 84.000.000. R05/R04; phát hiện xóa nhầm index | Không đạt precondition: một click Add chi tiết không thêm sản phẩm; không bấm lần hai hoặc inject state để dựng giỏ. | Bị chặn (blocked)  | [Log CART-W21 / CART-RUN-02](results.json); [JPG](images/CART-W21-CART-RUN-02-fixture-blocker.jpg) |
+| [CART-W22](test-cases.md) — Xóa P xác nhận; Add(P,1) qua UI | Sau xóa còn Q×3,H×4 tổng 108.000.000; thêm lại P chỉ q=1, một dòng, tổng 138.000.000; không phục hồi q=2 cũ. R01/R05/R04 | Không đạt precondition: một click Add chi tiết không thêm sản phẩm; không bấm lần hai hoặc inject state để dựng giỏ. | Bị chặn (blocked)  | [Log CART-W22 / CART-RUN-02](results.json); [JPG](images/CART-W22-CART-RUN-02-fixture-blocker.jpg) |
+| [CART-W23](test-cases.md) — Tại mỗi trạng thái bấm Tiếp tục mua sắm; quan sát route và trang đích | Cả hai về trang chủ `/`; giỏ rỗng vẫn có thông báo/minh họa trước click. Không áp chữ nút riêng ngoài R06. S1 | C0 và C1 đều đi về /; C0 có thông báo nhưng thiếu hình minh họa. | Không đạt (failed) [CART-BUG02](#cart-bug02) | [Log CART-W23 / CART-RUN-02](results.json); [JPG](images/CART-W23-CART-RUN-02-final-failure.jpg) |
+| [CART-W24](test-cases.md) — Add(H,1000) | Dữ liệu thử lớn, không là BVA max: nếu nhận, q=1000, thành tiền/tổng chính xác 6.000.000.000 ₫; nếu chặn phải có lý do/giới hạn quan sát được để đối chiếu, chưa kết luận rule max. Không overflow/NaN. R04+A04 | Sau một click mỗi lần Add: 0 dòng; giỏ trống, chưa có thành tiền/tổng. Add một click đạt H×1000, đúng thành tiền/tổng; R01/FR06: phản hồi trực quan sau thêm | Không đạt (failed) [CART-BUG01](#cart-bug01) | [Log CART-W24 / CART-RUN-02](results.json); [JPG](images/CART-W24-CART-RUN-02-target-add-detail.jpg) |
+| [CART-W25](test-cases.md) — Trên Q thử nhập 9007199254740992 và bấm thêm một lần | Theo A04 chặn hoặc báo rõ không thể xử lý an toàn; không lưu số bị làm tròn hoặc tổng sai. Không coi số này là max nghiệp vụ; oracle đề xuất về biểu diễn JS | Không đạt precondition: một click Add chi tiết không thêm sản phẩm; không bấm lần hai hoặc inject state để dựng giỏ. | Bị chặn (blocked)  | [Log CART-W25 / CART-RUN-02](results.json); [JPG](images/CART-W25-CART-RUN-02-fixture-blocker.jpg) |
+| [CART-W26](test-cases.md) — Trên Q thử gõ/dán `abc`, rồi ba dấu cách; bấm thêm nếu UI cho | Chặn nhập hoặc Reject, C2 nguyên vẹn; không biến thành q mặc định/NaN. R09, cách xử lý lexical theo A04 | Không đạt precondition: một click Add chi tiết không thêm sản phẩm; không bấm lần hai hoặc inject state để dựng giỏ. | Bị chặn (blocked)  | [Log CART-W26 / CART-RUN-02](results.json); [JPG](images/CART-W26-CART-RUN-02-fixture-blocker.jpg) |
+| [CART-W27](test-cases.md) — Add(Q,q) với text `2.0`, `2e0`, `+2`, `02`, ` 2 `; ghi chuỗi UI thực giữ lại | Khảo sát có chuẩn hóa/chặn; nếu nhận phải là q=2, tổng 56.000.000, không cắt thành số khác. Chưa có oracle bắt buộc nhận/từ chối từng cú pháp; A05. Không credit coverage validation lexical đã xác nhận | Khảo sát lexical chưa phân biệt được validation với lỗi click đầu không thêm; không có verdict nhận/từ chối cú pháp. | Bị chặn (blocked)  | [Log CART-W27 / CART-RUN-02](results.json) |
+| [CART-W28](test-cases.md) — Dùng UI Add(X,2), Add(Y,3), Add(X,1) | Theo A07 hai dòng theo ID, không gộp theo tên; X×3=375.000,Y×3=825.000,T=1.200.000; tên là văn bản, không chạy markup; R02/R04 cho gộp/số học. Fixture tạo ngoài TC, không sửa SUT | Sau một click mỗi lần Add: 0 dòng; giỏ trống, chưa có thành tiền/tổng. Sequence 1 đúng dòng/quantity/tổng; Sequence 2 đúng dòng/quantity/tổng; Sequence 3 đúng dòng/quantity/tổng | Không đạt (failed) [CART-BUG01](#cart-bug01) | [Log CART-W28 / CART-RUN-03](results.json); [JPG](images/CART-W28-CART-RUN-03-final-failure.jpg) |
+| [CART-W29](test-cases.md) — Tiếp tục mua sắm → mở lại giỏ bằng link; Back rồi Forward trong cùng tab, không reload | Về trang chủ theo R06; theo A02 khi quay lại vẫn đúng C3/T=168.000.000, không nhân đôi hàng do điều hướng | Không đạt precondition: một click Add chi tiết không thêm sản phẩm; không bấm lần hai hoặc inject state để dựng giỏ. | Bị chặn (blocked)  | [Log CART-W29 / CART-RUN-03](results.json); [JPG](images/CART-W29-CART-RUN-03-fixture-blocker.jpg) |
+| [CART-W30](test-cases.md) — Reload trang `/cart` trong cùng phiên/tab | Theo policy đề xuất A02 giữ C3 và tổng 168.000.000; khác biệt persistence là chưa đáp ứng đề xuất, chưa đủ kết luận vi phạm S1 | Không đạt precondition: một click Add chi tiết không thêm sản phẩm; không bấm lần hai hoặc inject state để dựng giỏ. | Bị chặn (blocked)  | [Log CART-W30 / CART-RUN-03](results.json); [JPG](images/CART-W30-CART-RUN-03-fixture-blocker.jpg) |
+| [CART-W31](test-cases.md) — Bấm + Q một lần, sau đó − H một lần | Theo A01 Q×4=112.000.000, H×3=18.000.000,P×2=60.000.000; T lần lượt 196.000.000 rồi 190.000.000; không chỉnh nhầm dòng. R03/R04 | Không đạt precondition: một click Add chi tiết không thêm sản phẩm; không bấm lần hai hoặc inject state để dựng giỏ. | Bị chặn (blocked)  | [Log CART-W31 / CART-RUN-03](results.json); [JPG](images/CART-W31-CART-RUN-03-fixture-blocker.jpg) |
+| [CART-W32](test-cases.md) — Add(Q,0) bị chặn; nhập lại q=2, Add một lần | Sau sai C2 nguyên vẹn; sau sửa có P×2,Q×2,T=116.000.000, không giữ lỗi hoặc cộng dữ liệu lần bị từ chối. R01/R09/R04 | Không đạt precondition: một click Add chi tiết không thêm sản phẩm; không bấm lần hai hoặc inject state để dựng giỏ. | Bị chặn (blocked)  | [Log CART-W32 / CART-RUN-03](results.json); [JPG](images/CART-W32-CART-RUN-03-fixture-blocker.jpg) |
+| [CART-W33](test-cases.md) — Bấm + trên P 3 lần liên tiếp, rồi − 2 lần; đếm đúng 5 click | Theo A01 đạt q=5 rồi 3; cuối T=90.000.000, một dòng, không mất cập nhật/âm/nhân đôi. R02/R04; không mô phỏng retry mạng | Không đạt precondition: một click Add chi tiết không thêm sản phẩm; không bấm lần hai hoặc inject state để dựng giỏ. | Bị chặn (blocked)  | [Log CART-W33 / CART-RUN-03](results.json); [JPG](images/CART-W33-CART-RUN-03-fixture-blocker.jpg) |
+| [CART-W34](test-cases.md) — Add(P,2) | Một dòng q=2, thành tiền/tổng 60.000.000, phản hồi thêm sau một click; R01/R09/R04 | Sau một click mỗi lần Add: 0 dòng; giỏ trống, chưa có thành tiền/tổng. Add một click đạt P×2, đúng thành tiền/tổng; R01/FR06: phản hồi trực quan sau thêm | Không đạt (failed) [CART-BUG01](#cart-bug01) | [Log CART-W34 / CART-RUN-03](results.json); [JPG](images/CART-W34-CART-RUN-03-target-add-detail.jpg) |
+### API bổ trợ — 14 TC
+
+| TC / input và bước chính | Expected / nguồn | Actual | Kết luận / bug | Evidence đúng TC/run |
+| --- | --- | --- | --- | --- |
+| [CART-A01](test-cases.md) — GET rồi POST `/api/cart` không Authorization; POST body P,q=1 hợp lệ; GET lại bằng TU | Cả hai request mục tiêu bị từ chối xác thực; cart TU không đổi. R10/S3; không suy từ API sang Web | GET 401, POST 401; giỏ TU giữ nguyên. | Đạt (passed)  | [Log CART-A01 / CART-RUN-03](results.json) |
+| [CART-A02](test-cases.md) — GET rồi POST với `Authorization: Bearer invalid-token`; body P,q=1; GET lại TU | Từ chối token không hợp lệ, không đổi cart TU. R10/S3 | GET 403, POST 403; giỏ TU giữ nguyên. | Đạt (passed)  | [Log CART-A02 / CART-RUN-03](results.json) |
+| [CART-A03](test-cases.md) — GET bằng TU | Token user hợp lệ đọc được cart; kết quả giỏ rỗng theo fixture. S3+A03; không đòi token admin | GET 200, body=[] với nominal user token. | Đạt (passed)  | [Log CART-A03 / CART-RUN-03](results.json) |
+| [CART-A04](test-cases.md) — Post(P,1) | Theo A03 GET có một dòng P×1, dữ liệu đúng và tổng suy ra 30.000.000; không yêu cầu API trả field total chưa có contract | POST 200; GET đúng một P, quantity=1, price=30000000. | Đạt (passed)  | [Log CART-A04 / CART-RUN-03](results.json) |
+| [CART-A05](test-cases.md) — Post(P,2) | Theo A03 một dòng P×2, thành tiền suy ra 60.000.000; không gọi Web để kiểm chứng API | POST 200; GET đúng một P, quantity=2, price=30000000. | Đạt (passed)  | [Log CART-A05 / CART-RUN-03](results.json) |
+| [CART-A06](test-cases.md) — Post(P,3) | Theo A03 chỉ một dòng ID P,q=4, thành tiền suy ra 120.000.000; không append/replace | POST 200; GET hai dòng cùng ID6: quantity 1 và 3, không gộp thành 4. | Không đạt (failed) [CART-BUG06](#cart-bug06) | [Log CART-A06 / CART-RUN-03](results.json); [JPG](images/CART-A06-CART-RUN-03-actual-api-cart.jpg) |
+| [CART-A07](test-cases.md) — Post(Q,0) | AR theo A03; AP1 không đổi; không suy FR-06 mặc nhiên là API contract | Mọi mẫu đã gửi đều POST 200 và thêm dòng trái AR; [{"id":7,"name":"Samsung Galaxy S24 Ultra","price":28000000,"quantity":0}] | Không đạt (failed) [CART-BUG07](#cart-bug07) | [Log CART-A07 / CART-RUN-03](results.json); [JPG](images/CART-A07-CART-RUN-03-actual-api-cart.jpg) |
+| [CART-A08](test-cases.md) — Post(Q,−1) | AR theo A03; không có quantity âm | Mọi mẫu đã gửi đều POST 200 và thêm dòng trái AR; [{"id":7,"name":"Samsung Galaxy S24 Ultra","price":28000000,"quantity":-1}] | Không đạt (failed) [CART-BUG07](#cart-bug07) | [Log CART-A08 / CART-RUN-03](results.json); [JPG](images/CART-A08-CART-RUN-03-actual-api-cart.jpg) |
+| [CART-A09](test-cases.md) — Post(Q,1.5) | AR theo A03; không truncate thành 1 | Mọi mẫu đã gửi đều POST 200 và thêm dòng trái AR; [{"id":7,"name":"Samsung Galaxy S24 Ultra","price":28000000,"quantity":1.5}] | Không đạt (failed) [CART-BUG07](#cart-bug07) | [Log CART-A09 / CART-RUN-03](results.json); [JPG](images/CART-A09-CART-RUN-03-actual-api-cart.jpg) |
+| [CART-A10](test-cases.md) — Body Q hợp lệ nhưng lần lượt bỏ field quantity, rồi quantity=null | AR từng substep theo A03; AP1 không đổi; missing khác null | Mọi mẫu đã gửi đều POST 200 và thêm dòng trái AR; [{"id":7,"name":"Samsung Galaxy S24 Ultra","price":28000000},{"id":7,"name":"Samsung Galaxy S24 Ultra","price":28000000,"quantity":null}] | Không đạt (failed) [CART-BUG07](#cart-bug07) | [Log CART-A10 / CART-RUN-03](results.json); [JPG](images/CART-A10-CART-RUN-03-actual-api-cart.jpg) |
+| [CART-A11](test-cases.md) — POST body Q hợp lệ với quantity lần lượt `"2"`, true, [], {} | Theo policy đề xuất A06 chỉ nhận JSON number nguyên dương, AR các kiểu này; không có contract strict type được xác nhận | Mọi mẫu đã gửi đều POST 200 và thêm dòng trái AR; [{"id":7,"name":"Samsung Galaxy S24 Ultra","price":28000000,"quantity":"2"},{"id":7,"name":"Samsung Galaxy S24 Ultra","price":28000000,"quantity":true},{"id":7,"name":"Samsung Galaxy S24 Ultra","price":28000000,"quantity":[]},{"id":7,"name":"Samsung Galaxy S24 Ultra","price":28000000,"quantity":{}}] | Không đạt (failed) [CART-BUG07](#cart-bug07) | [Log CART-A11 / CART-RUN-03](results.json); [JPG](images/CART-A11-CART-RUN-03-actual-api-cart.jpg) |
+| [CART-A12](test-cases.md) — Post body id=z,name=`T04 Unknown`,price=28000000,quantity=1 | Theo A06 AR, không phát sinh sản phẩm ảo; không giả định z=maxID+1 nếu chưa kiểm tra membership | ID999999 vắng trong products; POST 200 và GET cart vẫn có hàng ảo đó. | Không đạt (failed) [CART-BUG08](#cart-bug08) | [Log CART-A12 / CART-RUN-03](results.json); [JPG](images/CART-A12-CART-RUN-03-actual-api-cart.jpg) |
+| [CART-A13](test-cases.md) — POST id P,name đúng,price=1,quantity=2; GET TU | Theo A06 từ chối hoặc dùng giá thật: không có dòng P giá 1; nếu chấp nhận P×2 phải suy ra 60.000.000. Đây là policy giỏ API đề xuất, không mượn FR-08 total_amount làm rule price | POST 200; GET lưu price=1,quantity=2 cho P giá thật 30000000. | Không đạt (failed) [CART-BUG09](#cart-bug09) | [Log CART-A13 / CART-RUN-03](results.json); [JPG](images/CART-A13-CART-RUN-03-actual-api-cart.jpg) |
+| [CART-A14](test-cases.md) — Post(P,2) bằng TU; GET TU và TV | Theo A06 TU có P×2 còn TV rỗng; không rò/ghi chéo cart. Không yêu cầu Web hai user đồng bộ | POST TU 200; TU có P×2 đúng giá, GET TV=[]; không ghi chéo user. | Đạt (passed)  | [Log CART-A14 / CART-RUN-03](results.json) |
+
+## Coverage đã exercise và phần bị chặn
+
+Coverage thiết kế nằm tại design.md; bảng dưới chỉ nhận các điểm thực sự tới được. Không lấy API thay bằng chứng Web và không lấy blocked thành coverage rule mục tiêu.
+
+| Inventory | Đã exercise / giới hạn |
+| --- | --- |
+| B01 q_add Web 0/1/2 | q=1 và q=2 đã nhập, bấm một lần ở W02/W34: 2/3 input items; cả hai không thêm được. q=0 của W10 chưa tới do C2 không đạt. Đây không chứng minh validation q hợp lệ đúng. |
+| B02 q_cart 0/1/2 (assumption) | 0/3 thao tác biên mục tiêu; W16/W18 không có +/−; W17 không đạt C2. Giá trị q=1 của fixture không thay cho thao tác − đạt 1. |
+| B03 số dòng 0/1 | 2/2 items khả thi đã quan sát: W01 C0; W09 C1; W20 1→0 khi Xóa. −1 không biểu diễn. |
+| B04 API q_add 0/1/2 (A03) | 3/3 items đã gửi/GET: A07/A04/A05; q=0 bị nhận sai oracle. |
+| D01/D02 | Đã xem C0/C1, thêm từ chi tiết q=1/3 bị lỗi. |
+| D03/D04 | Gộp Web chưa exercise vì precondition lỗi hoặc sequence không thêm; W08 đã mở đủ năm seed và click nhưng không tạo C5. W28 đã mở X/Y và nhập 2/3/1, chưa credit nhận diện cùng tên khi giỏ vẫn trống. |
+| D05–D08 | q=1/2/3/1000 có thao tác Add; invalid âm/0/phân số/rỗng/chữ chưa tới do C2 bị chặn; không kết luận validation Web. |
+| D09/D10 | Chưa thao tác +/−; xóa dòng cuối đã exercise, hủy và xóa dòng giữa chưa tới. |
+| D11/D12/D16 | Continue C0/C1 đã đi về /; Back/Forward/reload, phục hồi invalid, thao tác nhanh blocked; lexical W27 bị click đầu che nên không verdict cú pháp. |
+| D13–D15 | API auth, empty/add/duplicate/invalid q/type/ID/price/isolation đã có request/GET; policy A03/A06 tách requirement R10. |
+
+Không công bố “100% rule/miền”: R02 Web, R09 invalid Web và số học nhiều dòng R04 còn chưa kiểm chứng. Dữ liệu nhiều sản phẩm không có nghĩa đã tính được tổng C5 trên Web.
+
+## Bugs và findings
+
+5 lỗi requirement Web và 4 finding API theo assumption. Không tạo issue cho từng blocked TC; chúng dẫn dependency về lỗi click đầu hoặc control thiếu. Ảnh raw JSON ở API là response thật mở bằng browser với token trong header; không dựng ảnh log. Request/response đầy đủ nằm trong TC tương ứng, ảnh chỉ minh họa mẫu được nêu.
+
+[Tracker T04 — 9 kết quả](https://github.com/tranquocvy/eshop-sut/issues?q=is%3Aissue+in%3Atitle+T04)
+
+![Tracker T04](images/CART-GitHub-issues.jpg)
+
+Ảnh danh sách chụp 2026-10-20T09:06:04.674Z (UTC). Từng issue có ảnh trang riêng bên dưới.
+
+<a id="cart-bug01"></a>
+
+### CART-BUG01 — Click đầu Thêm vào giỏ hàng ở trang chi tiết không thêm sản phẩm
+
+**Loại/oracle:** requirement — R01; FR-06/FR-07 README. **Priority:** Đề xuất P2. **TC/run:** CART-W02, CART-W03, CART-W07, CART-W08, CART-W24, CART-W28, CART-W34; CART-RUN-02.
+
+**Precondition / steps:** Giỏ Web trống → mở chi tiết P (ID6), q=1 → bấm Thêm vào giỏ hàng đúng một lần → mở Giỏ hàng.
+
+**Expected:** Có P×1, tổng 30.000.000 ₫ và phản hồi trực quan.
+
+**Actual:** Nút vẫn “Thêm vào giỏ hàng”; giỏ 0 dòng, thông báo trống; không có phản hồi đã thêm.
+
+**Tác động / tần suất:** Chặn luồng thêm chi tiết và các fixture C2/C3; không tự bấm lại để che lỗi. 1/1 lượt mục tiêu của CART-W02 trong CART-RUN-02 (không suy tần suất cho mọi môi trường).
+
+![CART-BUG01 — SUT](images/CART-W02-CART-RUN-02-target-add-detail.jpg)
+
+Ảnh SUT chụp 2026-10-20T08:54:45.626359+00:00 (UTC), target-add-detail; log mục tiêu tại TC/run trên.
+
+**GitHub:** [12](https://github.com/tranquocvy/eshop-sut/issues/12) — published_verified_with_issue_screenshot; kiểm tra nội dung/ảnh: 2026-10-20T09:03:28.940Z (UTC).
+
+![CART-BUG01 — trang issue thật](images/CART-BUG01-issue.jpg)
+
+Ảnh trang issue chụp 2026-10-20T09:03:28.940Z (UTC); khác ảnh SUT của run.
+
+<a id="cart-bug02"></a>
+
+### CART-BUG02 — Giỏ hàng trống thiếu hình minh họa
+
+**Loại/oracle:** requirement — R08; FR-07 README. **Priority:** Đề xuất P2. **TC/run:** CART-W01, CART-W20, CART-W23; CART-RUN-02.
+
+**Precondition / steps:** Mở /cart trong context mới; quan sát vùng main.
+
+**Expected:** Có hình minh họa và thông báo giỏ trống.
+
+**Actual:** Có thông báo “Giỏ hàng của bạn đang trống”; vùng main không có img/svg/canvas và kiểm tra ảnh không thấy minh họa.
+
+**Tác động / tần suất:** Thiếu thành phần empty state yêu cầu. 1/1 lượt mục tiêu của CART-W01 trong CART-RUN-02 (không suy tần suất cho mọi môi trường).
+
+![CART-BUG02 — SUT](images/CART-W01-CART-RUN-02-final-failure.jpg)
+
+Ảnh SUT chụp 2026-10-20T08:54:45.168426+00:00 (UTC), final-failure; log mục tiêu tại TC/run trên.
+
+**GitHub:** [13](https://github.com/tranquocvy/eshop-sut/issues/13) — published_verified_with_issue_screenshot; kiểm tra nội dung/ảnh: 2026-10-20T09:01:59.502Z (UTC).
+
+![CART-BUG02 — trang issue thật](images/CART-BUG02-issue.jpg)
+
+Ảnh trang issue chụp 2026-10-20T09:01:59.502Z (UTC); khác ảnh SUT của run.
+
+<a id="cart-bug03"></a>
+
+### CART-BUG03 — Bảng giỏ hàng thiếu nút +/− và cột Đơn giá ghi Giá
+
+**Loại/oracle:** requirement — R03; FR-07 README. **Priority:** Đề xuất P2. **TC/run:** CART-W09; CART-RUN-02.
+
+**Precondition / steps:** Từ Home bấm Thêm vào giỏ của P một lần để chuẩn bị C1 → mở Giỏ hàng.
+
+**Expected:** Cột Đơn giá; số lượng có nút + và −.
+
+**Actual:** Header là “Giá”; quantity chỉ là text 1; chỉ có Xóa và Tiến hành thanh toán, không có +/−. W16/W18 bị chặn tại control.
+
+**Tác động / tần suất:** Không chỉnh được quantity qua UI theo đặc tả. 1/1 lượt mục tiêu của CART-W09 trong CART-RUN-02 (không suy tần suất cho mọi môi trường).
+
+![CART-BUG03 — SUT](images/CART-W09-CART-RUN-02-final-failure.jpg)
+
+Ảnh SUT chụp 2026-10-20T08:54:50.473827+00:00 (UTC), final-failure; log mục tiêu tại TC/run trên.
+
+**GitHub:** [14](https://github.com/tranquocvy/eshop-sut/issues/14) — published_verified_with_issue_screenshot; kiểm tra nội dung/ảnh: 2026-10-20T09:02:35.125Z (UTC).
+
+![CART-BUG03 — trang issue thật](images/CART-BUG03-issue.jpg)
+
+Ảnh trang issue chụp 2026-10-20T09:02:35.125Z (UTC); khác ảnh SUT của run.
+
+<a id="cart-bug04"></a>
+
+### CART-BUG04 — Nhãn tổng tiền giỏ hàng là Tổng tạm tính thay vì Tổng cộng
+
+**Loại/oracle:** requirement — R07; FR-07 README. **Priority:** Đề xuất P2. **TC/run:** CART-W09; CART-RUN-02.
+
+**Precondition / steps:** Chuẩn bị C1 bằng nút Home → mở Giỏ hàng và đọc nhãn tổng.
+
+**Expected:** Nhãn chính xác “Tổng cộng”.
+
+**Actual:** Hiển thị “Tổng tạm tính: 30,000,000 ₫”.
+
+**Tác động / tần suất:** Sai nhãn được đặc tả quy định rõ. 1/1 lượt mục tiêu của CART-W09 trong CART-RUN-02 (không suy tần suất cho mọi môi trường).
+
+![CART-BUG04 — SUT](images/CART-W09-CART-RUN-02-final-failure.jpg)
+
+Ảnh SUT chụp 2026-10-20T08:54:50.473827+00:00 (UTC), final-failure; log mục tiêu tại TC/run trên.
+
+**GitHub:** [15](https://github.com/tranquocvy/eshop-sut/issues/15) — published_verified_with_issue_screenshot; kiểm tra nội dung/ảnh: 2026-10-20T09:02:41.263Z (UTC).
+
+![CART-BUG04 — trang issue thật](images/CART-BUG04-issue.jpg)
+
+Ảnh trang issue chụp 2026-10-20T09:02:41.263Z (UTC); khác ảnh SUT của run.
+
+<a id="cart-bug05"></a>
+
+### CART-BUG05 — Xóa sản phẩm ngay mà không có dialog xác nhận
+
+**Loại/oracle:** requirement — R05; FR-07 README. **Priority:** Đề xuất P2. **TC/run:** CART-W20; CART-RUN-02.
+
+**Precondition / steps:** Chuẩn bị P×1 bằng Home → mở Giỏ hàng → bấm Xóa trên P.
+
+**Expected:** Hiện dialog trước thay đổi; chỉ đồng ý mới xóa.
+
+**Actual:** Dòng P biến mất ngay, giỏ chuyển trống; dialog listener ghi [] nên không có bước đồng ý.
+
+**Tác động / tần suất:** Người dùng không có cơ hội hủy thao tác xóa. 1/1 lượt mục tiêu của CART-W20 trong CART-RUN-02 (không suy tần suất cho mọi môi trường).
+
+![CART-BUG05 — SUT](images/CART-W20-CART-RUN-02-final-failure.jpg)
+
+Ảnh SUT chụp 2026-10-20T08:54:55.222773+00:00 (UTC), final-failure; log mục tiêu tại TC/run trên.
+
+**GitHub:** [16](https://github.com/tranquocvy/eshop-sut/issues/16) — published_verified_with_issue_screenshot; kiểm tra nội dung/ảnh: 2026-10-20T09:02:46.648Z (UTC).
+
+![CART-BUG05 — trang issue thật](images/CART-BUG05-issue.jpg)
+
+Ảnh trang issue chụp 2026-10-20T09:02:46.648Z (UTC); khác ảnh SUT của run.
+
+<a id="cart-bug06"></a>
+
+### CART-BUG06 — [A03] API cart append dòng khi thêm cùng ID thay vì gộp số lượng
+
+**Loại/oracle:** assumption — A03 đề xuất áp ngữ nghĩa gộp FR-07 vào API; API §4.2 chưa xác nhận policy. **Priority:** Đề xuất P2. **TC/run:** CART-A06; CART-RUN-03.
+
+**Precondition / steps:** User thử mới, API AP1=P×1 → POST /api/cart body P×3 → GET bằng cùng token.
+
+**Expected:** Theo A03: một dòng ID6,q=4; không phải contract API được xác nhận.
+
+**Actual:** POST 200; GET hai dòng ID6 với quantity 1 và 3.
+
+**Tác động / tần suất:** Sai khác oracle bổ sung; cần nhóm xác nhận policy trước phân loại defect contract. 1/1 lượt mục tiêu của CART-A06 trong CART-RUN-03 (không suy tần suất cho mọi môi trường).
+
+![CART-BUG06 — SUT](images/CART-A06-CART-RUN-03-actual-api-cart.jpg)
+
+Ảnh SUT chụp 2026-10-20T08:55:19.385045+00:00 (UTC), actual-api-cart; log mục tiêu tại TC/run trên.
+
+**GitHub:** [17](https://github.com/tranquocvy/eshop-sut/issues/17) — published_verified_with_issue_screenshot; kiểm tra nội dung/ảnh: 2026-10-20T09:02:59.925Z (UTC).
+
+![CART-BUG06 — trang issue thật](images/CART-BUG06-issue.jpg)
+
+Ảnh trang issue chụp 2026-10-20T09:02:59.925Z (UTC); khác ảnh SUT của run.
+
+<a id="cart-bug07"></a>
+
+### CART-BUG07 — [A03/A06] API cart nhận quantity không hợp lệ và sai kiểu JSON
+
+**Loại/oracle:** assumption — A03/A06; validation API đề xuất, không nhận FR-06 tự động là API contract. **Priority:** Đề xuất P2. **TC/run:** CART-A07, CART-A08, CART-A09, CART-A10, CART-A11; CART-RUN-03.
+
+**Precondition / steps:** Mỗi mẫu user/AP1 độc lập; POST Q với q=0,-1,1.5,missing,null,"2",true,[],{}; GET sau từng request.
+
+**Expected:** Theo A03/A06: từ chối và AP1 không đổi.
+
+**Actual:** Mỗi mẫu POST 200 và thêm dòng Q chứa nguyên quantity sai hoặc thiếu field; ảnh minh họa mẫu {} của A11, các mẫu khác ở log TC tương ứng.
+
+**Tác động / tần suất:** Dữ liệu cart API không nhất quán kiểu/miền theo policy đề xuất. 1/1 lượt mục tiêu của CART-A07 trong CART-RUN-03 (không suy tần suất cho mọi môi trường).
+
+![CART-BUG07 — SUT](images/CART-A11-CART-RUN-03-actual-api-cart.jpg)
+
+Ảnh SUT chụp 2026-10-20T08:55:20.734258+00:00 (UTC), actual-api-cart; log mục tiêu tại TC/run trên.
+
+**GitHub:** [18](https://github.com/tranquocvy/eshop-sut/issues/18) — published_verified_with_issue_screenshot; kiểm tra nội dung/ảnh: 2026-10-20T09:03:05.041Z (UTC).
+
+![CART-BUG07 — trang issue thật](images/CART-BUG07-issue.jpg)
+
+Ảnh trang issue chụp 2026-10-20T09:03:05.041Z (UTC); khác ảnh SUT của run.
+
+<a id="cart-bug08"></a>
+
+### CART-BUG08 — [A06] API cart nhận product ID không tồn tại
+
+**Loại/oracle:** assumption — A06; kiểm tra membership ID là policy đề xuất chưa có trong API contract. **Priority:** Đề xuất P2. **TC/run:** CART-A12; CART-RUN-03.
+
+**Precondition / steps:** Xác nhận ID999999 vắng qua GET products; AP1=P×1 → POST id=999999,name=T04 Unknown,price=28000000,q=1 → GET cart.
+
+**Expected:** Theo A06 từ chối và không phát sinh hàng ảo.
+
+**Actual:** POST 200; GET thêm dòng id999999, tên T04 Unknown.
+
+**Tác động / tần suất:** Sai khác kiểm tra tồn tại sản phẩm theo oracle bổ sung. 1/1 lượt mục tiêu của CART-A12 trong CART-RUN-03 (không suy tần suất cho mọi môi trường).
+
+![CART-BUG08 — SUT](images/CART-A12-CART-RUN-03-actual-api-cart.jpg)
+
+Ảnh SUT chụp 2026-10-20T08:55:20.966303+00:00 (UTC), actual-api-cart; log mục tiêu tại TC/run trên.
+
+**GitHub:** [19](https://github.com/tranquocvy/eshop-sut/issues/19) — published_verified_with_issue_screenshot; kiểm tra nội dung/ảnh: 2026-10-20T09:03:20.215Z (UTC).
+
+![CART-BUG08 — trang issue thật](images/CART-BUG08-issue.jpg)
+
+Ảnh trang issue chụp 2026-10-20T09:03:20.215Z (UTC); khác ảnh SUT của run.
+
+<a id="cart-bug09"></a>
+
+### CART-BUG09 — [A06] API cart tin price=1 do client gửi cho sản phẩm giá 30 triệu
+
+**Loại/oracle:** assumption — A06; server lookup giá cart là policy đề xuất, không mượn rule total_amount FR-08. **Priority:** Đề xuất P2. **TC/run:** CART-A13; CART-RUN-03.
+
+**Precondition / steps:** AP0; xác minh P giá 30000000 → POST id6,name đúng,price=1,q=2 → GET cart.
+
+**Expected:** Theo A06 từ chối hoặc dùng giá thật P; nếu nhận q2 phải suy ra 60000000.
+
+**Actual:** POST 200; GET P có price=1,quantity=2 (giá trị suy ra 2).
+
+**Tác động / tần suất:** Sai khác tính toàn vẹn giá theo policy bổ sung; chưa kết luận checkout vì không chạy checkout. 1/1 lượt mục tiêu của CART-A13 trong CART-RUN-03 (không suy tần suất cho mọi môi trường).
+
+![CART-BUG09 — SUT](images/CART-A13-CART-RUN-03-actual-api-cart.jpg)
+
+Ảnh SUT chụp 2026-10-20T08:55:21.118475+00:00 (UTC), actual-api-cart; log mục tiêu tại TC/run trên.
+
+**GitHub:** [20](https://github.com/tranquocvy/eshop-sut/issues/20) — published_verified_with_issue_screenshot; kiểm tra nội dung/ảnh: 2026-10-20T09:03:25.726Z (UTC).
+
+![CART-BUG09 — trang issue thật](images/CART-BUG09-issue.jpg)
+
+Ảnh trang issue chụp 2026-10-20T09:03:25.726Z (UTC); khác ảnh SUT của run.
+
+## Giới hạn và bước tiếp theo
+
+23 TC blocked cần chạy lại khi precondition/control có thể đạt đúng bước. Không sửa SUT trong task testing, không đổi expected hoặc tự tạo kết quả xanh. Harness sửa chờ render route và locator h1 đã ghi trong run history. Formal AI gap analysis chưa được giao; các ca bị chặn hiện tại không tự là test bị AI bỏ sót.
+
+Implementation: [hướng dẫn và mapping](IMPLEMENTATION.md), [runner](scripts/run.py), [report renderer](scripts/report.py). Chưa commit/push, chưa ghi AI Audit hoặc đánh dấu T04 toàn chu trình hoàn tất.

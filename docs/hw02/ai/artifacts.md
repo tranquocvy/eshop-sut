@@ -67,6 +67,23 @@ Các file `.md.txt` giữ nguyên byte của output Markdown ban đầu; phần 
 
 - [P-033](23120410_HW02_PromptLog.md#msg-fbcf3eb8ed26537524e3) giữ nguyên prompt và đủ bốn phản hồi AI ngày 20/10/2026, 15:28:20–15:32:30 (UTC+7).
 - AI đầu v0.1: [design nguyên văn](history/cart-v0.1-design.md.txt), [TC nguyên văn](history/cart-v0.1-test-cases.md.txt). Bản sao giữ byte đầu ra trước cập nhật trạng thái review.
-- Hai file đã được Vỹ đọc và xác nhận, commit local `475165e35a7c13988abf86bc10a988ab7a6b34f1`: [design](../../../tests/hw02/fr07-cart/design.md), [test cases](../../../tests/hw02/fr07-cart/test-cases.md). Chỉ sửa ghi chú review; 48 TC và expected giữ nguyên. Chưa mặc định commit đã push.
-- 34 TC Web và 14 TC API bổ trợ; cả năm sản phẩm seed, phép tính cố định, 16 mục tiêu miền, bốn inventory biên tách requirement/assumption. Tất cả Not Run; không có kết quả kiểm chứng Web/API trong artifact này.
+- Hai file đã được Vỹ đọc và xác nhận, commit local `475165e35a7c13988abf86bc10a988ab7a6b34f1`: [design](../../../tests/hw02/fr07-cart/design.md), [test cases](../../../tests/hw02/fr07-cart/test-cases.md). Tại mốc này chỉ sửa ghi chú review; 48 TC và expected giữ nguyên. Execution và mở rộng API về sau được dẫn ở phần tiếp theo; chưa mặc định commit đã push.
+- 34 TC Web và 14 TC API bổ trợ; cả năm sản phẩm seed, phép tính cố định, 16 mục tiêu miền, bốn inventory biên tách requirement/assumption. Tất cả Not Run tại mốc thiết kế v0.1; execution về sau thuộc A-10, không thay lịch sử mốc này.
 - Căn cứ review lúc 15:35:30 (UTC+7): “tôi đã đọc và xác nhận các tc hiện có. Tôi không thấy mục nào cần tôi verify, done?” Lời này không được thêm thành prompt mới ngoài phạm vi P-033; không suy thành đã chạy test hoặc xác nhận mọi giả định là requirement.
+
+### A-09 — Mở rộng API v0.2 theo góp ý
+
+- [P-036](23120410_HW02_PromptLog.md#msg-eb9325eff0dd943647c7) yêu cầu bổ sung TC API và kiểm thử; [góp ý/chỉnh sửa](23120410_HW02_PromptLog.md#t04-review-notes) giữ phần sinh viên phản biện đổi click, nguồn đặc tả và ánh xạ Web/API.
+- [Design v0.2](../../../tests/hw02/fr07-cart/design.md), [60 TC](../../../tests/hw02/fr07-cart/test-cases.md), commit local `ee8e477edc30e3ddfed85c10fc5f82cb006ce15a`: thêm A15–A26, tổng 34 Web + 26 API. 48 hàng TC cũ giữ nguyên; §6 có mapping mục tiêu/miền → hiện thực theo layer/fixture.
+- R01 được làm rõ nguồn: “sau khi bấm” là câu đặc tả; “đúng một click” là cụ thể hóa thao tác của TC. Không đổi bước/verdict Web sang double-click. A08 của API là oracle robustness đề xuất, không là max nghiệp vụ.
+- Bản v0.1 đã được sinh viên đọc và xác nhận; không suy việc yêu cầu commit là đã review riêng mọi TC mới hoặc đã tự chạy toàn bộ suite.
+
+## A-10 — Implementation, execution và report T04 Shopping Cart
+
+- [P-034](23120410_HW02_PromptLog.md#msg-18993f7783fd6fec1999) giao implement/chạy T04; [P-035](23120410_HW02_PromptLog.md#msg-e35ac4755d97d4df1251) yêu cầu kiểm chứng một ca blocked; P-036 mở rộng API. Bản đọc rút gọn theo yêu cầu, không phải transcript đầy đủ.
+- [Report v0.1 nguyên văn](history/cart-execution-v0.1-report.md.txt), được giữ từ snapshot trước mở rộng: 48 TC, 6 passed, 19 failed, 23 blocked; 9 issue/finding #12–#20. Kết quả 48 TC và history RUN01–03 vẫn có nguyên trong results.json hiện hành; đã so sánh trước/sau.
+- Bản cuối commit local `ee8e477edc30e3ddfed85c10fc5f82cb006ce15a`: [IMPLEMENTATION](../../../tests/hw02/fr07-cart/IMPLEMENTATION.md), [runner](../../../tests/hw02/fr07-cart/scripts/run.py), [report](../../../tests/hw02/fr07-cart/report.md), [results.json](../../../tests/hw02/fr07-cart/results.json), ảnh liên kết trong report. RUN04 chỉ chạy 12 API mới: 4 passed, 8 failed. Tổng 60 TC: **10 passed, 27 failed, 23 blocked, 0 not_run**; Web 0/11/23, API 10/16/0.
+- Giữ các lỗi harness và lần chạy cũ; không dùng API thay bằng chứng Web hoặc lấy blocked làm pass. Vỹ cho biết tự thêm được bằng double-click; runner vẫn giữ bước đã duyệt. Không ghi Vỹ tự chạy 60 TC hoặc đã review toàn report chỉ vì yêu cầu commit.
+- Bổ sung evidence vào [#17 — gộp](https://github.com/tranquocvy/eshop-sut/issues/17#issuecomment-6287988816), [#18 — quantity](https://github.com/tranquocvy/eshop-sut/issues/18#issuecomment-6288012955); có response JPG và JPG trang issue sau cập nhật. Không tạo issue trùng cho mỗi TC failed.
+
+Ghi nhận review T04 ngày 20/10/2026: Vỹ xác nhận đã kiểm tra hồ sơ và yêu cầu chốt T04. Kết quả 10 passed, 27 failed, 23 blocked giữ nguyên; không có yêu cầu verify lại đang chờ. Không suy việc review hồ sơ thành sinh viên tự chạy toàn bộ suite.

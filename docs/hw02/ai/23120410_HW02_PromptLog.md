@@ -1969,3 +1969,139 @@ Phủ thêm/gộp, số lượng, số học, hiển thị, xác nhận xóa và
 
 Đã kiểm tra đủ 48 ID duy nhất. **Tất cả Not Run**; theo skill được gọi, lượt này dừng ở thiết kế, chưa thực thi Web hay lập báo cáo kết quả.
 ```
+
+Phạm vi: T04 execution và mở rộng API: ba prompt chính (1, 2, 9); bản đọc rút gọn theo yêu cầu sinh viên, sáu lượt góp ý được gộp riêng.
+
+> Đây là bản đọc rút gọn, không phải toàn bộ hội thoại/output. Giữ nguyên prompt chính; output là trích đoạn, bỏ thông báo tiến độ và ảnh lặp. Sáu lượt góp ý được tổng hợp giữa P-035 và P-036. Nguồn nguyên văn chín lượt được giữ local để đối chiếu.
+
+<a id="msg-18993f7783fd6fec1999"></a>
+
+## P-034
+
+- Timestamp: 15:49:52 20/10/2026 (UTC+07:00)
+- Công cụ: OpenAI Codex
+- Model: gpt-6.1-sol
+
+### Prompt
+
+```text
+implement và dùng [$test-execution-reporting](C:\Users\DELL\\.codex\skills\test-execution-reporting\SKILL.md) để thực thi tc của t04
+```
+
+<a id="msg-7a3fb952b72079fbeff3"></a>
+
+### Output — trích đoạn
+
+#### Trích phản hồi kết quả — 16:08:50 20/10/2026 (UTC+07:00)
+
+- Công cụ: OpenAI Codex
+- Model: gpt-6.1-sol
+
+```text
+Đã implement và chạy T04 theo [skill test-execution-reporting](C:/Users/DELL/.codex/skills/test-execution-reporting/SKILL.md):
+
+- **6 passed, 19 failed, 23 blocked**.
+- 23 ca bị chặn bởi precondition/control thiếu; không tính là đã thực thi đủ bước.
+- Đã đăng **issue #12–#20**: 5 lỗi Web, 4 finding API theo giả định; có ảnh SUT và JPG từng trang issue.
+
+[Báo cáo đầy đủ](D:/Workspace/SoftwareTesting/HW02/eshop-sut/tests/hw02/fr07-cart/report.md) có expected, actual và evidence từng TC. Chưa commit.
+```
+
+<a id="msg-e35ac4755d97d4df1251"></a>
+
+## P-035
+
+- Timestamp: 16:12:29 20/10/2026 (UTC+07:00)
+- Công cụ: OpenAI Codex
+- Model: gpt-6.1-sol
+
+### Prompt
+
+```text
+sao block nhiều thế nhỉ? hãy chạy các server cần thiết lên, rồi đưa 1 tc block step by step để tôi tự test và kiểm chứng
+```
+
+<a id="msg-49fcccd1922ba99a208e"></a>
+
+### Output — trích đoạn
+
+#### Trích phản hồi kết quả — 16:13:16 20/10/2026 (UTC+07:00)
+
+- Công cụ: OpenAI Codex
+- Model: gpt-6.1-sol
+
+```text
+23 blocked gồm **20 ca không chuẩn bị được giỏ**, **2 ca thiếu nút +/−**, **1 ca khảo sát bị lỗi thêm hàng che khuất**. Chúng không phải 23 lỗi độc lập.
+
+4. Bấm link **Giỏ hàng** trên thanh đầu trang.
+   - **Precondition cần đạt:** một dòng iPhone, số lượng **2**, tổng **60.000.000 ₫**.
+   - **Runner đã quan sát:** giỏ vẫn trống. Vì chưa đạt precondition nên W04 được ghi **blocked**, chưa đánh giá bước gộp.
+```
+
+<a id="t04-review-notes"></a>
+
+## Góp ý và chỉnh sửa dẫn tới P-036
+
+Sáu lượt số 3–8 trong yêu cầu ghi log được gộp ở đây, diễn ra giữa P-035 và P-036 ngày 20/10/2026 (UTC+7). Cột lời sinh viên là **trích đoạn**, cột xử lý là **tổng hợp**, không phải prompt/output toàn văn.
+
+| Lượt | Thời gian | Lời sinh viên — trích đoạn | Xử lý / kết quả |
+| --- | --- | --- | --- |
+| 3 | 16:16:49 | “tôi đã thêm được, double click thì nó thêm.” | Sinh viên cho biết tự thêm được khi double-click; AI xác nhận runner dùng Python/Playwright Chromium trên Windows, không phải giả lập Android. Chưa có lần chạy lại theo double-click. |
+| 4 | 16:17:41 | “thao tác và tự suy nghĩ trên giao diện có làm được không?” | Trao đổi về agent quan sát UI và tìm workaround. Chỉ giải thích khả năng; không sửa skill hoặc triển khai cơ chế tự double-click. |
+| 5 | 16:21:45 | “vì đây là 2 trường hợp khác nhau, có thể lỗi ở ui và api là khác” | Sinh viên phản biện đổi thao tác sẽ khác TC và UI/API là hai luồng. AI làm rõ lại đề xuất workaround; giữ bước và verdict Web cũ. |
+| 6 | 16:23:18 | “cái này đặc tả có nói là 1 click không?” | Đọc lại FR-06: đề viết “sau khi bấm”, không nêu nguyên văn số click. Một-click là cụ thể hóa trong TC. A06 có test gộp API nhưng fixture 1+3 khác W04 2+3. |
+| 7 | 16:25:46 | “vẫn là block thì là chuẩn tc” | Giữ blocked khi không đạt precondition; rà API còn thiếu. API có GET/POST, chưa có contract endpoint chỉnh/xóa cart; không dùng API pass thay verdict Web. |
+| 8 | 16:27:43 | “1 cái cho w 1 cái cho a” | Phân biệt rule/miền/biên với hiện thực theo layer và fixture. Dẫn tới bảng ánh xạ mục tiêu Web/API và 12 TC A15–A26 ở P-036. |
+
+**Các phản hồi cần đối chiếu — trích nguyên văn:**
+
+Lượt 3, 16:16:57 (UTC+7):
+
+```text
+Có thể dùng double-click **riêng ở bước chuẩn bị fixture**, ghi rõ workaround, rồi thực hiện bước kiểm tra chính đúng TC. Cách này sẽ giúp chạy tiếp nhiều ca đang blocked; lỗi một-click vẫn được giữ nguyên.
+```
+
+Lượt 5, 16:22:07 (UTC+7):
+
+```text
+Bạn đúng. **Không thể tự đổi click thành double-click rồi coi là chạy đúng TC cũ.** Đề xuất trước của mình cần làm rõ điểm này.
+```
+
+Lượt 6, 16:23:35 (UTC+7):
+
+```text
+Về “một click”: [đặc tả FR-06](D:/Workspace/SoftwareTesting/HW02/eshop-sut/README.md:87) viết **“sau khi bấm hiển thị phản hồi trực quan”**, không ghi nguyên văn “đúng một click”. “Bấm đúng một lần” là cách mình cụ thể hóa thao tác trong TC; trước đó mình đã diễn đạt như thể đặc tả nói rõ số lần bấm, chưa chính xác.
+```
+
+<a id="msg-eb9325eff0dd943647c7"></a>
+
+## P-036
+
+- Timestamp: 16:29:44 20/10/2026 (UTC+07:00)
+- Công cụ: OpenAI Codex
+- Model: gpt-6.1-sol
+
+### Prompt
+
+```text
+oke, vậy bổ sung tc api và dùng skill [$test-execution-reporting](C:\Users\DELL\\.codex\skills\test-execution-reporting\SKILL.md) để kiểm thử
+```
+
+<a id="msg-e6ee8a214418ed282f5d"></a>
+
+### Output — trích đoạn
+
+#### Trích phản hồi kết quả — 16:40:58 20/10/2026 (UTC+07:00)
+
+- Công cụ: OpenAI Codex
+- Model: gpt-6.1-sol
+
+```text
+Đã bổ sung và chạy **12 TC API A15–A26** theo [skill test-execution-reporting](C:/Users/DELL/.codex/skills/test-execution-reporting/SKILL.md): **4 passed, 8 failed**.
+
+- Tổng bộ: **60 TC — 10 passed, 27 failed, 23 blocked**.
+- Giữ nguyên 48 kết quả cũ; API không thay verdict Web.
+- Đã cập nhật issue **#17/#18** cùng evidence mới.
+
+[Bộ TC](D:/Workspace/SoftwareTesting/HW02/eshop-sut/tests/hw02/fr07-cart/test-cases.md) · [Báo cáo kết quả](D:/Workspace/SoftwareTesting/HW02/eshop-sut/tests/hw02/fr07-cart/report.md). Chưa commit.
+```

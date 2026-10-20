@@ -8,7 +8,7 @@
 
 *Biểu mẫu được FIT@HCMUS điều chỉnh từ Med Kharbach, PhD (2026), AI Use Policy Templates for Higher Education. Giấy phép CC BY-NC-SA 4.0.*
 
-> Bản nháp khai báo việc xây/sửa ba skill, thiết kế, triển khai, thực thi và báo cáo Mobile Account Registration, cùng thiết kế/review, implementation và execution/report Category Management, và thiết kế/review Shopping Cart; tiếp tục bổ sung theo tiến độ HW02.
+> Bản nháp khai báo việc xây/sửa ba skill, thiết kế, triển khai, thực thi và báo cáo Mobile Account Registration, cùng thiết kế/review, implementation và execution/report Category Management, và thiết kế/review, implementation, execution/report Shopping Cart; tiếp tục bổ sung theo tiến độ HW02.
 
 ## 1. Thông tin môn học và sinh viên
 
@@ -35,8 +35,8 @@ OpenAI Codex, model gpt-6.1-sol.
 - [x] Viết nháp: hướng dẫn skill, quy cách biểu mẫu, bộ thiết kế Domain/BVA và TC Mobile Registration, Category Management, Shopping Cart.
 - [x] Phản hồi: đối chiếu HW01, giải thích Domain/BVA, cách đọc bộ test và ranh giới giữa đặc tả với giả định.
 - [x] Sửa chữa: cải thiện log, tách hai skill kỹ thuật, cập nhật thiết kế và thu gọn skill/evidence/report; sửa lỗi harness khi execution.
-- [x] Code: helper đồng bộ log, tính điểm biên, xuất JPG, các kiểm tra helper và bộ code triển khai 54 TC Mobile Registration và 33 TC Category Management.
-- [x] Khác: khảo sát skill public trên GitHub/Reddit; Codex chạy kiểm thử native, đối chiếu UI/DB và tổng hợp report/results; chạy Web/API Category, đăng GitHub Issues và lưu ảnh bằng chứng.
+- [x] Code: helper đồng bộ log, tính điểm biên, xuất JPG, các kiểm tra helper và bộ code triển khai 54 TC Mobile Registration, 33 TC Category Management và 60 TC Shopping Cart.
+- [x] Khác: khảo sát skill public trên GitHub/Reddit; Codex chạy kiểm thử native, đối chiếu UI/DB và tổng hợp report/results; chạy Web/API Category và Shopping Cart, đăng/cập nhật GitHub Issues và lưu ảnh bằng chứng.
 
 ### 3. Prompt / nhiệm vụ chính cho AI
 
@@ -76,6 +76,8 @@ oke tiếp tục dùng skill để tiếp tục chạy test `$test-execution-rep
 
 Các lượt còn lại được ghi trong [Prompt Log](23120410_HW02_PromptLog.md), gồm 31 mục P-000–P-030 theo phạm vi được giao. P-008–P-014 là thiết kế/review, P-015 triển khai code; P-016–P-023 là execution, review flow/evidence và sửa skill/report. [P-024](23120410_HW02_PromptLog.md#msg-2642f1f9f300cb746a59)–[P-026](23120410_HW02_PromptLog.md#msg-7614bb5c1dae4235dc44) là ba lượt sinh, rà lại và bổ sung bộ thiết kế Category Management. P-027–P-030 là bốn lượt kiểm tra thiếu Issues Mobile, sửa skill, đăng/chụp issue và bổ sung yêu cầu link evidence từng TC. Các lượt sửa report/commit tiếp theo không được đưa vào phạm vi log lần này. Đây chưa phải toàn bộ lịch sử dùng AI của HW02.
 
+Các lượt T04 mới được dẫn tại [P-034](23120410_HW02_PromptLog.md#msg-18993f7783fd6fec1999), [P-035](23120410_HW02_PromptLog.md#msg-e35ac4755d97d4df1251), [P-036](23120410_HW02_PromptLog.md#msg-eb9325eff0dd943647c7) và [góp ý/chỉnh sửa](23120410_HW02_PromptLog.md#t04-review-notes). Theo yêu cầu của tôi, bản đọc chọn ba prompt chính và lược output/tiến độ; không phải transcript toàn văn.
+
 ### 4. Phần cụ thể AI đóng góp
 
 Codex xây và sửa ba skill `course-ai-log`, `domain-bva-testing`, `test-execution-reporting`, cùng template và helper. Với Mobile Registration, Codex đọc FR-01/FR-20, lập mô hình miền, chọn điểm BVA và viết hai tài liệu thiết kế; sau review của tôi, bộ test từ 46 lên 54 TC, có 37 mục tiêu miền và 18 boundary items. Codex triển khai catalogue/runner từ hai tài liệu đã duyệt; bước implementation ban đầu chỉ kiểm tra tĩnh.
@@ -84,7 +86,9 @@ Trong execution, Codex thao tác trên Android native, dùng SQLite chỉ đọc
 
 Với T03 Category Management, Codex dùng skill `domain-bva-testing` đọc FR-14/FR-12 và API, tạo `design.md`, `test-cases.md` ban đầu có 24 TC. Sau yêu cầu bổ sung của tôi, Codex thêm TC25–33, cập nhật TC10 và truy vết thành 33 TC, 19 mục tiêu miền, 6 BVA items theo lớp Web/API. Hai file đã được lưu tại commit `b84417b`; đó là trạng thái thiết kế trước execution. Theo [P-031](23120410_HW02_PromptLog.md#msg-078e737e05a56044cac5), Codex triển khai runner/catalogue 33 TC và kiểm tra tĩnh, chưa chạy SUT ở lượt đầu. Theo [P-032](23120410_HW02_PromptLog.md#msg-ecff2281e0534402997b), Codex chạy 12 TC Web/21 TC API trong runtime riêng, ghi 25 pass, 8 fail, 0 blocked và 0 not_run; hoàn thiện report có log cho từng TC, đăng ba issue #9–#11 và lưu 8 JPG actual + 3 JPG trang issue + 1 JPG danh sách. Các sửa harness và bản implementation ban đầu được giữ tại [A-07/A-08](artifacts.md#a-07--code-test-t03-category-management).
 
-Với T04 Shopping Cart, tôi dùng skill `domain-bva-testing` ở [P-033](23120410_HW02_PromptLog.md#msg-fbcf3eb8ed26537524e3). Codex tạo thiết kế và 48 TC (34 Web, 14 API bổ trợ), dùng năm sản phẩm seed cùng số học cố định; tách rule FR-07/FR-06 với oracle giả định và khảo sát. Các file có mô hình miền, inventory biên, dữ liệu và expected, chưa có kết quả chạy. Xem [A-09](artifacts.md#a-09--thiết-kế-t04-shopping-cart).
+Với T04 Shopping Cart, tôi dùng skill `domain-bva-testing` ở [P-033](23120410_HW02_PromptLog.md#msg-fbcf3eb8ed26537524e3). Codex tạo thiết kế và 48 TC (34 Web, 14 API bổ trợ), dùng năm sản phẩm seed cùng số học cố định; tách rule FR-07/FR-06 với oracle giả định và khảo sát. Ở mốc thiết kế v0.1, các file có mô hình miền, inventory biên, dữ liệu và expected, chưa có kết quả chạy. Xem [A-09](artifacts.md#a-09--thiết-kế-t04-shopping-cart).
+
+Ở [P-034](23120410_HW02_PromptLog.md#msg-18993f7783fd6fec1999), Codex implement và chạy 48 TC T04 bằng Python/Playwright Chromium và HTTP API, tạo report/results: 6 pass, 19 fail, 23 blocked. Sau phần review và yêu cầu P-036, Codex thêm 12 TC API, cập nhật mapping Web/API rồi chạy RUN04: 4 pass, 8 fail. Tổng bộ cuối 60 TC có 10 pass, 27 fail, 23 blocked; kết quả Web cũ giữ nguyên. Codex hoàn thiện issue #12–#20, bổ sung bình luận/ảnh vào #17/#18; phiên bản và report đầu/cuối ở [A-10](artifacts.md#a-10--implementation-execution-và-report-t04-shopping-cart), commit local `ee8e477edc30e3ddfed85c10fc5f82cb006ce15a` .
 
 ### 5. Cách tôi rà soát / chỉnh sửa / xác minh đầu ra AI
 
@@ -101,6 +105,8 @@ Tôi đã kiểm tra GitHub và nhận thấy Mobile chưa có issue, rồi yêu
 Với execution Category, tôi đã kiểm tra report rồi yêu cầu commit. Việc thao tác Web/API, đối chiếu DB, sửa harness, đăng issue và chụp bằng chứng do Codex thực hiện. Hai lượt được chọn ghi log lần này là implementation và execution/report; lời xác nhận review được dùng làm căn cứ, không thêm thành prompt mới. Kết quả T03 tại commit local `94fd43c`; chưa coi việc đọc report là xác nhận sinh viên tự chạy hoặc kiểm tra từng assertion.
 
 Với Shopping Cart, tôi đã đọc và xác nhận các TC hiện có, sau đó yêu cầu commit hai file. Codex giữ nguyên nội dung 48 TC, chỉ cập nhật ghi chú review. Đây là xác nhận bộ thiết kế; không phải xác nhận đã kiểm chứng Web/API hoặc mọi giả định là requirement.
+
+Tôi thấy nhiều ca blocked nên yêu cầu server và một ca hướng dẫn từng bước. Tôi tự thao tác, cho biết double-click thêm được hàng, rồi hỏi cách test và phản biện đổi thao tác sẽ khác TC. Tôi yêu cầu đọc lại đặc tả về số click và đối chiếu các TC API tương ứng. Qua trao đổi, tôi làm rõ rule/miền với các TC theo layer/fixture và giao bổ sung API. Codex giữ blocked Web, bổ sung A15–A26 và chạy API riêng. Tôi yêu cầu commit; điều này không được dùng để khẳng định tôi tự chạy hoặc đã review từng assertion của 60 TC.
 
 ### 6. Trích dẫn
 
@@ -126,6 +132,8 @@ Với Shopping Cart, tôi đã đọc và xác nhận các TC hiện có, sau đ
 
 [11] Shopping Cart, [P-033](23120410_HW02_PromptLog.md#msg-fbcf3eb8ed26537524e3), [A-09 và hai phiên bản thiết kế](artifacts.md#a-09--thiết-kế-t04-shopping-cart); FR-07/FR-06 và đề HW02 §6.1–6.2.
 
+[12] Shopping Cart implementation/execution và mở rộng API, [P-034](23120410_HW02_PromptLog.md#msg-18993f7783fd6fec1999)–[P-036](23120410_HW02_PromptLog.md#msg-eb9325eff0dd943647c7), [A-10](artifacts.md#a-10--implementation-execution-và-report-t04-shopping-cart), commit local `ee8e477edc30e3ddfed85c10fc5f82cb006ce15a`; phần review được rút gọn theo yêu cầu.
+
 ## 3. Cam đoan trung thực
 
 *Bằng việc ký tên dưới đây, tôi cam đoan thông tin khai báo ở trên là chính xác và đầy đủ. Tôi hiểu rằng việc không khai báo hoặc khai báo sai lệch về việc dùng AI sẽ bị coi là vi phạm liêm chính học thuật và có thể dẫn đến điểm 0 cho bài tập cùng việc bị chuyển lên hội đồng kỷ luật.*
@@ -140,3 +148,5 @@ Với Shopping Cart, tôi đã đọc và xác nhận các TC hiện có, sau đ
 | Môn học | Kiểm chứng Phần mềm |
 | Ngày ký | |
 | Chữ ký | |
+
+Ghi nhận review T04 ngày 20/10/2026: Vỹ xác nhận đã kiểm tra hồ sơ và yêu cầu chốt T04. Kết quả 10 passed, 27 failed, 23 blocked giữ nguyên; không có yêu cầu verify lại đang chờ. Không suy việc review hồ sơ thành sinh viên tự chạy toàn bộ suite.

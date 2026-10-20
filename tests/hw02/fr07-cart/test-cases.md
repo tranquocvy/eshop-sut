@@ -1,6 +1,6 @@
 # T04 — FR-07 Shopping Cart: bộ test case
 
-Thiết kế v0.2 — 20/10/2026 (UTC+7). **60 TC: 34 Web + 26 API.** 48 TC v0.1 đã được Vỹ đọc và xác nhận; giữ nguyên ID/nội dung. A15–A26 được AI bổ sung theo yêu cầu mở rộng API của Vỹ, chưa có review riêng của sinh viên. Đây là bộ thiết kế; kết quả chạy thật ở [report.md](report.md), không điền Actual/Pass/Fail vào bảng thiết kế. Nguồn R/D/B/A và ánh xạ mục tiêu Web/API tại [design.md](design.md).
+Thiết kế v0.2 — 20/10/2026 (UTC+7). **60 TC: 34 Web + 26 API.** 48 TC v0.1 đã được Vỹ đọc và xác nhận; giữ nguyên ID/nội dung. A15–A26 được AI bổ sung theo yêu cầu mở rộng API của Vỹ, Vỹ đã xác nhận kiểm tra hồ sơ T04 và chốt hoàn tất ngày 20/10/2026. Đây là bộ thiết kế; kết quả chạy thật ở [report.md](report.md), không điền Actual/Pass/Fail vào bảng thiết kế. Nguồn R/D/B/A và ánh xạ mục tiêu Web/API tại [design.md](design.md).
 
 ## Fixture và quy ước thao tác
 

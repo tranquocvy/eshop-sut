@@ -60,7 +60,7 @@ def main():
     total=s['designed']; api_count=sum(c['id'].startswith('CART-A') for c in data['cases'])
     pass_rate=100*s['passed']/s['executed'] if s['executed'] else 0
     lines=['# T04 — FR-07 Shopping Cart: execution và report','',
-           f'**20/10/2026 (UTC+7).** [Design](design.md), [{total} TC](test-cases.md). 48 TC v0.1 đã được Vỹ duyệt tại commit `475165e`; v0.2 thêm A15–A26 theo yêu cầu bổ sung API và kiểm thử, chưa có review riêng của sinh viên cho phần mới/report. Baseline source execution `46e4715`, hash từng phiên bản trong run; không sửa nghiệp vụ SUT.','',
+           f'**20/10/2026 (UTC+7).** [Design](design.md), [{total} TC](test-cases.md). 48 TC v0.1 đã được Vỹ duyệt tại commit `475165e`; v0.2 thêm A15–A26 theo yêu cầu bổ sung API và kiểm thử, Vỹ đã xác nhận kiểm tra hồ sơ T04 và chốt hoàn tất ngày 20/10/2026. Baseline source execution `46e4715`, hash từng phiên bản trong run; không sửa nghiệp vụ SUT.','',
            f"**Kết quả unique: {s['passed']} passed, {s['failed']} failed, {s['blocked']} blocked, {s['not_run']} not_run.** Executed = passed+failed = {s['executed']}/{total}; not_executed = blocked+not_run = {s['not_executed']}/{total}. Pass rate trên executed = {s['passed']}/{s['executed']} = {pass_rate:.2f}%; đây không phải coverage. Giữ nguyên 48 kết quả đã chọn trước mở rộng; RUN04 chỉ chạy 12 TC API mới (4 passed, 8 failed).",'',
            '## Môi trường, fixture và cách đếm','',
            '- Windows, Chromium '+data['runs'][-1]['browser']+' qua Playwright Python; Web `http://localhost:5173`, API `http://localhost:3000/api`. Backend T03 đang chạy được tái sử dụng, không reset/restart. Dữ liệu chuẩn bị chỉ trong SQLite runtime `HW02/.runtime/T03-execution-20261020/backend/database.sqlite`; đã backup trước fixture tại runtime T04. Không ghi database trong repo.',
@@ -131,8 +131,8 @@ def main():
             if update.get('issue_image'): lines += [f"![{b['id']} — trang issue sau bổ sung]({update['issue_image']})",'']
             if update.get('comment_image'): lines += [f"[Ảnh cận phần bình luận bổ sung]({update['comment_image']})",'']
     lines+=['## Giới hạn và bước tiếp theo','',
-            '23 TC blocked cần chạy lại khi precondition/control có thể đạt đúng bước. Không sửa SUT trong task testing, không đổi expected hoặc tự tạo kết quả xanh. Harness sửa chờ render route và locator h1 đã ghi trong run history. Formal AI gap analysis chưa được giao; các ca bị chặn hiện tại không tự là test bị AI bỏ sót.','',
-            'Implementation: [hướng dẫn và mapping](IMPLEMENTATION.md), [runner](scripts/run.py), [report renderer](scripts/report.py). Chưa commit/push, chưa ghi AI Audit hoặc đánh dấu T04 toàn chu trình hoàn tất.']
+            '23 TC blocked cần chạy lại khi precondition/control có thể đạt đúng bước. Không sửa SUT trong task testing, không đổi expected hoặc tự tạo kết quả xanh. Harness sửa chờ render route và locator h1 đã ghi trong run history. Khoảng thiếu TC API tương ứng trong bản v0.1 đã được Vỹ chỉ ra và xử lý bằng A15–A26 ở v0.2 (design.md §6); nguồn góp ý và sửa sai nằm trong AI log P-034–P-036. Các ca bị chặn không tự là test bị AI bỏ sót.','',
+            'Implementation: [hướng dẫn và mapping](IMPLEMENTATION.md), [runner](scripts/run.py), [report renderer](scripts/report.py). Implementation/execution đã commit tại `ee8e477`; AI Audit và Prompt Log P-034–P-036 đã được cập nhật tại [hồ sơ AI](../../../docs/hw02/ai/artifacts.md). Vỹ xác nhận đã kiểm tra hồ sơ và chốt T04 ngày 20/10/2026; PLAN local đã đánh dấu hoàn tất. Việc chạy lại blocked phụ thuộc sửa SUT, không phải yêu cầu review còn chờ.']
     (FEATURE/'report.md').write_text('\n'.join(lines)+'\n',encoding='utf-8')
     print('Rendered report:',data['summary'])
 

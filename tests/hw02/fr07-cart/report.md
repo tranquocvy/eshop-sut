@@ -1,6 +1,6 @@
 # T04 — FR-07 Shopping Cart: execution và report
 
-**20/10/2026 (UTC+7).** [Design](design.md), [60 TC](test-cases.md). 48 TC v0.1 đã được Vỹ duyệt tại commit `475165e`; v0.2 thêm A15–A26 theo yêu cầu bổ sung API và kiểm thử, chưa có review riêng của sinh viên cho phần mới/report. Baseline source execution `46e4715`, hash từng phiên bản trong run; không sửa nghiệp vụ SUT.
+**20/10/2026 (UTC+7).** [Design](design.md), [60 TC](test-cases.md). 48 TC v0.1 đã được Vỹ duyệt tại commit `475165e`; v0.2 thêm A15–A26 theo yêu cầu bổ sung API và kiểm thử, Vỹ đã xác nhận kiểm tra hồ sơ T04 và chốt hoàn tất ngày 20/10/2026. Baseline source execution `46e4715`, hash từng phiên bản trong run; không sửa nghiệp vụ SUT.
 
 **Kết quả unique: 10 passed, 27 failed, 23 blocked, 0 not_run.** Executed = passed+failed = 37/60; not_executed = blocked+not_run = 23/60. Pass rate trên executed = 10/37 = 27.03%; đây không phải coverage. Giữ nguyên 48 kết quả đã chọn trước mở rộng; RUN04 chỉ chạy 12 TC API mới (4 passed, 8 failed).
 
@@ -367,6 +367,6 @@ Oracle: A03/A06 và A08 mới (robustness API đề xuất, không phải max ng
 
 ## Giới hạn và bước tiếp theo
 
-23 TC blocked cần chạy lại khi precondition/control có thể đạt đúng bước. Không sửa SUT trong task testing, không đổi expected hoặc tự tạo kết quả xanh. Harness sửa chờ render route và locator h1 đã ghi trong run history. Formal AI gap analysis chưa được giao; các ca bị chặn hiện tại không tự là test bị AI bỏ sót.
+23 TC blocked cần chạy lại khi precondition/control có thể đạt đúng bước. Không sửa SUT trong task testing, không đổi expected hoặc tự tạo kết quả xanh. Harness sửa chờ render route và locator h1 đã ghi trong run history. Khoảng thiếu TC API tương ứng trong bản v0.1 đã được Vỹ chỉ ra và xử lý bằng A15–A26 ở v0.2 (design.md §6); nguồn góp ý và sửa sai nằm trong AI log P-034–P-036. Các ca bị chặn không tự là test bị AI bỏ sót.
 
-Implementation: [hướng dẫn và mapping](IMPLEMENTATION.md), [runner](scripts/run.py), [report renderer](scripts/report.py). Chưa commit/push, chưa ghi AI Audit hoặc đánh dấu T04 toàn chu trình hoàn tất.
+Implementation: [hướng dẫn và mapping](IMPLEMENTATION.md), [runner](scripts/run.py), [report renderer](scripts/report.py). Implementation/execution đã commit tại `ee8e477`; AI Audit và Prompt Log P-034–P-036 đã được cập nhật tại [hồ sơ AI](../../../docs/hw02/ai/artifacts.md). Vỹ xác nhận đã kiểm tra hồ sơ và chốt T04 ngày 20/10/2026; PLAN local đã đánh dấu hoàn tất. Việc chạy lại blocked phụ thuộc sửa SUT, không phải yêu cầu review còn chờ.
