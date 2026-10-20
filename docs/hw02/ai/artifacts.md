@@ -44,6 +44,21 @@ Output ban đầu và bản sửa được trích nguyên văn trong audit, mụ
 
 - AI đầu v0.1, 24 TC: [design nguyên văn](history/category-v0.1-design.md.txt), [TC nguyên văn](history/category-v0.1-test-cases.md.txt).
 - Bản v0.2 đã review, 33 TC: [design](https://github.com/tranquocvy/eshop-sut/blob/b84417b841f7a1bd5d20386132a0f333d7487fb1/tests/hw02/fr14-categories/design.md), [TC](https://github.com/tranquocvy/eshop-sut/blob/b84417b841f7a1bd5d20386132a0f333d7487fb1/tests/hw02/fr14-categories/test-cases.md).
-- [Diff v0.1 → v0.2](history/category-design-changes.diff). Toàn bộ TC Category vẫn Not Run.
+- [Diff v0.1 → v0.2](history/category-design-changes.diff). Toàn bộ TC Category mang trạng thái Not Run tại mốc thiết kế này; execution sau đó được ghi riêng tại A-08.
 
 Các file `.md.txt` giữ nguyên byte của output Markdown ban đầu; phần mở rộng giúp đọc nguyên văn các đường dẫn lịch sử trong output. Bản sửa được dẫn tới Git đúng phiên bản. Các file diff giữ nguyên bản đã lưu trước khi tái cấu trúc. Dữ liệu đồng bộ, hash và metadata được giữ local trong `_data/`.
+
+## A-07 — Code test T03 Category Management
+
+- [P-031](23120410_HW02_PromptLog.md#msg-078e737e05a56044cac5) yêu cầu triển khai 33 TC từ design/test-cases v0.2, chưa chạy SUT hay viết report ở lượt implementation.
+- [Output implementation ban đầu](history/category-implementation-initial.txt) giữ nguyên nội dung runner và IMPLEMENTATION.md ở cuối lượt từ patch công cụ thật. Catalogue và requirements không thay đổi trong execution, được giữ tại commit local `94fd43c`.
+- [Runner hiện hành](../../../tests/hw02/fr14-categories/scripts/run.py), [catalogue 33 TC](../../../tests/hw02/fr14-categories/scripts/cases.json), [requirements](../../../tests/hw02/fr14-categories/requirements.txt), [IMPLEMENTATION.md](../../../tests/hw02/fr14-categories/IMPLEMENTATION.md): mốc `94fd43c`.
+- [Diff implementation → execution](history/category-implementation-execution.diff) đánh dấu thay đổi harness: đóng kết nối SQLite, chỉ yêu cầu tài khoản liên quan đến precondition, nhận diện feedback từ chối, bỏ chờ Response.finished thừa, ghi body API và JPG lỗi. Không đổi bộ input/expected hoặc nghiệp vụ SUT.
+
+## A-08 — Execution và report T03 Category Management
+
+- [P-032](23120410_HW02_PromptLog.md#msg-ecff2281e0534402997b) giao chạy bộ 33 TC theo skill test-execution-reporting. [Report](../../../tests/hw02/fr14-categories/report.md), [results.json](../../../tests/hw02/fr14-categories/results.json) và [ảnh tổng quan issue](../../../tests/hw02/fr14-categories/images/CAT-GitHub-issues.jpg) giữ tại commit local `94fd43c`.
+- CAT-RUN-01 chạy TC01; CAT-RUN-02 chạy TC02–33. Kết quả unique: **25 pass, 8 fail, 0 blocked, 0 not_run**. Mỗi dòng có link log đúng TC/run; 8 JPG actual của ca fail, 3 JPG trang issue và 1 JPG danh sách.
+- Ba bug: [#9 — tên rỗng/thiếu/null](https://github.com/tranquocvy/eshop-sut/issues/9), [#10 — user JWT được POST/PUT/DELETE](https://github.com/tranquocvy/eshop-sut/issues/10), [#11 — Admin khôi phục phiên từ user token](https://github.com/tranquocvy/eshop-sut/issues/11). Log tạo/xác minh/chụp trong `bugs[].github_activity`; ảnh SUT và ảnh trang issue là hai loại bằng chứng riêng.
+- Giữ cảnh báo teardown `Target closed` của RUN01 và thay đổi harness trước RUN02; không tự retry mutation hoặc đổi verdict để làm xanh. Coverage exercise 7/7 rule, 19/19 mục tiêu miền, 6/6 BVA items chỉ áp dụng inventory đã duyệt; PUT mới kiểm tra quyền, không nhận đã kiểm thử nghiệp vụ Update đầy đủ.
+- Sinh viên đã nói “tôi đã kiểm tra report rồi, commit cho t03 đi”; dùng làm căn cứ review report và mốc commit, không thêm lượt này vào hai prompt được chọn ghi log. Không mặc định mốc local đã push lên GitHub.

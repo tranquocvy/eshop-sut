@@ -8,7 +8,7 @@
 
 *Biểu mẫu được FIT@HCMUS điều chỉnh từ Med Kharbach, PhD (2026), AI Use Policy Templates for Higher Education. Giấy phép CC BY-NC-SA 4.0.*
 
-> Bản nháp khai báo việc xây/sửa ba skill, thiết kế, triển khai, thực thi và báo cáo Mobile Account Registration, cùng thiết kế/review Category Management; tiếp tục bổ sung theo tiến độ HW02.
+> Bản nháp khai báo việc xây/sửa ba skill, thiết kế, triển khai, thực thi và báo cáo Mobile Account Registration, cùng thiết kế/review, implementation và execution/report Category Management; tiếp tục bổ sung theo tiến độ HW02.
 
 ## 1. Thông tin môn học và sinh viên
 
@@ -35,8 +35,8 @@ OpenAI Codex, model gpt-6.1-sol.
 - [x] Viết nháp: hướng dẫn skill, quy cách biểu mẫu, bộ thiết kế Domain/BVA và TC Mobile Registration, Category Management.
 - [x] Phản hồi: đối chiếu HW01, giải thích Domain/BVA, cách đọc bộ test và ranh giới giữa đặc tả với giả định.
 - [x] Sửa chữa: cải thiện log, tách hai skill kỹ thuật, cập nhật thiết kế và thu gọn skill/evidence/report; sửa lỗi harness khi execution.
-- [x] Code: helper đồng bộ log, tính điểm biên, xuất JPG, các kiểm tra helper và bộ code triển khai 54 TC Mobile Registration.
-- [x] Khác: khảo sát skill public trên GitHub/Reddit; Codex chạy kiểm thử native, đối chiếu UI/DB và tổng hợp report/results.
+- [x] Code: helper đồng bộ log, tính điểm biên, xuất JPG, các kiểm tra helper và bộ code triển khai 54 TC Mobile Registration và 33 TC Category Management.
+- [x] Khác: khảo sát skill public trên GitHub/Reddit; Codex chạy kiểm thử native, đối chiếu UI/DB và tổng hợp report/results; chạy Web/API Category, đăng GitHub Issues và lưu ảnh bằng chứng.
 
 ### 3. Prompt / nhiệm vụ chính cho AI
 
@@ -82,7 +82,7 @@ Codex xây và sửa ba skill `course-ai-log`, `domain-bva-testing`, `test-execu
 
 Trong execution, Codex thao tác trên Android native, dùng SQLite chỉ đọc làm oracle phụ trợ, sửa các lỗi harness và đối chiếu actual với expected. Codex còn thu gọn skill và output theo góp ý của tôi: một nguồn results.json, report Markdown dễ đọc và JPG cần thiết. Kết quả cuối có 35 pass, 15 fail và bốn blocked do thiếu Confirmation; tám nhóm phát hiện gồm bốn vi phạm requirement và bốn sai khác S7. Ở bản report trước, GitHub Issues chưa được đăng. Sau khi tôi phát hiện và giao bổ sung tại P-027–P-029, Codex đăng tám issue, kiểm tra 14 ảnh SUT hiển thị và lưu tám JPG trang issue cùng một JPG danh sách; URL, thời gian và log thao tác nằm trong report/results. Việc này dùng kết quả cũ, không chạy lại SUT. Ở P-030, Codex cập nhật skill để mỗi TC đã chạy có link log/ảnh đúng TC/run, kể cả pass; lượt đó chưa sửa report Mobile.
 
-Với T03 Category Management, Codex dùng skill `domain-bva-testing` đọc FR-14/FR-12 và API, tạo `design.md`, `test-cases.md` ban đầu có 24 TC. Sau yêu cầu bổ sung của tôi, Codex thêm TC25–33, cập nhật TC10 và truy vết thành 33 TC, 19 mục tiêu miền, 6 BVA items theo lớp Web/API. Hai file đã được lưu tại commit `b84417b`; toàn bộ TC Category vẫn Not Run.
+Với T03 Category Management, Codex dùng skill `domain-bva-testing` đọc FR-14/FR-12 và API, tạo `design.md`, `test-cases.md` ban đầu có 24 TC. Sau yêu cầu bổ sung của tôi, Codex thêm TC25–33, cập nhật TC10 và truy vết thành 33 TC, 19 mục tiêu miền, 6 BVA items theo lớp Web/API. Hai file đã được lưu tại commit `b84417b`; đó là trạng thái thiết kế trước execution. Theo [P-031](23120410_HW02_PromptLog.md#msg-078e737e05a56044cac5), Codex triển khai runner/catalogue 33 TC và kiểm tra tĩnh, chưa chạy SUT ở lượt đầu. Theo [P-032](23120410_HW02_PromptLog.md#msg-ecff2281e0534402997b), Codex chạy 12 TC Web/21 TC API trong runtime riêng, ghi 25 pass, 8 fail, 0 blocked và 0 not_run; hoàn thiện report có log cho từng TC, đăng ba issue #9–#11 và lưu 8 JPG actual + 3 JPG trang issue + 1 JPG danh sách. Các sửa harness và bản implementation ban đầu được giữ tại [A-07/A-08](artifacts.md#a-07--code-test-t03-category-management).
 
 ### 5. Cách tôi rà soát / chỉnh sửa / xác minh đầu ra AI
 
@@ -95,6 +95,8 @@ Tôi đã kiểm tra hai file report/results rồi yêu cầu commit riêng runn
 Với Category, tôi đã đọc bộ 24 TC và hỏi lại liệu đã đủ theo đặc tả và lý thuyết Domain/BVA. Sau phần rà soát của Codex, tôi yêu cầu thêm tên dài 1/2 ký tự ở API, token bị sửa payload/chữ ký trên các phương thức thay đổi dữ liệu và mở lại Admin từ token user đã lưu. Codex thực hiện sửa file, giữ bản đầu và diff; tôi đọc hai file hoàn thiện rồi yêu cầu commit. Việc review thiết kế này không phải xác nhận kết quả chạy Category.
 
 Tôi đã kiểm tra GitHub và nhận thấy Mobile chưa có issue, rồi yêu cầu bổ sung vào skill cùng ảnh trang issue theo đề. Tôi tiếp tục giao Codex đăng các phát hiện và yêu cầu skill bắt link log/ảnh cho từng TC. Codex thực hiện đăng, mở lại issue để kiểm tra ảnh và lưu bằng chứng; đây là thao tác của Codex theo yêu cầu của tôi. Mốc file `e1fe254` còn có các sửa report sau P-030; các lượt đó không nằm trong bốn prompt được chọn lần này. Xem [A-02/A-05 và phiên bản đối chiếu](artifacts.md).
+
+Với execution Category, tôi đã kiểm tra report rồi yêu cầu commit. Việc thao tác Web/API, đối chiếu DB, sửa harness, đăng issue và chụp bằng chứng do Codex thực hiện. Hai lượt được chọn ghi log lần này là implementation và execution/report; lời xác nhận review được dùng làm căn cứ, không thêm thành prompt mới. Kết quả T03 tại commit local `94fd43c`; chưa coi việc đọc report là xác nhận sinh viên tự chạy hoặc kiểm tra từng assertion.
 
 ### 6. Trích dẫn
 
@@ -115,6 +117,8 @@ Tôi đã kiểm tra GitHub và nhận thấy Mobile chưa có issue, rồi yêu
 [8] Category Management, [thiết kế và TC trước/sau bổ sung — A-06](artifacts.md#a-06--thiết-kế-category-management), v0.2 tại commit `b84417b`; test basis EShop FR-14/FR-12 và API §3.4. Ba prompt gốc ở P-024–P-026.
 
 [9] Mobile Issues và quy tắc evidence, P-027–P-030 trong [Prompt Log](23120410_HW02_PromptLog.md#msg-36be906c669996d7cbf9); [GitHub Issues](https://github.com/tranquocvy/eshop-sut/issues), [report/log/bằng chứng hiện hành](../../../tests/hw02/mobile-registration/report.md), mốc local `e1fe254`.
+
+[10] T03 implementation/execution, [P-031](23120410_HW02_PromptLog.md#msg-078e737e05a56044cac5) và [P-032](23120410_HW02_PromptLog.md#msg-ecff2281e0534402997b); [artifact A-07/A-08](artifacts.md#a-07--code-test-t03-category-management), report/results và ảnh tại commit local `94fd43c`.
 
 ## 3. Cam đoan trung thực
 

@@ -1,0 +1,127 @@
+--- implementation-initial/scripts/run.py
++++ execution-94fd43c/scripts/run.py
+@@ -8,7 +8,7 @@
+ import argparse
+ import base64
+ from collections import Counter
+-from contextlib import ExitStack
++from contextlib import ExitStack, closing
+ from datetime import datetime, timezone
+ import hashlib
+ import json
+@@ -171,7 +171,7 @@
+             raise Blocked("Select an isolated runtime DB outside the repository")
+ 
+     def snapshot(self):
+-        with sqlite3.connect(self.path.as_uri() + "?mode=ro", uri=True, timeout=3) as db:
++        with closing(sqlite3.connect(self.path.as_uri() + "?mode=ro", uri=True, timeout=3)) as db:
+             db.row_factory = sqlite3.Row
+             db.execute("PRAGMA query_only=ON")
+             db.execute("BEGIN")
+@@ -190,7 +190,11 @@
+             raise Blocked(f"Prepare {case['fixture']} externally; the current dataset is different")
+         if any(snapshot["references"].get(r["id"], 0) for r in rows):
+             raise Blocked("Fixture categories must have no product references")
+-        for role, credentials in CREDENTIALS.items():
++        roles = ["admin"]
++        if case.get("auth") in ("TU", "TP") or case.get("entry") in ("login_user", "stored_user"):
++            roles.append("user")
++        for role in roles:
++            credentials = CREDENTIALS[role]
+             matching = [u for u in snapshot["users"] if u["email"] == credentials["email"]]
+             if len(matching) != 1 or matching[0]["role"] != role:
+                 raise Blocked(f"Nominal {role} account is missing or has the wrong role")
+@@ -279,7 +283,6 @@
+             if not self.poll(lambda: bool(responses)):
+                 raise Blocked("Cannot observe the Web login request")
+             response = responses[0]
+-            response.finished()
+             payload = response.json()
+             if not response.ok or payload.get("user", {}).get("role") != role:
+                 raise Blocked(f"Web login did not authenticate the nominal {role} account")
+@@ -310,7 +313,6 @@
+         if not self.category_responses:
+             raise Blocked("No category-list response observed in the browser")
+         response = self.category_responses[-1]
+-        response.finished()
+         check(response.ok, "Web category-list request failed")
+         fetched = category_rows(response.json())
+         self.observation.setdefault("web_category_reads", []).append(
+@@ -366,7 +368,6 @@
+             response = responses[0] if responses else None
+             reply = None
+             if response:
+-                response.finished()
+                 try:
+                     body = response.json()
+                 except Exception:
+@@ -374,7 +375,10 @@
+                 reply = {"status": response.status, "body": body}
+                 if method == "POST" and response.request.post_data_json != {"name": case["name"]}:
+                     raise Failure("Web submitted a different name from the reviewed input")
+-            feedback = bool(native_invalid or inline or len(self.observation.get("dialogs", [])) > start_dialogs)
++            messages = inline + [d["message"] for d in self.observation.get("dialogs", [])[start_dialogs:]]
++            feedback = bool(native_invalid or any(re.search(
++                r"lỗi|không|thiếu|bắt buộc|trống|vui lòng|hãy nhập|invalid|error|fail|required|empty|reject|please|must|cannot|unable",
++                message, re.I) for message in messages))
+             self.observation["target_request"] = {"method": method, "path": path, "response": reply}
+             if requests and response is None:
+                 raise TransportError("Target request was sent but its response was not observed")
+@@ -429,7 +433,7 @@
+         check(feedback, "No authentication prompt or denial feedback is observable")
+ 
+ 
+-def execute_case(case, catalogue, database, api, browser, timeout):
++def execute_case(case, catalogue, database, api, browser, timeout, evidence_dir=None):
+     result = {"id": case["id"], "status": "not_run", "started_at": now(),
+               "input": case["input_text"], "expected": case["expected_text"],
+               "traceability": case["traceability"], "observation": {}}
+@@ -481,7 +485,7 @@
+             path = case["path"].format(**ids)
+             reply = api.request(case["method"], path, tokens[case["auth"]], case["body"])
+             obs["target_request"] = {"method": case["method"], "path": path,
+-                                     "token_variant": case["auth"], "response": reply}
++                                     "token_variant": case["auth"], "body": case["body"], "response": reply}
+ 
+         after = database.snapshot()["categories"]
+         obs["database_after"] = after
+@@ -531,6 +535,23 @@
+         result.update(status="blocked", reason=f"Harness error: {type(error).__name__}")
+         stop = True
+     finally:
++        if result["status"] == "failed" and evidence_dir is not None:
++            try:
++                if web is None:
++                    web = Web(browser, ADMIN_URL, API_URL, obs, timeout)
++                    web.login("admin")
++                    web.panel()
++                    web.settle()
++                    obs["evidence_view"] = "Read-only Admin view after the API action; request/token variant is evidenced by target_request, not by this screenshot"
++                evidence_dir.mkdir(parents=True, exist_ok=True)
++                image = evidence_dir / (case["id"] + "-actual.jpg")
++                requested = now()
++                web.page.screenshot(path=str(image), type="jpeg", quality=85, full_page=True)
++                result["images"] = [{"path": "images/" + image.name,
++                                     "capture_requested_at": requested, "capture_completed_by": now(),
++                                     "state": "actual"}]
++            except Exception as error:
++                result["evidence_error"] = f"Screenshot unavailable: {type(error).__name__}"
+         if web:
+             try:
+                 web.close()
+--- implementation-initial/IMPLEMENTATION.md
++++ execution-94fd43c/IMPLEMENTATION.md
+@@ -69,4 +69,12 @@
+ 
+ Manifest cần `backend_database` là đường dẫn tuyệt đối tới SQLite runtime thực. UI/API theo đúng bộ TC: `http://localhost:5174/` và `http://localhost:3000/api`. Chọn nhiều ID bằng `--case CAT-TC15 CAT-TC16 CAT-TC17`; không mặc định rằng các TC thêm/xóa chia sẻ được cùng state. `--headed` hiện Chromium; `--timeout-ms` là timeout thao tác harness, không phải một biên nghiệp vụ.
+ 
+-Chỉ khi có `--execute`, runner mới tạo JSON execution tại đường dẫn mới được chỉ định, ghi kết quả/quan sát từng TC và giữ những ID chưa chạy ở `not_run`. File đã tồn tại bị từ chối để giữ lịch sử. Code không tạo report Markdown/PDF, ảnh, issue hoặc AI log. **Lượt implementation này chỉ kiểm tra tĩnh, toàn bộ 33 TC vẫn Not Run.**
++Chỉ khi có `--execute`, runner mới tạo JSON execution tại đường dẫn mới được chỉ định, ghi kết quả/quan sát từng TC và giữ những ID chưa chạy ở `not_run`. File đã tồn tại bị từ chối để giữ lịch sử. Entry `execute_case` hỗ trợ lưu JPG lỗi khi bước execution truyền thư mục evidence; request API ghi method/path/body/biến thể token và response, không ghi JWT thật. Entry CLI không tự tạo report Markdown/PDF, issue hoặc AI log. **Lượt implementation này chỉ kiểm tra tĩnh, toàn bộ 33 TC vẫn Not Run.**
++
++## Cập nhật execution T03 — 20/10/2026
++
++Phần “chưa thực thi” ở trên mô tả mốc implementation ban đầu. Đợt execution theo skill đã chạy đủ **33 TC: 25 pass, 8 fail**, không blocked/not_run; xem [report](report.md) và [results.json](results.json). Design/TC v0.2 giữ nguyên.
++
++Dùng runtime riêng tại `HW02/.runtime/T03-execution-20261020/`: `execute_suite.py` chuẩn bị fixture trong database mới trước từng TC rồi gọi `execute_case`; không viết DB từ runner và không đổi DB T01/Mobile. CAT-RUN-01 chạy TC01; CAT-RUN-02 chạy TC02–33. Adapter và services.json giữ trong runtime để tiếp tục tại máy hiện tại; các command main ở phần trên chỉ minh họa cách gọi runner với fixture ngoài. Harness bổ sung log body API/JPG lỗi, bỏ chờ Response.finished thừa gây cảnh báo teardown ở RUN01; không đổi input/expected/SUT. Không có mutation tự retry.
++
++Report có link từng TC tới trích log theo đúng run và entry JSON; ghi 3 bug/issue #9–#11, 8 ảnh actual của TC fail, 3 JPG trang issue và 1 JPG danh sách. Các ảnh được chụp thật, không phải ảnh log dựng. Chưa ghi AI audit, commit/push hoặc video trong đợt execution này.

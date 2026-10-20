@@ -8,7 +8,7 @@
 
 *Biểu mẫu được FIT@HCMUS điều chỉnh từ Med Kharbach, PhD (2026), AI Use Policy Templates for Higher Education. Giấy phép CC BY-NC-SA 4.0.*
 
-> Audit gồm ba artifact skill, thiết kế, implementation và kết quả/report Mobile Registration, cùng bộ thiết kế Category Management. Nhận xét/verdict A-00–A-03, A-05 và A-06 là đề xuất để sinh viên rà soát; A-04 giữ quyết định chấp nhận đầu ra ở bước implementation. A-06 đánh giá bản AI v0.1 còn thiếu, đồng thời giữ bản v0.2 đã được sinh viên đọc và yêu cầu commit.
+> Audit gồm ba artifact skill, thiết kế, implementation và kết quả/report Mobile Registration, cùng thiết kế, implementation và execution/report Category Management. Nhận xét/verdict A-00–A-03, A-05–A-08 là đề xuất để sinh viên rà soát; A-04 giữ quyết định chấp nhận đầu ra ở bước implementation. A-06 đánh giá bản AI v0.1 còn thiếu, đồng thời giữ bản v0.2 đã được sinh viên đọc và yêu cầu commit.
 
 ## 1. Thông tin sinh viên
 
@@ -25,7 +25,7 @@
 
 ## 2. Phạm vi ghi nhận
 
-Phạm vi hiện có 31 mục P-000–P-030: các lượt xây/sửa skill, thiết kế và review Mobile Registration, triển khai code, execution, cải thiện report/evidence và thiết kế Category Management. P-024–P-026 ghi ba lượt Category; P-027–P-030 ghi bốn lượt bổ sung GitHub Issues/evidence và sửa skill được sinh viên chỉ định:
+Phạm vi hiện có 33 mục P-000–P-032: các lượt xây/sửa skill, thiết kế và review Mobile Registration, triển khai code, execution, cải thiện report/evidence và thiết kế Category Management. P-024–P-026 ghi ba lượt Category; P-027–P-030 ghi bốn lượt bổ sung GitHub Issues/evidence và sửa skill được sinh viên chỉ định:
 
 - **A-00 — Skill AI log:** [P-000](23120410_HW02_PromptLog.md#msg-55324f24f7a915146521) tạo skill, [P-001](23120410_HW02_PromptLog.md#msg-badc52515014adae1a4b) góp ý theo HW01 và [P-002](23120410_HW02_PromptLog.md#msg-3c20cea85631833613dd) mở rộng dùng chung.
 - **A-01 — Skill Domain/BVA:** [P-003](23120410_HW02_PromptLog.md#msg-d9b48702e80bca216e2a) nghiên cứu và xây skill; [P-004](23120410_HW02_PromptLog.md#msg-c8655ff83338222bdb54) hỏi về execution; [P-005](23120410_HW02_PromptLog.md#msg-0d15905a7329be883e67) yêu cầu tách; [P-006](23120410_HW02_PromptLog.md#msg-c64a4bbe130b7d5e67a2) kiểm tra việc giữ phương pháp thiết kế.
@@ -41,6 +41,8 @@ Phạm vi hiện có 31 mục P-000–P-030: các lượt xây/sửa skill, thi�
 
 **Bổ sung A-02/A-05:** [P-027](23120410_HW02_PromptLog.md#msg-36be906c669996d7cbf9) phát hiện Mobile chưa có issue; [P-028](23120410_HW02_PromptLog.md#msg-0453443a1aeea0f60e1a) yêu cầu sửa skill và chụp trang issue; [P-029](23120410_HW02_PromptLog.md#msg-f3b061c972ae96d0c800) giao đăng issue/lưu JPG và log; [P-030](23120410_HW02_PromptLog.md#msg-335afed53aaee172819f) yêu cầu skill bắt link evidence cho mỗi TC đã chạy. Bốn lượt có 12 phản hồi AI. Các lượt sửa report, giải thích log và commit tiếp theo không được thêm thành prompt trong phạm vi lần này; commit `e1fe254` chỉ được dùng làm mốc phiên bản file đã có.
 
+**Bổ sung T03:** [P-031](23120410_HW02_PromptLog.md#msg-078e737e05a56044cac5) triển khai code cho 33 TC (A-07), chưa execution/report ở lượt đầu; [P-032](23120410_HW02_PromptLog.md#msg-ecff2281e0534402997b) chạy test và hoàn thiện hồ sơ report/Issues/evidence (A-08). Hai lượt có 13 phản hồi AI nguyên văn. Các lượt trao đổi loại test, đồng bộ T02 và commit không được thêm vào Prompt Log lần này.
+
 Toàn bộ trao đổi nằm trong [Prompt Log](23120410_HW02_PromptLog.md). Mã P giữ ổn định theo lần bổ sung log; thời gian của từng lượt cho biết thứ tự trao đổi thực tế. Prompt đầu tiên của A-00 được giữ nguyên văn trong bảng audit dù sinh viên đã rút gọn phần mở đầu trong bản đọc Prompt Log.
 
 Các trích output A-00 đã che đường dẫn tới skill cá nhân; phần còn lại giữ nguyên. Với hai skill kỹ thuật dùng để nộp, [các phiên bản artifact](artifacts.md) giữ cả bản trước và sau khi tách.
@@ -55,8 +57,9 @@ Các trích output A-00 đã che đường dẫn tới skill cá nhân; phần c
 | **A-03 — Bộ thiết kế Mobile Account Registration**<br><br>**Tool:** OpenAI Codex, gpt-6.1-sol<br>**Bắt đầu:** 23:58:19 19/10/2026 (UTC+07:00)<br>**Prompt:** [P-008](23120410_HW02_PromptLog.md#msg-9c5d57863614170c8ab0), nguyên văn tại **3.9**.<br><br>Giải thích và review: [P-009](23120410_HW02_PromptLog.md#msg-1419f914508254329f1b), [P-010](23120410_HW02_PromptLog.md#msg-57da3f9386c61457d81e), [P-011](23120410_HW02_PromptLog.md#msg-4873da5fa8bbf9630f5b), [P-012](23120410_HW02_PromptLog.md#msg-84ee0558719d3db513aa), [P-013](23120410_HW02_PromptLog.md#msg-4f7fab8add7e9c9a7096), [P-014](23120410_HW02_PromptLog.md#msg-9b5e6837d82871732b9f). | Hai file `design.md` và `test-cases.md`: bản đầu **v0.1 có 46 TC**, bản được đánh giá **v0.3 tại commit 5ca63e1 có 54 TC**, 37 mục tiêu miền, 18 boundary items; 18 TC mang cả Domain và BVA. [Bản đầu](history/mobile-registration-v0.1-design.md.txt), [bản đã review](https://github.com/tranquocvy/eshop-sut/blob/5ca63e1dadc0c69cd4a52b892f2c5a1dc1ff5d59/tests/hw02/mobile-registration/design.md), [bảng TC](https://github.com/tranquocvy/eshop-sut/blob/5ca63e1dadc0c69cd4a52b892f2c5a1dc1ff5d59/tests/hw02/mobile-registration/test-cases.md). | **VALID** — đánh giá bản thiết kế v0.3 đã review | Đáp ứng nhiệm vụ thiết kế: test basis FR-01/FR-20, bảng rule, mô hình miền, lý do chọn điểm, BVA 7/8/9 và các count 0/1/2, TC có precondition/input/steps/expected và truy vết. Expected theo đặc tả được tách với quy ước bổ sung về trim, case và Unicode. BVA dùng tài liệu môn trang 44; Domain ghi đúng nguồn tham khảo. Toàn bộ TC Not Run; 4 ca so sánh confirmation giữ điều kiện phải có field native [1], [6]–[8]. Chưa execution không phải lỗi của nhiệm vụ chỉ thiết kế. | Sinh viên hỏi lại lý thuyết/cách đọc và **review tên, khoảng trắng, case email, special, đơn vị Unicode** tại P-011/P-012. Codex **sửa expected TC41–46**, **bổ sung TC47–54**, **cập nhật mô hình và coverage**, giữ nguyên ID cũ. Bản sửa có đánh dấu trong [diff v0.1→v0.3](history/mobile-design-changes.diff). Tám ca bổ sung xuất phát từ các quy ước được làm rõ; không tự tính tất cả thành AI bỏ sót. |
 | **A-04 — Code test Mobile Account Registration**<br><br>**Tool:** OpenAI Codex, gpt-6.1-sol<br>**Bắt đầu:** 01:03:41 20/10/2026 (UTC+07:00)<br>**Prompt:** [P-015](23120410_HW02_PromptLog.md#msg-dc4f2e51b024238929a8), nguyên văn tại **3.10**. | Bộ code cho **54 TC** từ thiết kế v0.3: `cases.json`, `native_android.py`, `run.py` và `IMPLEMENTATION.md`. [Bản output giữ nguyên](https://github.com/tranquocvy/eshop-sut/blob/b8b1d2b18203a0ebf0a24352890da1e80fc0d5fc/tests/hw02/mobile-registration/IMPLEMENTATION.md); phản hồi cuối tại **3.10**. | **VALID** — giữ nguyên theo xác nhận sinh viên, trong phạm vi implementation | Hai tài liệu đầu vào đã được review tại A-03. Codex đối chiếu tĩnh đủ 54 ID, dữ liệu literal và expected; giữ sequence TC13/TC38, C-guard TC34–37 và kiểm tra cú pháp AST. Code dùng thao tác native, quan sát SQLite chỉ đọc và chuẩn bị evidence khi chạy [8], [9]. Chưa thực thi code/SUT; đánh giá này không phải kết quả chạy test. | **Giữ nguyên đầu ra** vì code test được triển khai từ hai tài liệu thiết kế đã được duyệt trước đó. Không sửa nội dung ở bước này. |
 | **A-05 — Kết quả execution và report Mobile Registration**<br><br>**Tool:** OpenAI Codex, gpt-6.1-sol.<br>**Bắt đầu:** 01:25:23 20/10/2026 (UTC+07:00).<br>**Prompt:** [P-016](23120410_HW02_PromptLog.md#msg-ecfe30f8f95eb2cc71f0)–[P-023](23120410_HW02_PromptLog.md#msg-b9e49c78a2be320ca739); nội dung tại **3.12** và Prompt Log. <br><br>Bổ sung hồ sơ Issues: [P-027](23120410_HW02_PromptLog.md#msg-36be906c669996d7cbf9) và [P-029](23120410_HW02_PromptLog.md#msg-f3b061c972ae96d0c800). | [Report](https://github.com/tranquocvy/eshop-sut/blob/62e34ecbcce65a8c803625ca8d210dfd9176dbbe/tests/hw02/mobile-registration/report.md), [results.json](https://github.com/tranquocvy/eshop-sut/blob/62e34ecbcce65a8c803625ca8d210dfd9176dbbe/tests/hw02/mobile-registration/results.json) và 15 JPG; bản tại commit **62e34ec**. 54 TC thiết kế, **35 pass, 15 fail, 4 blocked**; tám nhóm phát hiện, gồm bốn vi phạm requirement và bốn sai khác S7.  Sau rà soát đã có [8 GitHub Issues](https://github.com/tranquocvy/eshop-sut/issues) và 9 JPG trang/danh sách issue; [report](../../../tests/hw02/mobile-registration/report.md), [results](../../../tests/hw02/mobile-registration/results.json) tại mốc local `e1fe254`. | **INCOMPLETE** — đánh giá bản `62e34ec` trước bổ sung Issues | Bản `62e34ec` giữ đúng kết quả native/UI/DB, unique TC và lịch sử, nhưng chỉ có report local và ghi “chưa đăng Issues”. Khi đối chiếu yêu cầu báo lỗi của HW02 §6.4 và hồ sơ §14, phần GitHub/evidence còn thiếu; ghi đúng trạng thái chưa đăng không thay việc hoàn thành yêu cầu. Sinh viên phát hiện khi kiểm tra tracker ở P-027. Vì vậy điều chỉnh nhận xét đề xuất trước đây từ VALID sang INCOMPLETE cho đúng phiên bản đang đánh giá [1], [10], [13]. | Sinh viên **dừng để xem flow**, góp ý file/ảnh quá nhiều và **đã kiểm tra report/results**. Codex **gom kết quả**, **bỏ PNG tạm/ảnh trùng**, **sửa harness**, chạy lại phần bị ảnh hưởng rồi hoàn thiện report. [Kết quả run đầu](history/mobile-initial-results.json) và [diff harness](https://github.com/tranquocvy/eshop-sut/compare/b8b1d2b18203a0ebf0a24352890da1e80fc0d5fc...b1c122bd0f00bc982d19093abad0776f0434d04e) giữ diễn biến. Sinh viên sau đó yêu cầu commit riêng runner và report.  **Theo P-029, Codex đăng 8 issue (#1–#8), kiểm tra 14 ảnh SUT hiển thị và lưu 8 JPG trang issue + 1 JPG danh sách; bổ sung URL, thời gian và log tạo/xác minh/chụp.** Không chạy lại SUT; 35 pass, 15 fail, 4 blocked giữ nguyên. Bốn finding S7 được phân loại rõ; phần thiếu Issues đã được bổ sung trong bản sau, không ghi đè lịch sử bản cũ. |
-
 | **A-06 — Bộ thiết kế Category Management**<br><br>**Tool:** OpenAI Codex, gpt-6.1-sol.<br>**Bắt đầu:** 11:15:35 20/10/2026 (UTC+07:00).<br>**Prompt:** [P-024](23120410_HW02_PromptLog.md#msg-2642f1f9f300cb746a59)–[P-026](23120410_HW02_PromptLog.md#msg-7614bb5c1dae4235dc44), nguyên văn tại **3.13**. | Hai file `design.md`, `test-cases.md`: [bản AI đầu v0.1](history/category-v0.1-design.md.txt) có **24 TC**; [bản v0.2 sau review](https://github.com/tranquocvy/eshop-sut/blob/b84417b841f7a1bd5d20386132a0f333d7487fb1/tests/hw02/fr14-categories/design.md) và [TC](https://github.com/tranquocvy/eshop-sut/blob/b84417b841f7a1bd5d20386132a0f333d7487fb1/tests/hw02/fr14-categories/test-cases.md) tại **b84417b** có **33 TC**, 19 mục tiêu miền, 6 BVA items theo lớp. | **INCOMPLETE** — đánh giá bản AI đầu v0.1; chấp nhận sau bổ sung ở v0.2 | Bản đầu có rule/miền/TC và đúng biên tên 0/1/2 trên Web, nhưng chưa lấy mẫu tên 1/2 ở API, JWT đúng cấu trúc bị sửa payload/chữ ký, hoặc khôi phục phiên Web từ token user. Một mẫu malformed JWT và coverage trên inventory tự chọn chưa đủ chứng minh đã xét các đường kiểm tra này. Căn cứ là FR-14 required/name, FR-12 JWT hợp lệ/role admin, điểm vào lưu phiên trong source và cách lấy mẫu miền/biên [7], [12]. Chưa chạy SUT không phải thiếu sót của nhiệm vụ thiết kế. | Sinh viên **hỏi lại độ đầy đủ** rồi **chỉ định ba nhóm cần bổ sung**. Codex **thêm TC25–26** cho BVA API, **TC27–32** cho hai loại token bị sửa trên POST/DELETE/PUT, **TC33** cho phiên user đã lưu; **gắn BVA cho TC10** thay vì tạo ca rỗng trùng. Giữ TC01–24, cập nhật miền/biên và truy vết; [diff v0.1→v0.2](history/category-design-changes.diff). Sinh viên đã đọc hai file và yêu cầu commit; không tự chốt các policy chưa có đặc tả. |
+| **A-07 — Code test T03 Category Management**<br><br>**Tool:** OpenAI Codex, gpt-6.1-sol.<br>**Bắt đầu:** 13:06:58 20/10/2026 (UTC+07:00).<br>**Prompt:** [P-031](23120410_HW02_PromptLog.md#msg-078e737e05a56044cac5), nguyên văn tại **3.15**. | Catalogue/runner cho **33 TC** từ design/TC v0.2; [output implementation ban đầu](history/category-implementation-initial.txt), [catalogue](../../../tests/hw02/fr14-categories/scripts/cases.json) và requirements tại mốc local `94fd43c`. Chỉ kiểm tra tĩnh trong lượt implementation. | **VALID** — đề xuất trong phạm vi implementation tĩnh | Đủ 33 ID và handler Web/API, dữ liệu literal/expected theo hai tài liệu, fixture C0/C1/C3, sequence và quan sát SQLite chỉ đọc. CLI cần `--execute` mới kết nối SUT; không tạo kết quả/report ở lượt chỉ implementation. Căn cứ design/TC v0.2, FR-14/FR-12 và API §3.4 [12], [14]. Kiểm tra tĩnh không chứng minh runner chạy đúng ở mọi môi trường; thay đổi khi execution giữ riêng. | Chưa có yêu cầu sửa từ sinh viên trong lượt này. Codex tự chỉnh code qua kiểm tra tĩnh; giữ output cuối lượt. **Các thay đổi harness khi execution** được đánh dấu tại [diff](history/category-implementation-execution.diff), không gán thành sửa code do sinh viên trực tiếp viết. |
+| **A-08 — Execution và report T03 Category Management**<br><br>**Tool:** OpenAI Codex, gpt-6.1-sol.<br>**Bắt đầu:** 14:31:13 20/10/2026 (UTC+07:00).<br>**Prompt:** [P-032](23120410_HW02_PromptLog.md#msg-ecff2281e0534402997b), nguyên văn tại **3.16**. | [Report](../../../tests/hw02/fr14-categories/report.md), [results](../../../tests/hw02/fr14-categories/results.json) và 12 JPG tại mốc local **94fd43c**. **33 TC: 25 pass, 8 fail, 0 blocked**; 3 bug đăng thành issue #9–#11. | **VALID** — đề xuất cho bộ execution/report đã bàn giao | Đã chạy thật 12 TC Web/21 TC API, giữ input/expected, runtime DB riêng và source SUT nguyên bản; kết quả chung có run/history, mỗi TC có log đúng run. 8 ca fail đối chiếu UI/API/DB và gom thành 3 bug; mỗi issue có ảnh SUT hiển thị và JPG trang đã đăng, đáp ứng HW02 §6.4/§14. Tổng 33 và summary 25/8/0/0 khớp log; không suy coverage inventory thành mọi hành vi đã đúng. Căn cứ report/results, design v0.2 và quy cách evidence [1], [12], [15]. | Sinh viên đã kiểm tra report và yêu cầu commit; không ghi sinh viên đã tự chạy test hay đã duyệt từng assertion. Codex sửa harness trước/giữa hai run, lưu cảnh báo teardown RUN01; bỏ chờ thừa, làm rõ feedback lỗi, bổ sung body API/JPG, không đổi SUT/expected. Bản đã review được commit `94fd43c`; không có yêu cầu sửa report T03 sau bàn giao trong phạm vi này. |
 
 ### 3.1. Output AI ban đầu — A-00 / P-000
 
@@ -418,16 +421,68 @@ update skill, với mỗi test đượ chạy, ở report phải link tới log 
 
 **Bằng chứng và cách kiểm tra:** [report Mobile](../../../tests/hw02/mobile-registration/report.md), [results/log thao tác](../../../tests/hw02/mobile-registration/results.json), [ảnh danh sách issue](../../../tests/hw02/mobile-registration/images/MR-GitHub-issues.jpg), [skill đã bổ sung](../../../skills/test-execution-reporting/SKILL.md). `bugs[].github_activity` ghi thời gian tạo, xác minh nội dung và kiểm tra/chụp trang; `images[]` giữ metadata ảnh. Các phiên bản trước vẫn được dẫn ở A-02/A-05. Chữ in đậm trong mục này và cột bản sửa đánh dấu phần bổ sung theo góp ý.
 
+### 3.15. Implementation T03 — A-07 / P-031
+
+**Prompt nguyên văn:**
+
+```text
+từ 2 file docs của T03, viết viết implement code tương ứng từng tc, chưa exe+report ở bước này
+```
+
+**Phản hồi cuối nguyên văn:**
+
+```text
+Đã implement đủ **33 TC** theo hai file T03:
+
+- [Runner Web/API](D:/Workspace/SoftwareTesting/HW02/eshop-sut/tests/hw02/fr14-categories/scripts/run.py)
+- [Catalogue từng TC và expected](D:/Workspace/SoftwareTesting/HW02/eshop-sut/tests/hw02/fr14-categories/scripts/cases.json)
+- [Hướng dẫn triển khai và fixture](D:/Workspace/SoftwareTesting/HW02/eshop-sut/tests/hw02/fr14-categories/IMPLEMENTATION.md)
+
+Đã kiểm tra tĩnh cú pháp, 33 ID, dữ liệu và ánh xạ với bảng nguồn. Hai file thiết kế giữ nguyên.
+
+**Chưa chạy runner/SUT, chưa tạo kết quả hoặc report.**
+```
+
+Output code ban đầu được giữ tại [history](history/category-implementation-initial.txt); thay đổi tới bản execution được đánh dấu bằng [diff](history/category-implementation-execution.diff). Toàn bộ phản hồi tiến độ theo thứ tự trong [P-031](23120410_HW02_PromptLog.md#msg-078e737e05a56044cac5).
+
+### 3.16. Execution/report T03 — A-08 / P-032
+
+**Prompt nguyên văn:**
+
+```text
+dùng [$test-execution-reporting](C:\Users\DELL\\.codex\skills\test-execution-reporting\SKILL.md) để kiểm thử bộ test case của T03, bám sát skill
+```
+
+**Phản hồi cuối nguyên văn:**
+
+```text
+Đã kiểm thử T03 theo skill: **33/33 TC — 25 passed, 8 failed, 0 blocked**.
+
+8 TC lỗi thuộc 3 bug đã đăng GitHub:
+
+- [#9](https://github.com/tranquocvy/eshop-sut/issues/9): chấp nhận tên danh mục rỗng/null/thiếu.
+- [#10](https://github.com/tranquocvy/eshop-sut/issues/10): token user được phép POST/PUT/DELETE.
+- [#11](https://github.com/tranquocvy/eshop-sut/issues/11): mở lại Admin bằng token user vẫn hiện màn hình quản lý.
+
+[Báo cáo đầy đủ](D:/Workspace/SoftwareTesting/HW02/eshop-sut/tests/hw02/fr14-categories/report.md) có log đúng TC/run cho **từng ca**, ảnh lỗi và JPG trang GitHub issue. Đã kiểm tra bảng Markdown, link và ảnh.
+
+Không sửa SUT, chưa commit/push.
+
+![Ba issue T03](D:/Workspace/SoftwareTesting/HW02/eshop-sut/tests/hw02/fr14-categories/images/CAT-GitHub-issues.jpg)
+```
+
+Output file tại [report](../../../tests/hw02/fr14-categories/report.md), [results](../../../tests/hw02/fr14-categories/results.json) và ảnh dẫn trong report; mốc local `94fd43c`. Toàn bộ phản hồi tiến độ theo thứ tự trong [P-032](23120410_HW02_PromptLog.md#msg-ecff2281e0534402997b).
+
 ## 4. Tổng kết độ chính xác AI
 
-Tổng hợp bảy artifact, mỗi artifact tính một lần theo phiên bản được đánh giá trong bảng. A-00–A-03, A-05 và A-06 theo đánh giá đề xuất của bản nháp; A-04 giữ quyết định chấp nhận đầu ra ở bước implementation. A-02 lấy bản sau bổ sung P-028/P-030; A-05 lấy bản `62e34ec` còn thiếu Issues, dù bản sau đã bổ sung. A-06 lấy verdict của bản đầu v0.1 cần bổ sung; việc chấp nhận bản sửa không đổi hồi tố verdict bản đầu. Lần rà soát này sửa đánh giá đề xuất A-05 từ VALID sang INCOMPLETE theo thiếu sót có nguồn; không thêm artifact thứ tám cho từng issue/ảnh.
+Tổng hợp chín artifact, mỗi artifact tính một lần theo phiên bản được đánh giá trong bảng. A-00–A-03, A-05–A-08 theo đánh giá đề xuất của bản nháp; A-04 giữ quyết định chấp nhận đầu ra ở bước implementation. A-02 lấy bản sau bổ sung P-028/P-030; A-05 lấy bản `62e34ec` còn thiếu Issues, dù bản sau đã bổ sung. A-06 lấy verdict của bản đầu v0.1 cần bổ sung; việc chấp nhận bản sửa không đổi hồi tố verdict bản đầu. Lần rà soát này sửa đánh giá đề xuất A-05 từ VALID sang INCOMPLETE theo thiếu sót có nguồn; Hai artifact A-07/A-08 tách implementation và execution/report T03; không tăng số artifact theo từng TC/issue/ảnh.
 
 | Chỉ số | Số lượng | Tỉ lệ |
 | --- | ---: | ---: |
-| Tổng artifact được phân loại | 7 | 100% |
-| VALID (đúng trong phạm vi được đánh giá) | 4 | 57,14% |
+| Tổng artifact được phân loại | 9 | 100% |
+| VALID (đúng trong phạm vi được đánh giá) | 6 | 66,67% |
 | INVALID (sai; loại bỏ) | 0 | 0% |
-| INCOMPLETE (cần sửa/bổ sung để dùng) | 3 | 42,86% |
+| INCOMPLETE (cần sửa/bổ sung để dùng) | 3 | 33,33% |
 
 ## 5. Kết luận — Khi nào nên / không nên dùng AI?
 
@@ -435,7 +490,7 @@ AI giúp tôi xây skill, thiết kế test và tổng hợp kết quả Mobile.
 
 ## 6. Mandatory Disclosure
 
-*“Các skill, bộ thiết kế Mobile Registration và Category Management, code test và report Mobile Registration được sinh phiên bản đầu bởi OpenAI Codex. Tôi đã rà soát thiết kế và các quy ước tên, email, mật khẩu, Unicode; góp ý cách trình bày AI log, tách thiết kế khỏi execution, thu gọn evidence và kết quả chung. Codex sửa skill/code theo các yêu cầu đó, chạy native và đối chiếu UI/DB, ghi 35 pass, 15 fail, bốn blocked. Tôi đã kiểm tra report/results trước khi yêu cầu commit. Với Category, tôi đã đọc bản thiết kế, hỏi lại độ đầy đủ, yêu cầu bổ sung ba nhóm BVA API, token bị sửa và mở lại phiên user; Codex cập nhật từ 24 lên 33 TC. Tôi đã đọc hai file hoàn thiện rồi yêu cầu commit; các TC Category chưa được chạy. Tôi kiểm tra tracker, nhận thấy thiếu GitHub Issues và yêu cầu bổ sung ảnh trang issue cùng link evidence cho từng TC. Codex đã đăng tám issue, lưu chín JPG và sửa skill theo yêu cầu; việc đăng/chụp không phải lần chạy lại SUT. Phần góp ý và quyết định sử dụng do tôi đưa ra; việc thực thi, đăng issue và sửa file do Codex thực hiện. AI Audit Report chi tiết đính kèm ở Phụ lục A. Tôi cam đoan không dùng AI để sinh bất kỳ artifact nào thuộc danh mục bị cấm.”*
+*“Các skill, bộ thiết kế Mobile Registration và Category Management, code test và report Mobile Registration, Category Management được sinh phiên bản đầu bởi OpenAI Codex. Tôi đã rà soát thiết kế và các quy ước tên, email, mật khẩu, Unicode; góp ý cách trình bày AI log, tách thiết kế khỏi execution, thu gọn evidence và kết quả chung. Codex sửa skill/code theo các yêu cầu đó, chạy native và đối chiếu UI/DB, ghi 35 pass, 15 fail, bốn blocked. Tôi đã kiểm tra report/results trước khi yêu cầu commit. Với Category, tôi đã đọc bản thiết kế, hỏi lại độ đầy đủ, yêu cầu bổ sung ba nhóm BVA API, token bị sửa và mở lại phiên user; Codex cập nhật từ 24 lên 33 TC. Tôi đã đọc hai file hoàn thiện rồi yêu cầu commit; Sau đó, Codex triển khai code và chạy 33 TC Category: 25 pass, 8 fail, ba bug đã đăng issue #9–#11 với ảnh SUT và JPG trang issue; tôi đã kiểm tra report rồi yêu cầu commit. Tôi kiểm tra tracker, nhận thấy thiếu GitHub Issues và yêu cầu bổ sung ảnh trang issue cùng link evidence cho từng TC. Codex đã đăng tám issue, lưu chín JPG và sửa skill theo yêu cầu; việc đăng/chụp không phải lần chạy lại SUT. Phần góp ý và quyết định sử dụng do tôi đưa ra; việc thực thi, đăng issue và sửa file do Codex thực hiện. AI Audit Report chi tiết đính kèm ở Phụ lục A. Tôi cam đoan không dùng AI để sinh bất kỳ artifact nào thuộc danh mục bị cấm.”*
 
 ## Chữ ký
 
@@ -475,3 +530,7 @@ AI giúp tôi xây skill, thiết kế test và tổng hợp kết quả Mobile.
 [12] EShop, FR-14 và FR-12; “API Specification,” §3.4. [README](../../../README.md), [API](../../../api_specification.md); [các phiên bản Category Management — A-06](artifacts.md#a-06--thiết-kế-category-management). Bản v0.2 được lưu tại commit `b84417b`.
 
 [13] Các lượt bổ sung Issues/evidence — P-027–P-030, [Prompt Log](23120410_HW02_PromptLog.md#msg-36be906c669996d7cbf9); [các phiên bản A-02/A-05](artifacts.md), bản trước `6631d92` và bản bổ sung tại commit local `e1fe254`; đề HW02 §6.4, §14.
+
+[14] T03 implementation, [P-031](23120410_HW02_PromptLog.md#msg-078e737e05a56044cac5); [output ban đầu và bản execution A-07](artifacts.md#a-07--code-test-t03-category-management); design/TC v0.2 tại `b84417b`.
+
+[15] T03 execution/report, [P-032](23120410_HW02_PromptLog.md#msg-ecff2281e0534402997b); [A-08](artifacts.md#a-08--execution-và-report-t03-category-management), mốc local `94fd43c`; GitHub Issues #9–#11 và JPG dẫn trong report.
