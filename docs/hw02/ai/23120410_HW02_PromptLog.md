@@ -2105,3 +2105,128 @@ oke, vậy bổ sung tc api và dùng skill [$test-execution-reporting](C:\Users
 
 [Bộ TC](D:/Workspace/SoftwareTesting/HW02/eshop-sut/tests/hw02/fr07-cart/test-cases.md) · [Báo cáo kết quả](D:/Workspace/SoftwareTesting/HW02/eshop-sut/tests/hw02/fr07-cart/report.md). Chưa commit.
 ```
+
+Phạm vi: Hai prompt T05 được chỉ định: sinh thiết kế Domain/BVA FR-02 và xác nhận review/gộp hai file thành một commit để push. Giữ đủ phản hồi tiến độ/kết quả của hai lượt; trao đổi làm rõ và sửa trạng thái review được dẫn riêng. Không gồm execution/report hay yêu cầu ghi log.
+
+<a id="msg-4a94eeb3d11f70a2ae18"></a>
+
+## P-037
+
+- Timestamp: 19:09:05 20/10/2026 (UTC+07:00)
+- Công cụ: OpenAI Codex
+- Model: gpt-6.1-sol
+
+### Prompt
+
+```text
+dùng [$domain-bva-testing](C:\Users\DELL\\.codex\skills\domain-bva-testing\SKILL.md) để làm  **T05 — FR-02: Login and Account Lockout**  
+```
+
+<a id="msg-6a28dfccb25a32d456c8"></a>
+
+### Output
+
+#### Phản hồi 1 — 19:09:08 20/10/2026 (UTC+07:00)
+
+- Công cụ: OpenAI Codex
+- Model: gpt-6.1-sol
+
+```text
+Mình sẽ dùng skill **domain-bva-testing** để đọc đặc tả FR-02 và yêu cầu T05, rồi thiết kế bộ TC Domain + BVA có truy vết nguồn expected. Phần này sẽ dừng ở thiết kế test.
+```
+
+<a id="msg-7a20e4a974d9a9d1e577"></a>
+
+#### Phản hồi 2 — 19:09:27 20/10/2026 (UTC+07:00)
+
+- Công cụ: OpenAI Codex
+- Model: gpt-6.1-sol
+
+```text
+FR-02 quy định bộ đếm tăng đúng 1, khóa từ lần sai liên tiếp thứ 3 và kéo dài 30 giây. Mình sẽ tách TC Web và API, kiểm tra cả chuỗi sai → đúng → sai, khóa theo từng tài khoản và các mốc thời gian quanh 30 giây; những chính sách chưa được đặc tả rõ sẽ có oracle giả định riêng.
+```
+
+<a id="msg-3681fdce1a888d744ee8"></a>
+
+#### Phản hồi 3 — 19:10:32 20/10/2026 (UTC+07:00)
+
+- Công cụ: OpenAI Codex
+- Model: gpt-6.1-sol
+
+```text
+Mô hình đã có hai biên chính: lần sai thứ 3 và thời điểm hết 30 giây. Với ca sát mốc thời gian, thiết kế yêu cầu ghi thời điểm server xử lý; nếu sai số đo cắt qua mốc 30 giây thì chưa thể kết luận đã kiểm tra đúng điểm biên. Mình đang hoàn thiện TC và lưu bản AI đầu để bạn review.
+```
+
+<a id="msg-1343d2220a3ff1ac7a06"></a>
+
+#### Phản hồi 4 — 19:11:44 20/10/2026 (UTC+07:00)
+
+- Công cụ: OpenAI Codex
+- Model: gpt-6.1-sol
+
+```text
+Đã thiết kế **45 TC cho T05 — FR-02**: 19 Web và 26 API.
+
+- [Thiết kế Domain, BVA và coverage](D:/Workspace/SoftwareTesting/HW02/eshop-sut/tests/hw02/fr02-login/design.md)
+- [Bộ test case để bạn review](D:/Workspace/SoftwareTesting/HW02/eshop-sut/tests/hw02/fr02-login/test-cases.md)
+
+Có kiểm tra ngưỡng sai **2/3/4 lần**, thời gian **29.999/30/30.001 giây**, reset chuỗi sai và khóa giữa các phiên. Oracle giả định được ghi riêng.
+
+Đã lưu bản AI đầu bằng commit `e6836d8`, `2e535cd`. Tất cả **Not Run**, đang ở mốc bạn review TC; T05 chưa hoàn tất toàn chu trình.
+```
+
+<a id="msg-e61152050f4f4050c8e4"></a>
+
+## P-038
+
+- Timestamp: 19:21:18 20/10/2026 (UTC+07:00)
+- Công cụ: OpenAI Codex
+- Model: gpt-6.1-sol
+
+### Prompt
+
+```text
+tôi đã đọc và confirm 2 file design và tc.md, hãy force push lại 2 file chung 1 commit
+```
+
+<a id="msg-8aed50e8d7682e56cd0a"></a>
+
+### Output
+
+#### Phản hồi 1 — 19:21:20 20/10/2026 (UTC+07:00)
+
+- Công cụ: OpenAI Codex
+- Model: gpt-6.1-sol
+
+```text
+Mình sẽ kiểm tra lịch sử và remote, gộp hai file đã được bạn xác nhận vào một commit, rồi force push bằng `--force-with-lease`.
+```
+
+<a id="msg-d7729a0f4a0587cdecaa"></a>
+
+#### Phản hồi 2 — 19:21:30 20/10/2026 (UTC+07:00)
+
+- Công cụ: OpenAI Codex
+- Model: gpt-6.1-sol
+
+```text
+Hai commit FR-02 đang ở cuối lịch sử nên có thể gộp trực tiếp. Remote còn thiếu 10 commit trước đó của các phần đã làm; lần push này sẽ đưa cả lịch sử đó lên, cùng một commit FR-02 chứa đúng hai file bạn vừa duyệt.
+```
+
+<a id="msg-c08b438c39b06a4c4c64"></a>
+
+#### Phản hồi 3 — 19:21:43 20/10/2026 (UTC+07:00)
+
+- Công cụ: OpenAI Codex
+- Model: gpt-6.1-sol
+
+```text
+Đã gộp hai file `design.md` và `test-cases.md` vào **một commit**, giữ nguyên nội dung bạn duyệt, và push lên `origin/main` bằng `--force-with-lease`.
+
+Commit: [`b3f0f6d`](https://github.com/tranquocvy/eshop-sut/commit/b3f0f6ddc050e0a6c80b35a0fac8da2d3f0839d4). Đã xác nhận remote khớp local.
+```
+
+
+## Trao đổi liên quan T05
+
+Hai prompt chính P-037/P-038 giữ nguyên văn và đủ phản hồi ở trên. Năm lượt hỏi/đáp về phạm vi thiết kế, BVA, rule/oracle và sửa trạng thái đã review được giữ [nguyên văn tại đây](history/fr02-review-context.md). Không đưa execution/report vào hai prompt được chọn.

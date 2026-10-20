@@ -8,7 +8,7 @@
 
 *Biểu mẫu được FIT@HCMUS điều chỉnh từ Med Kharbach, PhD (2026), AI Use Policy Templates for Higher Education. Giấy phép CC BY-NC-SA 4.0.*
 
-> Bản nháp khai báo việc xây/sửa ba skill, thiết kế, triển khai, thực thi và báo cáo Mobile Account Registration, cùng thiết kế/review, implementation và execution/report Category Management, và thiết kế/review, implementation, execution/report Shopping Cart; tiếp tục bổ sung theo tiến độ HW02.
+> Bản nháp khai báo việc xây/sửa ba skill, thiết kế, triển khai, thực thi và báo cáo Mobile Account Registration, cùng thiết kế/review, implementation và execution/report Category Management, và thiết kế/review, implementation, execution/report Shopping Cart; bổ sung thiết kế/review FR-02 trong đợt này. Nhận xét khai báo mới là bản nháp để tôi rà soát.
 
 ## 1. Thông tin môn học và sinh viên
 
@@ -32,7 +32,7 @@ OpenAI Codex, model gpt-6.1-sol.
 ### 2. Giai đoạn nào của bài tập có dùng AI
 
 - [x] Outline: tổ chức quy trình AI log, thiết kế test và thực thi/báo cáo.
-- [x] Viết nháp: hướng dẫn skill, quy cách biểu mẫu, bộ thiết kế Domain/BVA và TC Mobile Registration, Category Management, Shopping Cart.
+- [x] Viết nháp: hướng dẫn skill, quy cách biểu mẫu, bộ thiết kế Domain/BVA và TC Mobile Registration, Category Management, Shopping Cart và FR-02.
 - [x] Phản hồi: đối chiếu HW01, giải thích Domain/BVA, cách đọc bộ test và ranh giới giữa đặc tả với giả định.
 - [x] Sửa chữa: cải thiện log, tách hai skill kỹ thuật, cập nhật thiết kế và thu gọn skill/evidence/report; sửa lỗi harness khi execution.
 - [x] Code: helper đồng bộ log, tính điểm biên, xuất JPG, các kiểm tra helper và bộ code triển khai 54 TC Mobile Registration, 33 TC Category Management và 60 TC Shopping Cart.
@@ -74,9 +74,11 @@ Với mỗi tính năng đã chọn, thực hiện các nhiệm vụ sau:
 oke tiếp tục dùng skill để tiếp tục chạy test `$test-execution-reporting`
 ```
 
-Các lượt còn lại được ghi trong [Prompt Log](23120410_HW02_PromptLog.md), gồm 31 mục P-000–P-030 theo phạm vi được giao. P-008–P-014 là thiết kế/review, P-015 triển khai code; P-016–P-023 là execution, review flow/evidence và sửa skill/report. [P-024](23120410_HW02_PromptLog.md#msg-2642f1f9f300cb746a59)–[P-026](23120410_HW02_PromptLog.md#msg-7614bb5c1dae4235dc44) là ba lượt sinh, rà lại và bổ sung bộ thiết kế Category Management. P-027–P-030 là bốn lượt kiểm tra thiếu Issues Mobile, sửa skill, đăng/chụp issue và bổ sung yêu cầu link evidence từng TC. Các lượt sửa report/commit tiếp theo không được đưa vào phạm vi log lần này. Đây chưa phải toàn bộ lịch sử dùng AI của HW02.
+Các lượt còn lại được ghi trong [Prompt Log](23120410_HW02_PromptLog.md), hiện có 39 mục P-000–P-038 theo các phạm vi đã được giao bổ sung. P-008–P-014 là thiết kế/review, P-015 triển khai code; P-016–P-023 là execution, review flow/evidence và sửa skill/report. [P-024](23120410_HW02_PromptLog.md#msg-2642f1f9f300cb746a59)–[P-026](23120410_HW02_PromptLog.md#msg-7614bb5c1dae4235dc44) là ba lượt sinh, rà lại và bổ sung bộ thiết kế Category Management. P-027–P-030 là bốn lượt kiểm tra thiếu Issues Mobile, sửa skill, đăng/chụp issue và bổ sung yêu cầu link evidence từng TC. Các lượt sửa report/commit tiếp theo không được đưa vào phạm vi log lần này. Đây chưa phải toàn bộ lịch sử dùng AI của HW02.
 
 Các lượt T04 mới được dẫn tại [P-034](23120410_HW02_PromptLog.md#msg-18993f7783fd6fec1999), [P-035](23120410_HW02_PromptLog.md#msg-e35ac4755d97d4df1251), [P-036](23120410_HW02_PromptLog.md#msg-eb9325eff0dd943647c7) và [góp ý/chỉnh sửa](23120410_HW02_PromptLog.md#t04-review-notes). Theo yêu cầu của tôi, bản đọc chọn ba prompt chính và lược output/tiến độ; không phải transcript toàn văn.
+
+Hai lượt T05 được chọn ghi log là [P-037](23120410_HW02_PromptLog.md#msg-4a94eeb3d11f70a2ae18) (sinh thiết kế FR-02) và [P-038](23120410_HW02_PromptLog.md#msg-e61152050f4f4050c8e4) (xác nhận hai file và yêu cầu chung một commit). Giữ đầy đủ prompt cùng bảy phản hồi AI, kể cả lời báo đã tự commit trước khi tôi cho phép; [trao đổi làm rõ/sửa sai](history/fr02-review-context.md) được dẫn riêng. Đợt này không ghi thêm prompt execution/report FR-02.
 
 ### 4. Phần cụ thể AI đóng góp
 
@@ -89,6 +91,8 @@ Với T03 Category Management, Codex dùng skill `domain-bva-testing` đọc FR-
 Với T04 Shopping Cart, tôi dùng skill `domain-bva-testing` ở [P-033](23120410_HW02_PromptLog.md#msg-fbcf3eb8ed26537524e3). Codex tạo thiết kế và 48 TC (34 Web, 14 API bổ trợ), dùng năm sản phẩm seed cùng số học cố định; tách rule FR-07/FR-06 với oracle giả định và khảo sát. Ở mốc thiết kế v0.1, các file có mô hình miền, inventory biên, dữ liệu và expected, chưa có kết quả chạy. Xem [A-09](artifacts.md#a-09--thiết-kế-t04-shopping-cart).
 
 Ở [P-034](23120410_HW02_PromptLog.md#msg-18993f7783fd6fec1999), Codex implement và chạy 48 TC T04 bằng Python/Playwright Chromium và HTTP API, tạo report/results: 6 pass, 19 fail, 23 blocked. Sau phần review và yêu cầu P-036, Codex thêm 12 TC API, cập nhật mapping Web/API rồi chạy RUN04: 4 pass, 8 fail. Tổng bộ cuối 60 TC có 10 pass, 27 fail, 23 blocked; kết quả Web cũ giữ nguyên. Codex hoàn thiện issue #12–#20, bổ sung bình luận/ảnh vào #17/#18; phiên bản và report đầu/cuối ở [A-10](artifacts.md#a-10--implementation-execution-và-report-t04-shopping-cart), commit local `ee8e477edc30e3ddfed85c10fc5f82cb006ce15a` .
+
+Với FR-02, Codex đọc đặc tả login/lockout và API để sinh design.md cùng test-cases.md: 45 TC (19 Web, 26 API), mô hình trạng thái/counter, biên 2/3/4 lần sai và 29.999/30/30.001 giây. Codex tách yêu cầu xác nhận với giả định, ghi hạn chế đo thời gian, giữ Not Run ở mốc thiết kế. Sau khi tôi đọc hai file, Codex gộp/push theo yêu cầu; sau góp ý tiếp theo, Codex sửa ghi chú đã review mà không đổi TC/expected. Các phiên bản được dẫn ở [A-11](artifacts.md#a-11--thiết-kế-t05-fr-02-login-and-account-lockout).
 
 ### 5. Cách tôi rà soát / chỉnh sửa / xác minh đầu ra AI
 
@@ -107,6 +111,8 @@ Với execution Category, tôi đã kiểm tra report rồi yêu cầu commit. V
 Với Shopping Cart, tôi đã đọc và xác nhận các TC hiện có, sau đó yêu cầu commit hai file. Codex giữ nguyên nội dung 48 TC, chỉ cập nhật ghi chú review. Đây là xác nhận bộ thiết kế; không phải xác nhận đã kiểm chứng Web/API hoặc mọi giả định là requirement.
 
 Tôi thấy nhiều ca blocked nên yêu cầu server và một ca hướng dẫn từng bước. Tôi tự thao tác, cho biết double-click thêm được hàng, rồi hỏi cách test và phản biện đổi thao tác sẽ khác TC. Tôi yêu cầu đọc lại đặc tả về số click và đối chiếu các TC API tương ứng. Qua trao đổi, tôi làm rõ rule/miền với các TC theo layer/fixture và giao bổ sung API. Codex giữ blocked Web, bổ sung A15–A26 và chạy API riêng. Tôi yêu cầu commit; điều này không được dùng để khẳng định tôi tự chạy hoặc đã review từng assertion của 60 TC.
+
+Với FR-02, tôi hỏi lại basis/rule/oracle có vai trò gì và BVA thể hiện ở đâu trong bảng TC; tôi cũng làm rõ diễn đạt “kiểm tra ngưỡng” chỉ là thiết kế, chưa phải chạy test. Tôi phản đối việc Codex tự commit khi chưa được phép. Sau đó tôi xác nhận đã đọc hai file và yêu cầu gộp một commit. Khi file vẫn ghi chờ review, tôi yêu cầu sửa và Codex cập nhật đúng trạng thái ở `4bb5158`. Tôi không sửa trực tiếp 45 TC trong các lượt này. Tôi đã xác nhận đọc report execution ở đầu yêu cầu ghi log hiện tại; đợt log này chỉ có hai prompt được liệt kê, không suy việc đọc report thành tự chạy suite hoặc duyệt nhận xét audit mới.
 
 ### 6. Trích dẫn
 
@@ -133,6 +139,8 @@ Tôi thấy nhiều ca blocked nên yêu cầu server và một ca hướng dẫ
 [11] Shopping Cart, [P-033](23120410_HW02_PromptLog.md#msg-fbcf3eb8ed26537524e3), [A-09 và hai phiên bản thiết kế](artifacts.md#a-09--thiết-kế-t04-shopping-cart); FR-07/FR-06 và đề HW02 §6.1–6.2.
 
 [12] Shopping Cart implementation/execution và mở rộng API, [P-034](23120410_HW02_PromptLog.md#msg-18993f7783fd6fec1999)–[P-036](23120410_HW02_PromptLog.md#msg-eb9325eff0dd943647c7), [A-10](artifacts.md#a-10--implementation-execution-và-report-t04-shopping-cart), commit local `ee8e477edc30e3ddfed85c10fc5f82cb006ce15a`; phần review được rút gọn theo yêu cầu.
+
+[13] FR-02 Login and Account Lockout, [P-037/P-038](23120410_HW02_PromptLog.md#msg-4a94eeb3d11f70a2ae18), [A-11 và phiên bản thiết kế](artifacts.md#a-11--thiết-kế-t05-fr-02-login-and-account-lockout); EShop README FR-02, API §1.2/§2.1; commit `4bb5158`.
 
 ## 3. Cam đoan trung thực
 
