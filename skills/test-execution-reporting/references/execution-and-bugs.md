@@ -31,10 +31,19 @@ Khi harness lỗi, giữ chẩn đoán ngắn và phân loại riêng. Có thể
 - Tần suất đã đo; mức ảnh hưởng có lý do, priority chỉ là đề xuất nếu chưa có quyết định nhóm.
 - Trạng thái xác minh, workaround nếu thực đã thử, issue URL/trạng thái đăng.
 
-Không bắt buộc HAR, video, DB dump hoặc nhiều trình duyệt cho mọi bug; chọn evidence để hiểu và tái hiện. HW02 riêng yêu cầu ảnh bug trong GitHub issue nên không bỏ ảnh chỉ vì một nguồn cộng đồng ưu tiên log text. Cần ảnh trang issue cho checklist nộp thì chụp thật sau khi đăng.
+Không bắt buộc HAR, video, DB dump hoặc nhiều trình duyệt cho mọi bug; chọn evidence để hiểu và tái hiện. HW02 yêu cầu ảnh bug trong GitHub issue và người dùng yêu cầu ảnh chụp trang issue làm bằng chứng nộp bài; phải chuẩn bị cả hai.
 
 ## GitHub
 
-Đích theo assignment/nhóm; không mặc định upstream công khai hay fork cá nhân. Chuẩn bị nội dung và ảnh trước thao tác đăng. Được giao đăng với đích rõ thì thực hiện trong quyền đã có; nếu chưa, giữ bản local và nêu việc còn thiếu. Sau đăng kiểm tra issue tồn tại, có ảnh và link đúng; không báo “đã đăng” từ thao tác mở trang soạn.
+Áp dụng khi nhiệm vụ được giao bao gồm đăng/cập nhật Issues. Đích theo assignment/nhóm; không mặc định upstream công khai hay fork cá nhân. Dùng authorization đã có trong hội thoại khi phạm vi và đích rõ, không yêu cầu duyệt lại cùng hành động. Nếu thiếu đích/quyền cần thiết thì giữ nội dung sẵn có và nêu phần còn thiếu; không tự chọn repository để đăng.
+
+1. Đối chiếu bug đã xác minh với oracle và TC/run; giữ rõ lỗi requirement và finding theo giả định/quy ước bổ sung. Tìm issue hiện có theo bug ID/nội dung để cập nhật hoặc dẫn lại, tránh tạo trùng. Số issue theo bug độc lập, không theo số TC failed.
+2. Chuẩn bị nội dung từ detail trong report: bug ID/tiêu đề, nguồn oracle, môi trường/revision, precondition/input, steps, expected/actual, TC/run, tần suất thực đã thử và mức ảnh hưởng có căn cứ. Đính ảnh lỗi SUT thật; dùng upload/URL ảnh mà GitHub hiển thị được, không để đường dẫn local hoặc link tương đối của report trong issue.
+3. Tạo/cập nhật issue bằng công cụ đang có trong quyền được giao. Nếu thao tác trả lỗi hoặc bị ngắt mà chưa rõ đã tạo chưa, kiểm tra tracker trước khi thử lại; không tạo thêm issue theo phỏng đoán.
+4. Mở URL issue đã đăng để xác minh đúng repository, số/tiêu đề, nội dung và ảnh bug tải/hiển thị được. Trang soạn, bản nháp hoặc phản hồi tạo issue chưa đủ chứng minh bước này.
+5. Với HW02, **chụp màn hình trang issue đã đăng** cho từng issue được báo. Ảnh phải thể hiện repository, số/tiêu đề/trạng thái issue và phần nội dung/ảnh bug cần đối chiếu. Chụp thêm phần tiếp theo nếu trang dài; không chụp mọi đoạn bình luận. Xuất JPG, mở kiểm tra chữ và ngữ cảnh theo [evidence](evidence.md#ảnh-trang-github-issue).
+6. Cập nhật URL, trạng thái kiểm tra và link ảnh trang issue kèm thời gian chụp vào report/nguồn chung đang có. Đối chiếu bug ID ↔ TC/run ↔ issue ↔ ảnh; không thêm manifest riêng nếu các nguồn này đã đủ. Chỉ nhận hoàn tất phần Issues khi issue và ảnh lỗi hiển thị đúng, ảnh trang issue có thật và report dẫn đúng.
+
+Nếu đã đăng nhưng chưa chụp được trang, ghi “đã đăng, thiếu ảnh trang issue” cùng URL và lý do; không đăng lại hoặc nhận đã đủ evidence. Report-only dùng evidence của run đã có; chụp trang issue hiện tại có thời gian riêng, không cần chạy lại SUT.
 
 Không sửa nghiệp vụ, đổi expected hoặc tắt test để làm report xanh. Khi nhiệm vụ là kiểm thử, kết quả fail có thể chính là bằng chứng tốt; bài hoàn tất cần cách giải thích và hồ sơ đủ, không cần che bug để có 100% pass.

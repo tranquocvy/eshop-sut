@@ -6,14 +6,17 @@ Mục tiêu là chứng minh actual và truy lại **TC → run → observation/
 
 | Trường hợp | Lưu mặc định |
 | --- | --- |
-| TC pass | Actual và observation/assertion cụ thể trong kết quả chung; không bắt ảnh |
+| TC pass | Actual và observation/assertion cụ thể trong kết quả chung; mỗi dòng TC trong report link tới log/entry đó, không bắt ảnh |
 | Web/native UI | Màn hình, feedback và trạng thái đã quan sát; chụp khi cần chứng minh bằng ảnh hoặc task yêu cầu |
 | Persistence/state/sequence | Giá trị liên quan trước–sau và bước thực đã chạy; không suy từ toast hoặc một ảnh tĩnh |
 | API | Request đã lọc dữ liệu nhạy cảm, status/response/assertion cần thiết; không bắt ảnh |
 | Bug | Expected/actual, input/repro, TC/run và JPG symptom; ảnh input nếu cần |
+| GitHub issue của HW02 | Ảnh bug đính trong issue và JPG chụp trang issue thật sau khi đăng; URL issue và thời gian chụp trong report |
 | Blocked/harness | Lý do và bước cuối; thêm lỗi tool hoặc một ảnh điểm chặn khi hữu ích |
 
 Observation phải từ thao tác thật, không tự viết một kết quả hợp lý rồi gọi là evidence. Chưa quan sát được phần oracle thì ghi giới hạn/blocked. API/DB không chứng minh native UI đã chạy. Nhiều TC được dùng chung ảnh/log khi chỉ rõ entry và phần được chứng minh.
+
+Report phải dẫn evidence ở từng dòng TC đã chạy, kể cả pass, theo [quy tắc link evidence](report-contract.md#link-evidence-cho-từng-tc). Giữ TC/run và vị trí entry đủ truy lại khi dùng chung JSON/log. Link bug hay JPG trang issue không thay bằng chứng thực thi của từng TC. Không tạo ảnh pass hoặc file log riêng cho mỗi TC khi nguồn chung đã đủ.
 
 Không lưu toàn bộ UI tree sau mỗi thao tác hoặc cùng trạng thái dưới nhiều tên ảnh. Khi cần debug, lưu đoạn liên quan đến lỗi; log chi tiết là tùy chọn, không phải output mặc định.
 
@@ -50,6 +53,13 @@ Rerun thêm bản ghi có run ID trong nguồn chung; không ghi đè kết qu�
 
 Nhúng JPG bug cùng caption ngắn: TC/run, trạng thái và capture time. Caption chỉ nhận phần ảnh chứng minh; input/persistence bổ sung nằm trong kết quả chung. Dùng link tương đối; kiểm tra ảnh nhúng và số liệu trong Markdown.
 
-HW02 §6 yêu cầu ảnh bug trong Issues, §14 yêu cầu hồ sơ/ảnh trên trang Issues. Ảnh issue khác ảnh symptom SUT: chỉ chụp trang thật sau khi đã đăng. JPG là lựa chọn định dạng người dùng, không phải quy định đuôi ảnh của đề.
+HW02 §6 yêu cầu ảnh bug trong Issues, §14 yêu cầu hồ sơ/ảnh trên trang Issues. Theo yêu cầu nộp bài của người dùng, phải lưu thêm ảnh chụp trang GitHub issue đã đăng. JPG là lựa chọn định dạng người dùng, không phải quy định đuôi ảnh của đề. Trong issue, dùng upload/URL ảnh truy cập được trên GitHub và kiểm tra ảnh hiển thị; link tương đối dùng cho report local không thay ảnh đính trong issue.
 
-Report-only không chụp trạng thái mới rồi gán vào run cũ. Không tự xóa/sắp xếp lại evidence cũ chỉ để áp dụng cấu trúc gọn, trừ khi được giao dọn chúng.
+## Ảnh trang GitHub issue
+
+- Chụp trang issue thật sau khi đăng hoặc cập nhật và mở lại URL để kiểm tra. Không dùng trang soạn, ảnh dựng, source, JSON từ API hoặc ảnh lỗi SUT thay cho ảnh trang issue.
+- Mỗi issue được báo trong HW02 cần ảnh thể hiện repository, số/tiêu đề/trạng thái và nội dung/ảnh bug liên quan đủ đọc. Nếu một khung không đủ, chụp thêm phần cần thiết; giữ liên hệ với đúng issue, không cần ảnh toàn bộ bình luận hay một ảnh cho mỗi TC.
+- Lưu cùng thư mục ảnh hiện có, ví dụ `images/MR-BUG01-issue.jpg`; xuất và mở kiểm tra như JPG bug. Ghi bug ID, URL issue, đường dẫn ảnh và thời gian chụp/múi giờ ngay trong report hoặc nguồn chung. Không tạo file index mới chỉ cho bước này.
+- Nhúng ảnh trang issue vào report cùng link tới issue, phân biệt caption với ảnh symptom SUT. Kiểm tra link local và ảnh GitHub đều hiển thị. Nếu chưa chụp được thì ghi rõ phần thiếu, không nhận hồ sơ Issues đã hoàn tất.
+
+Report-only không chụp trạng thái SUT mới rồi gán vào run cũ. Có thể chụp trang issue hiện tại khi nhiệm vụ bao gồm hoàn thiện Issues; ghi thời gian chụp riêng, giữ nguyên thời gian/evidence của run gốc. Không tự xóa/sắp xếp lại evidence cũ chỉ để áp dụng cấu trúc gọn, trừ khi được giao dọn chúng.

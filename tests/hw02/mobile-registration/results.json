@@ -5924,6 +5924,77 @@
       "captured_at": "2026-10-19T20:05:28.447849+00:00",
       "tc": "MR-TC46",
       "run_id": "MR-RUN-07"
+    },
+    {
+      "path": "images/MR-BUG01-issue.jpg",
+      "issue_url": "https://github.com/tranquocvy/eshop-sut/issues/1",
+      "capture_requested_at": "2026-10-20T06:45:25.632Z",
+      "capture_completed_by": "2026-10-20T06:45:27.433Z",
+      "kind": "github_issue_page",
+      "bug_id": "MR-BUG01"
+    },
+    {
+      "path": "images/MR-BUG02-issue.jpg",
+      "issue_url": "https://github.com/tranquocvy/eshop-sut/issues/2",
+      "capture_requested_at": "2026-10-20T06:45:44.135Z",
+      "capture_completed_by": "2026-10-20T06:45:45.772Z",
+      "kind": "github_issue_page",
+      "bug_id": "MR-BUG02"
+    },
+    {
+      "path": "images/MR-BUG03-issue.jpg",
+      "issue_url": "https://github.com/tranquocvy/eshop-sut/issues/3",
+      "capture_requested_at": "2026-10-20T06:46:10.141Z",
+      "capture_completed_by": "2026-10-20T06:46:11.792Z",
+      "kind": "github_issue_page",
+      "bug_id": "MR-BUG03"
+    },
+    {
+      "path": "images/MR-BUG04-issue.jpg",
+      "issue_url": "https://github.com/tranquocvy/eshop-sut/issues/4",
+      "capture_requested_at": "2026-10-20T06:46:23.449Z",
+      "capture_completed_by": "2026-10-20T06:46:25.033Z",
+      "kind": "github_issue_page",
+      "bug_id": "MR-BUG04"
+    },
+    {
+      "path": "images/MR-BUG05-issue.jpg",
+      "issue_url": "https://github.com/tranquocvy/eshop-sut/issues/5",
+      "capture_requested_at": "2026-10-20T06:46:33.129Z",
+      "capture_completed_by": "2026-10-20T06:46:34.879Z",
+      "kind": "github_issue_page",
+      "bug_id": "MR-BUG05"
+    },
+    {
+      "path": "images/MR-BUG06-issue.jpg",
+      "issue_url": "https://github.com/tranquocvy/eshop-sut/issues/6",
+      "capture_requested_at": "2026-10-20T06:46:42.363Z",
+      "capture_completed_by": "2026-10-20T06:46:44.296Z",
+      "kind": "github_issue_page",
+      "bug_id": "MR-BUG06"
+    },
+    {
+      "path": "images/MR-BUG07-issue.jpg",
+      "issue_url": "https://github.com/tranquocvy/eshop-sut/issues/7",
+      "capture_requested_at": "2026-10-20T06:46:51.269Z",
+      "capture_completed_by": "2026-10-20T06:46:53.173Z",
+      "kind": "github_issue_page",
+      "bug_id": "MR-BUG07"
+    },
+    {
+      "path": "images/MR-BUG08-issue.jpg",
+      "issue_url": "https://github.com/tranquocvy/eshop-sut/issues/8",
+      "capture_requested_at": "2026-10-20T06:47:00.258Z",
+      "capture_completed_by": "2026-10-20T06:47:01.958Z",
+      "kind": "github_issue_page",
+      "bug_id": "MR-BUG08"
+    },
+    {
+      "issue_url": "https://github.com/tranquocvy/eshop-sut/issues",
+      "path": "images/MR-GitHub-issues.jpg",
+      "capture_requested_at": "2026-10-20T06:47:14.243Z",
+      "capture_completed_by": "2026-10-20T06:47:15.683Z",
+      "kind": "github_issue_list"
     }
   ],
   "bugs": [
@@ -5942,10 +6013,33 @@
         "images/MR-BUG01.jpg"
       ],
       "actual": "bước 1: account 0→1; báo thành công; Login",
-      "issue_status": "Local report only; not posted to GitHub",
-      "issue_url": null,
+      "issue_status": "Posted and browser-verified; issue-page JPG saved",
+      "issue_url": "https://github.com/tranquocvy/eshop-sut/issues/1",
       "observation_frequency": "1 affected TC, each executed once in the main run; no independent repeated-run measurement.",
-      "classification": "requirement_violation"
+      "classification": "requirement_violation",
+      "issue_number": 1,
+      "github_activity": [
+        {
+          "action": "created",
+          "at": "2026-10-20T13:44:29.285328+07:00",
+          "url": "https://github.com/tranquocvy/eshop-sut/issues/1"
+        },
+        {
+          "action": "api_content_verified",
+          "at": "2026-10-20T13:44:29.837770+07:00",
+          "url": "https://github.com/tranquocvy/eshop-sut/issues/1"
+        },
+        {
+          "action": "browser_verified_and_screenshot_saved",
+          "at": "2026-10-20T06:45:27.433Z",
+          "url": "https://github.com/tranquocvy/eshop-sut/issues/1",
+          "rendered_sut_image_count": 1,
+          "evidence": "images/MR-BUG01-issue.jpg"
+        }
+      ],
+      "issue_evidence": [
+        "images/MR-BUG01-issue.jpg"
+      ]
     },
     {
       "id": "MR-BUG02",
@@ -5968,10 +6062,33 @@
         "images/MR-BUG02.jpg"
       ],
       "actual": "bước 1: account 0→1; báo thành công; Login",
-      "issue_status": "Local report only; not posted to GitHub",
-      "issue_url": null,
+      "issue_status": "Posted and browser-verified; issue-page JPG saved",
+      "issue_url": "https://github.com/tranquocvy/eshop-sut/issues/2",
       "observation_frequency": "6 affected TC, each executed once in the main run; no independent repeated-run measurement.",
-      "classification": "requirement_violation"
+      "classification": "requirement_violation",
+      "issue_number": 2,
+      "github_activity": [
+        {
+          "action": "created",
+          "at": "2026-10-20T13:44:30.504243+07:00",
+          "url": "https://github.com/tranquocvy/eshop-sut/issues/2"
+        },
+        {
+          "action": "api_content_verified",
+          "at": "2026-10-20T13:44:31.019827+07:00",
+          "url": "https://github.com/tranquocvy/eshop-sut/issues/2"
+        },
+        {
+          "action": "browser_verified_and_screenshot_saved",
+          "at": "2026-10-20T06:45:45.772Z",
+          "url": "https://github.com/tranquocvy/eshop-sut/issues/2",
+          "rendered_sut_image_count": 2,
+          "evidence": "images/MR-BUG02-issue.jpg"
+        }
+      ],
+      "issue_evidence": [
+        "images/MR-BUG02-issue.jpg"
+      ]
     },
     {
       "id": "MR-BUG03",
@@ -5990,10 +6107,33 @@
         "images/MR-BUG03.jpg"
       ],
       "actual": "bước 1: account 0→1; báo thành công; Login; bước 2: account 1→2; báo thành công; Login",
-      "issue_status": "Local report only; not posted to GitHub",
-      "issue_url": null,
+      "issue_status": "Posted and browser-verified; issue-page JPG saved",
+      "issue_url": "https://github.com/tranquocvy/eshop-sut/issues/3",
       "observation_frequency": "2 affected TC, each executed once in the main run; no independent repeated-run measurement.",
-      "classification": "requirement_violation"
+      "classification": "requirement_violation",
+      "issue_number": 3,
+      "github_activity": [
+        {
+          "action": "created",
+          "at": "2026-10-20T13:44:31.694921+07:00",
+          "url": "https://github.com/tranquocvy/eshop-sut/issues/3"
+        },
+        {
+          "action": "api_content_verified",
+          "at": "2026-10-20T13:44:32.170440+07:00",
+          "url": "https://github.com/tranquocvy/eshop-sut/issues/3"
+        },
+        {
+          "action": "browser_verified_and_screenshot_saved",
+          "at": "2026-10-20T06:46:11.792Z",
+          "url": "https://github.com/tranquocvy/eshop-sut/issues/3",
+          "rendered_sut_image_count": 2,
+          "evidence": "images/MR-BUG03-issue.jpg"
+        }
+      ],
+      "issue_evidence": [
+        "images/MR-BUG03-issue.jpg"
+      ]
     },
     {
       "id": "MR-BUG04",
@@ -6012,14 +6152,37 @@
       ],
       "representative": "MR-TC33",
       "actual": "MR-TC33: Full-form inspection: Required native Confirmation field is absent after full-form inspection",
-      "issue_status": "Local report only; not posted to GitHub",
-      "issue_url": null,
+      "issue_status": "Posted and browser-verified; issue-page JPG saved",
+      "issue_url": "https://github.com/tranquocvy/eshop-sut/issues/4",
       "observation_frequency": "1 affected TC, each executed once; no independent repeated-run measurement.",
       "blocked_dependents": [
         "MR-TC34",
         "MR-TC35",
         "MR-TC36",
         "MR-TC37"
+      ],
+      "issue_number": 4,
+      "github_activity": [
+        {
+          "action": "created",
+          "at": "2026-10-20T13:44:32.970118+07:00",
+          "url": "https://github.com/tranquocvy/eshop-sut/issues/4"
+        },
+        {
+          "action": "api_content_verified",
+          "at": "2026-10-20T13:44:33.793455+07:00",
+          "url": "https://github.com/tranquocvy/eshop-sut/issues/4"
+        },
+        {
+          "action": "browser_verified_and_screenshot_saved",
+          "at": "2026-10-20T06:46:25.033Z",
+          "url": "https://github.com/tranquocvy/eshop-sut/issues/4",
+          "rendered_sut_image_count": 1,
+          "evidence": "images/MR-BUG04-issue.jpg"
+        }
+      ],
+      "issue_evidence": [
+        "images/MR-BUG04-issue.jpg"
       ]
     },
     {
@@ -6040,9 +6203,32 @@
       ],
       "representative": "MR-TC41",
       "actual": "MR-TC41: bước 1: tài khoản 0→1; báo thành công; Đăng nhập",
-      "issue_status": "Local report only; not posted to GitHub",
-      "issue_url": null,
-      "observation_frequency": "1 affected TC, each executed once; no independent repeated-run measurement."
+      "issue_status": "Posted and browser-verified; issue-page JPG saved",
+      "issue_url": "https://github.com/tranquocvy/eshop-sut/issues/5",
+      "observation_frequency": "1 affected TC, each executed once; no independent repeated-run measurement.",
+      "issue_number": 5,
+      "github_activity": [
+        {
+          "action": "created",
+          "at": "2026-10-20T13:44:34.457647+07:00",
+          "url": "https://github.com/tranquocvy/eshop-sut/issues/5"
+        },
+        {
+          "action": "api_content_verified",
+          "at": "2026-10-20T13:44:34.994932+07:00",
+          "url": "https://github.com/tranquocvy/eshop-sut/issues/5"
+        },
+        {
+          "action": "browser_verified_and_screenshot_saved",
+          "at": "2026-10-20T06:46:34.879Z",
+          "url": "https://github.com/tranquocvy/eshop-sut/issues/5",
+          "rendered_sut_image_count": 2,
+          "evidence": "images/MR-BUG05-issue.jpg"
+        }
+      ],
+      "issue_evidence": [
+        "images/MR-BUG05-issue.jpg"
+      ]
     },
     {
       "id": "MR-BUG06",
@@ -6063,9 +6249,32 @@
       ],
       "representative": "MR-TC43",
       "actual": "MR-TC43: bước 1: tài khoản 0→1; báo thành công; Đăng nhập; MR-TC53: bước 1: tài khoản 0→1; báo thành công; Đăng nhập",
-      "issue_status": "Local report only; not posted to GitHub",
-      "issue_url": null,
-      "observation_frequency": "2 affected TC, each executed once; no independent repeated-run measurement."
+      "issue_status": "Posted and browser-verified; issue-page JPG saved",
+      "issue_url": "https://github.com/tranquocvy/eshop-sut/issues/6",
+      "observation_frequency": "2 affected TC, each executed once; no independent repeated-run measurement.",
+      "issue_number": 6,
+      "github_activity": [
+        {
+          "action": "created",
+          "at": "2026-10-20T13:44:35.697935+07:00",
+          "url": "https://github.com/tranquocvy/eshop-sut/issues/6"
+        },
+        {
+          "action": "api_content_verified",
+          "at": "2026-10-20T13:44:36.248044+07:00",
+          "url": "https://github.com/tranquocvy/eshop-sut/issues/6"
+        },
+        {
+          "action": "browser_verified_and_screenshot_saved",
+          "at": "2026-10-20T06:46:44.296Z",
+          "url": "https://github.com/tranquocvy/eshop-sut/issues/6",
+          "rendered_sut_image_count": 2,
+          "evidence": "images/MR-BUG06-issue.jpg"
+        }
+      ],
+      "issue_evidence": [
+        "images/MR-BUG06-issue.jpg"
+      ]
     },
     {
       "id": "MR-BUG07",
@@ -6085,9 +6294,32 @@
       ],
       "representative": "MR-TC45",
       "actual": "MR-TC45: bước 1: tài khoản 0→1; báo thành công; Đăng nhập",
-      "issue_status": "Local report only; not posted to GitHub",
-      "issue_url": null,
-      "observation_frequency": "1 affected TC, each executed once; no independent repeated-run measurement."
+      "issue_status": "Posted and browser-verified; issue-page JPG saved",
+      "issue_url": "https://github.com/tranquocvy/eshop-sut/issues/7",
+      "observation_frequency": "1 affected TC, each executed once; no independent repeated-run measurement.",
+      "issue_number": 7,
+      "github_activity": [
+        {
+          "action": "created",
+          "at": "2026-10-20T13:44:36.881426+07:00",
+          "url": "https://github.com/tranquocvy/eshop-sut/issues/7"
+        },
+        {
+          "action": "api_content_verified",
+          "at": "2026-10-20T13:44:37.390330+07:00",
+          "url": "https://github.com/tranquocvy/eshop-sut/issues/7"
+        },
+        {
+          "action": "browser_verified_and_screenshot_saved",
+          "at": "2026-10-20T06:46:53.173Z",
+          "url": "https://github.com/tranquocvy/eshop-sut/issues/7",
+          "rendered_sut_image_count": 2,
+          "evidence": "images/MR-BUG07-issue.jpg"
+        }
+      ],
+      "issue_evidence": [
+        "images/MR-BUG07-issue.jpg"
+      ]
     },
     {
       "id": "MR-BUG08",
@@ -6107,9 +6339,32 @@
       ],
       "representative": "MR-TC46",
       "actual": "MR-TC46: bước 1: tài khoản 0→1; báo thành công; Đăng nhập",
-      "issue_status": "Local report only; not posted to GitHub",
-      "issue_url": null,
-      "observation_frequency": "1 affected TC, each executed once; no independent repeated-run measurement."
+      "issue_status": "Posted and browser-verified; issue-page JPG saved",
+      "issue_url": "https://github.com/tranquocvy/eshop-sut/issues/8",
+      "observation_frequency": "1 affected TC, each executed once; no independent repeated-run measurement.",
+      "issue_number": 8,
+      "github_activity": [
+        {
+          "action": "created",
+          "at": "2026-10-20T13:44:38.078933+07:00",
+          "url": "https://github.com/tranquocvy/eshop-sut/issues/8"
+        },
+        {
+          "action": "api_content_verified",
+          "at": "2026-10-20T13:44:38.594121+07:00",
+          "url": "https://github.com/tranquocvy/eshop-sut/issues/8"
+        },
+        {
+          "action": "browser_verified_and_screenshot_saved",
+          "at": "2026-10-20T06:47:01.958Z",
+          "url": "https://github.com/tranquocvy/eshop-sut/issues/8",
+          "rendered_sut_image_count": 2,
+          "evidence": "images/MR-BUG08-issue.jpg"
+        }
+      ],
+      "issue_evidence": [
+        "images/MR-BUG08-issue.jpg"
+      ]
     }
   ],
   "storage_note": "One shared result source and Markdown report; JPG for representative bugs and one bounded harness diagnostic. Raw legacy traces and superseded captures preserved outside repository in execution runtime.",
@@ -6168,5 +6423,18 @@
     "MR-TC52": "MR-RUN-07",
     "MR-TC53": "MR-RUN-07",
     "MR-TC54": "MR-RUN-07"
+  },
+  "github_publication": {
+    "repository": "tranquocvy/eshop-sut",
+    "mode": "report-only",
+    "sut_rerun": false,
+    "published_issue_count": 8,
+    "browser_verified_issue_count": 8,
+    "rendered_sut_image_count": 14,
+    "issue_page_jpg_count": 8,
+    "overview_evidence": "images/MR-GitHub-issues.jpg",
+    "source_artifact_revision": "6631d92c856ddb4ac0e510697cce32beca33a2c3",
+    "image_links": "Existing committed JPGs embedded through raw.githubusercontent.com URLs pinned to source_artifact_revision.",
+    "activity_log": "bugs[].github_activity; capture intervals in images[]; original TC/run data unchanged."
   }
 }
