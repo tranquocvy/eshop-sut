@@ -1,0 +1,34 @@
+KẾT QUẢ CÔNG CỤ TRONG CÁC LƯỢT XÂY SKILL
+Nguồn: transcript của phiên hiện tại; thời gian dưới đây là thời gian output công cụ (UTC).
+Các kiểm tra dùng dữ liệu giả lập hoặc kiểm tra cấu trúc; không phải lần chạy EShop.
+Kiểm tra cấu trúc ở P-005 có 8 file execution/reporting; sau bổ sung JPG ở P-007 bản hiện tại có 12 file.
+
+--- Source line 573 | 2026-10-19T13:34:37.389Z ---
+PASS: Hai biên của một khoảng: đúng tập điểm 2-value/3-value
+PASS: Xét cả hai boundary values của hai partition tiếp giáp
+PASS: Bước 0.01 dùng Decimal, không mặc định cộng/trừ 1
+PASS: Giữ chính xác số nguyên lớn, không mất dữ liệu như binary float
+PASS: Giới hạn biểu diễn loại điểm không nhập được và báo lý do
+PASS: Lattice có origin khác 0 vẫn tính đúng
+PASS: Từ chối 12 input sai: thiếu nguồn, sai step/liền kề/lattice/giới hạn/ID/schema
+PASS: CLI tạo JSON UTF-8 trong thư mục tạm; không ghi evidence bài thật
+
+--- Source line 1333 | 2026-10-19T15:07:08.146Z ---
+domain-bva-testing: PASS 9 files, 5 relative links, exact installed copy, no personal paths
+test-execution-reporting: PASS 8 files, 6 relative links, exact installed copy, no personal paths
+PASS: calculation helper unchanged; execution/report resources moved out of design skill
+
+--- Source line 1422 | 2026-10-19T15:17:59.047Z ---
+test_animation_is_not_silently_reduced_to_one_frame (__main__.ExportJpgTests.test_animation_is_not_silently_reduced_to_one_frame) ... ok
+test_command_line_exports_verified_file_and_metadata (__main__.ExportJpgTests.test_command_line_exports_verified_file_and_metadata) ... ok
+test_exif_display_orientation_is_respected_without_resizing (__main__.ExportJpgTests.test_exif_display_orientation_is_respected_without_resizing) ... ok
+test_existing_destination_is_preserved (__main__.ExportJpgTests.test_existing_destination_is_preserved) ... ok
+test_existing_jpeg_input_is_supported_without_changing_original (__main__.ExportJpgTests.test_existing_jpeg_input_is_supported_without_changing_original) ... ok
+test_invalid_image_or_wrong_extension_produces_no_output (__main__.ExportJpgTests.test_invalid_image_or_wrong_extension_produces_no_output) ... ok
+test_png_becomes_decodable_jpeg_and_preserves_source (__main__.ExportJpgTests.test_png_becomes_decodable_jpeg_and_preserves_source) ... ok
+test_same_source_and_destination_are_rejected (__main__.ExportJpgTests.test_same_source_and_destination_are_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.383s
+
+OK

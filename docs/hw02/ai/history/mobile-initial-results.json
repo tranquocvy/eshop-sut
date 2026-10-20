@@ -1,0 +1,3408 @@
+{
+  "run_id": "MR-RUN-01",
+  "started_at": "2026-10-19T18:35:19.761387+00:00",
+  "target": "native-android",
+  "namespace": "t02r01",
+  "selected": [
+    "MR-TC01",
+    "MR-TC02",
+    "MR-TC03",
+    "MR-TC04",
+    "MR-TC05",
+    "MR-TC06",
+    "MR-TC07",
+    "MR-TC08",
+    "MR-TC09",
+    "MR-TC10",
+    "MR-TC11",
+    "MR-TC12",
+    "MR-TC13",
+    "MR-TC14",
+    "MR-TC15",
+    "MR-TC16",
+    "MR-TC17",
+    "MR-TC18",
+    "MR-TC19",
+    "MR-TC20",
+    "MR-TC21",
+    "MR-TC22",
+    "MR-TC23",
+    "MR-TC24",
+    "MR-TC25",
+    "MR-TC26",
+    "MR-TC27",
+    "MR-TC28",
+    "MR-TC29",
+    "MR-TC30",
+    "MR-TC31",
+    "MR-TC32",
+    "MR-TC33",
+    "MR-TC34",
+    "MR-TC35",
+    "MR-TC36",
+    "MR-TC37",
+    "MR-TC38",
+    "MR-TC39",
+    "MR-TC40",
+    "MR-TC41",
+    "MR-TC42",
+    "MR-TC43",
+    "MR-TC44",
+    "MR-TC45",
+    "MR-TC46",
+    "MR-TC47",
+    "MR-TC48",
+    "MR-TC49",
+    "MR-TC50",
+    "MR-TC51",
+    "MR-TC52",
+    "MR-TC53",
+    "MR-TC54"
+  ],
+  "manifest": "D:\\Workspace\\SoftwareTesting\\HW02\\.runtime\\MR-execution-20261020\\services.json",
+  "database": "D:\\Workspace\\SoftwareTesting\\HW02\\.runtime\\MR-execution-20261020\\backend\\database.sqlite",
+  "api_url": "http://192.168.101.4:3001/api",
+  "device": "emulator-5554",
+  "expo_url": "exp://10.0.2.2:8083",
+  "sut_source_commit_from_manifest": "b8b1d2b18203a0ebf0a24352890da1e80fc0d5fc",
+  "documents": {
+    "design.md": "8462f8694c37f9ba7457165406c4b69dae0c3f8ace94826879868c42740a26b3",
+    "test-cases.md": "41242ac4452c551ef577d2f062cb7baa0b26a7706e74ea69fabbf8bde0b63a0f"
+  },
+  "implementation_sha256": {
+    "native_android.py": "e11b969cb57b42c4a42d17f3fdfb09cb42db55134fd40f76f7f56eee3a34993a",
+    "run.py": "0b4be50e5b1c689d59068229afe39b92e63f692c99ae58827b6016b324d3b1ef"
+  },
+  "cases": [
+    {
+      "id": "MR-TC01",
+      "status": "passed",
+      "technique": "Domain",
+      "traceability": "R01–09,R11; D02,D03",
+      "expected_text": "ACCEPT. Control cho bộ dữ liệu hợp lệ; S1 FR-01 dòng 32–36, S2. Không credit R10",
+      "document_line": 31,
+      "attempts": [
+        {
+          "step": 1,
+          "input": {
+            "name": "Nguyen Van A",
+            "email": "mr.t02r01.tc01@example.com",
+            "password": "Abcde1!x",
+            "confirmation": "Abcde1!x",
+            "expected": "ACCEPT",
+            "fill": "all_fields"
+          },
+          "before": {
+            "mr.t02r01.tc01@example.com": []
+          },
+          "after": {
+            "mr.t02r01.tc01@example.com": [
+              {
+                "id": 4,
+                "name": "Nguyen Van A",
+                "email": "mr.t02r01.tc01@example.com",
+                "role": "user",
+                "login_attempts": 0,
+                "locked_until": null,
+                "shipping_address": null,
+                "phone": null
+              }
+            ]
+          },
+          "observation": {
+            "at": "2026-10-19T18:36:30.066912+00:00",
+            "feedback": [
+              "Đăng ký tài khoản thành công."
+            ],
+            "success_signal": true,
+            "dialog_seen": true,
+            "login": true,
+            "registration": false,
+            "timed_out": false
+          },
+          "input_receipts": [
+            {
+              "field": "name",
+              "requested": "Nguyen Van A",
+              "code_points": 12,
+              "utf16_units": 12,
+              "sha256_utf8": "d25b1da6b43377f714e9682c49901142d09cc1b5d784c6f643dffb87cd884f22",
+              "transport": "android input text / native replacement",
+              "at": "2026-10-19T18:35:52.941906+00:00",
+              "readback": "Nguyen Van A"
+            },
+            {
+              "field": "email",
+              "requested": "mr.t02r01.tc01@example.com",
+              "code_points": 26,
+              "utf16_units": 26,
+              "sha256_utf8": "7896bb91fd88480f84478c296b878c5542f1c6345c4fdc248661088091159108",
+              "transport": "android input text / native replacement",
+              "at": "2026-10-19T18:36:07.294779+00:00",
+              "readback": "mr.t02r01.tc01@example.com"
+            },
+            {
+              "field": "password",
+              "requested": "Abcde1!x",
+              "code_points": 8,
+              "utf16_units": 8,
+              "sha256_utf8": "6546bf815fa7280c9171ffebb9081dac05aa81dd69706e4cd61857ffa9a54999",
+              "transport": "android input text / native replacement",
+              "at": "2026-10-19T18:36:17.029133+00:00",
+              "readback": "masked: transport acknowledged; plaintext not exposed"
+            }
+          ],
+          "problems": []
+        }
+      ],
+      "limitations": [
+        "Confirmation absent; this case does not exercise MR-R10"
+      ],
+      "started_at": "2026-10-19T18:35:19.847364+00:00",
+      "form": {
+        "complete": true,
+        "fields": {
+          "name": {
+            "bounds": "[48,316][672,398]",
+            "editable": true,
+            "class": "android.widget.EditText"
+          },
+          "email": {
+            "bounds": "[48,481][672,563]",
+            "editable": true,
+            "class": "android.widget.EditText"
+          },
+          "password": {
+            "bounds": "[48,646][672,728]",
+            "editable": true,
+            "class": "android.widget.EditText"
+          }
+        }
+      },
+      "submissions": 1,
+      "finished_at": "2026-10-19T18:36:30.828131+00:00",
+      "evidence_directory": "MR-TC01"
+    },
+    {
+      "id": "MR-TC02",
+      "status": "failed",
+      "technique": "Domain+BVA",
+      "traceability": "R01; D01; B06-0",
+      "expected_text": "REJECT vì thiếu Họ Tên; R01/S1:32",
+      "document_line": 32,
+      "attempts": [
+        {
+          "step": 1,
+          "input": {
+            "name": "",
+            "email": "mr.t02r01.tc02@example.com",
+            "password": "Abcde1!x",
+            "confirmation": "Abcde1!x",
+            "expected": "REJECT",
+            "fill": "all_fields"
+          },
+          "before": {
+            "mr.t02r01.tc02@example.com": []
+          },
+          "after": {
+            "mr.t02r01.tc02@example.com": [
+              {
+                "id": 5,
+                "name": "",
+                "email": "mr.t02r01.tc02@example.com",
+                "role": "user",
+                "login_attempts": 0,
+                "locked_until": null,
+                "shipping_address": null,
+                "phone": null
+              }
+            ]
+          },
+          "observation": {
+            "at": "2026-10-19T18:37:40.500236+00:00",
+            "feedback": [
+              "Đăng ký tài khoản thành công."
+            ],
+            "success_signal": true,
+            "dialog_seen": true,
+            "login": true,
+            "registration": false,
+            "timed_out": false
+          },
+          "input_receipts": [
+            {
+              "field": "name",
+              "requested": "",
+              "code_points": 0,
+              "utf16_units": 0,
+              "sha256_utf8": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "transport": "android input text / native replacement",
+              "at": "2026-10-19T18:37:04.351736+00:00",
+              "readback": ""
+            },
+            {
+              "field": "email",
+              "requested": "mr.t02r01.tc02@example.com",
+              "code_points": 26,
+              "utf16_units": 26,
+              "sha256_utf8": "cbd53b73450154e6ede07054459ecbfea13604a145350a71076dd03def46dcf5",
+              "transport": "android input text / native replacement",
+              "at": "2026-10-19T18:37:17.637591+00:00",
+              "readback": "mr.t02r01.tc02@example.com"
+            },
+            {
+              "field": "password",
+              "requested": "Abcde1!x",
+              "code_points": 8,
+              "utf16_units": 8,
+              "sha256_utf8": "6546bf815fa7280c9171ffebb9081dac05aa81dd69706e4cd61857ffa9a54999",
+              "transport": "android input text / native replacement",
+              "at": "2026-10-19T18:37:27.471167+00:00",
+              "readback": "masked: transport acknowledged; plaintext not exposed"
+            }
+          ],
+          "problems": [
+            "Invalid/duplicate submission created or changed watched account data",
+            "Invalid submission reported registration success",
+            "Invalid submission reached Login as if registration succeeded"
+          ]
+        }
+      ],
+      "limitations": [
+        "Confirmation absent; this case does not exercise MR-R10"
+      ],
+      "started_at": "2026-10-19T18:36:30.830414+00:00",
+      "form": {
+        "complete": true,
+        "fields": {
+          "name": {
+            "bounds": "[48,316][672,398]",
+            "editable": true,
+            "class": "android.widget.EditText"
+          },
+          "email": {
+            "bounds": "[48,481][672,563]",
+            "editable": true,
+            "class": "android.widget.EditText"
+          },
+          "password": {
+            "bounds": "[48,646][672,728]",
+            "editable": true,
+            "class": "android.widget.EditText"
+          }
+        }
+      },
+      "unperformed_sequence_steps": 0,
+      "reason": "Invalid/duplicate submission created or changed watched account data; Invalid submission reported registration success; Invalid submission reached Login as if registration succeeded",
+      "submissions": 1,
+      "finished_at": "2026-10-19T18:37:41.281197+00:00",
+      "evidence_directory": "MR-TC02"
+    },
+    {
+      "id": "MR-TC03",
+      "status": "passed",
+      "technique": "Domain+BVA",
+      "traceability": "R01; D02; B06-1",
+      "expected_text": "ACCEPT với tên nonempty; R01,R11/S1:32,36; A01 chưa có min tên khác",
+      "document_line": 33,
+      "attempts": [
+        {
+          "step": 1,
+          "input": {
+            "name": "V",
+            "email": "mr.t02r01.tc03@example.com",
+            "password": "Abcde1!x",
+            "confirmation": "Abcde1!x",
+            "expected": "ACCEPT",
+            "fill": "all_fields"
+          },
+          "before": {
+            "mr.t02r01.tc03@example.com": []
+          },
+          "after": {
+            "mr.t02r01.tc03@example.com": [
+              {
+                "id": 6,
+                "name": "V",
+                "email": "mr.t02r01.tc03@example.com",
+                "role": "user",
+                "login_attempts": 0,
+                "locked_until": null,
+                "shipping_address": null,
+                "phone": null
+              }
+            ]
+          },
+          "observation": {
+            "at": "2026-10-19T18:38:51.471137+00:00",
+            "feedback": [
+              "Đăng ký tài khoản thành công."
+            ],
+            "success_signal": true,
+            "dialog_seen": true,
+            "login": true,
+            "registration": false,
+            "timed_out": false
+          },
+          "input_receipts": [
+            {
+              "field": "name",
+              "requested": "V",
+              "code_points": 1,
+              "utf16_units": 1,
+              "sha256_utf8": "de5a6f78116eca62d7fc5ce159d23ae6b889b365a1739ad2cf36f925a140d0cc",
+              "transport": "android input text / native replacement",
+              "at": "2026-10-19T18:38:14.944724+00:00",
+              "readback": "V"
+            },
+            {
+              "field": "email",
+              "requested": "mr.t02r01.tc03@example.com",
+              "code_points": 26,
+              "utf16_units": 26,
+              "sha256_utf8": "8c08aaf627643b69abc27813880fa9b5ae393f8a9e12cf979777d7793629ff06",
+              "transport": "android input text / native replacement",
+              "at": "2026-10-19T18:38:28.268613+00:00",
+              "readback": "mr.t02r01.tc03@example.com"
+            },
+            {
+              "field": "password",
+              "requested": "Abcde1!x",
+              "code_points": 8,
+              "utf16_units": 8,
+              "sha256_utf8": "6546bf815fa7280c9171ffebb9081dac05aa81dd69706e4cd61857ffa9a54999",
+              "transport": "android input text / native replacement",
+              "at": "2026-10-19T18:38:38.065007+00:00",
+              "readback": "masked: transport acknowledged; plaintext not exposed"
+            }
+          ],
+          "problems": []
+        }
+      ],
+      "limitations": [
+        "Confirmation absent; this case does not exercise MR-R10"
+      ],
+      "started_at": "2026-10-19T18:37:41.282494+00:00",
+      "form": {
+        "complete": true,
+        "fields": {
+          "name": {
+            "bounds": "[48,316][672,398]",
+            "editable": true,
+            "class": "android.widget.EditText"
+          },
+          "email": {
+            "bounds": "[48,481][672,563]",
+            "editable": true,
+            "class": "android.widget.EditText"
+          },
+          "password": {
+            "bounds": "[48,646][672,728]",
+            "editable": true,
+            "class": "android.widget.EditText"
+          }
+        }
+      },
+      "submissions": 1,
+      "finished_at": "2026-10-19T18:38:52.229118+00:00",
+      "evidence_directory": "MR-TC03"
+    },
+    {
+      "id": "MR-TC04",
+      "status": "passed",
+      "technique": "Domain+BVA",
+      "traceability": "R01; D02; B06-2",
+      "expected_text": "ACCEPT; R01,R11/S1:32,36 và A01",
+      "document_line": 34,
+      "attempts": [
+        {
+          "step": 1,
+          "input": {
+            "name": "Vy",
+            "email": "mr.t02r01.tc04@example.com",
+            "password": "Abcde1!x",
+            "confirmation": "Abcde1!x",
+            "expected": "ACCEPT",
+            "fill": "all_fields"
+          },
+          "before": {
+            "mr.t02r01.tc04@example.com": []
+          },
+          "after": {
+            "mr.t02r01.tc04@example.com": [
+              {
+                "id": 7,
+                "name": "Vy",
+                "email": "mr.t02r01.tc04@example.com",
+                "role": "user",
+                "login_attempts": 0,
+                "locked_until": null,
+                "shipping_address": null,
+                "phone": null
+              }
+            ]
+          },
+          "observation": {
+            "at": "2026-10-19T18:40:03.241341+00:00",
+            "feedback": [
+              "Đăng ký tài khoản thành công."
+            ],
+            "success_signal": true,
+            "dialog_seen": true,
+            "login": true,
+            "registration": false,
+            "timed_out": false
+          },
+          "input_receipts": [
+            {
+              "field": "name",
+              "requested": "Vy",
+              "code_points": 2,
+              "utf16_units": 2,
+              "sha256_utf8": "08f063b8efbd2dfa4c0e23d90afe9d8db1eba9baa6045e35bff47c193f56412d",
+              "transport": "android input text / native replacement",
+              "at": "2026-10-19T18:39:26.044917+00:00",
+              "readback": "Vy"
+            },
+            {
+              "field": "email",
+              "requested": "mr.t02r01.tc04@example.com",
+              "code_points": 26,
+              "utf16_units": 26,
+              "sha256_utf8": "d159d37f6d0a35488e57b3cfe9a4562211df566f209bc4381d56772dec148467",
+              "transport": "android input text / native replacement",
+              "at": "2026-10-19T18:39:39.343266+00:00",
+              "readback": "mr.t02r01.tc04@example.com"
+            },
+            {
+              "field": "password",
+              "requested": "Abcde1!x",
+              "code_points": 8,
+              "utf16_units": 8,
+              "sha256_utf8": "6546bf815fa7280c9171ffebb9081dac05aa81dd69706e4cd61857ffa9a54999",
+              "transport": "android input text / native replacement",
+              "at": "2026-10-19T18:39:49.512694+00:00",
+              "readback": "masked: transport acknowledged; plaintext not exposed"
+            }
+          ],
+          "problems": []
+        }
+      ],
+      "limitations": [
+        "Confirmation absent; this case does not exercise MR-R10"
+      ],
+      "started_at": "2026-10-19T18:38:52.230436+00:00",
+      "form": {
+        "complete": true,
+        "fields": {
+          "name": {
+            "bounds": "[48,316][672,398]",
+            "editable": true,
+            "class": "android.widget.EditText"
+          },
+          "email": {
+            "bounds": "[48,481][672,563]",
+            "editable": true,
+            "class": "android.widget.EditText"
+          },
+          "password": {
+            "bounds": "[48,646][672,728]",
+            "editable": true,
+            "class": "android.widget.EditText"
+          }
+        }
+      },
+      "submissions": 1,
+      "finished_at": "2026-10-19T18:40:04.011006+00:00",
+      "evidence_directory": "MR-TC04"
+    },
+    {
+      "id": "MR-TC05",
+      "status": "passed",
+      "technique": "Domain",
+      "traceability": "R01; D02",
+      "expected_text": "ACCEPT; tên được cung cấp và không có rule ASCII-only; R01,R11/S1:32,36 và A01",
+      "document_line": 35,
+      "attempts": [
+        {
+          "step": 1,
+          "input": {
+            "name": "Trần Quốc Vỹ",
+            "email": "mr.t02r01.tc05@example.com",
+            "password": "Abcde1!x",
+            "confirmation": "Abcde1!x",
+            "expected": "ACCEPT",
+            "fill": "all_fields"
+          },
+          "before": {
+            "mr.t02r01.tc05@example.com": []
+          },
+          "after": {
+            "mr.t02r01.tc05@example.com": [
+              {
+                "id": 8,
+                "name": "Trần Quốc Vỹ",
+                "email": "mr.t02r01.tc05@example.com",
+                "role": "user",
+                "login_attempts": 0,
+                "locked_until": null,
+                "shipping_address": null,
+                "phone": null
+              }
+            ]
+          },
+          "observation": {
+            "at": "2026-10-19T18:41:12.452155+00:00",
+            "feedback": [
+              "Đăng ký tài khoản thành công."
+            ],
+            "success_signal": true,
+            "dialog_seen": true,
+            "login": true,
+            "registration": false,
+            "timed_out": false
+          },
+          "input_receipts": [
+            {
+              "field": "name",
+              "requested": "Trần Quốc Vỹ",
+              "code_points": 12,
+              "utf16_units": 12,
+              "sha256_utf8": "ca1427e3faa0c37063dee487925e3d987fa42d2793fa715c4bf4ef3411f2d6fe",
+              "transport": "android input text / native replacement",
+              "at": "2026-10-19T18:40:36.493303+00:00",
+              "readback": "Trần Quốc Vỹ"
+            },
+            {
+              "field": "email",
+              "requested": "mr.t02r01.tc05@example.com",
+              "code_points": 26,
+              "utf16_units": 26,
+              "sha256_utf8": "cdca114a1fcaf58774149e4920164001aa35db92deed970e82b37ae480e6b9ec",
+              "transport": "android input text / native replacement",
+              "at": "2026-10-19T18:40:50.191077+00:00",
+              "readback": "mr.t02r01.tc05@example.com"
+            },
+            {
+              "field": "password",
+              "requested": "Abcde1!x",
+              "code_points": 8,
+              "utf16_units": 8,
+              "sha256_utf8": "6546bf815fa7280c9171ffebb9081dac05aa81dd69706e4cd61857ffa9a54999",
+              "transport": "android input text / native replacement",
+              "at": "2026-10-19T18:40:59.848348+00:00",
+              "readback": "masked: transport acknowledged; plaintext not exposed"
+            }
+          ],
+          "problems": []
+        }
+      ],
+      "limitations": [
+        "Confirmation absent; this case does not exercise MR-R10"
+      ],
+      "started_at": "2026-10-19T18:40:04.012723+00:00",
+      "form": {
+        "complete": true,
+        "fields": {
+          "name": {
+            "bounds": "[48,316][672,398]",
+            "editable": true,
+            "class": "android.widget.EditText"
+          },
+          "email": {
+            "bounds": "[48,481][672,563]",
+            "editable": true,
+            "class": "android.widget.EditText"
+          },
+          "password": {
+            "bounds": "[48,646][672,728]",
+            "editable": true,
+            "class": "android.widget.EditText"
+          }
+        }
+      },
+      "submissions": 1,
+      "finished_at": "2026-10-19T18:41:13.231312+00:00",
+      "evidence_directory": "MR-TC05"
+    },
+    {
+      "id": "MR-TC06",
+      "status": "failed",
+      "technique": "Domain",
+      "traceability": "R02; D04",
+      "expected_text": "REJECT vì thiếu Email; R02/S1:32–33",
+      "document_line": 36,
+      "attempts": [
+        {
+          "step": 1,
+          "input": {
+            "name": "Nguyen Van A",
+            "email": "",
+            "password": "Abcde1!x",
+            "confirmation": "Abcde1!x",
+            "expected": "REJECT",
+            "fill": "all_fields"
+          },
+          "before": {
+            "": []
+          },
+          "after": {
+            "": [
+              {
+                "id": 9,
+                "name": "Nguyen Van A",
+                "email": "",
+                "role": "user",
+                "login_attempts": 0,
+                "locked_until": null,
+                "shipping_address": null,
+                "phone": null
+              }
+            ]
+          },
+          "observation": {
+            "at": "2026-10-19T18:42:22.591697+00:00",
+            "feedback": [
+              "Đăng ký tài khoản thành công."
+            ],
+            "success_signal": true,
+            "dialog_seen": true,
+            "login": true,
+            "registration": false,
+            "timed_out": false
+          },
+          "input_receipts": [
+            {
+              "field": "name",
+              "requested": "Nguyen Van A",
+              "code_points": 12,
+              "utf16_units": 12,
+              "sha256_utf8": "d25b1da6b43377f714e9682c49901142d09cc1b5d784c6f643dffb87cd884f22",
+              "transport": "android input text / native replacement",
+              "at": "2026-10-19T18:41:46.735960+00:00",
+              "readback": "Nguyen Van A"
+            },
+            {
+              "field": "email",
+              "requested": "",
+              "code_points": 0,
+              "utf16_units": 0,
+              "sha256_utf8": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "transport": "android input text / native replacement",
+              "at": "2026-10-19T18:41:59.707144+00:00",
+              "readback": ""
+            },
+            {
+              "field": "password",
+              "requested": "Abcde1!x",
+              "code_points": 8,
+              "utf16_units": 8,
+              "sha256_utf8": "6546bf815fa7280c9171ffebb9081dac05aa81dd69706e4cd61857ffa9a54999",
+              "transport": "android input text / native replacement",
+              "at": "2026-10-19T18:42:10.094532+00:00",
+              "readback": "masked: transport acknowledged; plaintext not exposed"
+            }
+          ],
+          "problems": [
+            "Invalid/duplicate submission created or changed watched account data",
+            "Invalid submission reported registration success",
+            "Invalid submission reached Login as if registration succeeded"
+          ]
+        }
+      ],
+      "limitations": [
+        "Confirmation absent; this case does not exercise MR-R10"
+      ],
+      "started_at": "2026-10-19T18:41:13.232435+00:00",
+      "form": {
+        "complete": true,
+        "fields": {
+          "name": {
+            "bounds": "[48,316][672,398]",
+            "editable": true,
+            "class": "android.widget.EditText"
+          },
+          "email": {
+            "bounds": "[48,481][672,563]",
+            "editable": true,
+            "class": "android.widget.EditText"
+          },
+          "password": {
+            "bounds": "[48,646][672,728]",
+            "editable": true,
+            "class": "android.widget.EditText"
+          }
+        }
+      },
+      "unperformed_sequence_steps": 0,
+      "reason": "Invalid/duplicate submission created or changed watched account data; Invalid submission reported registration success; Invalid submission reached Login as if registration succeeded",
+      "submissions": 1,
+      "finished_at": "2026-10-19T18:42:23.375040+00:00",
+      "evidence_directory": "MR-TC06"
+    },
+    {
+      "id": "MR-TC07",
+      "status": "failed",
+      "technique": "Domain",
+      "traceability": "R02; D05",
+      "expected_text": "REJECT vì thiếu `@`; R02/S1:33",
+      "document_line": 37,
+      "attempts": [
+        {
+          "step": 1,
+          "input": {
+            "name": "Nguyen Van A",
+            "email": "mr.t02r01.tc07.example.com",
+            "password": "Abcde1!x",
+            "confirmation": "Abcde1!x",
+            "expected": "REJECT",
+            "fill": "all_fields"
+          },
+          "before": {
+            "mr.t02r01.tc07.example.com": []
+          },
+          "after": {
+            "mr.t02r01.tc07.example.com": [
+              {
+                "id": 10,
+                "name": "Nguyen Van A",
+                "email": "mr.t02r01.tc07.example.com",
+                "role": "user",
+                "login_attempts": 0,
+                "locked_until": null,
+                "shipping_address": null,
+                "phone": null
+              }
+            ]
+          },
+          "observation": {
+            "at": "2026-10-19T18:43:31.109947+00:00",
+            "feedback": [
+              "Đăng ký tài khoản thành công."
+            ],
+            "success_signal": true,
+            "dialog_seen": true,
+            "login": true,
+            "registration": false,
+            "timed_out": false
+          },
+          "input_receipts": [
+            {
+              "field": "name",
+              "requested": "Nguyen Van A",
+              "code_points": 12,
+              "utf16_units": 12,
+              "sha256_utf8": "d25b1da6b43377f714e9682c49901142d09cc1b5d784c6f643dffb87cd884f22",
+              "transport": "android input text / native replacement",
+              "at": "2026-10-19T18:42:55.443363+00:00",
+              "readback": "Nguyen Van A"
+            },
+            {
+              "field": "email",
+              "requested": "mr.t02r01.tc07.example.com",
+              "code_points": 26,
+              "utf16_units": 26,
+              "sha256_utf8": "91627d3aebafe7bb0ff7d3c9bfd0ad4412d879b65e28221cba5af6136a8a22ff",
+              "transport": "android input text / native replacement",
+              "at": "2026-10-19T18:43:09.051831+00:00",
+              "readback": "mr.t02r01.tc07.example.com"
+            },
+            {
+              "field": "password",
+              "requested": "Abcde1!x",
+              "code_points": 8,
+              "utf16_units": 8,
+              "sha256_utf8": "6546bf815fa7280c9171ffebb9081dac05aa81dd69706e4cd61857ffa9a54999",
+              "transport": "android input text / native replacement",
+              "at": "2026-10-19T18:43:18.650167+00:00",
+              "readback": "masked: transport acknowledged; plaintext not exposed"
+            }
+          ],
+          "problems": [
+            "Invalid/duplicate submission created or changed watched account data",
+            "Invalid submission reported registration success",
+            "Invalid submission reached Login as if registration succeeded"
+          ]
+        }
+      ],
+      "limitations": [
+        "Confirmation absent; this case does not exercise MR-R10"
+      ],
+      "started_at": "2026-10-19T18:42:23.376141+00:00",
+      "form": {
+        "complete": true,
+        "fields": {
+          "name": {
+            "bounds": "[48,316][672,398]",
+            "editable": true,
+            "class": "android.widget.EditText"
+          },
+          "email": {
+            "bounds": "[48,481][672,563]",
+            "editable": true,
+            "class": "android.widget.EditText"
+          },
+          "password": {
+            "bounds": "[48,646][672,728]",
+            "editable": true,
+            "class": "android.widget.EditText"
+          }
+        }
+      },
+      "unperformed_sequence_steps": 0,
+      "reason": "Invalid/duplicate submission created or changed watched account data; Invalid submission reported registration success; Invalid submission reached Login as if registration succeeded",
+      "submissions": 1,
+      "finished_at": "2026-10-19T18:43:31.875957+00:00",
+      "evidence_directory": "MR-TC07"
+    },
+    {
+      "id": "MR-TC08",
+      "status": "failed",
+      "technique": "Domain",
+      "traceability": "R02; D06",
+      "expected_text": "REJECT vì thiếu local-part; R02/S1:33",
+      "document_line": 38,
+      "attempts": [
+        {
+          "step": 1,
+          "input": {
+            "name": "Nguyen Van A",
+            "email": "@example.com",
+            "password": "Abcde1!x",
+            "confirmation": "Abcde1!x",
+            "expected": "REJECT",
+            "fill": "all_fields"
+          },
+          "before": {
+            "@example.com": []
+          },
+          "after": {
+            "@example.com": [
+              {
+                "id": 11,
+                "name": "Nguyen Van A",
+                "email": "@example.com",
+                "role": "user",
+                "login_attempts": 0,
+                "locked_until": null,
+                "shipping_address": null,
+                "phone": null
+              }
+            ]
+          },
+          "observation": {
+            "at": "2026-10-19T18:44:43.581963+00:00",
+            "feedback": [
+              "Đăng ký tài khoản thành công."
+            ],
+            "success_signal": true,
+            "dialog_seen": true,
+            "login": true,
+            "registration": false,
+            "timed_out": false
+          },
+          "input_receipts": [
+            {
+              "field": "name",
+              "requested": "Nguyen Van A",
+              "code_points": 12,
+              "utf16_units": 12,
+              "sha256_utf8": "d25b1da6b43377f714e9682c49901142d09cc1b5d784c6f643dffb87cd884f22",
+              "transport": "android input text / native replacement",
+              "at": "2026-10-19T18:44:05.725369+00:00",
+              "readback": "Nguyen Van A"
+            },
+            {
+              "field": "email",
+              "requested": "@example.com",
+              "code_points": 12,
+              "utf16_units": 12,
+              "sha256_utf8": "5ded7034f18daeb6f3e8a29b9cefb5084a25a289ea98e8bddb94a2e4df875afa",
+              "transport": "android input text / native replacement",
+              "at": "2026-10-19T18:44:20.558612+00:00",
+              "readback": "@example.com"
+            },
+            {
+              "field": "password",
+              "requested": "Abcde1!x",
+              "code_points": 8,
+              "utf16_units": 8,
+              "sha256_utf8": "6546bf815fa7280c9171ffebb9081dac05aa81dd69706e4cd61857ffa9a54999",
+              "transport": "android input text / native replacement",
+              "at": "2026-10-19T18:44:30.789541+00:00",
+              "readback": "masked: transport acknowledged; plaintext not exposed"
+            }
+          ],
+          "problems": [
+            "Invalid/duplicate submission created or changed watched account data",
+            "Invalid submission reported registration success",
+            "Invalid submission reached Login as if registration succeeded"
+          ]
+        }
+      ],
+      "limitations": [
+        "Confirmation absent; this case does not exercise MR-R10"
+      ],
+      "started_at": "2026-10-19T18:43:31.877024+00:00",
+      "form": {
+        "complete": true,
+        "fields": {
+          "name": {
+            "bounds": "[48,316][672,398]",
+            "editable": true,
+            "class": "android.widget.EditText"
+          },
+          "email": {
+            "bounds": "[48,481][672,563]",
+            "editable": true,
+            "class": "android.widget.EditText"
+          },
+          "password": {
+            "bounds": "[48,646][672,728]",
+            "editable": true,
+            "class": "android.widget.EditText"
+          }
+        }
+      },
+      "unperformed_sequence_steps": 0,
+      "reason": "Invalid/duplicate submission created or changed watched account data; Invalid submission reported registration success; Invalid submission reached Login as if registration succeeded",
+      "submissions": 1,
+      "finished_at": "2026-10-19T18:44:44.362474+00:00",
+      "evidence_directory": "MR-TC08"
+    },
+    {
+      "id": "MR-TC09",
+      "status": "failed",
+      "technique": "Domain",
+      "traceability": "R02; D07",
+      "expected_text": "REJECT vì thiếu domain; R02/S1:33",
+      "document_line": 39,
+      "attempts": [
+        {
+          "step": 1,
+          "input": {
+            "name": "Nguyen Van A",
+            "email": "mr.t02r01.tc09@",
+            "password": "Abcde1!x",
+            "confirmation": "Abcde1!x",
+            "expected": "REJECT",
+            "fill": "all_fields"
+          },
+          "before": {
+            "mr.t02r01.tc09@": []
+          },
+          "after": {
+            "mr.t02r01.tc09@": [
+              {
+                "id": 12,
+                "name": "Nguyen Van A",
+                "email": "mr.t02r01.tc09@",
+                "role": "user",
+                "login_attempts": 0,
+                "locked_until": null,
+                "shipping_address": null,
+                "phone": null
+              }
+            ]
+          },
+          "observation": {
+            "at": "2026-10-19T18:45:54.474715+00:00",
+            "feedback": [
+              "Đăng ký tài khoản thành công."
+            ],
+            "success_signal": true,
+            "dialog_seen": true,
+            "login": true,
+            "registration": false,
+            "timed_out": false
+          },
+          "input_receipts": [
+            {
+              "field": "name",
+              "requested": "Nguyen Van A",
+              "code_points": 12,
+              "utf16_units": 12,
+              "sha256_utf8": "d25b1da6b43377f714e9682c49901142d09cc1b5d784c6f643dffb87cd884f22",
+              "transport": "android input text / native replacement",
+              "at": "2026-10-19T18:45:18.384615+00:00",
+              "readback": "Nguyen Van A"
+            },
+            {
+              "field": "email",
+              "requested": "mr.t02r01.tc09@",
+              "code_points": 15,
+              "utf16_units": 15,
+              "sha256_utf8": "d52fdeba698e0eaecd8d6dafccf22f08136494667bccc5f24c30a721776131d8",
+              "transport": "android input text / native replacement",
+              "at": "2026-10-19T18:45:31.568983+00:00",
+              "readback": "mr.t02r01.tc09@"
+            },
+            {
+              "field": "password",
+              "requested": "Abcde1!x",
+              "code_points": 8,
+              "utf16_units": 8,
+              "sha256_utf8": "6546bf815fa7280c9171ffebb9081dac05aa81dd69706e4cd61857ffa9a54999",
+              "transport": "android input text / native replacement",
+              "at": "2026-10-19T18:45:41.701648+00:00",
+              "readback": "masked: transport acknowledged; plaintext not exposed"
+            }
+          ],
+          "problems": [
+            "Invalid/duplicate submission created or changed watched account data",
+            "Invalid submission reported registration success",
+            "Invalid submission reached Login as if registration succeeded"
+          ]
+        }
+      ],
+      "limitations": [
+        "Confirmation absent; this case does not exercise MR-R10"
+      ],
+      "started_at": "2026-10-19T18:44:44.363919+00:00",
+      "form": {
+        "complete": true,
+        "fields": {
+          "name": {
+            "bounds": "[48,316][672,398]",
+            "editable": true,
+            "class": "android.widget.EditText"
+          },
+          "email": {
+            "bounds": "[48,481][672,563]",
+            "editable": true,
+            "class": "android.widget.EditText"
+          },
+          "password": {
+            "bounds": "[48,646][672,728]",
+            "editable": true,
+            "class": "android.widget.EditText"
+          }
+        }
+      },
+      "unperformed_sequence_steps": 0,
+      "reason": "Invalid/duplicate submission created or changed watched account data; Invalid submission reported registration success; Invalid submission reached Login as if registration succeeded",
+      "submissions": 1,
+      "finished_at": "2026-10-19T18:45:55.259595+00:00",
+      "evidence_directory": "MR-TC09"
+    },
+    {
+      "id": "MR-TC10",
+      "status": "failed",
+      "technique": "Domain",
+      "traceability": "R02; D08",
+      "expected_text": "REJECT vì space trong local-part không quote của địa chỉ đơn giản; R02/S1:33; không xét trim",
+      "document_line": 40,
+      "attempts": [
+        {
+          "step": 1,
+          "input": {
+            "name": "Nguyen Van A",
+            "email": "mr t02r01.tc10@example.com",
+            "password": "Abcde1!x",
+            "confirmation": "Abcde1!x",
+            "expected": "REJECT",
+            "fill": "all_fields"
+          },
+          "before": {
+            "mr t02r01.tc10@example.com": []
+          },
+          "after": {
+            "mr t02r01.tc10@example.com": [
+              {
+                "id": 13,
+                "name": "Nguyen Van A",
+                "email": "mr t02r01.tc10@example.com",
+                "role": "user",
+                "login_attempts": 0,
+                "locked_until": null,
+                "shipping_address": null,
+                "phone": null
+              }
+            ]
+          },
+          "observation": {
+            "at": "2026-10-19T18:47:05.699762+00:00",
+            "feedback": [
+              "Đăng ký tài khoản thành công."
+            ],
+            "success_signal": true,
+            "dialog_seen": true,
+            "login": true,
+            "registration": false,
+            "timed_out": false
+          },
+          "input_receipts": [
+            {
+              "field": "name",
+              "requested": "Nguyen Van A",
+              "code_points": 12,
+              "utf16_units": 12,
+              "sha256_utf8": "d25b1da6b43377f714e9682c49901142d09cc1b5d784c6f643dffb87cd884f22",
+              "transport": "android input text / native replacement",
+              "at": "2026-10-19T18:46:28.916543+00:00",
+              "readback": "Nguyen Van A"
+            },
+            {
+              "field": "email",
+              "requested": "mr t02r01.tc10@example.com",
+              "code_points": 26,
+              "utf16_units": 26,
+              "sha256_utf8": "9a5f046664f23e5adc6c8cd7a5fe4a43abfb6257d1f0bc734bf44938a0e597ba",
+              "transport": "android input text / native replacement",
+              "at": "2026-10-19T18:46:42.364572+00:00",
+              "readback": "mr t02r01.tc10@example.com"
+            },
+            {
+              "field": "password",
+              "requested": "Abcde1!x",
+              "code_points": 8,
+              "utf16_units": 8,
+              "sha256_utf8": "6546bf815fa7280c9171ffebb9081dac05aa81dd69706e4cd61857ffa9a54999",
+              "transport": "android input text / native replacement",
+              "at": "2026-10-19T18:46:52.185230+00:00",
+              "readback": "masked: transport acknowledged; plaintext not exposed"
+            }
+          ],
+          "problems": [
+            "Invalid/duplicate submission created or changed watched account data",
+            "Invalid submission reported registration success",
+            "Invalid submission reached Login as if registration succeeded"
+          ]
+        }
+      ],
+      "limitations": [
+        "Confirmation absent; this case does not exercise MR-R10"
+      ],
+      "started_at": "2026-10-19T18:45:55.261050+00:00",
+      "form": {
+        "complete": true,
+        "fields": {
+          "name": {
+            "bounds": "[48,316][672,398]",
+            "editable": true,
+            "class": "android.widget.EditText"
+          },
+          "email": {
+            "bounds": "[48,481][672,563]",
+            "editable": true,
+            "class": "android.widget.EditText"
+          },
+          "password": {
+            "bounds": "[48,646][672,728]",
+            "editable": true,
+            "class": "android.widget.EditText"
+          }
+        }
+      },
+      "unperformed_sequence_steps": 0,
+      "reason": "Invalid/duplicate submission created or changed watched account data; Invalid submission reported registration success; Invalid submission reached Login as if registration succeeded",
+      "submissions": 1,
+      "finished_at": "2026-10-19T18:47:06.492764+00:00",
+      "evidence_directory": "MR-TC10"
+    },
+    {
+      "id": "MR-TC11",
+      "status": "failed",
+      "technique": "Domain",
+      "traceability": "R02; D09",
+      "expected_text": "REJECT vì hai `@` liên tiếp, không quote; R02/S1:33",
+      "document_line": 41,
+      "attempts": [
+        {
+          "step": 1,
+          "input": {
+            "name": "Nguyen Van A",
+            "email": "mr.t02r01.tc11@@example.com",
+            "password": "Abcde1!x",
+            "confirmation": "Abcde1!x",
+            "expected": "REJECT",
+            "fill": "all_fields"
+          },
+          "before": {
+            "mr.t02r01.tc11@@example.com": []
+          },
+          "after": {
+            "mr.t02r01.tc11@@example.com": [
+              {
+                "id": 14,
+                "name": "Nguyen Van A",
+                "email": "mr.t02r01.tc11@@example.com",
+                "role": "user",
+                "login_attempts": 0,
+                "locked_until": null,
+                "shipping_address": null,
+                "phone": null
+              }
+            ]
+          },
+          "observation": {
+            "at": "2026-10-19T18:48:16.254974+00:00",
+            "feedback": [
+              "Đăng ký tài khoản thành công."
+            ],
+            "success_signal": true,
+            "dialog_seen": true,
+            "login": true,
+            "registration": false,
+            "timed_out": false
+          },
+          "input_receipts": [
+            {
+              "field": "name",
+              "requested": "Nguyen Van A",
+              "code_points": 12,
+              "utf16_units": 12,
+              "sha256_utf8": "d25b1da6b43377f714e9682c49901142d09cc1b5d784c6f643dffb87cd884f22",
+              "transport": "android input text / native replacement",
+              "at": "2026-10-19T18:47:38.852157+00:00",
+              "readback": "Nguyen Van A"
+            },
+            {
+              "field": "email",
+              "requested": "mr.t02r01.tc11@@example.com",
+              "code_points": 27,
+              "utf16_units": 27,
+              "sha256_utf8": "1574a2011939bc353773717d7d5fe009af14846334da76a5dc2c71378e037462",
+              "transport": "android input text / native replacement",
+              "at": "2026-10-19T18:47:52.683930+00:00",
+              "readback": "mr.t02r01.tc11@@example.com"
+            },
+            {
+              "field": "password",
+              "requested": "Abcde1!x",
+              "code_points": 8,
+              "utf16_units": 8,
+              "sha256_utf8": "6546bf815fa7280c9171ffebb9081dac05aa81dd69706e4cd61857ffa9a54999",
+              "transport": "android input text / native replacement",
+              "at": "2026-10-19T18:48:03.104670+00:00",
+              "readback": "masked: transport acknowledged; plaintext not exposed"
+            }
+          ],
+          "problems": [
+            "Invalid/duplicate submission created or changed watched account data",
+            "Invalid submission reported registration success",
+            "Invalid submission reached Login as if registration succeeded"
+          ]
+        }
+      ],
+      "limitations": [
+        "Confirmation absent; this case does not exercise MR-R10"
+      ],
+      "started_at": "2026-10-19T18:47:06.494106+00:00",
+      "form": {
+        "complete": true,
+        "fields": {
+          "name": {
+            "bounds": "[48,316][672,398]",
+            "editable": true,
+            "class": "android.widget.EditText"
+          },
+          "email": {
+            "bounds": "[48,481][672,563]",
+            "editable": true,
+            "class": "android.widget.EditText"
+          },
+          "password": {
+            "bounds": "[48,646][672,728]",
+            "editable": true,
+            "class": "android.widget.EditText"
+          }
+        }
+      },
+      "unperformed_sequence_steps": 0,
+      "reason": "Invalid/duplicate submission created or changed watched account data; Invalid submission reported registration success; Invalid submission reached Login as if registration succeeded",
+      "submissions": 1,
+      "finished_at": "2026-10-19T18:48:17.082916+00:00",
+      "evidence_directory": "MR-TC11"
+    },
+    {
+      "id": "MR-TC12",
+      "status": "failed",
+      "technique": "Domain",
+      "traceability": "R03; D10",
+      "expected_text": "REJECT duplicate nguyên chuỗi; account count của E không tăng, dữ liệu account cũ không đổi; R03/S1:33; fixture từ README:24",
+      "document_line": 42,
+      "attempts": [
+        {
+          "step": 1,
+          "input": {
+            "name": "Nguyen Van A",
+            "email": "test@eshop.com",
+            "password": "Abcde1!x",
+            "confirmation": "Abcde1!x",
+            "expected": "REJECT",
+            "fill": "all_fields"
+          },
+          "before": {
+            "test@eshop.com": [
+              {
+                "id": 2,
+                "name": "Test User",
+                "email": "test@eshop.com",
+                "role": "user",
+                "login_attempts": 0,
+                "locked_until": null,
+                "shipping_address": null,
+                "phone": null
+              }
+            ]
+          },
+          "after": {
+            "test@eshop.com": [
+              {
+                "id": 2,
+                "name": "Test User",
+                "email": "test@eshop.com",
+                "role": "user",
+                "login_attempts": 0,
+                "locked_until": null,
+                "shipping_address": null,
+                "phone": null
+              },
+              {
+                "id": 15,
+                "name": "Nguyen Van A",
+                "email": "test@eshop.com",
+                "role": "user",
+                "login_attempts": 0,
+                "locked_until": null,
+                "shipping_address": null,
+                "phone": null
+              }
+            ]
+          },
+          "observation": {
+            "at": "2026-10-19T18:49:26.627379+00:00",
+            "feedback": [
+              "Đăng ký tài khoản thành công."
+            ],
+            "success_signal": true,
+            "dialog_seen": true,
+            "login": true,
+            "registration": false,
+            "timed_out": false
+          },
+          "input_receipts": [
+            {
+              "field": "name",
+              "requested": "Nguyen Van A",
+              "code_points": 12,
+              "utf16_units": 12,
+              "sha256_utf8": "d25b1da6b43377f714e9682c49901142d09cc1b5d784c6f643dffb87cd884f22",
+              "transport": "android input text / native replacement",
+              "at": "2026-10-19T18:48:50.400030+00:00",
+              "readback": "Nguyen Van A"
+            },
+            {
+              "field": "email",
+              "requested": "test@eshop.com",
+              "code_points": 14,
+              "utf16_units": 14,
+              "sha256_utf8": "62e3e4287d273e1efbe57c913790999f7d096ea95ca1c90058cd83797c3fc8c6",
+              "transport": "android input text / native replacement",
+              "at": "2026-10-19T18:49:03.730829+00:00",
+              "readback": "test@eshop.com"
+            },
+            {
+              "field": "password",
+              "requested": "Abcde1!x",
+              "code_points": 8,
+              "utf16_units": 8,
+              "sha256_utf8": "6546bf815fa7280c9171ffebb9081dac05aa81dd69706e4cd61857ffa9a54999",
+              "transport": "android input text / native replacement",
+              "at": "2026-10-19T18:49:13.449749+00:00",
+              "readback": "masked: transport acknowledged; plaintext not exposed"
+            }
+          ],
+          "problems": [
+            "Invalid/duplicate submission created or changed watched account data",
+            "Invalid submission reported registration success",
+            "Invalid submission reached Login as if registration succeeded"
+          ]
+        }
+      ],
+      "limitations": [
+        "Confirmation absent; this case does not exercise MR-R10"
+      ],
+      "started_at": "2026-10-19T18:48:17.086434+00:00",
+      "form": {
+        "complete": true,
+        "fields": {
+          "name": {
+            "bounds": "[48,316][672,398]",
+            "editable": true,
+            "class": "android.widget.EditText"
+          },
+          "email": {
+            "bounds": "[48,481][672,563]",
+            "editable": true,
+            "class": "android.widget.EditText"
+          },
+          "password": {
+            "bounds": "[48,646][672,728]",
+            "editable": true,
+            "class": "android.widget.EditText"
+          }
+        }
+      },
+      "unperformed_sequence_steps": 0,
+      "reason": "Invalid/duplicate submission created or changed watched account data; Invalid submission reported registration success; Invalid submission reached Login as if registration succeeded",
+      "submissions": 1,
+      "finished_at": "2026-10-19T18:49:27.402865+00:00",
+      "evidence_directory": "MR-TC12"
+    },
+    {
+      "id": "MR-TC13",
+      "status": "failed",
+      "technique": "Domain (state)",
+      "traceability": "R03,R11; D03,D11",
+      "expected_text": "Lần 1 ACCEPT, lần 2 REJECT duplicate; sau hai submit chỉ có 1 account E13; R03,R11/S1:33,36",
+      "document_line": 43,
+      "attempts": [
+        {
+          "step": 1,
+          "input": {
+            "name": "Nguyen Van A",
+            "email": "mr.t02r01.tc13@example.com",
+            "password": "Abcde1!x",
+            "confirmation": "Abcde1!x",
+            "expected": "ACCEPT",
+            "fill": "all_fields"
+          },
+          "before": {
+            "mr.t02r01.tc13@example.com": []
+          },
+          "after": {
+            "mr.t02r01.tc13@example.com": [
+              {
+                "id": 16,
+                "name": "Nguyen Van A",
+                "email": "mr.t02r01.tc13@example.com",
+                "role": "user",
+                "login_attempts": 0,
+                "locked_until": null,
+                "shipping_address": null,
+                "phone": null
+              }
+            ]
+          },
+          "observation": {
+            "at": "2026-10-19T18:50:36.161480+00:00",
+            "feedback": [
+              "Đăng ký tài khoản thành công."
+            ],
+            "success_signal": true,
+            "dialog_seen": true,
+            "login": true,
+            "registration": false,
+            "timed_out": false
+          },
+          "input_receipts": [
+            {
+              "field": "name",
+              "requested": "Nguyen Van A",
+              "code_points": 12,
+              "utf16_units": 12,
+              "sha256_utf8": "d25b1da6b43377f714e9682c49901142d09cc1b5d784c6f643dffb87cd884f22",
+              "transport": "android input text / native replacement",
+              "at": "2026-10-19T18:50:00.421573+00:00",
+              "readback": "Nguyen Van A"
+            },
+            {
+              "field": "email",
+              "requested": "mr.t02r01.tc13@example.com",
+              "code_points": 26,
+              "utf16_units": 26,
+              "sha256_utf8": "7e8a6efa454b70c304c0350dfc8ec78a2248aa9a139268ca82c2c96f3d4d9853",
+              "transport": "android input text / native replacement",
+              "at": "2026-10-19T18:50:13.660126+00:00",
+              "readback": "mr.t02r01.tc13@example.com"
+            },
+            {
+              "field": "password",
+              "requested": "Abcde1!x",
+              "code_points": 8,
+              "utf16_units": 8,
+              "sha256_utf8": "6546bf815fa7280c9171ffebb9081dac05aa81dd69706e4cd61857ffa9a54999",
+              "transport": "android input text / native replacement",
+              "at": "2026-10-19T18:50:23.371126+00:00",
+              "readback": "masked: transport acknowledged; plaintext not exposed"
+            }
+          ],
+          "problems": []
+        },
+        {
+          "step": 2,
+          "input": {
+            "name": "Nguyen Van A",
+            "email": "mr.t02r01.tc13@example.com",
+            "password": "Abcde1!x",
+            "confirmation": "Abcde1!x",
+            "expected": "REJECT",
+            "fill": "all_fields"
+          },
+          "before": {
+            "mr.t02r01.tc13@example.com": [
+              {
+                "id": 16,
+                "name": "Nguyen Van A",
+                "email": "mr.t02r01.tc13@example.com",
+                "role": "user",
+                "login_attempts": 0,
+                "locked_until": null,
+                "shipping_address": null,
+                "phone": null
+              }
+            ]
+          },
+          "after": {
+            "mr.t02r01.tc13@example.com": [
+              {
+                "id": 16,
+                "name": "Nguyen Van A",
+                "email": "mr.t02r01.tc13@example.com",
+                "role": "user",
+                "login_attempts": 0,
+                "locked_until": null,
+                "shipping_address": null,
+                "phone": null
+              },
+              {
+                "id": 17,
+                "name": "Nguyen Van A",
+                "email": "mr.t02r01.tc13@example.com",
+                "role": "user",
+                "login_attempts": 0,
+                "locked_until": null,
+                "shipping_address": null,
+                "phone": null
+              }
+            ]
+          },
+          "observation": {
+            "at": "2026-10-19T18:51:41.693804+00:00",
+            "feedback": [
+              "Đăng ký tài khoản thành công."
+            ],
+            "success_signal": true,
+            "dialog_seen": true,
+            "login": true,
+            "registration": false,
+            "timed_out": false
+          },
+          "input_receipts": [
+            {
+              "field": "name",
+              "requested": "Nguyen Van A",
+              "code_points": 12,
+              "utf16_units": 12,
+              "sha256_utf8": "d25b1da6b43377f714e9682c49901142d09cc1b5d784c6f643dffb87cd884f22",
+              "transport": "android input text / native replacement",
+              "at": "2026-10-19T18:51:03.974032+00:00",
+              "readback": "Nguyen Van A"
+            },
+            {
+              "field": "email",
+              "requested": "mr.t02r01.tc13@example.com",
+              "code_points": 26,
+              "utf16_units": 26,
+              "sha256_utf8": "7e8a6efa454b70c304c0350dfc8ec78a2248aa9a139268ca82c2c96f3d4d9853",
+              "transport": "android input text / native replacement",
+              "at": "2026-10-19T18:51:17.994031+00:00",
+              "readback": "mr.t02r01.tc13@example.com"
+            },
+            {
+              "field": "password",
+              "requested": "Abcde1!x",
+              "code_points": 8,
+              "utf16_units": 8,
+              "sha256_utf8": "6546bf815fa7280c9171ffebb9081dac05aa81dd69706e4cd61857ffa9a54999",
+              "transport": "android input text / native replacement",
+              "at": "2026-10-19T18:51:28.317986+00:00",
+              "readback": "masked: transport acknowledged; plaintext not exposed"
+            }
+          ],
+          "problems": [
+            "Invalid/duplicate submission created or changed watched account data",
+            "Invalid submission reported registration success",
+            "Invalid submission reached Login as if registration succeeded"
+          ]
+        }
+      ],
+      "limitations": [
+        "Confirmation absent; this case does not exercise MR-R10"
+      ],
+      "started_at": "2026-10-19T18:49:27.404080+00:00",
+      "form": {
+        "complete": true,
+        "fields": {
+          "name": {
+            "bounds": "[48,316][672,398]",
+            "editable": true,
+            "class": "android.widget.EditText"
+          },
+          "email": {
+            "bounds": "[48,481][672,563]",
+            "editable": true,
+            "class": "android.widget.EditText"
+          },
+          "password": {
+            "bounds": "[48,646][672,728]",
+            "editable": true,
+            "class": "android.widget.EditText"
+          }
+        }
+      },
+      "unperformed_sequence_steps": 0,
+      "reason": "Invalid/duplicate submission created or changed watched account data; Invalid submission reported registration success; Invalid submission reached Login as if registration succeeded",
+      "submissions": 2,
+      "finished_at": "2026-10-19T18:51:42.463905+00:00",
+      "evidence_directory": "MR-TC13"
+    },
+    {
+      "id": "MR-TC14",
+      "status": "passed",
+      "technique": "Domain",
+      "traceability": "R04; D12",
+      "expected_text": "REJECT thiếu password; R04/S1:32. Không dùng ca này credit từng rule class count",
+      "document_line": 51,
+      "attempts": [
+        {
+          "step": 1,
+          "input": {
+            "name": "Nguyen Van A",
+            "email": "mr.t02r01.tc14@example.com",
+            "password": "",
+            "confirmation": "",
+            "expected": "REJECT",
+            "fill": "all_fields"
+          },
+          "before": {
+            "mr.t02r01.tc14@example.com": []
+          },
+          "after": {
+            "mr.t02r01.tc14@example.com": []
+          },
+          "observation": {
+            "at": "2026-10-19T18:52:52.433024+00:00",
+            "feedback": [
+              "Mật khẩu quá yếu! Phải dài tối thiểu 8 ký tự, gồm chữ hoa, chữ thường, số và KÝ TỰ ĐẶC BIỆT."
+            ],
+            "success_signal": false,
+            "dialog_seen": false,
+            "login": false,
+            "registration": true,
+            "timed_out": false
+          },
+          "input_receipts": [
+            {
+              "field": "name",
+              "requested": "Nguyen Van A",
+              "code_points": 12,
+              "utf16_units": 12,
+              "sha256_utf8": "d25b1da6b43377f714e9682c49901142d09cc1b5d784c6f643dffb87cd884f22",
+              "transport": "android input text / native replacement",
+              "at": "2026-10-19T18:52:17.371872+00:00",
+              "readback": "Nguyen Van A"
+            },
+            {
+              "field": "email",
+              "requested": "mr.t02r01.tc14@example.com",
+              "code_points": 26,
+              "utf16_units": 26,
+              "sha256_utf8": "dcf201dd13bcacb3a81317b58d5930d723ff17301aa4aec12155c317570659b5",
+              "transport": "android input text / native replacement",
+              "at": "2026-10-19T18:52:32.061880+00:00",
+              "readback": "mr.t02r01.tc14@example.com"
+            },
+            {
+              "field": "password",
+              "requested": "",
+              "code_points": 0,
+              "utf16_units": 0,
+              "sha256_utf8": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "transport": "android input text / native replacement",
+              "at": "2026-10-19T18:52:41.642263+00:00",
+              "readback": "masked: transport acknowledged; plaintext not exposed"
+            }
+          ],
+          "problems": []
+        }
+      ],
+      "limitations": [
+        "Confirmation absent; this case does not exercise MR-R10"
+      ],
+      "started_at": "2026-10-19T18:51:42.465227+00:00",
+      "form": {
+        "complete": true,
+        "fields": {
+          "name": {
+            "bounds": "[48,316][672,398]",
+            "editable": true,
+            "class": "android.widget.EditText"
+          },
+          "email": {
+            "bounds": "[48,481][672,563]",
+            "editable": true,
+            "class": "android.widget.EditText"
+          },
+          "password": {
+            "bounds": "[48,646][672,728]",
+            "editable": true,
+            "class": "android.widget.EditText"
+          }
+        }
+      },
+      "submissions": 1,
+      "finished_at": "2026-10-19T18:52:53.219587+00:00",
+      "evidence_directory": "MR-TC14"
+    },
+    {
+      "id": "MR-TC15",
+      "status": "passed",
+      "technique": "Domain+BVA",
+      "traceability": "R05; D13; B01-7",
+      "expected_text": "REJECT vì 7<8, các nhóm ký tự khác đủ; R05/S1:34",
+      "document_line": 52,
+      "attempts": [
+        {
+          "step": 1,
+          "input": {
+            "name": "Nguyen Van A",
+            "email": "mr.t02r01.tc15@example.com",
+            "password": "Abcde1!",
+            "confirmation": "Abcde1!",
+            "expected": "REJECT",
+            "fill": "all_fields"
+          },
+          "before": {
+            "mr.t02r01.tc15@example.com": []
+          },
+          "after": {
+            "mr.t02r01.tc15@example.com": []
+          },
+          "observation": {
+            "at": "2026-10-19T18:53:59.680922+00:00",
+            "feedback": [
+              "Mật khẩu quá yếu! Phải dài tối thiểu 8 ký tự, gồm chữ hoa, chữ thường, số và KÝ TỰ ĐẶC BIỆT."
+            ],
+            "success_signal": false,
+            "dialog_seen": false,
+            "login": false,
+            "registration": true,
+            "timed_out": false
+          },
+          "input_receipts": [
+            {
+              "field": "name",
+              "requested": "Nguyen Van A",
+              "code_points": 12,
+              "utf16_units": 12,
+              "sha256_utf8": "d25b1da6b43377f714e9682c49901142d09cc1b5d784c6f643dffb87cd884f22",
+              "transport": "android input text / native replacement",
+              "at": "2026-10-19T18:53:25.636435+00:00",
+              "readback": "Nguyen Van A"
+            },
+            {
+              "field": "email",
+              "requested": "mr.t02r01.tc15@example.com",
+              "code_points": 26,
+              "utf16_units": 26,
+              "sha256_utf8": "6299418c80d3c7db4b35cae0a3fb9e3f41cbbf6755df26131cebfd1a32626235",
+              "transport": "android input text / native replacement",
+              "at": "2026-10-19T18:53:39.281904+00:00",
+              "readback": "mr.t02r01.tc15@example.com"
+            },
+            {
+              "field": "password",
+              "requested": "Abcde1!",
+              "code_points": 7,
+              "utf16_units": 7,
+              "sha256_utf8": "8c2dcea0d28fd87f3167a18e34d2aaf5f02786307d9b9d7c0e25cc37330f3622",
+              "transport": "android input text / native replacement",
+              "at": "2026-10-19T18:53:48.906986+00:00",
+              "readback": "masked: transport acknowledged; plaintext not exposed"
+            }
+          ],
+          "problems": []
+        }
+      ],
+      "limitations": [
+        "Confirmation absent; this case does not exercise MR-R10"
+      ],
+      "started_at": "2026-10-19T18:52:53.221109+00:00",
+      "form": {
+        "complete": true,
+        "fields": {
+          "name": {
+            "bounds": "[48,316][672,398]",
+            "editable": true,
+            "class": "android.widget.EditText"
+          },
+          "email": {
+            "bounds": "[48,481][672,563]",
+            "editable": true,
+            "class": "android.widget.EditText"
+          },
+          "password": {
+            "bounds": "[48,646][672,728]",
+            "editable": true,
+            "class": "android.widget.EditText"
+          }
+        }
+      },
+      "submissions": 1,
+      "finished_at": "2026-10-19T18:54:00.454346+00:00",
+      "evidence_directory": "MR-TC15"
+    },
+    {
+      "id": "MR-TC16",
+      "status": "passed",
+      "technique": "Domain+BVA",
+      "traceability": "R05–09,R11; D14,D16,D20,D22; B01-8,B02-1,B04-1,B05-1",
+      "expected_text": "ACCEPT tại ngưỡng 8, đúng một hoa/số/S; R05–09,R11/S1:34,36",
+      "document_line": 53,
+      "attempts": [
+        {
+          "step": 1,
+          "input": {
+            "name": "Nguyen Van A",
+            "email": "mr.t02r01.tc16@example.com",
+            "password": "Abcde1!x",
+            "confirmation": "Abcde1!x",
+            "expected": "ACCEPT",
+            "fill": "all_fields"
+          },
+          "before": {
+            "mr.t02r01.tc16@example.com": []
+          },
+          "after": {
+            "mr.t02r01.tc16@example.com": [
+              {
+                "id": 18,
+                "name": "Nguyen Van A",
+                "email": "mr.t02r01.tc16@example.com",
+                "role": "user",
+                "login_attempts": 0,
+                "locked_until": null,
+                "shipping_address": null,
+                "phone": null
+              }
+            ]
+          },
+          "observation": {
+            "at": "2026-10-19T18:55:09.091490+00:00",
+            "feedback": [
+              "Đăng ký tài khoản thành công."
+            ],
+            "success_signal": true,
+            "dialog_seen": true,
+            "login": true,
+            "registration": false,
+            "timed_out": false
+          },
+          "input_receipts": [
+            {
+              "field": "name",
+              "requested": "Nguyen Van A",
+              "code_points": 12,
+              "utf16_units": 12,
+              "sha256_utf8": "d25b1da6b43377f714e9682c49901142d09cc1b5d784c6f643dffb87cd884f22",
+              "transport": "android input text / native replacement",
+              "at": "2026-10-19T18:54:32.533798+00:00",
+              "readback": "Nguyen Van A"
+            },
+            {
+              "field": "email",
+              "requested": "mr.t02r01.tc16@example.com",
+              "code_points": 26,
+              "utf16_units": 26,
+              "sha256_utf8": "88baac9bfc65b077f27f6da99f601bfe5e73db6dac838e084cbec737e91c4711",
+              "transport": "android input text / native replacement",
+              "at": "2026-10-19T18:54:46.122792+00:00",
+              "readback": "mr.t02r01.tc16@example.com"
+            },
+            {
+              "field": "password",
+              "requested": "Abcde1!x",
+              "code_points": 8,
+              "utf16_units": 8,
+              "sha256_utf8": "6546bf815fa7280c9171ffebb9081dac05aa81dd69706e4cd61857ffa9a54999",
+              "transport": "android input text / native replacement",
+              "at": "2026-10-19T18:54:55.674172+00:00",
+              "readback": "masked: transport acknowledged; plaintext not exposed"
+            }
+          ],
+          "problems": []
+        }
+      ],
+      "limitations": [
+        "Confirmation absent; this case does not exercise MR-R10"
+      ],
+      "started_at": "2026-10-19T18:54:00.455976+00:00",
+      "form": {
+        "complete": true,
+        "fields": {
+          "name": {
+            "bounds": "[48,316][672,398]",
+            "editable": true,
+            "class": "android.widget.EditText"
+          },
+          "email": {
+            "bounds": "[48,481][672,563]",
+            "editable": true,
+            "class": "android.widget.EditText"
+          },
+          "password": {
+            "bounds": "[48,646][672,728]",
+            "editable": true,
+            "class": "android.widget.EditText"
+          }
+        }
+      },
+      "submissions": 1,
+      "finished_at": "2026-10-19T18:55:09.858017+00:00",
+      "evidence_directory": "MR-TC16"
+    },
+    {
+      "id": "MR-TC17",
+      "status": "passed",
+      "technique": "Domain+BVA",
+      "traceability": "R05; D14; B01-9",
+      "expected_text": "ACCEPT phía trên ngưỡng, không chỉ đúng 8 mới được chấp nhận; R05,R11/S1:34,36",
+      "document_line": 54,
+      "attempts": [
+        {
+          "step": 1,
+          "input": {
+            "name": "Nguyen Van A",
+            "email": "mr.t02r01.tc17@example.com",
+            "password": "Abcde1!xy",
+            "confirmation": "Abcde1!xy",
+            "expected": "ACCEPT",
+            "fill": "all_fields"
+          },
+          "before": {
+            "mr.t02r01.tc17@example.com": []
+          },
+          "after": {
+            "mr.t02r01.tc17@example.com": [
+              {
+                "id": 19,
+                "name": "Nguyen Van A",
+                "email": "mr.t02r01.tc17@example.com",
+                "role": "user",
+                "login_attempts": 0,
+                "locked_until": null,
+                "shipping_address": null,
+                "phone": null
+              }
+            ]
+          },
+          "observation": {
+            "at": "2026-10-19T18:56:18.339297+00:00",
+            "feedback": [
+              "Đăng ký tài khoản thành công."
+            ],
+            "success_signal": true,
+            "dialog_seen": true,
+            "login": true,
+            "registration": false,
+            "timed_out": false
+          },
+          "input_receipts": [
+            {
+              "field": "name",
+              "requested": "Nguyen Van A",
+              "code_points": 12,
+              "utf16_units": 12,
+              "sha256_utf8": "d25b1da6b43377f714e9682c49901142d09cc1b5d784c6f643dffb87cd884f22",
+              "transport": "android input text / native replacement",
+              "at": "2026-10-19T18:55:42.423714+00:00",
+              "readback": "Nguyen Van A"
+            },
+            {
+              "field": "email",
+              "requested": "mr.t02r01.tc17@example.com",
+              "code_points": 26,
+              "utf16_units": 26,
+              "sha256_utf8": "66c5cdb9f6f3c5c550d4dfec2161f54076823957aa14a93f45fb562dd454f7c8",
+              "transport": "android input text / native replacement",
+              "at": "2026-10-19T18:55:55.659629+00:00",
+              "readback": "mr.t02r01.tc17@example.com"
+            },
+            {
+              "field": "password",
+              "requested": "Abcde1!xy",
+              "code_points": 9,
+              "utf16_units": 9,
+              "sha256_utf8": "a25a603e94013b171df891efd59764803907ce29dd8baa8c9fbc27922b3453a4",
+              "transport": "android input text / native replacement",
+              "at": "2026-10-19T18:56:05.809263+00:00",
+              "readback": "masked: transport acknowledged; plaintext not exposed"
+            }
+          ],
+          "problems": []
+        }
+      ],
+      "limitations": [
+        "Confirmation absent; this case does not exercise MR-R10"
+      ],
+      "started_at": "2026-10-19T18:55:09.861443+00:00",
+      "form": {
+        "complete": true,
+        "fields": {
+          "name": {
+            "bounds": "[48,316][672,398]",
+            "editable": true,
+            "class": "android.widget.EditText"
+          },
+          "email": {
+            "bounds": "[48,481][672,563]",
+            "editable": true,
+            "class": "android.widget.EditText"
+          },
+          "password": {
+            "bounds": "[48,646][672,728]",
+            "editable": true,
+            "class": "android.widget.EditText"
+          }
+        }
+      },
+      "submissions": 1,
+      "finished_at": "2026-10-19T18:56:19.103006+00:00",
+      "evidence_directory": "MR-TC17"
+    },
+    {
+      "id": "MR-TC18",
+      "status": "passed",
+      "technique": "Domain+BVA",
+      "traceability": "R06; D15; B02-0",
+      "expected_text": "REJECT chỉ vì thiếu chữ hoa; R06/S1:34",
+      "document_line": 55,
+      "attempts": [
+        {
+          "step": 1,
+          "input": {
+            "name": "Nguyen Van A",
+            "email": "mr.t02r01.tc18@example.com",
+            "password": "abcde1!x",
+            "confirmation": "abcde1!x",
+            "expected": "REJECT",
+            "fill": "all_fields"
+          },
+          "before": {
+            "mr.t02r01.tc18@example.com": []
+          },
+          "after": {
+            "mr.t02r01.tc18@example.com": []
+          },
+          "observation": {
+            "at": "2026-10-19T18:57:26.937180+00:00",
+            "feedback": [
+              "Mật khẩu quá yếu! Phải dài tối thiểu 8 ký tự, gồm chữ hoa, chữ thường, số và KÝ TỰ ĐẶC BIỆT."
+            ],
+            "success_signal": false,
+            "dialog_seen": false,
+            "login": false,
+            "registration": true,
+            "timed_out": false
+          },
+          "input_receipts": [
+            {
+              "field": "name",
+              "requested": "Nguyen Van A",
+              "code_points": 12,
+              "utf16_units": 12,
+              "sha256_utf8": "d25b1da6b43377f714e9682c49901142d09cc1b5d784c6f643dffb87cd884f22",
+              "transport": "android input text / native replacement",
+              "at": "2026-10-19T18:56:51.683540+00:00",
+              "readback": "Nguyen Van A"
+            },
+            {
+              "field": "email",
+              "requested": "mr.t02r01.tc18@example.com",
+              "code_points": 26,
+              "utf16_units": 26,
+              "sha256_utf8": "ccefc3ca5f5faa30337c0edcfd65a35aa2399921c98c90c5e9fa35f6a6cf0276",
+              "transport": "android input text / native replacement",
+              "at": "2026-10-19T18:57:05.678946+00:00",
+              "readback": "mr.t02r01.tc18@example.com"
+            },
+            {
+              "field": "password",
+              "requested": "abcde1!x",
+              "code_points": 8,
+              "utf16_units": 8,
+              "sha256_utf8": "506ddfbb22d20814ceca1d93cedbf0d7ce1e558f3a8585f78d68254976151b71",
+              "transport": "android input text / native replacement",
+              "at": "2026-10-19T18:57:16.046075+00:00",
+              "readback": "masked: transport acknowledged; plaintext not exposed"
+            }
+          ],
+          "problems": []
+        }
+      ],
+      "limitations": [
+        "Confirmation absent; this case does not exercise MR-R10"
+      ],
+      "started_at": "2026-10-19T18:56:19.104463+00:00",
+      "form": {
+        "complete": true,
+        "fields": {
+          "name": {
+            "bounds": "[48,316][672,398]",
+            "editable": true,
+            "class": "android.widget.EditText"
+          },
+          "email": {
+            "bounds": "[48,481][672,563]",
+            "editable": true,
+            "class": "android.widget.EditText"
+          },
+          "password": {
+            "bounds": "[48,646][672,728]",
+            "editable": true,
+            "class": "android.widget.EditText"
+          }
+        }
+      },
+      "submissions": 1,
+      "finished_at": "2026-10-19T18:57:27.709547+00:00",
+      "evidence_directory": "MR-TC18"
+    },
+    {
+      "id": "MR-TC19",
+      "status": "passed",
+      "technique": "Domain+BVA",
+      "traceability": "R06; D16; B02-2",
+      "expected_text": "ACCEPT với 2 chữ hoa; R06,R11/S1:34,36",
+      "document_line": 56,
+      "attempts": [
+        {
+          "step": 1,
+          "input": {
+            "name": "Nguyen Van A",
+            "email": "mr.t02r01.tc19@example.com",
+            "password": "ABcde1!x",
+            "confirmation": "ABcde1!x",
+            "expected": "ACCEPT",
+            "fill": "all_fields"
+          },
+          "before": {
+            "mr.t02r01.tc19@example.com": []
+          },
+          "after": {
+            "mr.t02r01.tc19@example.com": [
+              {
+                "id": 20,
+                "name": "Nguyen Van A",
+                "email": "mr.t02r01.tc19@example.com",
+                "role": "user",
+                "login_attempts": 0,
+                "locked_until": null,
+                "shipping_address": null,
+                "phone": null
+              }
+            ]
+          },
+          "observation": {
+            "at": "2026-10-19T18:58:35.538374+00:00",
+            "feedback": [
+              "Đăng ký tài khoản thành công."
+            ],
+            "success_signal": true,
+            "dialog_seen": true,
+            "login": true,
+            "registration": false,
+            "timed_out": false
+          },
+          "input_receipts": [
+            {
+              "field": "name",
+              "requested": "Nguyen Van A",
+              "code_points": 12,
+              "utf16_units": 12,
+              "sha256_utf8": "d25b1da6b43377f714e9682c49901142d09cc1b5d784c6f643dffb87cd884f22",
+              "transport": "android input text / native replacement",
+              "at": "2026-10-19T18:57:59.891419+00:00",
+              "readback": "Nguyen Van A"
+            },
+            {
+              "field": "email",
+              "requested": "mr.t02r01.tc19@example.com",
+              "code_points": 26,
+              "utf16_units": 26,
+              "sha256_utf8": "da6285343c719eb0c924fef7c9eccbfd0ca0f099a1017189b93b2b34bc07ba2f",
+              "transport": "android input text / native replacement",
+              "at": "2026-10-19T18:58:13.249712+00:00",
+              "readback": "mr.t02r01.tc19@example.com"
+            },
+            {
+              "field": "password",
+              "requested": "ABcde1!x",
+              "code_points": 8,
+              "utf16_units": 8,
+              "sha256_utf8": "c6a573a9e2d4267a4747f19933b5805a335a95d11d35e01d05441cf8b6bd3147",
+              "transport": "android input text / native replacement",
+              "at": "2026-10-19T18:58:22.887420+00:00",
+              "readback": "masked: transport acknowledged; plaintext not exposed"
+            }
+          ],
+          "problems": []
+        }
+      ],
+      "limitations": [
+        "Confirmation absent; this case does not exercise MR-R10"
+      ],
+      "started_at": "2026-10-19T18:57:27.711229+00:00",
+      "form": {
+        "complete": true,
+        "fields": {
+          "name": {
+            "bounds": "[48,316][672,398]",
+            "editable": true,
+            "class": "android.widget.EditText"
+          },
+          "email": {
+            "bounds": "[48,481][672,563]",
+            "editable": true,
+            "class": "android.widget.EditText"
+          },
+          "password": {
+            "bounds": "[48,646][672,728]",
+            "editable": true,
+            "class": "android.widget.EditText"
+          }
+        }
+      },
+      "submissions": 1,
+      "finished_at": "2026-10-19T18:58:36.311655+00:00",
+      "evidence_directory": "MR-TC19"
+    },
+    {
+      "id": "MR-TC20",
+      "status": "passed",
+      "technique": "Domain+BVA",
+      "traceability": "R07; D17; B03-0",
+      "expected_text": "REJECT chỉ vì thiếu chữ thường; R07/S1:34",
+      "document_line": 57,
+      "attempts": [
+        {
+          "step": 1,
+          "input": {
+            "name": "Nguyen Van A",
+            "email": "mr.t02r01.tc20@example.com",
+            "password": "ABCDE1!X",
+            "confirmation": "ABCDE1!X",
+            "expected": "REJECT",
+            "fill": "all_fields"
+          },
+          "before": {
+            "mr.t02r01.tc20@example.com": []
+          },
+          "after": {
+            "mr.t02r01.tc20@example.com": []
+          },
+          "observation": {
+            "at": "2026-10-19T18:59:44.761664+00:00",
+            "feedback": [
+              "Mật khẩu quá yếu! Phải dài tối thiểu 8 ký tự, gồm chữ hoa, chữ thường, số và KÝ TỰ ĐẶC BIỆT."
+            ],
+            "success_signal": false,
+            "dialog_seen": false,
+            "login": false,
+            "registration": true,
+            "timed_out": false
+          },
+          "input_receipts": [
+            {
+              "field": "name",
+              "requested": "Nguyen Van A",
+              "code_points": 12,
+              "utf16_units": 12,
+              "sha256_utf8": "d25b1da6b43377f714e9682c49901142d09cc1b5d784c6f643dffb87cd884f22",
+              "transport": "android input text / native replacement",
+              "at": "2026-10-19T18:59:09.863947+00:00",
+              "readback": "Nguyen Van A"
+            },
+            {
+              "field": "email",
+              "requested": "mr.t02r01.tc20@example.com",
+              "code_points": 26,
+              "utf16_units": 26,
+              "sha256_utf8": "8245994832f67be62cb28cf8a7ac2305a14554e6bea0431d359185b50e437ec7",
+              "transport": "android input text / native replacement",
+              "at": "2026-10-19T18:59:23.155106+00:00",
+              "readback": "mr.t02r01.tc20@example.com"
+            },
+            {
+              "field": "password",
+              "requested": "ABCDE1!X",
+              "code_points": 8,
+              "utf16_units": 8,
+              "sha256_utf8": "85e6ed5f7d59042c069217a3e02dce3148996c15abbdcd6d5c8a61a6fbb6a2af",
+              "transport": "android input text / native replacement",
+              "at": "2026-10-19T18:59:32.975600+00:00",
+              "readback": "masked: transport acknowledged; plaintext not exposed"
+            }
+          ],
+          "problems": []
+        }
+      ],
+      "limitations": [
+        "Confirmation absent; this case does not exercise MR-R10"
+      ],
+      "started_at": "2026-10-19T18:58:36.313257+00:00",
+      "form": {
+        "complete": true,
+        "fields": {
+          "name": {
+            "bounds": "[48,316][672,398]",
+            "editable": true,
+            "class": "android.widget.EditText"
+          },
+          "email": {
+            "bounds": "[48,481][672,563]",
+            "editable": true,
+            "class": "android.widget.EditText"
+          },
+          "password": {
+            "bounds": "[48,646][672,728]",
+            "editable": true,
+            "class": "android.widget.EditText"
+          }
+        }
+      },
+      "submissions": 1,
+      "finished_at": "2026-10-19T18:59:45.549721+00:00",
+      "evidence_directory": "MR-TC20"
+    },
+    {
+      "id": "MR-TC21",
+      "status": "passed",
+      "technique": "Domain+BVA",
+      "traceability": "R07; D18; B03-1",
+      "expected_text": "ACCEPT đúng 1 chữ thường; R07,R11/S1:34,36",
+      "document_line": 58,
+      "attempts": [
+        {
+          "step": 1,
+          "input": {
+            "name": "Nguyen Van A",
+            "email": "mr.t02r01.tc21@example.com",
+            "password": "ABCDa1!X",
+            "confirmation": "ABCDa1!X",
+            "expected": "ACCEPT",
+            "fill": "all_fields"
+          },
+          "before": {
+            "mr.t02r01.tc21@example.com": []
+          },
+          "after": {
+            "mr.t02r01.tc21@example.com": [
+              {
+                "id": 21,
+                "name": "Nguyen Van A",
+                "email": "mr.t02r01.tc21@example.com",
+                "role": "user",
+                "login_attempts": 0,
+                "locked_until": null,
+                "shipping_address": null,
+                "phone": null
+              }
+            ]
+          },
+          "observation": {
+            "at": "2026-10-19T19:00:59.820254+00:00",
+            "feedback": [
+              "Đăng ký tài khoản thành công."
+            ],
+            "success_signal": true,
+            "dialog_seen": true,
+            "login": true,
+            "registration": false,
+            "timed_out": false
+          },
+          "input_receipts": [
+            {
+              "field": "name",
+              "requested": "Nguyen Van A",
+              "code_points": 12,
+              "utf16_units": 12,
+              "sha256_utf8": "d25b1da6b43377f714e9682c49901142d09cc1b5d784c6f643dffb87cd884f22",
+              "transport": "android input text / native replacement",
+              "at": "2026-10-19T19:00:21.754312+00:00",
+              "readback": "Nguyen Van A"
+            },
+            {
+              "field": "email",
+              "requested": "mr.t02r01.tc21@example.com",
+              "code_points": 26,
+              "utf16_units": 26,
+              "sha256_utf8": "9a6af76320dc3e835a1aa6c3b09e82ba10eb182699a7c1c670ef1e259f93589a",
+              "transport": "android input text / native replacement",
+              "at": "2026-10-19T19:00:35.867304+00:00",
+              "readback": "mr.t02r01.tc21@example.com"
+            },
+            {
+              "field": "password",
+              "requested": "ABCDa1!X",
+              "code_points": 8,
+              "utf16_units": 8,
+              "sha256_utf8": "cfa710522ba5fea381f53b977ed97c0ae2407facd934c99992ecfb545b82180e",
+              "transport": "android input text / native replacement",
+              "at": "2026-10-19T19:00:46.216598+00:00",
+              "readback": "masked: transport acknowledged; plaintext not exposed"
+            }
+          ],
+          "problems": []
+        }
+      ],
+      "limitations": [
+        "Confirmation absent; this case does not exercise MR-R10"
+      ],
+      "started_at": "2026-10-19T18:59:45.551665+00:00",
+      "form": {
+        "complete": true,
+        "fields": {
+          "name": {
+            "bounds": "[48,316][672,398]",
+            "editable": true,
+            "class": "android.widget.EditText"
+          },
+          "email": {
+            "bounds": "[48,481][672,563]",
+            "editable": true,
+            "class": "android.widget.EditText"
+          },
+          "password": {
+            "bounds": "[48,646][672,728]",
+            "editable": true,
+            "class": "android.widget.EditText"
+          }
+        }
+      },
+      "submissions": 1,
+      "finished_at": "2026-10-19T19:01:00.587762+00:00",
+      "evidence_directory": "MR-TC21"
+    },
+    {
+      "id": "MR-TC22",
+      "status": "passed",
+      "technique": "Domain+BVA",
+      "traceability": "R07; D18; B03-2",
+      "expected_text": "ACCEPT với 2 chữ thường; R07,R11/S1:34,36",
+      "document_line": 59,
+      "attempts": [
+        {
+          "step": 1,
+          "input": {
+            "name": "Nguyen Van A",
+            "email": "mr.t02r01.tc22@example.com",
+            "password": "ABCDab1!",
+            "confirmation": "ABCDab1!",
+            "expected": "ACCEPT",
+            "fill": "all_fields"
+          },
+          "before": {
+            "mr.t02r01.tc22@example.com": []
+          },
+          "after": {
+            "mr.t02r01.tc22@example.com": [
+              {
+                "id": 22,
+                "name": "Nguyen Van A",
+                "email": "mr.t02r01.tc22@example.com",
+                "role": "user",
+                "login_attempts": 0,
+                "locked_until": null,
+                "shipping_address": null,
+                "phone": null
+              }
+            ]
+          },
+          "observation": {
+            "at": "2026-10-19T19:02:11.865398+00:00",
+            "feedback": [
+              "Đăng ký tài khoản thành công."
+            ],
+            "success_signal": true,
+            "dialog_seen": true,
+            "login": true,
+            "registration": false,
+            "timed_out": false
+          },
+          "input_receipts": [
+            {
+              "field": "name",
+              "requested": "Nguyen Van A",
+              "code_points": 12,
+              "utf16_units": 12,
+              "sha256_utf8": "d25b1da6b43377f714e9682c49901142d09cc1b5d784c6f643dffb87cd884f22",
+              "transport": "android input text / native replacement",
+              "at": "2026-10-19T19:01:34.322793+00:00",
+              "readback": "Nguyen Van A"
+            },
+            {
+              "field": "email",
+              "requested": "mr.t02r01.tc22@example.com",
+              "code_points": 26,
+              "utf16_units": 26,
+              "sha256_utf8": "61573e8831835a40795d597d815c52e31ed1de4b3770d1585a2ef0d37229ca93",
+              "transport": "android input text / native replacement",
+              "at": "2026-10-19T19:01:48.275242+00:00",
+              "readback": "mr.t02r01.tc22@example.com"
+            },
+            {
+              "field": "password",
+              "requested": "ABCDab1!",
+              "code_points": 8,
+              "utf16_units": 8,
+              "sha256_utf8": "67405a9c31448d8a997c21ade0f4f5e86446792382f37170c2a2e07b7d693850",
+              "transport": "android input text / native replacement",
+              "at": "2026-10-19T19:01:58.505568+00:00",
+              "readback": "masked: transport acknowledged; plaintext not exposed"
+            }
+          ],
+          "problems": []
+        }
+      ],
+      "limitations": [
+        "Confirmation absent; this case does not exercise MR-R10"
+      ],
+      "started_at": "2026-10-19T19:01:00.589392+00:00",
+      "form": {
+        "complete": true,
+        "fields": {
+          "name": {
+            "bounds": "[48,316][672,398]",
+            "editable": true,
+            "class": "android.widget.EditText"
+          },
+          "email": {
+            "bounds": "[48,481][672,563]",
+            "editable": true,
+            "class": "android.widget.EditText"
+          },
+          "password": {
+            "bounds": "[48,646][672,728]",
+            "editable": true,
+            "class": "android.widget.EditText"
+          }
+        }
+      },
+      "submissions": 1,
+      "finished_at": "2026-10-19T19:02:12.666018+00:00",
+      "evidence_directory": "MR-TC22"
+    },
+    {
+      "id": "MR-TC23",
+      "status": "passed",
+      "technique": "Domain+BVA",
+      "traceability": "R08; D19; B04-0",
+      "expected_text": "REJECT chỉ vì thiếu chữ số; R08/S1:34",
+      "document_line": 60,
+      "attempts": [
+        {
+          "step": 1,
+          "input": {
+            "name": "Nguyen Van A",
+            "email": "mr.t02r01.tc23@example.com",
+            "password": "Abcdef!x",
+            "confirmation": "Abcdef!x",
+            "expected": "REJECT",
+            "fill": "all_fields"
+          },
+          "before": {
+            "mr.t02r01.tc23@example.com": []
+          },
+          "after": {
+            "mr.t02r01.tc23@example.com": []
+          },
+          "observation": {
+            "at": "2026-10-19T19:03:24.099966+00:00",
+            "feedback": [
+              "Mật khẩu quá yếu! Phải dài tối thiểu 8 ký tự, gồm chữ hoa, chữ thường, số và KÝ TỰ ĐẶC BIỆT."
+            ],
+            "success_signal": false,
+            "dialog_seen": false,
+            "login": false,
+            "registration": true,
+            "timed_out": false
+          },
+          "input_receipts": [
+            {
+              "field": "name",
+              "requested": "Nguyen Van A",
+              "code_points": 12,
+              "utf16_units": 12,
+              "sha256_utf8": "d25b1da6b43377f714e9682c49901142d09cc1b5d784c6f643dffb87cd884f22",
+              "transport": "android input text / native replacement",
+              "at": "2026-10-19T19:02:46.396852+00:00",
+              "readback": "Nguyen Van A"
+            },
+            {
+              "field": "email",
+              "requested": "mr.t02r01.tc23@example.com",
+              "code_points": 26,
+              "utf16_units": 26,
+              "sha256_utf8": "7157384d1683ebf42c83c874d28293bfc62bbe84779258931534150883a6f829",
+              "transport": "android input text / native replacement",
+              "at": "2026-10-19T19:03:01.946792+00:00",
+              "readback": "mr.t02r01.tc23@example.com"
+            },
+            {
+              "field": "password",
+              "requested": "Abcdef!x",
+              "code_points": 8,
+              "utf16_units": 8,
+              "sha256_utf8": "b6f406a0ba63e79e8d011e2c7aaf17cb52e7cbbffeafbfc8e80dc7933781bb6d",
+              "transport": "android input text / native replacement",
+              "at": "2026-10-19T19:03:12.818685+00:00",
+              "readback": "masked: transport acknowledged; plaintext not exposed"
+            }
+          ],
+          "problems": []
+        }
+      ],
+      "limitations": [
+        "Confirmation absent; this case does not exercise MR-R10"
+      ],
+      "started_at": "2026-10-19T19:02:12.667710+00:00",
+      "form": {
+        "complete": true,
+        "fields": {
+          "name": {
+            "bounds": "[48,316][672,398]",
+            "editable": true,
+            "class": "android.widget.EditText"
+          },
+          "email": {
+            "bounds": "[48,481][672,563]",
+            "editable": true,
+            "class": "android.widget.EditText"
+          },
+          "password": {
+            "bounds": "[48,646][672,728]",
+            "editable": true,
+            "class": "android.widget.EditText"
+          }
+        }
+      },
+      "submissions": 1,
+      "finished_at": "2026-10-19T19:03:24.886981+00:00",
+      "evidence_directory": "MR-TC23"
+    },
+    {
+      "id": "MR-TC24",
+      "status": "passed",
+      "technique": "Domain+BVA",
+      "traceability": "R08; D20; B04-2",
+      "expected_text": "ACCEPT với 2 chữ số; R08,R11/S1:34,36",
+      "document_line": 61,
+      "attempts": [
+        {
+          "step": 1,
+          "input": {
+            "name": "Nguyen Van A",
+            "email": "mr.t02r01.tc24@example.com",
+            "password": "Abcde12!",
+            "confirmation": "Abcde12!",
+            "expected": "ACCEPT",
+            "fill": "all_fields"
+          },
+          "before": {
+            "mr.t02r01.tc24@example.com": []
+          },
+          "after": {
+            "mr.t02r01.tc24@example.com": [
+              {
+                "id": 23,
+                "name": "Nguyen Van A",
+                "email": "mr.t02r01.tc24@example.com",
+                "role": "user",
+                "login_attempts": 0,
+                "locked_until": null,
+                "shipping_address": null,
+                "phone": null
+              }
+            ]
+          },
+          "observation": {
+            "at": "2026-10-19T19:04:36.450332+00:00",
+            "feedback": [
+              "Đăng ký tài khoản thành công."
+            ],
+            "success_signal": true,
+            "dialog_seen": true,
+            "login": true,
+            "registration": false,
+            "timed_out": false
+          },
+          "input_receipts": [
+            {
+              "field": "name",
+              "requested": "Nguyen Van A",
+              "code_points": 12,
+              "utf16_units": 12,
+              "sha256_utf8": "d25b1da6b43377f714e9682c49901142d09cc1b5d784c6f643dffb87cd884f22",
+              "transport": "android input text / native replacement",
+              "at": "2026-10-19T19:03:59.773966+00:00",
+              "readback": "Nguyen Van A"
+            },
+            {
+              "field": "email",
+              "requested": "mr.t02r01.tc24@example.com",
+              "code_points": 26,
+              "utf16_units": 26,
+              "sha256_utf8": "96b39264a389a0771472a28401e42b51073aa1e4f01137b95fa81d267098c926",
+              "transport": "android input text / native replacement",
+              "at": "2026-10-19T19:04:13.314582+00:00",
+              "readback": "mr.t02r01.tc24@example.com"
+            },
+            {
+              "field": "password",
+              "requested": "Abcde12!",
+              "code_points": 8,
+              "utf16_units": 8,
+              "sha256_utf8": "edd4f8e74f88f63c7e26b90de194d6024bf7aa54b66639c07089c1358940a813",
+              "transport": "android input text / native replacement",
+              "at": "2026-10-19T19:04:23.283444+00:00",
+              "readback": "masked: transport acknowledged; plaintext not exposed"
+            }
+          ],
+          "problems": []
+        }
+      ],
+      "limitations": [
+        "Confirmation absent; this case does not exercise MR-R10"
+      ],
+      "started_at": "2026-10-19T19:03:24.888466+00:00",
+      "form": {
+        "complete": true,
+        "fields": {
+          "name": {
+            "bounds": "[48,316][672,398]",
+            "editable": true,
+            "class": "android.widget.EditText"
+          },
+          "email": {
+            "bounds": "[48,481][672,563]",
+            "editable": true,
+            "class": "android.widget.EditText"
+          },
+          "password": {
+            "bounds": "[48,646][672,728]",
+            "editable": true,
+            "class": "android.widget.EditText"
+          }
+        }
+      },
+      "submissions": 1,
+      "finished_at": "2026-10-19T19:04:37.240196+00:00",
+      "evidence_directory": "MR-TC24"
+    },
+    {
+      "id": "MR-TC25",
+      "status": "passed",
+      "technique": "Domain+BVA",
+      "traceability": "R09; D21; B05-0",
+      "expected_text": "REJECT vì hoàn toàn thiếu special; R09/S1:34",
+      "document_line": 62,
+      "attempts": [
+        {
+          "step": 1,
+          "input": {
+            "name": "Nguyen Van A",
+            "email": "mr.t02r01.tc25@example.com",
+            "password": "Abcde12x",
+            "confirmation": "Abcde12x",
+            "expected": "REJECT",
+            "fill": "all_fields"
+          },
+          "before": {
+            "mr.t02r01.tc25@example.com": []
+          },
+          "after": {
+            "mr.t02r01.tc25@example.com": []
+          },
+          "observation": {
+            "at": "2026-10-19T19:05:49.249040+00:00",
+            "feedback": [
+              "Mật khẩu quá yếu! Phải dài tối thiểu 8 ký tự, gồm chữ hoa, chữ thường, số và KÝ TỰ ĐẶC BIỆT."
+            ],
+            "success_signal": false,
+            "dialog_seen": false,
+            "login": false,
+            "registration": true,
+            "timed_out": false
+          },
+          "input_receipts": [
+            {
+              "field": "name",
+              "requested": "Nguyen Van A",
+              "code_points": 12,
+              "utf16_units": 12,
+              "sha256_utf8": "d25b1da6b43377f714e9682c49901142d09cc1b5d784c6f643dffb87cd884f22",
+              "transport": "android input text / native replacement",
+              "at": "2026-10-19T19:05:11.633985+00:00",
+              "readback": "Nguyen Van A"
+            },
+            {
+              "field": "email",
+              "requested": "mr.t02r01.tc25@example.com",
+              "code_points": 26,
+              "utf16_units": 26,
+              "sha256_utf8": "6cfc2dcf45508c8beb53bfebeb3f54ce604801ee3ba360d20301081920dbe575",
+              "transport": "android input text / native replacement",
+              "at": "2026-10-19T19:05:26.167540+00:00",
+              "readback": "mr.t02r01.tc25@example.com"
+            },
+            {
+              "field": "password",
+              "requested": "Abcde12x",
+              "code_points": 8,
+              "utf16_units": 8,
+              "sha256_utf8": "6000b7040db9da19a0d126873807fd00bcf197f3770ee218035c0a4de8525fa6",
+              "transport": "android input text / native replacement",
+              "at": "2026-10-19T19:05:37.611530+00:00",
+              "readback": "masked: transport acknowledged; plaintext not exposed"
+            }
+          ],
+          "problems": []
+        }
+      ],
+      "limitations": [
+        "Confirmation absent; this case does not exercise MR-R10"
+      ],
+      "started_at": "2026-10-19T19:04:37.241881+00:00",
+      "form": {
+        "complete": true,
+        "fields": {
+          "name": {
+            "bounds": "[48,316][672,398]",
+            "editable": true,
+            "class": "android.widget.EditText"
+          },
+          "email": {
+            "bounds": "[48,481][672,563]",
+            "editable": true,
+            "class": "android.widget.EditText"
+          },
+          "password": {
+            "bounds": "[48,646][672,728]",
+            "editable": true,
+            "class": "android.widget.EditText"
+          }
+        }
+      },
+      "submissions": 1,
+      "finished_at": "2026-10-19T19:05:50.031923+00:00",
+      "evidence_directory": "MR-TC25"
+    },
+    {
+      "id": "MR-TC26",
+      "status": "blocked",
+      "technique": "Domain+BVA",
+      "traceability": "R09; D22; B05-2",
+      "expected_text": "ACCEPT với 2 special `!`; R09,R11/S1:34,36",
+      "document_line": 63,
+      "attempts": [],
+      "limitations": [],
+      "started_at": "2026-10-19T19:05:50.033691+00:00",
+      "reason": "Native command exit 1: Could not obtain idle state\nThe following elements were producing layout events:\n    [\n      {\n        \"class\": \"android.widget.FrameLayout\"\n      }\n    ]\n    [\n      {\n        \"class\": \"android.widget.FrameLayout\"\n      }\n    ]\n    [\n      {\n        \"class\": \"android.widget.FrameLayout\"\n      }\n    ]\n    [\n      {\n        \"class\": \"android.widget.FrameLayout\"\n      }\n    ]\n    [\n      {\n        \"class\": \"android.widget.FrameLayout\"\n      }\n    ]\n    [\n      {\n        \"class\": \"android.widget.FrameLayout\"\n      }\n    ]\n    [\n      {\n        \"class\": \"android.widget.FrameLayout\"\n      }\n    ]\n    [\n      {\n        \"class\": \"android.widget.FrameLayout\"\n      }\n    ]\nRe-run layout with '--no-idle' to ignore layout events\n\r\n",
+      "submissions": 0,
+      "finished_at": "2026-10-19T19:05:57.312016+00:00",
+      "evidence_directory": "MR-TC26"
+    },
+    {
+      "id": "MR-TC27",
+      "status": "passed",
+      "technique": "Domain (membership)",
+      "traceability": "R09; D22",
+      "expected_text": "ACCEPT với `@` là special duy nhất; R09,R11/S1:34,36",
+      "document_line": 64,
+      "attempts": [
+        {
+          "step": 1,
+          "input": {
+            "name": "Nguyen Van A",
+            "email": "mr.t02r01.tc27@example.com",
+            "password": "Abcde1@x",
+            "confirmation": "Abcde1@x",
+            "expected": "ACCEPT",
+            "fill": "all_fields"
+          },
+          "before": {
+            "mr.t02r01.tc27@example.com": []
+          },
+          "after": {
+            "mr.t02r01.tc27@example.com": [
+              {
+                "id": 24,
+                "name": "Nguyen Van A",
+                "email": "mr.t02r01.tc27@example.com",
+                "role": "user",
+                "login_attempts": 0,
+                "locked_until": null,
+                "shipping_address": null,
+                "phone": null
+              }
+            ]
+          },
+          "observation": {
+            "at": "2026-10-19T19:07:09.125483+00:00",
+            "feedback": [
+              "Đăng ký tài khoản thành công."
+            ],
+            "success_signal": true,
+            "dialog_seen": true,
+            "login": true,
+            "registration": false,
+            "timed_out": false
+          },
+          "input_receipts": [
+            {
+              "field": "name",
+              "requested": "Nguyen Van A",
+              "code_points": 12,
+              "utf16_units": 12,
+              "sha256_utf8": "d25b1da6b43377f714e9682c49901142d09cc1b5d784c6f643dffb87cd884f22",
+              "transport": "android input text / native replacement",
+              "at": "2026-10-19T19:06:32.386792+00:00",
+              "readback": "Nguyen Van A"
+            },
+            {
+              "field": "email",
+              "requested": "mr.t02r01.tc27@example.com",
+              "code_points": 26,
+              "utf16_units": 26,
+              "sha256_utf8": "b9aeaace131482c1a380248acac4d01bad564d3ecc5dc2eceb0755c0f76e50ee",
+              "transport": "android input text / native replacement",
+              "at": "2026-10-19T19:06:46.331286+00:00",
+              "readback": "mr.t02r01.tc27@example.com"
+            },
+            {
+              "field": "password",
+              "requested": "Abcde1@x",
+              "code_points": 8,
+              "utf16_units": 8,
+              "sha256_utf8": "e48424a189ae3374d321a3da40c22c9aebe31ade5cf60e7876d29a007ed26360",
+              "transport": "android input text / native replacement",
+              "at": "2026-10-19T19:06:56.243043+00:00",
+              "readback": "masked: transport acknowledged; plaintext not exposed"
+            }
+          ],
+          "problems": []
+        }
+      ],
+      "limitations": [
+        "Confirmation absent; this case does not exercise MR-R10"
+      ],
+      "started_at": "2026-10-19T19:05:57.313611+00:00",
+      "form": {
+        "complete": true,
+        "fields": {
+          "name": {
+            "bounds": "[48,316][672,398]",
+            "editable": true,
+            "class": "android.widget.EditText"
+          },
+          "email": {
+            "bounds": "[48,481][672,563]",
+            "editable": true,
+            "class": "android.widget.EditText"
+          },
+          "password": {
+            "bounds": "[48,646][672,728]",
+            "editable": true,
+            "class": "android.widget.EditText"
+          }
+        }
+      },
+      "submissions": 1,
+      "finished_at": "2026-10-19T19:07:09.910221+00:00",
+      "evidence_directory": "MR-TC27"
+    },
+    {
+      "id": "MR-TC28",
+      "status": "passed",
+      "technique": "Domain (membership)",
+      "traceability": "R09; D22",
+      "expected_text": "ACCEPT với `$` là special duy nhất; R09,R11/S1:34,36",
+      "document_line": 65,
+      "attempts": [
+        {
+          "step": 1,
+          "input": {
+            "name": "Nguyen Van A",
+            "email": "mr.t02r01.tc28@example.com",
+            "password": "Abcde1$x",
+            "confirmation": "Abcde1$x",
+            "expected": "ACCEPT",
+            "fill": "all_fields"
+          },
+          "before": {
+            "mr.t02r01.tc28@example.com": []
+          },
+          "after": {
+            "mr.t02r01.tc28@example.com": [
+              {
+                "id": 25,
+                "name": "Nguyen Van A",
+                "email": "mr.t02r01.tc28@example.com",
+                "role": "user",
+                "login_attempts": 0,
+                "locked_until": null,
+                "shipping_address": null,
+                "phone": null
+              }
+            ]
+          },
+          "observation": {
+            "at": "2026-10-19T19:08:21.771697+00:00",
+            "feedback": [
+              "Đăng ký tài khoản thành công."
+            ],
+            "success_signal": true,
+            "dialog_seen": true,
+            "login": true,
+            "registration": false,
+            "timed_out": false
+          },
+          "input_receipts": [
+            {
+              "field": "name",
+              "requested": "Nguyen Van A",
+              "code_points": 12,
+              "utf16_units": 12,
+              "sha256_utf8": "d25b1da6b43377f714e9682c49901142d09cc1b5d784c6f643dffb87cd884f22",
+              "transport": "android input text / native replacement",
+              "at": "2026-10-19T19:07:44.269685+00:00",
+              "readback": "Nguyen Van A"
+            },
+            {
+              "field": "email",
+              "requested": "mr.t02r01.tc28@example.com",
+              "code_points": 26,
+              "utf16_units": 26,
+              "sha256_utf8": "e6206133f4d30e0e22651fe1547196ec89f515f524c3128f4e12bb6eaae25951",
+              "transport": "android input text / native replacement",
+              "at": "2026-10-19T19:07:58.023470+00:00",
+              "readback": "mr.t02r01.tc28@example.com"
+            },
+            {
+              "field": "password",
+              "requested": "Abcde1$x",
+              "code_points": 8,
+              "utf16_units": 8,
+              "sha256_utf8": "37b1c815f3cf5dd6f9996517bc3416c4e8b949fe615fe527c82caea3dcdd2d5a",
+              "transport": "android input text / native replacement",
+              "at": "2026-10-19T19:08:08.615898+00:00",
+              "readback": "masked: transport acknowledged; plaintext not exposed"
+            }
+          ],
+          "problems": []
+        }
+      ],
+      "limitations": [
+        "Confirmation absent; this case does not exercise MR-R10"
+      ],
+      "started_at": "2026-10-19T19:07:09.912130+00:00",
+      "form": {
+        "complete": true,
+        "fields": {
+          "name": {
+            "bounds": "[48,316][672,398]",
+            "editable": true,
+            "class": "android.widget.EditText"
+          },
+          "email": {
+            "bounds": "[48,481][672,563]",
+            "editable": true,
+            "class": "android.widget.EditText"
+          },
+          "password": {
+            "bounds": "[48,646][672,728]",
+            "editable": true,
+            "class": "android.widget.EditText"
+          }
+        }
+      },
+      "submissions": 1,
+      "finished_at": "2026-10-19T19:08:22.579198+00:00",
+      "evidence_directory": "MR-TC28"
+    },
+    {
+      "id": "MR-TC29",
+      "status": "not_run",
+      "technique": "Domain (membership)",
+      "traceability": "R09; D22",
+      "expected_text": "ACCEPT với `%` là special duy nhất; R09,R11/S1:34,36",
+      "document_line": 66,
+      "attempts": [],
+      "limitations": []
+    },
+    {
+      "id": "MR-TC30",
+      "status": "not_run",
+      "technique": "Domain (membership)",
+      "traceability": "R09; D22",
+      "expected_text": "ACCEPT với `*` là special duy nhất; R09,R11/S1:34,36",
+      "document_line": 67,
+      "attempts": [],
+      "limitations": []
+    },
+    {
+      "id": "MR-TC31",
+      "status": "not_run",
+      "technique": "Domain (membership)",
+      "traceability": "R09; D22",
+      "expected_text": "ACCEPT với `?` là special duy nhất; R09,R11/S1:34,36",
+      "document_line": 68,
+      "attempts": [],
+      "limitations": []
+    },
+    {
+      "id": "MR-TC32",
+      "status": "not_run",
+      "technique": "Domain (membership)",
+      "traceability": "R09; D22",
+      "expected_text": "ACCEPT với `&` là special duy nhất; R09,R11/S1:34,36",
+      "document_line": 69,
+      "attempts": [],
+      "limitations": []
+    },
+    {
+      "id": "MR-TC33",
+      "status": "not_run",
+      "technique": "Domain (form schema)",
+      "traceability": "R10; D23",
+      "expected_text": "Có trường Xác nhận mật khẩu, nhập được độc lập với P. Không suy chỉ từ một viewport; R10/S1:35",
+      "document_line": 77,
+      "attempts": [],
+      "limitations": []
+    },
+    {
+      "id": "MR-TC34",
+      "status": "not_run",
+      "technique": "Domain",
+      "traceability": "R10; D24",
+      "expected_text": "REJECT vì không khớp với P nonempty; R10/S1:35. Nếu không có field thì không thực hiện được ca equality này",
+      "document_line": 78,
+      "attempts": [],
+      "limitations": []
+    },
+    {
+      "id": "MR-TC35",
+      "status": "not_run",
+      "technique": "Domain",
+      "traceability": "R10; D26",
+      "expected_text": "REJECT dù hai chuỗi cùng độ dài; R10/S1:35",
+      "document_line": 79,
+      "attempts": [],
+      "limitations": []
+    },
+    {
+      "id": "MR-TC36",
+      "status": "not_run",
+      "technique": "Domain",
+      "traceability": "R10; D27",
+      "expected_text": "REJECT vì không bằng nhau; R10/S1:35, không gán minimum length riêng cho C",
+      "document_line": 80,
+      "attempts": [],
+      "limitations": []
+    },
+    {
+      "id": "MR-TC37",
+      "status": "not_run",
+      "technique": "Domain",
+      "traceability": "R10,R11; D25",
+      "expected_text": "ACCEPT và chuyển sang Đăng nhập; R10,R11/S1:35–36; đây mới là control trực tiếp của confirmation",
+      "document_line": 81,
+      "attempts": [],
+      "limitations": []
+    },
+    {
+      "id": "MR-TC38",
+      "status": "not_run",
+      "technique": "Domain (state)",
+      "traceability": "R05,R03,R11; D13,D14,D28",
+      "expected_text": "Lần 1 REJECT, E38 chưa được tạo; lần 2 ACCEPT; cuối sequence có đúng 1 account E38. R05,R03,R11/S1:33–36",
+      "document_line": 82,
+      "attempts": [],
+      "limitations": []
+    },
+    {
+      "id": "MR-TC39",
+      "status": "not_run",
+      "technique": "Domain (interaction)",
+      "traceability": "R03,R06; D10,D15,D29",
+      "expected_text": "REJECT, không thêm/sửa account đã tồn tại. Bất kỳ rule invalid nào được thông báo trước đều được; không credit đã tới check uniqueness nếu password chặn trước. R03,R06/S1:33–34",
+      "document_line": 83,
+      "attempts": [],
+      "limitations": []
+    },
+    {
+      "id": "MR-TC40",
+      "status": "not_run",
+      "technique": "Domain (interior sample)",
+      "traceability": "R05–09,R11; D14",
+      "expected_text": "ACCEPT; thỏa ngưỡng tối thiểu và đủ nhóm ký tự, chưa có max được công bố; R05–09,R11/S1:34,36. Đây là điểm dài đại diện, không phải biên trên",
+      "document_line": 84,
+      "attempts": [],
+      "limitations": []
+    },
+    {
+      "id": "MR-TC41",
+      "status": "not_run",
+      "technique": "Domain",
+      "traceability": "R01; D30; Q01",
+      "expected_text": "REJECT vì tên sau trim rỗng; R01/S1:32 và review S7/Q01",
+      "document_line": 92,
+      "attempts": [],
+      "limitations": []
+    },
+    {
+      "id": "MR-TC42",
+      "status": "not_run",
+      "technique": "Domain",
+      "traceability": "R03; D31; Q02",
+      "expected_text": "ACCEPT tạo đúng 1 account `TEST@eshop.com`, account `test@eshop.com` cũ giữ nguyên. Email khác case là hai chuỗi khác theo review S7/Q02; R03/S1:33",
+      "document_line": 93,
+      "attempts": [],
+      "limitations": []
+    },
+    {
+      "id": "MR-TC43",
+      "status": "not_run",
+      "technique": "Domain",
+      "traceability": "R02–03; D32; Q03",
+      "expected_text": "ACCEPT, chỉ tạo account với email `mr.t02r01.tc43@example.com` đã trim; không lưu email có space. R02–03/S1:33 và review S7/Q03",
+      "document_line": 94,
+      "attempts": [],
+      "limitations": []
+    },
+    {
+      "id": "MR-TC44",
+      "status": "not_run",
+      "technique": "Domain",
+      "traceability": "R09; D33; Q04",
+      "expected_text": "ACCEPT vì `#` là dấu Unicode thuộc Punctuation; R09/S1:34 và review S7/Q04, không giới hạn special trong S0",
+      "document_line": 95,
+      "attempts": [],
+      "limitations": []
+    },
+    {
+      "id": "MR-TC45",
+      "status": "not_run",
+      "technique": "Domain",
+      "traceability": "R09; D34; Q04",
+      "expected_text": "REJECT vì space không đáp ứng yêu cầu special; các nhóm khác và độ dài vẫn hợp lệ. R09/S1:34 và review S7/Q04",
+      "document_line": 96,
+      "attempts": [],
+      "limitations": []
+    },
+    {
+      "id": "MR-TC46",
+      "status": "not_run",
+      "technique": "Domain+BVA",
+      "traceability": "R05; D13,D35; B01-7; Q05",
+      "expected_text": "REJECT vì 7<8 code point, dù đủ 8 UTF-16 unit. Có đủ hoa/thường/số/special. Ngưỡng R05/S1:34 và đơn vị review S7/Q05",
+      "document_line": 97,
+      "attempts": [],
+      "limitations": []
+    },
+    {
+      "id": "MR-TC47",
+      "status": "not_run",
+      "technique": "Domain+BVA",
+      "traceability": "R05; D14,D35; B01-8; Q05",
+      "expected_text": "ACCEPT tại ngưỡng 8 code point, đủ các nhóm ký tự. R05,R11/S1:34,36 và review S7/Q05",
+      "document_line": 105,
+      "attempts": [],
+      "limitations": []
+    },
+    {
+      "id": "MR-TC48",
+      "status": "not_run",
+      "technique": "Domain+BVA",
+      "traceability": "R05; D14,D35; B01-9; Q05",
+      "expected_text": "ACCEPT phía trên ngưỡng; không chỉ chấp nhận đúng 8. R05,R11/S1:34,36 và review S7/Q05",
+      "document_line": 106,
+      "attempts": [],
+      "limitations": []
+    },
+    {
+      "id": "MR-TC49",
+      "status": "not_run",
+      "technique": "Domain (membership)",
+      "traceability": "R09; D33; Q04",
+      "expected_text": "ACCEPT vì `_` thuộc Punctuation; R09,R11/S1:34,36 và review S7/Q04",
+      "document_line": 107,
+      "attempts": [],
+      "limitations": []
+    },
+    {
+      "id": "MR-TC50",
+      "status": "not_run",
+      "technique": "Domain (membership)",
+      "traceability": "R05,R09; D33; Q04",
+      "expected_text": "ACCEPT vì emoji này thuộc Symbol; có đủ hoa/thường/số, đủ 8 code point. R05,R09,R11/S1:34,36 và review S7/Q04–05",
+      "document_line": 108,
+      "attempts": [],
+      "limitations": []
+    },
+    {
+      "id": "MR-TC51",
+      "status": "not_run",
+      "technique": "Domain (membership)",
+      "traceability": "R09; D33; Q04",
+      "expected_text": "ACCEPT vì `—` thuộc Punctuation; R09,R11/S1:34,36 và review S7/Q04",
+      "document_line": 109,
+      "attempts": [],
+      "limitations": []
+    },
+    {
+      "id": "MR-TC52",
+      "status": "not_run",
+      "technique": "Domain (membership)",
+      "traceability": "R09; D33; Q04",
+      "expected_text": "ACCEPT vì `€` thuộc Symbol; R09,R11/S1:34,36 và review S7/Q04",
+      "document_line": 110,
+      "attempts": [],
+      "limitations": []
+    },
+    {
+      "id": "MR-TC53",
+      "status": "not_run",
+      "technique": "Domain (interaction)",
+      "traceability": "R02–03; D36; Q03",
+      "expected_text": "REJECT vì sau trim email trùng `test@eshop.com`; không tạo account mới ở cả hai dạng và không sửa account cũ. R03/S1:33 và review S7/Q02–03",
+      "document_line": 111,
+      "attempts": [],
+      "limitations": []
+    },
+    {
+      "id": "MR-TC54",
+      "status": "not_run",
+      "technique": "Domain (interaction)",
+      "traceability": "R05,R09; D37; Q04",
+      "expected_text": "ACCEPT vì `!` thỏa special, space không bị dùng để thay special và chưa có rule cấm mọi space. R05,R09,R11/S1:34,36 và cách áp dụng review S7/Q04",
+      "document_line": 112,
+      "attempts": [],
+      "limitations": []
+    }
+  ],
+  "counts": {
+    "designed": 54,
+    "passed": 18,
+    "failed": 9,
+    "blocked": 1,
+    "not_run": 26,
+    "executed": 27,
+    "not_executed": 27
+  },
+  "test_commit": "b8b1d2b18203a0ebf0a24352890da1e80fc0d5fc"
+}

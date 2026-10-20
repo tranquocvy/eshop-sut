@@ -1,0 +1,30 @@
+Kết quả công cụ do Codex chạy trong lượt P-002 ngày 19/10/2026.
+
+test_assignment_mix_is_rejected_without_writes (__main__.PromptLogTests.test_assignment_mix_is_rejected_without_writes) ... ok
+test_conflicting_records_or_source_do_not_write (__main__.PromptLogTests.test_conflicting_records_or_source_do_not_write) ... ok
+test_custom_filename_timezone_and_source_timestamp (__main__.PromptLogTests.test_custom_filename_timezone_and_source_timestamp) ... ok
+test_incremental_sources_keep_prompt_labels_and_message_order (__main__.PromptLogTests.test_incremental_sources_keep_prompt_labels_and_message_order) ... ok
+test_invalid_inputs_reject_before_creating_output (__main__.PromptLogTests.test_invalid_inputs_reject_before_creating_output) ... ok
+test_late_reply_does_not_pair_with_wrong_prompt_or_reorder (__main__.PromptLogTests.test_late_reply_does_not_pair_with_wrong_prompt_or_reorder) ... ok
+test_legacy_command_runs_same_helper (__main__.PromptLogTests.test_legacy_command_runs_same_helper) ... ok
+test_manual_edit_is_preserved (__main__.PromptLogTests.test_manual_edit_is_preserved) ... ok
+test_missing_prompt_is_explicit_without_inventing_one (__main__.PromptLogTests.test_missing_prompt_is_explicit_without_inventing_one) ... ok
+test_new_assignment_preserves_every_message_and_nested_code (__main__.PromptLogTests.test_new_assignment_preserves_every_message_and_nested_code) ... ok
+test_partial_scope_and_unknown_time_are_not_fabricated (__main__.PromptLogTests.test_partial_scope_and_unknown_time_are_not_fabricated) ... ok
+test_redaction_is_separate_from_missing_turns (__main__.PromptLogTests.test_redaction_is_separate_from_missing_turns) ... ok
+test_reimport_is_idempotent (__main__.PromptLogTests.test_reimport_is_idempotent) ... ok
+test_schema_one_migration_keeps_records_and_old_anchors (__main__.PromptLogTests.test_schema_one_migration_keeps_records_and_old_anchors) ... ok
+test_unmanaged_log_is_not_overwritten (__main__.PromptLogTests.test_unmanaged_log_is_not_overwritten) ... ok
+
+----------------------------------------------------------------------
+Ran 15 tests in 0.853s
+
+OK
+
+Skill is valid!
+Skill is valid!
+Skill is valid!
+
+{"migration": "PASS", "original_schema": 1, "new_schema": 2, "preserved_messages": 11, "prompt_ids": ["P-000", "P-001"], "old_links": "preserved", "original_ai_files": "unchanged"}
+course-ai-log: 3 relative reference links PASS
+hw02-ai-log: 3 relative reference links PASS

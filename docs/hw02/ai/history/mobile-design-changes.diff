@@ -1,0 +1,299 @@
+--- v0.1/design.md
++++ v0.3/design.md
+@@ -1,6 +1,6 @@
+ # Mobile Account Registration — thiết kế Domain Testing và BVA
+ 
+-Phiên bản **AI draft v0.1**, hoàn thiện ngày 20/10/2026 (UTC+7). Chưa được Vỹ review. Đây là bản AI ban đầu để đối chiếu khi sửa; chưa có kết quả thực thi.
++Phiên bản **design v0.3**, ngày 20/10/2026 (UTC+7). Vỹ đã review toàn bộ hai file thiết kế và bộ 54 TC. Các quy ước bổ sung được ghi riêng với yêu cầu gốc. Toàn bộ TC **Not Run**; chưa có kết quả thực thi. Bản AI v0.1 và bản v0.2 được giữ ngoài repo để đối chiếu.
+ 
+ ## 1. Test basis và phạm vi
+ 
+@@ -16,6 +16,7 @@
+ | S4 | [App.js](../../../frontend-mobile/App.js), state dòng 42–46, handler 209–240, form 797–837; [server.js](../../../backend/server.js) 20–30; [database.js](../../../backend/database.js) 48–61 | Luồng nhập/submit, quan sát và rủi ro; **không dùng làm expected nghiệp vụ** |
+ | S5 | [Tài liệu tự học CTFL của môn](<../../../../../HW01/ISTQB Foundation Level (CTFL v4.0.1).pdf>), trang PDF 43–44; [bản web của giảng viên](https://www.fit.hcmus.edu.vn/~lqvu/Courses/SoftwareTesting/istqb-foundation-selfstudy.html#sec-4-3) | EP và cách chọn BVA quanh biên của partition hợp lệ |
+ | S6 | Cem Kaner, [Teaching Domain Testing: A Status Report](https://www.kaner.com/pdfs/domain_testing_cseet.pdf), §2; [reference Domain của skill](../../../skills/domain-bva-testing/references/domain-testing.md) | Mô hình miền, chọn đại diện, giữ biến khác hợp lệ và xem xét tương tác |
++| S7 | Các quy ước thiết kế đã được review ngày 20/10/2026 | Tên nonempty, tên toàn space bị từ chối, email trim + phân biệt case, special Unicode không tính whitespace và độ dài theo code point. Đây là quy ước bổ sung, không tự gán thành câu chữ sẵn có trong README |
+ 
+ `method_profile`: **Domain = reference-provisional** (nguồn S6; chưa có bài giảng Domain riêng). **BVA = lecture-aligned với tài liệu tự học S5, trang 44**, quy ước `course-guide-3-value`: biên hợp lệ `b` và `b−δ`, `b+δ`. Đây là lựa chọn đã chốt ở T01, không tự nhận thứ tự bước của skill là quy trình chính thức của giảng viên. Không dùng helper `istqb-3` vì profile đó tạo tập điểm khác.
+ 
+@@ -23,37 +24,37 @@
+ 
+ ## 2. Bước 0 — Trích rule và xử lý chỗ chưa rõ
+ 
+-Các rule dưới đây là **confirmed** từ S1, được áp dụng lên native theo S2. Các kết quả reject/accept được suy ra từ điều kiện nghiệp vụ; không chốt câu thông báo hay HTTP error code mà đặc tả chưa quy định.
++Bảng dưới đây tách nguồn quy tắc gốc S1/S2 khỏi **quy ước bổ sung qua review S7**. Các kết quả reject/accept được suy ra theo nguồn tương ứng; không chốt câu thông báo hay HTTP error code mà đặc tả chưa quy định. Việc Vỹ chốt policy giúp bộ test có oracle rõ, không biến policy đó thành câu chữ có sẵn trong README.
+ 
+ | Rule | Điều kiện đúng | Nguồn |
+ | --- | --- | --- |
+-| MR-R01 | Phải cung cấp Họ Tên; chuỗi rỗng không đáp ứng required | S1 dòng 32 |
+-| MR-R02 | Phải cung cấp Email có định dạng hợp lệ | S1 dòng 32–33 |
+-| MR-R03 | Email là duy nhất; không tạo thêm tài khoản khi email đó đã tồn tại | S1 dòng 33 |
++| MR-R01 | Phải cung cấp Họ Tên; khi kiểm tra required, tên sau bỏ khoảng trắng đầu/cuối phải nonempty; chưa thêm min/max hoặc restriction khác | Required: S1 dòng 32; cách hiểu tên/whitespace: S7 |
++| MR-R02 | Phải cung cấp Email có định dạng hợp lệ; bỏ khoảng trắng đầu/cuối trước validation và dùng email đã bỏ space làm giá trị lưu/so sánh | Required/format: S1 dòng 32–33; trim: S7 |
++| MR-R03 | Email là duy nhất; so sánh email sau trim có phân biệt hoa/thường. Không tạo thêm tài khoản trùng nguyên chuỗi đã chuẩn hóa này | Uniqueness: S1 dòng 33; case/trim: S7 |
+ | MR-R04 | Phải cung cấp Mật khẩu | S1 dòng 32 |
+-| MR-R05 | Mật khẩu dài ít nhất 8 ký tự | S1 dòng 34 |
++| MR-R05 | Mật khẩu dài ít nhất 8 Unicode code point; không dùng số UTF-16 unit làm độ dài | Ngưỡng 8: S1 dòng 34; đơn vị: S7 |
+ | MR-R06 | Mật khẩu có ít nhất 1 chữ hoa | S1 dòng 34 |
+ | MR-R07 | Mật khẩu có ít nhất 1 chữ thường | S1 dòng 34 |
+ | MR-R08 | Mật khẩu có ít nhất 1 chữ số | S1 dòng 34 |
+-| MR-R09 | Mật khẩu có ít nhất 1 ký tự đặc biệt; các ký tự được liệt kê là `S={@,$,!,%,*,?,&}` | S1 dòng 34; ký tự khác xem Q04 |
++| MR-R09 | Mật khẩu có ít nhất 1 dấu/ký hiệu Unicode; áp dụng các nhóm Unicode Punctuation hoặc Symbol (`P*`/`S*`), không tính whitespace. Tập `S0={@,$,!,%,*,?,&}` là các ví dụ trong README, không phải allow-list đầy đủ | Yêu cầu special và S0: S1 dòng 34; mở rộng special/không tính whitespace: S7 |
+ | MR-R10 | Có trường Xác nhận mật khẩu; từ chối khi confirmation không khớp password | S1 dòng 35 |
+ | MR-R11 | Đăng ký thành công chuyển người dùng tới màn hình Đăng nhập | S1 dòng 36 |
+ 
+-### Các câu hỏi/giả định có phạm vi cụ thể
++### Giả định và quy ước thiết kế
+ 
+ | ID | Loại | Cách xử lý trong thiết kế |
+ | --- | --- | --- |
+-| A01 | Assumption về dữ liệu nominal | Tên không rỗng `Nguyen Van A`, email ASCII dạng `local@example.com`, password ASCII thỏa mọi điều kiện là dữ liệu hợp lệ. Tên `V`, `Vy`, `Trần Quốc Vỹ` không vi phạm điều kiện tên nào đã được công bố; không tự thêm min 2/max hay quy tắc ASCII-only cho tên. |
++| A01 | Đã được Vỹ đồng ý khi review, S7 | Tên phải có nội dung non-whitespace, chưa thêm restriction khác. Giữ expected ACCEPT cho `V`, `Vy`, `Trần Quốc Vỹ`; giữ biên tên 0/1/2. Không tự yêu cầu ít nhất 2 ký tự hoặc nhiều từ. |
+ | A02 | Assumption về điểm vào | Người dùng chưa đăng nhập, kết nối bình thường, submit tuần tự; account state độc lập giữa TC. Không giả định reset backend là một bước vô hại. |
+-| A03 | Phạm vi mô hình ký tự | Các điểm BVA dùng ASCII, vì số ký tự/code point/UTF-16 code unit/byte đều bằng nhau. Đây là cách tránh phụ thuộc cách đếm chưa rõ, không phải kết luận hệ thống chỉ hỗ trợ ASCII. |
+-| Q01 | Unresolved | Tên chỉ gồm whitespace có được trim/reject không? TC41 có oracle điều kiện. |
+-| Q02 | Unresolved | Uniqueness có phân biệt hoa/thường ở local-part email không? TC42 có oracle điều kiện; TC12–13 dùng email trùng **nguyên chuỗi** để có oracle chắc chắn. |
+-| Q03 | Unresolved | Email có khoảng trắng đầu/cuối được trim hay bị từ chối? TC43 có oracle điều kiện. Email có space **bên trong** địa chỉ đơn giản là miền invalid riêng của TC10. |
+-| Q04 | Unresolved | Danh sách S là toàn bộ tập đặc biệt được công nhận hay các ví dụ? TC44–45 không áp đặt verdict cho `#`/space khi đó là ký tự đặc biệt duy nhất. Có S là đủ cho điều kiện này; không suy rằng một password chứa S và thêm ký tự khác phải bị cấm. |
+-| Q05 | Unresolved | “8 ký tự” tính theo code point, grapheme hay UTF-16 unit? TC46 phân biệt được cách đếm; không lấy `.length`/regex của source làm oracle. |
+-| Q06 | Unresolved/ngoài coverage đã chốt | Chưa có grammar email đầy đủ, quy định Unicode/IDN/quoted email hoặc min/max độ dài tên/email/password. Chỉ chốt các email valid/invalid rõ ràng dưới đây; không áp RFC đầy đủ hay tự đặt biên 254/255. |
++| A03 | Phạm vi dữ liệu kiểm soát | Các điểm BVA ASCII giữ nguyên vì độ dài code point/UTF-16 unit/byte bằng nhau ở mẫu ASCII. TC46–48 bổ sung 7/8/9 code point có emoji để phân biệt cách đếm. Các class chữ hoa/thường/số đang lấy mẫu bằng ASCII; review chưa định nghĩa toàn bộ class chữ/số Unicode. |
++| Q01 | Đã chốt qua review, S7 | Tên chỉ có khoảng trắng là chưa cung cấp tên: REJECT ở TC41. Chuỗi có space không bằng chuỗi rỗng theo nghĩa literal; phép kiểm tra required xét nội dung sau trim. Chưa yêu cầu trim giá trị tên được lưu nếu tên có nội dung. |
++| Q02 | Đã chốt qua review, S7 | Email có phân biệt hoa/thường khi so sánh uniqueness sau trim. TC42 dùng local-part khác case: ACCEPT nếu chuỗi mới chưa tồn tại. |
++| Q03 | Đã chốt qua review, S7 | Bỏ space đầu/cuối email rồi validate/lưu/kiểm tra uniqueness. TC43 ACCEPT email mới sau trim; TC53 REJECT nếu sau trim trùng email cũ. Space bên trong vẫn invalid ở TC10. |
++| Q04 | Đã chốt qua review, S7 | Special gồm dấu/ký hiệu Unicode, mô hình hóa bằng các category P*/S*. `#`, `_`, `—`, `€`, `😀` là các điểm bổ sung; whitespace không được dùng để thỏa điều kiện special. Không có quy tắc cấm space trong password vốn đã có special hợp lệ; TC54 kiểm tra sự khác biệt này. |
++| Q05 | Đã chốt qua review, S7 | Độ dài tính bằng Unicode code point. Emoji `😀` đơn là 1 code point; không tự normalize Unicode trước đếm. `Abc1!😀d` là 7 nên REJECT; TC47–48 có 8/9 code point nên ACCEPT. |
++| Q06 | Quy ước phạm vi thiết kế | Không thêm max nghiệp vụ khi đặc tả không đặt max; các chuỗi dài như password 64 là điểm đại diện, không phải giới hạn trên. Email lấy mẫu theo dạng thông dụng và các lỗi định dạng rõ ràng, chưa nhận hỗ trợ toàn bộ IDN/quoted email. Password đếm nguyên chuỗi code point, không tự normalize; class hoa/thường/số lấy mẫu ASCII. Không công bố coverage cho mọi độ dài, email hoặc chữ/số Unicode. Minimum tên non-whitespace và minimum password 8 đã được xác định. |
+ 
+-TC41–46 là **conditional design**, tách khỏi bộ có oracle theo requirement và các giả định A01–03 đã nêu. Có giá trị khảo sát, nhưng chỉ được kết luận phù hợp/vi phạm sau khi chốt policy tương ứng. Riêng A01 về dữ liệu tên cũng cần Vỹ đối chiếu khi review; nếu có thêm rule tên thì phải cập nhật TC03–05 thay vì giữ expected cũ.
++TC41–46 có expected theo S7; TC47–54 bổ sung các miền/biên Unicode và tương tác dữ liệu. Toàn bộ 54 TC đã được review. Các ca dựa trên S7 đánh giá **quy ước thiết kế bổ sung**, không gán nguồn thành requirement README đã ghi rõ.
+ 
+ ### Đối chiếu source để tránh bỏ qua requirement
+ 
+@@ -65,25 +66,25 @@
+ 
+ | Biến | Kiểu/đơn vị và nominal | Rule/quan hệ |
+ | --- | --- | --- |
+-| N | Chuỗi tên; nominal `Nguyen Van A`. Khi BVA dùng độ dài ASCII `nN`, step 1 | MR-R01; phân biệt rỗng/nonempty, whitespace còn Q01 |
+-| E | Chuỗi email; nominal mới `mr.t02r01.tcNN@example.com` | MR-R02; trạng thái tồn tại liên quan MR-R03 |
+-| U(E) | `new` hoặc `existing_exact`, phụ thuộc dữ liệu đã lưu và lịch sử submit | MR-R03; không phải khoảng số thứ tự |
++| N | Chuỗi tên; nominal `Nguyen Van A`. Required xét `trim(N)`. Khi BVA dùng tên ASCII non-whitespace, `nN` step 1 | MR-R01; rỗng hoặc toàn whitespace bị từ chối |
++| E | Chuỗi email nhập; `Ecanon=trim(E)`; nominal mới `mr.t02r01.tcNN@example.com` | MR-R02; validate/lưu/so sánh Ecanon, không tự lowercase |
++| U(Ecanon) | `new` hoặc `existing_exact`, so sánh có phân biệt case, phụ thuộc dữ liệu/lịch sử | MR-R03; không phải khoảng số thứ tự |
+ | P | Chuỗi password; nominal `Abcde1!x` | MR-R04–09 |
+-| L(P) | Độ dài P; với tập ASCII đã chọn là số ký tự; nominal 8 | MR-R05: `L≥8` |
+-| nU,nL,nD,nS | Số chữ hoa ASCII, chữ thường ASCII, digit ASCII, thành viên S trong P | MR-R06–09: mỗi count ít nhất 1; giữ các count khác hợp lệ khi thay count mục tiêu |
++| L(P) | Số Unicode code point trong P; nominal 8 | MR-R05: `L≥8`; không đếm byte/UTF-16 unit |
++| nU,nL,nD,nS | Số hoa ASCII/thường ASCII/digit ASCII trong mẫu đang dùng; nS đếm code point có category Unicode P* hoặc S* | MR-R06–09: mỗi count ít nhất 1; whitespace không tăng nS |
+ | C | Confirmation; nominal bằng P | MR-R10: required field và quan hệ `C=P`; quan hệ equality không có BVA số mặc định |
+ | F,Q | Form có field C không; trạng thái sửa lỗi, trước/sau một submit | MR-R10, MR-R03, MR-R11 |
+ 
+-Trong miền ASCII nominal, điều kiện đăng ký là phép **AND** của `N≠""`, email hợp lệ/mới, `L(P)≥8`, `nU,nL,nD,nS≥1`, có C và `C=P`. Mỗi điều kiện sai được lấy mẫu riêng để tránh một lỗi khác che mục tiêu. Các chiều password có quan hệ tổng số ký tự, nên khi giảm một count về 0 sẽ thay bằng ký tự của nhóm khác để vẫn giữ độ dài 8. Không lấy tích Descartes của mọi chuỗi.
++Trong mô hình đang dùng, điều kiện đăng ký là phép **AND** của `trim(N)≠""`, Ecanon hợp lệ/mới theo phép so sánh case-sensitive, `L(P)≥8` theo code point, `nU,nL,nD,nS≥1`, có C và `C=P`. Mỗi điều kiện sai được lấy mẫu riêng để tránh một lỗi khác che mục tiêu. Khi giảm một class count về 0, các điểm BVA thay bằng ký tự nhóm khác để giữ L=8. Space vẫn đóng góp vào độ dài nhưng không vào nS; không trim password. Không lấy tích Descartes của mọi chuỗi.
+ 
+ ### Bước 2 — Phân miền, điểm đại diện và lý do
+ 
+-Đây là **29 mục tiêu miền**. Những hàng theo các chiều khác nhau có thể chồng nhau; chúng không được nhận là 29 partition toán học rời nhau. Trong từng chiều, ví dụ độ dài P, các lớp đã chọn không chồng và không có khoảng hở trong phạm vi: `0`, `1..7`, `≥8`.
++Đây là **37 mục tiêu miền** sau review (29 ban đầu và 8 bổ sung). Các chiều khác nhau có thể chồng nhau; không nhận là 37 partition toán học rời nhau. Trong chiều độ dài P, các lớp `0`, `1..7`, `≥8` không chồng và không có khoảng hở, với đơn vị code point đã chốt.
+ 
+ | Domain | Predicate / điểm đại diện | Rule | TC | Lý do chọn |
+ | --- | --- | --- | --- | --- |
+ | MR-D01 | N rỗng `""` | R01 | 02 | Required bị bỏ qua |
+-| MR-D02 | N không rỗng: nominal, `V`, `Vy`, `Trần Quốc Vỹ` | R01 | 01,03–05 | Required hợp lệ; đại diện ngắn và tên tiếng Việt |
++| MR-D02 | `trim(N)` không rỗng: nominal, `V`, `Vy`, `Trần Quốc Vỹ` | R01 | 01,03–05 | Required hợp lệ; không bao gồm tên toàn space ở D30 |
+ | MR-D03 | Email valid/new: `mr.t02r01.tc01@example.com` | R02–03 | 01 | Control hợp lệ cho các lớp email invalid |
+ | MR-D04 | E rỗng | R02 | 06 | Required email |
+ | MR-D05 | E thiếu `@`: `mr.t02r01.tc07.example.com` | R02 | 07 | Tách local/domain sai |
+@@ -95,15 +96,15 @@
+ | MR-D11 | E chuyển new→existing sau lần đăng ký đầu | R03 | 13 | Kiểm tra state thay vì chỉ seed cố định |
+ | MR-D12 | P rỗng | R04 | 14 | Required; đồng thời sai nhiều điều kiện nên không credit các class count riêng |
+ | MR-D13 | `1≤L(P)≤7`: `Abcde1!` | R05 | 15 | Chỉ sai độ dài, vẫn đủ 4 nhóm ký tự |
+-| MR-D14 | `L(P)≥8`: độ dài 8,9,64 | R05 | 16–17,40 | Biên và đại diện ở xa biên; 64 không phải max |
++| MR-D14 | `L(P)≥8`: độ dài 8,9,64 code point | R05 | 16–17,40,47–48 | Biên ASCII/Unicode và đại diện xa biên; 64 không phải max |
+ | MR-D15 | `nU=0`: `abcde1!x` | R06 | 18 | Bỏ sót yêu cầu chữ hoa |
+ | MR-D16 | `nU≥1`: `Abcde1!x`, `ABcde1!x` | R06 | 16,19 | Chấp nhận đúng một/nhiều chữ hoa |
+ | MR-D17 | `nL=0`: `ABCDE1!X` | R07 | 20 | Bỏ sót yêu cầu chữ thường |
+ | MR-D18 | `nL≥1`: `ABCDa1!X`, `ABCDab1!` | R07 | 21–22 | Đúng một và nhiều chữ thường |
+ | MR-D19 | `nD=0`: `Abcdef!x` | R08 | 23 | Bỏ sót yêu cầu chữ số |
+ | MR-D20 | `nD≥1`: `Abcde1!x`, `Abcde12!` | R08 | 16,24 | Đúng một và nhiều chữ số |
+-| MR-D21 | Không có special, P chỉ alphanumeric: `Abcde12x` | R09 | 25 | Oracle reject rõ, không lệ thuộc Q04 |
+-| MR-D22 | Có S: `Abcde1!x`, `Abcde1!!`; thay `!` bằng từng `@,$,%,*,?,&` | R09 | 16,26–32 | Count 1/2 và đủ 7 thành viên được nêu; không giả định mọi ký hiệu đều giống nhau |
++| MR-D21 | Không có special, P chỉ alphanumeric: `Abcde12x` | R09 | 25 | Control nS=0, không có whitespace/Unicode gây nhiễu |
++| MR-D22 | Có special trong S0: `Abcde1!x`, `Abcde1!!`; thay `!` bằng từng `@,$,%,*,?,&` | R09 | 16,26–32 | Count 1/2 và đủ 7 ví dụ trong README; S0 không còn là tập special đầy đủ |
+ | MR-D23 | Schema form phải có C | R10 | 33 | Không bỏ requirement chỉ vì source thiếu input |
+ | MR-D24 | C rỗng trong khi P hợp lệ | R10 | 34 (guard) | Required confirmation và mismatch |
+ | MR-D25 | `C=P` | R10 | 37 (guard) | Control hợp lệ cho so sánh hai trường |
+@@ -111,6 +112,14 @@
+ | MR-D27 | `C≠P`, khác độ dài: `Abcde1!` vs `Abcde1!x` | R10 | 36 (guard) | Tránh so khớp prefix/cắt chuỗi |
+ | MR-D28 | Reject rồi sửa đúng cùng email | R05,R03,R11 | 38 | Invalid không được tạo account ẩn; trạng thái lỗi không được chặn submit hợp lệ sau đó |
+ | MR-D29 | Email duplicate AND P yếu | R03,R06 | 39 | Tương tác thật giữa hai điều kiện; không áp đặt thứ tự thông báo lỗi |
++| MR-D30 | `trim(N)=""` nhưng N không rỗng literal: 1 space | R01,Q01 | 41 | Phân biệt kiểm tra empty đơn thuần với required theo nội dung |
++| MR-D31 | Ecanon khác case local-part so với email đã lưu | R03,Q02 | 42 | Case-sensitive theo S7, không tự lowercase |
++| MR-D32 | E có space đầu/cuối, Ecanon valid/new | R02–03,Q03 | 43 | Tách bước trim khỏi validation/lưu dữ liệu |
++| MR-D33 | Special ngoài S0: `#`, `_`, `😀`, `—`, `€` | R09,Q04 | 44,49–52 | Đại diện dấu/ký hiệu Unicode ngoài bảy ví dụ; không nhận bao phủ mọi category/ký hiệu |
++| MR-D34 | Có space nhưng không có dấu/ký hiệu P*/S* | R09,Q04 | 45 | Không dùng whitespace thay special |
++| MR-D35 | P có emoji, L=7/8/9 code point | R05,Q05 | 46–48 | Phát hiện nhầm số UTF-16 unit thành độ dài nghiệp vụ |
++| MR-D36 | E có space đầu/cuối nhưng Ecanon đã tồn tại | R03,Q03 | 53 | Uniqueness phải xét sau trim, không chỉ validate sau trim |
++| MR-D37 | P có space và có special `!` hợp lệ | R05,R09,Q04 | 54 | Không đếm space là special khác với cấm toàn bộ space trong P |
+ 
+ Trong bảng, `Rxx`/TC số rút gọn lần lượt là `MR-Rxx`/`MR-TCxx`. Không dùng ON/OFF/IN/OUT cho email hoặc role khi chưa có định nghĩa bài giảng phù hợp.
+ 
+@@ -122,45 +131,61 @@
+ 4. Chọn đủ từng ký hiệu S vì rủi ro escape regex/allow-list khác nhau. Đây là lấy mẫu theo tập thành viên, không gọi là BVA.
+ 5. Thêm hai sequence có mục tiêu: TC13 new→existing; TC38 invalid→corrected. TC39 là tương tác nhiều điều kiện sai, không dùng nó thay các ca sai độc lập.
+ 6. Với C, giữ cả cặp same-length/different-length và matching control. Phân biệt yêu cầu field có tồn tại (33) với việc nhập và so sánh được (34–37).
++7. Sau review S7, thêm Unicode 7/8/9 code point và các đại diện special ngoài S0; giữ các điều kiện khác hợp lệ. Thêm email duplicate sau trim và password chứa cả space/`!` để kiểm tra tương tác giữa các quy ước đã chốt.
+ 
+ ## 4. Bước 4 — Boundary Value Analysis riêng
+ 
+-S5 trang 44 chọn quanh biên hợp lệ `b`: `b−δ`, `b`, `b+δ`. Với độ dài/count ASCII, `δ=1 ký tự`. MR-B01 là biên tối thiểu password được nêu trực tiếp; MR-B02–05 suy từ “ít nhất 1”; MR-B06 suy từ required N không rỗng trong phạm vi tên non-whitespace.
++S5 trang 44 chọn quanh biên hợp lệ `b`: `b−δ`, `b`, `b+δ`. Với độ dài P, `δ=1 Unicode code point` theo S7; với các class count, step là 1 phần tử được đếm. Các mẫu tên B06 dùng ASCII non-whitespace nên step là 1 ký tự. MR-B01 là biên tối thiểu password được nêu trực tiếp; MR-B02–05 suy từ “ít nhất 1”; MR-B06 suy từ required N và A01 đã được Vỹ đồng ý.
+ 
+ | Boundary | Hai miền / dấu bằng | Nguồn | Coverage items và TC | Kiểm soát |
+ | --- | --- | --- | --- | --- |
+-| MR-B01 | `L(P)<8` / `L(P)≥8`, b=8 | R05 | `B01-7`→15, `B01-8`→16, `B01-9`→17 | Mỗi P vẫn có hoa/thường/số/S; C khớp khi field có |
++| MR-B01 | `L(P)<8` / `L(P)≥8`, b=8 code point | R05; đơn vị S7 | `B01-7`→15,46; `B01-8`→16,47; `B01-9`→17,48 | ASCII và Unicode cùng ngưỡng; đủ hoa/thường/số/special; C khớp khi field có |
+ | MR-B02 | `nU=0` / `nU≥1`, b=1 | R06 | `B02-0`→18, `B02-1`→16, `B02-2`→19 | L=8; các nhóm còn lại hợp lệ |
+ | MR-B03 | `nL=0` / `nL≥1`, b=1 | R07 | `B03-0`→20, `B03-1`→21, `B03-2`→22 | L=8; các nhóm còn lại hợp lệ |
+ | MR-B04 | `nD=0` / `nD≥1`, b=1 | R08 | `B04-0`→23, `B04-1`→16, `B04-2`→24 | L=8; các nhóm còn lại hợp lệ |
+-| MR-B05 | Không special / `nS≥1`, b=1, mẫu invalid chỉ alphanumeric | R09 | `B05-0`→25, `B05-1`→16, `B05-2`→26 | L=8; các nhóm còn lại hợp lệ; không dùng `#` làm điểm 0 để tránh Q04 |
++| MR-B05 | Không special / `nS≥1`, b=1, mẫu invalid chỉ alphanumeric | R09 | `B05-0`→25, `B05-1`→16, `B05-2`→26 | L=8; các nhóm còn lại hợp lệ; `#` là special theo S7 nên không dùng làm điểm 0 |
+ | MR-B06 | N rỗng / N có ít nhất 1 ký tự non-whitespace, b=1 | R01 + A01 | `B06-0`→02, `B06-1`→03, `B06-2`→04 | Dùng `""`,`V`,`Vy`, P mạnh và E mới; không tự đặt min tên là 2 |
+ 
+ **Giải thích dấu bằng:** P dài 8 và count đúng 1 thuộc miền hợp lệ; P dài 7 hoặc count 0 thuộc miền không hợp lệ. Giá trị 9 và count 2 giúp phân biệt triển khai nhầm `=8`/`=1` thay cho `≥`. Tên 1/2 ký tự dựa trên required và chưa có restriction khác; nếu bổ sung grammar tên, phải cập nhật biên R01/A01.
+ 
+ **Không có biên trên nghiệp vụ được đặc tả.** TC40 dùng 64 ký tự như một điểm đại diện miền dài; không gọi 63/64/65 là BVA. Không tạo độ dài âm, không dùng giới hạn byte/keyboard của môi trường làm max nghiệp vụ. Các regex/email khác nhau, email tồn tại, presence của field và `C=P` là phân loại/quan hệ, không tự đặt BVA số cho chúng. Riêng C ngắn hơn P ở TC36 chỉ là đại diện mismatch, không chứng minh một rule minimum length của C.
+ 
+-Có **6 boundary inventories × 3 items = 18 items**. TC16 cùng lúc chạm B01-8/B02-1/B04-1/B05-1, nên hợp dữ liệu thành **15 unique TC BVA**, không đếm TC16 bốn lần.
++Có **6 boundary inventories × 3 items = 18 items**. TC16 cùng lúc chạm B01-8/B02-1/B04-1/B05-1. Bản đầu có 15 unique TC BVA; sau review thêm TC46–48 hiện thực lại 3 items B01 bằng Unicode, thành **18 unique TC BVA**. Số boundary items vẫn là 18; không cộng lần hiện thực ASCII/Unicode thành biên mới hoặc đếm TC16 bốn lần.
+ 
+ ## 5. Bước 5 — Tự kiểm tra thiết kế và coverage
+ 
+-Phần này là **AI tự rà soát**, chưa phải human review. Đã đối chiếu từng chuỗi ASCII với độ dài/count đích; các điểm BVA sai một điều kiện giữ các điều kiện password khác hợp lệ. Các trường không có numeric limit không bị tự gán max. Oracle dựa trên S1/S2, còn S3/S4 chỉ giúp hiểu thao tác và quan sát.
++Phần này mô tả **AI tự rà soát thiết kế**; Vỹ đã hoàn tất review bộ tài liệu sau đó. Bản v0.1 được giữ để đối chiếu. Các điểm biên ASCII vẫn giữ nguyên, TC46–48 bổ sung cùng B01 bằng Unicode. Expected bổ sung dẫn S7, không dựa vào regex/code đang có.
+ 
+-| Inventory | Ánh xạ thiết kế | Giới hạn cần giữ khi đọc số liệu |
++| Inventory | Ánh xạ thiết kế | Giới hạn |
+ | --- | --- | --- |
+-| Rule confirmed | 11/11 rule có TC; R01→01–05, R02→01,06–11, R03→01,12–13,38–39, R04→14, R05→15–17,38,40, R06→16,18–19,39, R07→20–22, R08→16,23–24, R09→16,25–32, R10→33–37, R11→các ca accept và38 | R10 equality ở TC34–37 còn guard; có ánh xạ không đồng nghĩa đã kiểm chứng |
+-| Domain targets | 29/29 mục tiêu có TC thiết kế | Theo source hiện tại, 25 mục tiêu có đường quan sát/nhập native; 4 mục tiêu D24–27 phụ thuộc field C. D23 vẫn kiểm tra được bằng quan sát form. Đây là phân tích reachability tĩnh, không phải execution coverage |
+-| Special member samples | 7/7 ký hiệu trong S có TC accept riêng | Chỉ đại diện thành viên, không bao phủ mọi tổ hợp/ký tự Unicode |
+-| BVA items | 18/18 items được ánh xạ, 15 unique TC | Coverage thiết kế trên inventory công bố; không áp tỷ lệ này cho toàn bộ input space |
+-| Conditional questions | Q01–05 có TC41–46; Q06 được ghi giới hạn | 6 TC này không cộng vào coverage oracle confirmed, không tự điền pass/fail |
++| Rules | 11/11 rule có TC: R01→01–05,41; R02→01,06–11,43,53; R03→01,12–13,38–39,42–43,53; R04→14; R05→15–17,38,40,46–48,50,54; R06→16,18–19,39; R07→20–22; R08→16,23–24; R09→16,25–32,44–45,49–52,54; R10→33–37; R11→các ca ACCEPT | Nguồn gồm requirement và review S7. R10 equality còn guard; ánh xạ thiết kế không phải đã kiểm chứng |
++| Domain targets | 37/37 mục tiêu có TC thiết kế | Theo source, 33 mục tiêu có đường nhập/quan sát; D24–27 phụ thuộc field C. Đây là reachability tĩnh, không phải execution coverage |
++| Special samples | 7/7 ví dụ S0 trong README và 5 điểm ngoài S0 (`#`, `_`, `😀`, `—`, `€`) có TC ACCEPT | Không nhận đã bao phủ mọi ký hiệu hoặc mọi category Unicode; đây là đại diện có mục tiêu |
++| BVA items | 18/18 items được ánh xạ, 18 unique TC BVA | ASCII và Unicode hiện thực cùng 3 items B01; không tăng mẫu số vì thêm dữ liệu |
++| Review | A01,Q01–05 đã chốt; toàn bộ 54 TC đã được review | Q06 công bố phạm vi thiết kế; review hoàn tất không đồng nghĩa đã thực thi |
+ 
+-Tổng **46 unique TC**: **40 TC có oracle theo requirement và các giả định đã công bố** (trong đó 4 cần field C để thực hiện equality) và **6 TC conditional cần chốt policy**. Có 15 TC mang cả Domain và BVA; tổng vẫn là 46. Mọi TC ở trạng thái thiết kế **Not Run**. Không có actual, execution coverage hoặc bug verdict trong hai file này.
++Tổng **54 unique TC**, mọi ca có expected theo requirement và các quy ước/giả định đã ghi nguồn. **4 TC (34–37) cần field C** để nhập/so sánh. Có 18 TC mang cả Domain và BVA; vẫn chỉ đếm 54 unique TC. Toàn bộ **Not Run**; không có actual, execution coverage hay bug verdict.
+ 
+-### Khoảng chưa bao phủ và điểm cần Vỹ review
++## 6. Quy ước đã chốt và giới hạn thiết kế
+ 
+-- Chốt A01 và cách suy biên required tên; chốt Q01–05 trước khi dùng TC conditional để đánh giá lỗi. Q06 chưa đủ test basis để nhận đã bao phủ mọi dạng email/Unicode hoặc mọi độ dài.
+-- TC34–37 không thể chứng minh equality nếu runtime giống source và không có C. Không xóa các ca này để làm coverage trông đẹp; cũng không cộng chúng vào coverage thực thi.
+-- Không bao phủ đồng thời hai client đăng ký trùng email (race), mất mạng/retry, hiệu năng hoặc security payload; chưa có policy/error contract để đưa chúng vào bộ Domain/BVA confirmed của feature này.
+-- Cần xác nhận cùng một lần submit không tạo nhiều account qua quan sát dữ liệu phụ trợ; thao tác đầu vào vẫn phải đi qua native. Không dùng UI toast làm bằng chứng duy nhất rằng đã lưu đúng một account.
++### Các quyết định đã ghi nhận ngày 20/10/2026
+ 
+-Bản AI ban đầu hiện được giữ nguyên bằng hai file v0.1 này. Khi có review, giữ ID và bản gốc/diff trước sửa; không gán các nhận xét ở đây thành việc Vỹ đã review.
++Các quy ước S7 dưới đây đã được đối chiếu với bộ TC. Tên/Email/Password lần lượt ký hiệu N/E/P; cột cuối liên kết đến các ca áp dụng. Đây là cơ sở thiết kế, chưa phải kết quả chạy SUT.
++
++| Điểm | Kết luận đã chốt | Ảnh hưởng và vị trí để đọc |
++| --- | --- | --- |
++| **A01 — Tên** | Tên không rỗng và có nội dung non-whitespace; chưa thêm restriction khác | Giữ ACCEPT cho `V`, `Vy`, `Trần Quốc Vỹ`; [TC03–05](D:/Workspace/SoftwareTesting/HW02/eshop-sut/tests/hw02/mobile-registration/test-cases.md:33); giữ [BVA tên B06](D:/Workspace/SoftwareTesting/HW02/eshop-sut/tests/hw02/mobile-registration/design.md:147) |
++| **Q01 — Tên toàn space** | Tên chỉ gồm khoảng trắng bị coi là chưa nhập tên, nên REJECT | [TC41](D:/Workspace/SoftwareTesting/HW02/eshop-sut/tests/hw02/mobile-registration/test-cases.md:92). Phân biệt chuỗi literal `" "` có 1 ký tự với giá trị sau trim rỗng; không bắt buộc trim tên được lưu nếu tên có nội dung |
++| **Q02 — Case email** | So sánh email sau trim **có phân biệt hoa/thường** | [TC42](D:/Workspace/SoftwareTesting/HW02/eshop-sut/tests/hw02/mobile-registration/test-cases.md:93) ACCEPT `TEST@eshop.com` khi chỉ có `test@eshop.com`; [TC12–13](D:/Workspace/SoftwareTesting/HW02/eshop-sut/tests/hw02/mobile-registration/test-cases.md:42) vẫn REJECT đăng ký trùng nguyên chuỗi |
++| **Q03 — Space ngoài email** | Bỏ khoảng trắng đầu/cuối rồi validate/lưu/kiểm tra uniqueness | [TC43](D:/Workspace/SoftwareTesting/HW02/eshop-sut/tests/hw02/mobile-registration/test-cases.md:94) ACCEPT email mới sau trim; [TC53](D:/Workspace/SoftwareTesting/HW02/eshop-sut/tests/hw02/mobile-registration/test-cases.md:111) REJECT email sau trim đã tồn tại |
++| **Q04 — Special** | Công nhận dấu/ký hiệu Unicode, mô hình hóa Punctuation/Symbol; whitespace không được tính là special | [TC44–45](D:/Workspace/SoftwareTesting/HW02/eshop-sut/tests/hw02/mobile-registration/test-cases.md:95): `#` ACCEPT, space-only-special REJECT. [TC49–52](D:/Workspace/SoftwareTesting/HW02/eshop-sut/tests/hw02/mobile-registration/test-cases.md:107) thêm `_`, emoji, em dash, euro. [TC54](D:/Workspace/SoftwareTesting/HW02/eshop-sut/tests/hw02/mobile-registration/test-cases.md:112) phân biệt “không đếm space là special” với “cấm mọi space” |
++| **Q05 — Độ dài** | Đếm **Unicode code point**, `😀` đơn tính 1; không đếm UTF-16 unit | [TC46–48](D:/Workspace/SoftwareTesting/HW02/eshop-sut/tests/hw02/mobile-registration/test-cases.md:97) có 7/8/9 code point, lần lượt REJECT/ACCEPT/ACCEPT. Không tự chuẩn hóa ký tự Unicode trước đếm |
++
++### Phạm vi và điều kiện thực thi
++
++- **Confirmation có requirement rõ:** [FR-01 dòng 35](D:/Workspace/SoftwareTesting/HW02/eshop-sut/README.md:35) yêu cầu trường xác nhận và từ chối khi không khớp. [Form Mobile dòng 797](D:/Workspace/SoftwareTesting/HW02/eshop-sut/frontend-mobile/App.js:797) chưa thể hiện field này trong source đã đọc. Giữ [TC33–37](D:/Workspace/SoftwareTesting/HW02/eshop-sut/tests/hw02/mobile-registration/test-cases.md:77); khi execution được giao, kiểm tra toàn form bằng TC33. Nếu thiếu thật, TC34–37 không nhập được; không ghi pass hay thay bằng API.
++- **Độ dài và định dạng (Q06):** [FR-01 dòng 32–34](D:/Workspace/SoftwareTesting/HW02/eshop-sut/README.md:32) không đặt max tên/email/password. Thiết kế không thêm ngưỡng tùy ý; chỉ kiểm tra các minimum đã xác định và điểm dài đại diện. Bộ hiện tại dùng email thông dụng, code point nguyên bản và mẫu chữ/số ASCII; không nhận đã bao phủ toàn bộ grammar email, normalization hoặc mọi Unicode.
++- **Phạm vi kiểm thử:** các TC dùng submit tuần tự, kết nối bình thường theo A02. Race giữa hai client, mất mạng/retry, hiệu năng và security payload nằm ngoài bộ Domain/BVA này; đây là lựa chọn phạm vi, không phải các đầu việc review còn treo.
++- **Quan sát account khi chạy:** [oracle và bước chung](D:/Workspace/SoftwareTesting/HW02/eshop-sut/tests/hw02/mobile-registration/test-cases.md:15) yêu cầu đối chiếu dữ liệu runtime chỉ đọc theo Ecanon/case; thao tác đăng ký vẫn qua native. Chỉ thấy toast không chứng minh đã lưu đúng một account. Chưa chạy/query DB trong bước thiết kế này.
++
++Bản AI v0.1 và snapshot v0.2 được giữ local ngoài repo trong `HW02/.runtime/design-baselines/`. Bản thiết kế hiện tại đã được review; giữ nguyên 54 TC và các ID để truy vết. Chưa có kết quả thực thi.
+--- v0.1/test-cases.md
++++ v0.3/test-cases.md
+@@ -1,6 +1,6 @@
+ # Mobile Account Registration — bộ test case Domain/BVA
+ 
+-**AI draft v0.1 — 20/10/2026 (UTC+7) — chờ Vỹ review.** Toàn bộ **46 TC: Not Run**. Test basis, rule/domain/boundary và giới hạn tại [design.md](design.md). Không có kết quả chạy trong tài liệu này.
++**Design v0.3 — 20/10/2026 (UTC+7) — Vỹ đã review toàn bộ.** Toàn bộ **54 TC: Not Run**. Test basis, quy ước S7 và phạm vi tại [design.md](design.md). Không có kết quả chạy trong tài liệu này.
+ 
+ ## Quy ước dữ liệu và điều kiện trước
+ 
+@@ -10,16 +10,17 @@
+ - **Dữ liệu mặc định:** N=`Nguyen Van A`; P=`Abcde1!x`; E của TC số NN là **`mr.t02r01.tcNN@example.com`**, ví dụ TC01=`mr.t02r01.tc01@example.com`, TC40=`mr.t02r01.tc40@example.com`. Mỗi TC dùng đúng E riêng, trừ override trong bảng. `t02r01` là namespace dữ liệu cụ thể cho lần chạy đầu; khi rerun thay token đồng nhất và ghi lại token thật. Chưa tạo các account này trong lượt thiết kế.
+ - **C mặc định:** nếu UI có field thì nhập đúng bằng P; nếu UI thiếu field, các TC kiểm tra N/E/P vẫn đánh giá rule riêng của chúng và ghi giới hạn form. Không credit R10 từ những ca đó. C-guard áp dụng riêng khi TC nhắm trực tiếp vào nhập/so sánh C.
+ - `""` là để trống; backtick chứa space là ký tự cần nhập thật, không phải dấu phân cách. Các password ASCII trong bảng là chuỗi literal, không gõ dấu backtick.
++- **Quy ước theo review S7:** tên toàn whitespace bị từ chối; Ecanon là email sau bỏ whitespace đầu/cuối, validation/lưu/uniqueness dùng Ecanon và so sánh có phân biệt hoa/thường. Password đếm Unicode code point; special là dấu/ký hiệu Unicode P*/S*, không tính whitespace. Không trim password và không tự cấm mọi space khi P đã có special hợp lệ. Giữ nguyên input có space để ứng dụng tự xử lý, không trim trước bằng tool.
+ 
+ ## Bước dùng chung và oracle
+ 
+ **S:** (1) Từ Home → Đăng nhập → Đăng ký ngay. (2) Điền N/E/P đúng dữ liệu của ca, C=P nếu có field; override C khi ca chỉ định. (3) Bấm Đăng ký **một lần**; quan sát phản hồi, đóng alert nếu cần để xác định màn hình đích. (4) Dùng quan sát dữ liệu **chỉ đọc** trên database runtime để đối chiếu account count/name/email trước–sau. Đây là phép quan sát phụ trợ; không thay bước submit native bằng API. Nếu không quan sát được persistence thì ghi giới hạn, không suy ra từ alert.
+ 
+-**ACCEPT:** dữ liệu thỏa các rule đang kiểm tra được chấp nhận, tạo đúng 1 account mới với name/email tương ứng và chuyển tới màn hình Đăng nhập. Nguồn: FR-01/R11 cùng các rule đầu vào đã dẫn; S3 chỉ bổ trợ contract success của API. Không đòi một câu toast/id cố định. Không tính ACCEPT của ca N/E/P là đã kiểm tra C.
++**ACCEPT:** dữ liệu thỏa các rule đang kiểm tra được chấp nhận, tạo đúng 1 account mới với name tương ứng và email Ecanon sau trim, chuyển tới màn hình Đăng nhập. Nguồn: FR-01/R11 cùng các rule đầu vào đã dẫn; quy ước trim/case/Unicode từ review S7; S3 chỉ bổ trợ contract success API. Không đòi một câu toast/id cố định. Không tính ACCEPT của ca N/E/P là đã kiểm tra C.
+ 
+ **REJECT:** không báo đăng ký thành công, có phản hồi validation/thất bại, không tạo account mới cho lần nhập invalid; không chuyển sang đăng nhập như một đăng ký thành công. Nguồn: rule bị vi phạm trong FR-01. Không áp đặt thứ tự lỗi, exact message hoặc HTTP 400/409 khi chưa được đặc tả. Với duplicate, so count theo email trước–sau không tăng và account cũ giữ nguyên.
+ 
+-Các kiểm tra count không so tổng account của cả DB khi có hoạt động khác; dùng namespace/E của ca. P chỉ là dữ liệu giả, không cần đọc/lưu mật khẩu từ DB để đối chiếu. Với oracle conditional, ghi nhận dữ liệu để đối chiếu policy sau này; chưa dùng nó kết luận bug.
++Các kiểm tra count không so tổng account của cả DB khi có hoạt động khác; dùng namespace/Ecanon của ca và phép so sánh case-sensitive đã chốt. P chỉ là dữ liệu giả, không cần đọc/lưu mật khẩu từ DB để đối chiếu. Các expected bổ sung do review phải dẫn S7, không gán thành nội dung README đã ghi rõ.
+ 
+ ## A. Required fields và miền email
+ 
+@@ -82,21 +83,36 @@
+ | MR-TC39 | Domain (interaction) | R03,R06; D10,D15,D29 | P0; `test@eshop.com` tồn tại; ghi count/dữ liệu trước ca | E=`test@eshop.com`, P=`abcde1!x` (thiếu hoa), N nominal | S | REJECT, không thêm/sửa account đã tồn tại. Bất kỳ rule invalid nào được thông báo trước đều được; không credit đã tới check uniqueness nếu password chặn trước. R03,R06/S1:33–34 |
+ | MR-TC40 | Domain (interior sample) | R05–09,R11; D14 | P0; E40 mới | P=`Ab1!Ab1!Ab1!Ab1!Ab1!Ab1!Ab1!Ab1!Ab1!Ab1!Ab1!Ab1!Ab1!Ab1!Ab1!Ab1!` (64 = `Ab1!` ×16); C=P nếu có | S | ACCEPT; thỏa ngưỡng tối thiểu và đủ nhóm ký tự, chưa có max được công bố; R05–09,R11/S1:34,36. Đây là điểm dài đại diện, không phải biên trên |
+ 
+-## D. Conditional — chỉ chốt verdict khi rõ policy
++## D. Các TC đã chốt expected qua review của Vỹ
+ 
+-Các TC này vẫn là thiết kế Domain. Không cộng vào tập oracle confirmed, không dùng expected điều kiện để ghi pass/fail ngay.
++TC41–46 ban đầu là conditional; nay đã có expected theo S7. Đây là các quy ước review bổ sung vào phần README chưa diễn đạt đủ, không phải bằng chứng đã chạy test hoặc đã có lỗi runtime.
+ 
+-| TC ID | Technique | Rule / Domain / Boundary | Precondition | Input cụ thể | Steps | Expected có điều kiện và nguồn |
++| TC ID | Technique | Rule / Domain / Boundary | Precondition | Input cụ thể | Steps | Expected và nguồn review |
+ | --- | --- | --- | --- | --- | --- | --- |
+-| MR-TC41 | Domain — conditional | R01; Q01 | P0; E41 mới; cần policy whitespace của tên | N=`   ` (3 space), E41/P nominal | S, giữ đúng 3 space, không tự trim | Nếu tên sau trim phải nonempty: REJECT; nếu policy cho phép literal whitespace: ACCEPT theo policy đó. S1:32 chưa nói trim; chưa có oracle confirmed |
+-| MR-TC42 | Domain — conditional | R03; Q02 | P0; `test@eshop.com` tồn tại; `TEST@eshop.com` chưa có nguyên chuỗi | E=`TEST@eshop.com`, N/P nominal | S, nhập đúng case; quan sát cả hai chuỗi email | Nếu uniqueness local-part không phân biệt case: REJECT; nếu phân biệt case: có thể ACCEPT thành account riêng. Cần policy từ chủ đặc tả; không lấy SQLite/code làm oracle |
+-| MR-TC43 | Domain — conditional | R02–03; Q03 | P0; E43 canonical và chuỗi có space đều chưa tồn tại | E=` mr.t02r01.tc43@example.com ` (1 space đầu/cuối), N/P nominal | S; kiểm tra cả chuỗi canonical và nguyên chuỗi nếu được chấp nhận | Nếu policy trim: ACCEPT và dùng E canonical; nếu policy validate nguyên chuỗi: REJECT. S1:33 không quy định normalization; không mặc định cho phép lưu email có space |
+-| MR-TC44 | Domain — conditional | R09; Q04 | P0; E44 mới | P=`Abcde1#x` (8, special duy nhất `#`) | S | Nếu S là tập được công nhận đầy đủ: REJECT; nếu `#` cũng được policy công nhận: ACCEPT. S1:34 liệt kê S nhưng chưa nói rõ tính đầy đủ |
+-| MR-TC45 | Domain — conditional | R09; Q04 | P0; E45 mới | P=`Abcde1 x` (8, 1 space giữa `1` và `x`, không có S) | S, không thay space bằng `!` | REJECT nếu space không được coi là special; chỉ ACCEPT nếu policy xác nhận space đáp ứng R09. Không suy từ regex hiện tại; S1:34/Q04 |
+-| MR-TC46 | Domain — conditional | R05; Q05 | P0; E46 mới; nhập được emoji; cần quy ước đếm ký tự | P=`Abc1!😀d` (7 code point/grapheme đơn ở mẫu này, 8 UTF-16 unit), C=P nếu có | S bằng chuỗi nguyên vẹn; kiểm tra input không bị tool đổi/cắt | Nếu đếm code point/grapheme: REJECT vì 7<8; nếu đếm UTF-16 unit: ACCEPT nếu các rule khác giữ đúng. S1:34 chưa xác định đơn vị Unicode; không nhận đây là BVA confirmed |
++| MR-TC41 | Domain | R01; D30; Q01 | P0; E41 mới | N=` ` (1 space), E41/P nominal | S, nhập đúng 1 space, không tự trim trước bằng tool | REJECT vì tên sau trim rỗng; R01/S1:32 và review S7/Q01 |
++| MR-TC42 | Domain | R03; D31; Q02 | P0; `test@eshop.com` tồn tại; `TEST@eshop.com` chưa có nguyên chuỗi | E=`TEST@eshop.com`, N/P nominal | S, giữ đúng case; quan sát hai email theo so sánh phân biệt case | ACCEPT tạo đúng 1 account `TEST@eshop.com`, account `test@eshop.com` cũ giữ nguyên. Email khác case là hai chuỗi khác theo review S7/Q02; R03/S1:33 |
++| MR-TC43 | Domain | R02–03; D32; Q03 | P0; E43 canonical và chuỗi có space đều chưa tồn tại | E=` mr.t02r01.tc43@example.com ` (1 space đầu/cuối), N/P nominal | S, nhập cả space; kiểm tra Ecanon và chuỗi nguyên nhập sau submit | ACCEPT, chỉ tạo account với email `mr.t02r01.tc43@example.com` đã trim; không lưu email có space. R02–03/S1:33 và review S7/Q03 |
++| MR-TC44 | Domain | R09; D33; Q04 | P0; E44 mới | P=`Abcde1#x` (8 code point, special duy nhất `#`) | S | ACCEPT vì `#` là dấu Unicode thuộc Punctuation; R09/S1:34 và review S7/Q04, không giới hạn special trong S0 |
++| MR-TC45 | Domain | R09; D34; Q04 | P0; E45 mới | P=`Abcde1 x` (8 code point, 1 space giữa `1` và `x`, không có dấu/ký hiệu) | S, không thay space bằng `!` | REJECT vì space không đáp ứng yêu cầu special; các nhóm khác và độ dài vẫn hợp lệ. R09/S1:34 và review S7/Q04 |
++| MR-TC46 | Domain+BVA | R05; D13,D35; B01-7; Q05 | P0; E46 mới; nhập được emoji nguyên vẹn | P=`Abc1!😀d` (7 code point, 8 UTF-16 unit), C=P nếu có | S, giữ nguyên chuỗi Unicode | REJECT vì 7<8 code point, dù đủ 8 UTF-16 unit. Có đủ hoa/thường/số/special. Ngưỡng R05/S1:34 và đơn vị review S7/Q05 |
++
++## E. Unicode và tương tác dữ liệu
++
++TC47–54 kiểm tra độ dài Unicode, các nhóm special mở rộng, uniqueness sau trim và password chứa cả space/special. Các ca áp dụng cùng quy ước đã chốt; không tăng ngưỡng hay giới hạn nghiệp vụ.
++
++| TC ID | Technique | Rule / Domain / Boundary | Precondition | Input cụ thể | Steps | Expected và nguồn |
++| --- | --- | --- | --- | --- | --- | --- |
++| MR-TC47 | Domain+BVA | R05; D14,D35; B01-8; Q05 | P0; E47 mới; nhập được emoji nguyên vẹn | P=`Abc1!😀de` (8 code point, 9 UTF-16 unit), C=P nếu có | S, giữ nguyên chuỗi Unicode | ACCEPT tại ngưỡng 8 code point, đủ các nhóm ký tự. R05,R11/S1:34,36 và review S7/Q05 |
++| MR-TC48 | Domain+BVA | R05; D14,D35; B01-9; Q05 | P0; E48 mới; nhập được emoji nguyên vẹn | P=`Abc1!😀def` (9 code point, 10 UTF-16 unit), C=P nếu có | S, giữ nguyên chuỗi Unicode | ACCEPT phía trên ngưỡng; không chỉ chấp nhận đúng 8. R05,R11/S1:34,36 và review S7/Q05 |
++| MR-TC49 | Domain (membership) | R09; D33; Q04 | P0; E49 mới | P=`Abcde1_x` (8 code point, special duy nhất `_`) | S | ACCEPT vì `_` thuộc Punctuation; R09,R11/S1:34,36 và review S7/Q04 |
++| MR-TC50 | Domain (membership) | R05,R09; D33; Q04 | P0; E50 mới; nhập được emoji nguyên vẹn | P=`Abcdef1😀` (8 code point, special duy nhất `😀`) | S, giữ nguyên emoji | ACCEPT vì emoji này thuộc Symbol; có đủ hoa/thường/số, đủ 8 code point. R05,R09,R11/S1:34,36 và review S7/Q04–05 |
++| MR-TC51 | Domain (membership) | R09; D33; Q04 | P0; E51 mới | P=`Abcde1—x` (8 code point, special duy nhất là em dash `—`, không phải dấu trừ) | S | ACCEPT vì `—` thuộc Punctuation; R09,R11/S1:34,36 và review S7/Q04 |
++| MR-TC52 | Domain (membership) | R09; D33; Q04 | P0; E52 mới | P=`Abcde1€x` (8 code point, special duy nhất `€`) | S | ACCEPT vì `€` thuộc Symbol; R09,R11/S1:34,36 và review S7/Q04 |
++| MR-TC53 | Domain (interaction) | R02–03; D36; Q03 | P0; `test@eshop.com` đã tồn tại; ghi count/dữ liệu trước ca | E=` test@eshop.com ` (1 space đầu/cuối), N/P nominal | S, không trim trước bằng tool; quan sát cả Ecanon và chuỗi có space | REJECT vì sau trim email trùng `test@eshop.com`; không tạo account mới ở cả hai dạng và không sửa account cũ. R03/S1:33 và review S7/Q02–03 |
++| MR-TC54 | Domain (interaction) | R05,R09; D37; Q04 | P0; E54 mới | P=`Abc1! xy` (8 code point, có `!` và 1 space sau `!`), C=P nếu có | S, giữ đúng space trong P; không trim password | ACCEPT vì `!` thỏa special, space không bị dùng để thay special và chưa có rule cấm mọi space. R05,R09,R11/S1:34,36 và cách áp dụng review S7/Q04 |
+ 
+ ## Bàn giao thiết kế
+ 
+-- **46 unique TC**, gồm 40 có oracle theo requirement và các giả định đã công bố, 6 conditional cần chốt policy. 4 trong 40 (34–37) có C-guard; giữ chúng khi form chưa đáp ứng schema. TC03–05 còn phụ thuộc A01 về tên chưa có restriction bổ sung.
+-- **15 TC Domain+BVA:** 02,03,04,15,16,17,18,19,20,21,22,23,24,25,26. Hợp 18 boundary items; các TC này không được cộng hai lần.
+-- Tất cả **Not Run**. Chưa có human review, actual, evidence hay kết luận lỗi. File này cùng `design.md` là bản AI ban đầu v0.1; giữ ID và bản gốc/diff khi Vỹ phản hồi.
++- **54 unique TC**, có expected theo requirement và quy ước review S7; không còn TC conditional ở Q01–05. TC34–37 có C-guard; giữ chúng khi form chưa đáp ứng schema. Không đổi rule từ README thành nguồn của các quy ước bổ sung.
++- **18 TC Domain+BVA:** 02,03,04,15,16,17,18,19,20,21,22,23,24,25,26,46,47,48. Ánh xạ vào 18 boundary items; 3 ca Unicode hiện thực lại B01, không tạo thêm items và không đếm đôi TC.
++- Tất cả **Not Run**. Vỹ đã review toàn bộ hai file thiết kế và bộ 54 TC. Không có actual, evidence hay kết luận lỗi. Bản AI v0.1 và snapshot v0.2 được giữ ngoài repo để đối chiếu.
