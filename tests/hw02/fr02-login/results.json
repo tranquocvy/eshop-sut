@@ -1,0 +1,4051 @@
+{
+  "cases": [
+    {
+      "id": "FR02-W01",
+      "trace": "Domain; D01,D11; R01,R06",
+      "precondition": "F0",
+      "input_steps": "Login U/P; quan sát JWT được lưu phía client; mở màn hình hồ sơ tạo GET /api/users/me",
+      "expected": "Thành công; nhận JWT; client gửi Authorization: Bearer đúng token, hồ sơ đúng U. S1/S2; không ép storage cụ thể",
+      "results": [
+        {
+          "run_id": "FR02-RUN01",
+          "started_at": "2026-10-20T12:26:02.017180+00:00",
+          "status": "blocked",
+          "observations": [
+            {
+              "at": "2026-10-20T12:26:02.021010+00:00",
+              "step": "F0",
+              "value": {
+                "email": "test@eshop.com",
+                "login_attempts": 0,
+                "locked_until": null
+              }
+            },
+            {
+              "at": "2026-10-20T12:26:02.755996+00:00",
+              "step": "UI submit",
+              "value": {
+                "started_at": "2026-10-20T12:26:02.444378+00:00",
+                "email": "test@eshop.com",
+                "password": "Test1234!",
+                "url": "http://localhost:5173/",
+                "responses": [
+                  {
+                    "status": 200,
+                    "body": {
+                      "message": "Login successful",
+                      "token": "[present]",
+                      "user": {
+                        "id": 2,
+                        "name": "Test User",
+                        "email": "test@eshop.com",
+                        "password": "Test1234!",
+                        "role": "user",
+                        "login_attempts": 0,
+                        "locked_until": null,
+                        "reset_token": null,
+                        "shipping_address": null,
+                        "phone": null
+                      }
+                    }
+                  }
+                ],
+                "text": "Danh sách sản phẩm\nTìm\niPhone 15 Pro Max\n\n30,000,000 VND\n\nXem chi tiết\nThêm vào giỏ\nSamsung Galaxy S24 Ultra\n\n28,000,000 VND\n\nXem chi tiết\nThêm vào giỏ\nMacBook Pro M3\n\n45,000,000 VND\n\nXem chi tiết\nThêm vào giỏ\nTai nghe AirPods Pro 2\n\n6,000,000 VND\n\nXem chi tiết\nThêm vào giỏ\nBàn phím cơ Keychron Q1\n\n4,000,000 VND\n\nXem chi tiết\nThêm vào giỏ\nHiển thị 5 sản phẩm",
+                "token_present": true,
+                "fields": [],
+                "state": {
+                  "email": "test@eshop.com",
+                  "login_attempts": 0,
+                  "locked_until": null
+                }
+              }
+            },
+            {
+              "at": "2026-10-20T12:26:32.785575+00:00",
+              "step": "interruption",
+              "value": "TimeoutError('Locator.click: Timeout 30000ms exceeded.\\nCall log:\\n  - waiting for get_by_role(\"link\", name=\"Hồ sơ\", exact=True)\\n')"
+            }
+          ],
+          "assertions": [
+            {
+              "check": "UI success and token stored",
+              "ok": true
+            }
+          ],
+          "images": [],
+          "reason": "Harness/environment error: TimeoutError('Locator.click: Timeout 30000ms exceeded.\\nCall log:\\n  - waiting for get_by_role(\"link\", name=\"Hồ sơ\", exact=True)\\n')",
+          "ended_at": "2026-10-20T12:26:32.785590+00:00"
+        },
+        {
+          "run_id": "FR02-RUN02",
+          "started_at": "2026-10-20T12:26:34.133759+00:00",
+          "status": "passed",
+          "observations": [
+            {
+              "at": "2026-10-20T12:26:34.134681+00:00",
+              "step": "F0",
+              "value": {
+                "email": "test@eshop.com",
+                "login_attempts": 0,
+                "locked_until": null
+              }
+            },
+            {
+              "at": "2026-10-20T12:26:34.700986+00:00",
+              "step": "UI submit",
+              "value": {
+                "started_at": "2026-10-20T12:26:34.379928+00:00",
+                "email": "test@eshop.com",
+                "password": "Test1234!",
+                "url": "http://localhost:5173/",
+                "responses": [
+                  {
+                    "status": 200,
+                    "body": {
+                      "message": "Login successful",
+                      "token": "[present]",
+                      "user": {
+                        "id": 2,
+                        "name": "Test User",
+                        "email": "test@eshop.com",
+                        "password": "Test1234!",
+                        "role": "user",
+                        "login_attempts": 0,
+                        "locked_until": null,
+                        "reset_token": null,
+                        "shipping_address": null,
+                        "phone": null
+                      }
+                    }
+                  }
+                ],
+                "text": "Danh sách sản phẩm\nTìm\niPhone 15 Pro Max\n\n30,000,000 VND\n\nXem chi tiết\nThêm vào giỏ\nSamsung Galaxy S24 Ultra\n\n28,000,000 VND\n\nXem chi tiết\nThêm vào giỏ\nMacBook Pro M3\n\n45,000,000 VND\n\nXem chi tiết\nThêm vào giỏ\nTai nghe AirPods Pro 2\n\n6,000,000 VND\n\nXem chi tiết\nThêm vào giỏ\nBàn phím cơ Keychron Q1\n\n4,000,000 VND\n\nXem chi tiết\nThêm vào giỏ\nHiển thị 5 sản phẩm",
+                "token_present": true,
+                "fields": [],
+                "state": {
+                  "email": "test@eshop.com",
+                  "login_attempts": 0,
+                  "locked_until": null
+                }
+              }
+            },
+            {
+              "at": "2026-10-20T12:26:34.986071+00:00",
+              "step": "profile UI and authenticated request",
+              "value": {
+                "profile_email": "test@eshop.com",
+                "requests": [
+                  {
+                    "path": "http://localhost:3000/api/users/me",
+                    "authorization_present": true
+                  }
+                ]
+              }
+            }
+          ],
+          "assertions": [
+            {
+              "check": "UI success and token stored",
+              "ok": true
+            },
+            {
+              "check": "GET me carries Bearer",
+              "ok": true
+            },
+            {
+              "check": "profile identifies U",
+              "ok": true
+            }
+          ],
+          "images": [],
+          "reason": "All target assertions satisfied.",
+          "ended_at": "2026-10-20T12:26:34.992559+00:00"
+        },
+        {
+          "run_id": "FR02-RUN03",
+          "started_at": "2026-10-20T12:26:40.976938+00:00",
+          "status": "passed",
+          "observations": [
+            {
+              "at": "2026-10-20T12:26:40.984080+00:00",
+              "step": "F0",
+              "value": {
+                "email": "test@eshop.com",
+                "login_attempts": 0,
+                "locked_until": null
+              }
+            },
+            {
+              "at": "2026-10-20T12:26:41.519740+00:00",
+              "step": "UI submit",
+              "value": {
+                "started_at": "2026-10-20T12:26:41.201110+00:00",
+                "email": "test@eshop.com",
+                "password": "Test1234!",
+                "url": "http://localhost:5173/",
+                "responses": [
+                  {
+                    "status": 200,
+                    "body": {
+                      "message": "Login successful",
+                      "token": "[present]",
+                      "user": {
+                        "id": 2,
+                        "name": "Test User",
+                        "email": "test@eshop.com",
+                        "password": "Test1234!",
+                        "role": "user",
+                        "login_attempts": 0,
+                        "locked_until": null,
+                        "reset_token": null,
+                        "shipping_address": null,
+                        "phone": null
+                      }
+                    }
+                  }
+                ],
+                "text": "Danh sách sản phẩm\nTìm\niPhone 15 Pro Max\n\n30,000,000 VND\n\nXem chi tiết\nThêm vào giỏ\nSamsung Galaxy S24 Ultra\n\n28,000,000 VND\n\nXem chi tiết\nThêm vào giỏ\nMacBook Pro M3\n\n45,000,000 VND\n\nXem chi tiết\nThêm vào giỏ\nTai nghe AirPods Pro 2\n\n6,000,000 VND\n\nXem chi tiết\nThêm vào giỏ\nBàn phím cơ Keychron Q1\n\n4,000,000 VND\n\nXem chi tiết\nThêm vào giỏ\nHiển thị 5 sản phẩm",
+                "token_present": true,
+                "fields": [],
+                "state": {
+                  "email": "test@eshop.com",
+                  "login_attempts": 0,
+                  "locked_until": null
+                }
+              }
+            },
+            {
+              "at": "2026-10-20T12:26:41.803667+00:00",
+              "step": "profile UI and authenticated request",
+              "value": {
+                "profile_email": "test@eshop.com",
+                "requests": [
+                  {
+                    "path": "http://localhost:3000/api/users/me",
+                    "authorization_present": true
+                  }
+                ]
+              }
+            }
+          ],
+          "assertions": [
+            {
+              "check": "UI success and token stored",
+              "ok": true
+            },
+            {
+              "check": "GET me carries Bearer",
+              "ok": true
+            },
+            {
+              "check": "profile identifies U",
+              "ok": true
+            }
+          ],
+          "images": [],
+          "reason": "All target assertions satisfied.",
+          "ended_at": "2026-10-20T12:26:41.808235+00:00"
+        }
+      ]
+    },
+    {
+      "id": "FR02-W02",
+      "trace": "Domain; D01; R01",
+      "precondition": "F0(V)",
+      "input_steps": "Login V/Admin123!",
+      "expected": "Thành công với tài khoản V; S1/S2; không suy thêm yêu cầu giao diện admin",
+      "results": [
+        {
+          "run_id": "FR02-RUN03",
+          "started_at": "2026-10-20T12:26:41.809455+00:00",
+          "status": "passed",
+          "observations": [
+            {
+              "at": "2026-10-20T12:26:41.811510+00:00",
+              "step": "F0",
+              "value": {
+                "email": "test@eshop.com",
+                "login_attempts": 0,
+                "locked_until": null
+              }
+            },
+            {
+              "at": "2026-10-20T12:26:42.306582+00:00",
+              "step": "UI submit",
+              "value": {
+                "started_at": "2026-10-20T12:26:41.995087+00:00",
+                "email": "admin@eshop.com",
+                "password": "Admin123!",
+                "url": "http://localhost:5173/",
+                "responses": [
+                  {
+                    "status": 200,
+                    "body": {
+                      "message": "Login successful",
+                      "token": "[present]",
+                      "user": {
+                        "id": 1,
+                        "name": "Admin User",
+                        "email": "admin@eshop.com",
+                        "password": "Admin123!",
+                        "role": "admin",
+                        "login_attempts": 0,
+                        "locked_until": null,
+                        "reset_token": null,
+                        "shipping_address": null,
+                        "phone": null
+                      }
+                    }
+                  }
+                ],
+                "text": "Danh sách sản phẩm\nTìm\niPhone 15 Pro Max\n\n30,000,000 VND\n\nXem chi tiết\nThêm vào giỏ\nSamsung Galaxy S24 Ultra\n\n28,000,000 VND\n\nXem chi tiết\nThêm vào giỏ\nMacBook Pro M3\n\n45,000,000 VND\n\nXem chi tiết\nThêm vào giỏ\nTai nghe AirPods Pro 2\n\n6,000,000 VND\n\nXem chi tiết\nThêm vào giỏ\nBàn phím cơ Keychron Q1\n\n4,000,000 VND\n\nXem chi tiết\nThêm vào giỏ\nHiển thị 5 sản phẩm",
+                "token_present": true,
+                "fields": [],
+                "state": {
+                  "email": "test@eshop.com",
+                  "login_attempts": 0,
+                  "locked_until": null
+                }
+              }
+            }
+          ],
+          "assertions": [
+            {
+              "check": "UI success and token stored",
+              "ok": true
+            }
+          ],
+          "images": [],
+          "reason": "All target assertions satisfied.",
+          "ended_at": "2026-10-20T12:26:42.309528+00:00"
+        }
+      ]
+    },
+    {
+      "id": "FR02-W03",
+      "trace": "Domain; D02; R02",
+      "precondition": "F0",
+      "input_steps": "Login U/Z một lần; đọc counter/lock",
+      "expected": "Counter 0→1, chưa khóa; thông báo chung, không token. S1",
+      "results": [
+        {
+          "run_id": "FR02-RUN02",
+          "started_at": "2026-10-20T12:26:34.994502+00:00",
+          "status": "failed",
+          "observations": [
+            {
+              "at": "2026-10-20T12:26:34.997874+00:00",
+              "step": "F0",
+              "value": {
+                "email": "test@eshop.com",
+                "login_attempts": 0,
+                "locked_until": null
+              }
+            },
+            {
+              "at": "2026-10-20T12:26:35.518371+00:00",
+              "step": "UI submit",
+              "value": {
+                "started_at": "2026-10-20T12:26:35.227049+00:00",
+                "email": "test@eshop.com",
+                "password": "Wrong123!",
+                "url": "http://localhost:5173/login",
+                "responses": [
+                  {
+                    "status": 401,
+                    "body": {
+                      "error": "Invalid email or password"
+                    }
+                  }
+                ],
+                "text": "Đăng Ký\nUsername\nMật khẩu\nQuên mật khẩu?\nSign In\nChưa có tài khoản? Đăng ký ngay\nĐăng nhập thất bại. Vui lòng kiểm tra lại.",
+                "token_present": false,
+                "fields": [
+                  {
+                    "type": "text",
+                    "required": true,
+                    "valid": true,
+                    "message": ""
+                  },
+                  {
+                    "type": "text",
+                    "required": true,
+                    "valid": true,
+                    "message": ""
+                  }
+                ],
+                "state": {
+                  "email": "test@eshop.com",
+                  "login_attempts": 2,
+                  "locked_until": null
+                }
+              }
+            }
+          ],
+          "assertions": [
+            {
+              "check": "0→1, no lock/token",
+              "ok": false
+            }
+          ],
+          "images": [
+            {
+              "path": "images/FR02-W03-FR02-RUN02-symptom.jpg",
+              "captured_at": "2026-10-20T12:26:35.551802+00:00",
+              "state": "symptom"
+            }
+          ],
+          "reason": "0→1, no lock/token",
+          "ended_at": "2026-10-20T12:26:35.554790+00:00"
+        },
+        {
+          "run_id": "FR02-RUN03",
+          "started_at": "2026-10-20T12:26:42.310306+00:00",
+          "status": "failed",
+          "observations": [
+            {
+              "at": "2026-10-20T12:26:42.311302+00:00",
+              "step": "F0",
+              "value": {
+                "email": "test@eshop.com",
+                "login_attempts": 0,
+                "locked_until": null
+              }
+            },
+            {
+              "at": "2026-10-20T12:26:42.792993+00:00",
+              "step": "UI submit",
+              "value": {
+                "started_at": "2026-10-20T12:26:42.494404+00:00",
+                "email": "test@eshop.com",
+                "password": "Wrong123!",
+                "url": "http://localhost:5173/login",
+                "responses": [
+                  {
+                    "status": 401,
+                    "body": {
+                      "error": "Invalid email or password"
+                    }
+                  }
+                ],
+                "text": "Đăng Ký\nUsername\nMật khẩu\nQuên mật khẩu?\nSign In\nChưa có tài khoản? Đăng ký ngay\nĐăng nhập thất bại. Vui lòng kiểm tra lại.",
+                "token_present": false,
+                "fields": [
+                  {
+                    "type": "text",
+                    "required": true,
+                    "valid": true,
+                    "message": ""
+                  },
+                  {
+                    "type": "text",
+                    "required": true,
+                    "valid": true,
+                    "message": ""
+                  }
+                ],
+                "state": {
+                  "email": "test@eshop.com",
+                  "login_attempts": 2,
+                  "locked_until": null
+                }
+              }
+            }
+          ],
+          "assertions": [
+            {
+              "check": "0→1, no lock/token",
+              "ok": false
+            }
+          ],
+          "images": [
+            {
+              "path": "images/FR02-W03-FR02-RUN03-symptom.jpg",
+              "captured_at": "2026-10-20T12:26:42.833721+00:00",
+              "state": "symptom"
+            }
+          ],
+          "reason": "0→1, no lock/token",
+          "ended_at": "2026-10-20T12:26:42.836663+00:00"
+        }
+      ]
+    },
+    {
+      "id": "FR02-W04",
+      "trace": "Domain+BVA; D02; B01=2; R02,R03",
+      "precondition": "F1",
+      "input_steps": "Login U/Z lần thứ 2; đọc counter; sau đó thử U/P",
+      "expected": "Counter 1→2, chưa khóa; U/P vẫn thành công. S1; success reset lưu trữ theo A01",
+      "results": [
+        {
+          "run_id": "FR02-RUN03",
+          "started_at": "2026-10-20T12:26:42.837586+00:00",
+          "status": "blocked",
+          "observations": [
+            {
+              "at": "2026-10-20T12:26:42.843745+00:00",
+              "step": "F0",
+              "value": {
+                "email": "test@eshop.com",
+                "login_attempts": 0,
+                "locked_until": null
+              }
+            },
+            {
+              "at": "2026-10-20T12:26:43.365485+00:00",
+              "step": "UI submit",
+              "value": {
+                "started_at": "2026-10-20T12:26:43.051283+00:00",
+                "email": "test@eshop.com",
+                "password": "Wrong123!",
+                "url": "http://localhost:5173/login",
+                "responses": [
+                  {
+                    "status": 401,
+                    "body": {
+                      "error": "Invalid email or password"
+                    }
+                  }
+                ],
+                "text": "Đăng Ký\nUsername\nMật khẩu\nQuên mật khẩu?\nSign In\nChưa có tài khoản? Đăng ký ngay\nĐăng nhập thất bại. Vui lòng kiểm tra lại.",
+                "token_present": false,
+                "fields": [
+                  {
+                    "type": "text",
+                    "required": true,
+                    "valid": true,
+                    "message": ""
+                  },
+                  {
+                    "type": "text",
+                    "required": true,
+                    "valid": true,
+                    "message": ""
+                  }
+                ],
+                "state": {
+                  "email": "test@eshop.com",
+                  "login_attempts": 2,
+                  "locked_until": null
+                }
+              }
+            }
+          ],
+          "assertions": [],
+          "images": [],
+          "reason": "Fn không đạt sau lần sai 1: counter=2, lock=None; chưa chạy request mục tiêu.",
+          "ended_at": "2026-10-20T12:26:43.369063+00:00"
+        }
+      ]
+    },
+    {
+      "id": "FR02-W05",
+      "trace": "Domain+BVA; D02; B01=3; R02,R03",
+      "precondition": "F2",
+      "input_steps": "Login U/Z lần 3; sau hoàn tất thử U/P trong <30s",
+      "expected": "Counter 2→3; khóa kích hoạt, đúng P cũng bị từ chối. S1; t0 tại request thứ 3",
+      "results": [
+        {
+          "run_id": "FR02-RUN03",
+          "started_at": "2026-10-20T12:26:43.370159+00:00",
+          "status": "blocked",
+          "observations": [
+            {
+              "at": "2026-10-20T12:26:43.377601+00:00",
+              "step": "F0",
+              "value": {
+                "email": "test@eshop.com",
+                "login_attempts": 0,
+                "locked_until": null
+              }
+            },
+            {
+              "at": "2026-10-20T12:26:43.891968+00:00",
+              "step": "UI submit",
+              "value": {
+                "started_at": "2026-10-20T12:26:43.563823+00:00",
+                "email": "test@eshop.com",
+                "password": "Wrong123!",
+                "url": "http://localhost:5173/login",
+                "responses": [
+                  {
+                    "status": 401,
+                    "body": {
+                      "error": "Invalid email or password"
+                    }
+                  }
+                ],
+                "text": "Đăng Ký\nUsername\nMật khẩu\nQuên mật khẩu?\nSign In\nChưa có tài khoản? Đăng ký ngay\nĐăng nhập thất bại. Vui lòng kiểm tra lại.",
+                "token_present": false,
+                "fields": [
+                  {
+                    "type": "text",
+                    "required": true,
+                    "valid": true,
+                    "message": ""
+                  },
+                  {
+                    "type": "text",
+                    "required": true,
+                    "valid": true,
+                    "message": ""
+                  }
+                ],
+                "state": {
+                  "email": "test@eshop.com",
+                  "login_attempts": 2,
+                  "locked_until": null
+                }
+              }
+            }
+          ],
+          "assertions": [],
+          "images": [],
+          "reason": "Fn không đạt sau lần sai 1: counter=2, lock=None; chưa chạy request mục tiêu.",
+          "ended_at": "2026-10-20T12:26:43.901769+00:00"
+        }
+      ]
+    },
+    {
+      "id": "FR02-W06",
+      "trace": "Domain; D03; R05",
+      "precondition": "Hai lần F0 độc lập",
+      "input_steps": "Lần 1 U/Z; lần 2 X/P; so thông báo hiển thị",
+      "expected": "Cả hai từ chối; không phân biệt tồn tại tài khoản hoặc chi tiết field sai. S1; không yêu cầu timing bằng nhau",
+      "results": [
+        {
+          "run_id": "FR02-RUN03",
+          "started_at": "2026-10-20T12:26:43.903128+00:00",
+          "status": "passed",
+          "observations": [
+            {
+              "at": "2026-10-20T12:26:43.919488+00:00",
+              "step": "F0",
+              "value": {
+                "email": "test@eshop.com",
+                "login_attempts": 0,
+                "locked_until": null
+              }
+            },
+            {
+              "at": "2026-10-20T12:26:44.536404+00:00",
+              "step": "UI submit",
+              "value": {
+                "started_at": "2026-10-20T12:26:44.221687+00:00",
+                "email": "test@eshop.com",
+                "password": "Wrong123!",
+                "url": "http://localhost:5173/login",
+                "responses": [
+                  {
+                    "status": 401,
+                    "body": {
+                      "error": "Invalid email or password"
+                    }
+                  }
+                ],
+                "text": "Đăng Ký\nUsername\nMật khẩu\nQuên mật khẩu?\nSign In\nChưa có tài khoản? Đăng ký ngay\nĐăng nhập thất bại. Vui lòng kiểm tra lại.",
+                "token_present": false,
+                "fields": [
+                  {
+                    "type": "text",
+                    "required": true,
+                    "valid": true,
+                    "message": ""
+                  },
+                  {
+                    "type": "text",
+                    "required": true,
+                    "valid": true,
+                    "message": ""
+                  }
+                ],
+                "state": {
+                  "email": "test@eshop.com",
+                  "login_attempts": 2,
+                  "locked_until": null
+                }
+              }
+            },
+            {
+              "at": "2026-10-20T12:26:45.031992+00:00",
+              "step": "UI submit",
+              "value": {
+                "started_at": "2026-10-20T12:26:44.700710+00:00",
+                "email": "fr02.absent@example.com",
+                "password": "Test1234!",
+                "url": "http://localhost:5173/login",
+                "responses": [
+                  {
+                    "status": 401,
+                    "body": {
+                      "error": "Invalid email or password"
+                    }
+                  }
+                ],
+                "text": "Đăng Ký\nUsername\nMật khẩu\nQuên mật khẩu?\nSign In\nChưa có tài khoản? Đăng ký ngay\nĐăng nhập thất bại. Vui lòng kiểm tra lại.",
+                "token_present": false,
+                "fields": [
+                  {
+                    "type": "text",
+                    "required": true,
+                    "valid": true,
+                    "message": ""
+                  },
+                  {
+                    "type": "text",
+                    "required": true,
+                    "valid": true,
+                    "message": ""
+                  }
+                ],
+                "state": {
+                  "email": "test@eshop.com",
+                  "login_attempts": 0,
+                  "locked_until": null
+                }
+              }
+            }
+          ],
+          "assertions": [
+            {
+              "check": "generic UI error for known/unknown account",
+              "ok": true
+            }
+          ],
+          "images": [],
+          "reason": "All target assertions satisfied.",
+          "ended_at": "2026-10-20T12:26:45.038652+00:00"
+        }
+      ]
+    },
+    {
+      "id": "FR02-W07",
+      "trace": "Domain; D04; R07",
+      "precondition": "F0",
+      "input_steps": "Kiểm tra DOM input email; nhập plainaddress/P rồi submit",
+      "expected": "type=email; HTML5 từ chối email sai, không phát login request; S1",
+      "results": [
+        {
+          "run_id": "FR02-RUN03",
+          "started_at": "2026-10-20T12:26:45.039890+00:00",
+          "status": "failed",
+          "observations": [
+            {
+              "at": "2026-10-20T12:26:45.042357+00:00",
+              "step": "F0",
+              "value": {
+                "email": "test@eshop.com",
+                "login_attempts": 0,
+                "locked_until": null
+              }
+            },
+            {
+              "at": "2026-10-20T12:26:45.607887+00:00",
+              "step": "UI submit",
+              "value": {
+                "started_at": "2026-10-20T12:26:45.291829+00:00",
+                "email": "plainaddress",
+                "password": "Test1234!",
+                "url": "http://localhost:5173/login",
+                "responses": [
+                  {
+                    "status": 401,
+                    "body": {
+                      "error": "Invalid email or password"
+                    }
+                  }
+                ],
+                "text": "Đăng Ký\nUsername\nMật khẩu\nQuên mật khẩu?\nSign In\nChưa có tài khoản? Đăng ký ngay\nĐăng nhập thất bại. Vui lòng kiểm tra lại.",
+                "token_present": false,
+                "fields": [
+                  {
+                    "type": "text",
+                    "required": true,
+                    "valid": true,
+                    "message": ""
+                  },
+                  {
+                    "type": "text",
+                    "required": true,
+                    "valid": true,
+                    "message": ""
+                  }
+                ],
+                "state": {
+                  "email": "test@eshop.com",
+                  "login_attempts": 0,
+                  "locked_until": null
+                }
+              }
+            }
+          ],
+          "assertions": [
+            {
+              "check": "browser blocks submit; no login request",
+              "ok": false
+            },
+            {
+              "check": "counter unchanged",
+              "ok": true
+            },
+            {
+              "check": "HTML5 email type and format validation",
+              "ok": false
+            }
+          ],
+          "images": [
+            {
+              "path": "images/FR02-W07-FR02-RUN03-symptom.jpg",
+              "captured_at": "2026-10-20T12:26:45.646704+00:00",
+              "state": "symptom"
+            }
+          ],
+          "reason": "browser blocks submit; no login request; HTML5 email type and format validation",
+          "ended_at": "2026-10-20T12:26:45.653365+00:00"
+        }
+      ]
+    },
+    {
+      "id": "FR02-W08",
+      "trace": "Domain; D04; R07",
+      "precondition": "F0",
+      "input_steps": "Nhập a@/P rồi submit",
+      "expected": "HTML5 chặn định dạng không hợp lệ, không gửi login request; S1",
+      "results": [
+        {
+          "run_id": "FR02-RUN03",
+          "started_at": "2026-10-20T12:26:45.654566+00:00",
+          "status": "failed",
+          "observations": [
+            {
+              "at": "2026-10-20T12:26:45.659879+00:00",
+              "step": "F0",
+              "value": {
+                "email": "test@eshop.com",
+                "login_attempts": 0,
+                "locked_until": null
+              }
+            },
+            {
+              "at": "2026-10-20T12:26:46.259124+00:00",
+              "step": "UI submit",
+              "value": {
+                "started_at": "2026-10-20T12:26:45.928161+00:00",
+                "email": "a@",
+                "password": "Test1234!",
+                "url": "http://localhost:5173/login",
+                "responses": [
+                  {
+                    "status": 401,
+                    "body": {
+                      "error": "Invalid email or password"
+                    }
+                  }
+                ],
+                "text": "Đăng Ký\nUsername\nMật khẩu\nQuên mật khẩu?\nSign In\nChưa có tài khoản? Đăng ký ngay\nĐăng nhập thất bại. Vui lòng kiểm tra lại.",
+                "token_present": false,
+                "fields": [
+                  {
+                    "type": "text",
+                    "required": true,
+                    "valid": true,
+                    "message": ""
+                  },
+                  {
+                    "type": "text",
+                    "required": true,
+                    "valid": true,
+                    "message": ""
+                  }
+                ],
+                "state": {
+                  "email": "test@eshop.com",
+                  "login_attempts": 0,
+                  "locked_until": null
+                }
+              }
+            }
+          ],
+          "assertions": [
+            {
+              "check": "browser blocks submit; no login request",
+              "ok": false
+            },
+            {
+              "check": "counter unchanged",
+              "ok": true
+            },
+            {
+              "check": "HTML5 email type and format validation",
+              "ok": false
+            }
+          ],
+          "images": [
+            {
+              "path": "images/FR02-W08-FR02-RUN03-symptom.jpg",
+              "captured_at": "2026-10-20T12:26:46.304849+00:00",
+              "state": "symptom"
+            }
+          ],
+          "reason": "browser blocks submit; no login request; HTML5 email type and format validation",
+          "ended_at": "2026-10-20T12:26:46.309513+00:00"
+        }
+      ]
+    },
+    {
+      "id": "FR02-W09",
+      "trace": "Domain; D05; A02",
+      "precondition": "F0",
+      "input_steps": "Email rỗng, P đúng; submit",
+      "expected": "Chặn thiếu email, không login request/không đổi counter; A02, chưa phải rule HTML required xác nhận",
+      "results": [
+        {
+          "run_id": "FR02-RUN03",
+          "started_at": "2026-10-20T12:26:46.311250+00:00",
+          "status": "passed",
+          "observations": [
+            {
+              "at": "2026-10-20T12:26:46.313333+00:00",
+              "step": "F0",
+              "value": {
+                "email": "test@eshop.com",
+                "login_attempts": 0,
+                "locked_until": null
+              }
+            },
+            {
+              "at": "2026-10-20T12:26:46.739868+00:00",
+              "step": "UI submit",
+              "value": {
+                "started_at": "2026-10-20T12:26:46.555371+00:00",
+                "email": "",
+                "password": "Test1234!",
+                "url": "http://localhost:5173/login",
+                "responses": [],
+                "text": "Đăng Ký\nUsername\nMật khẩu\nQuên mật khẩu?\nSign In\nChưa có tài khoản? Đăng ký ngay",
+                "token_present": false,
+                "fields": [
+                  {
+                    "type": "text",
+                    "required": true,
+                    "valid": false,
+                    "message": "Please fill out this field."
+                  },
+                  {
+                    "type": "text",
+                    "required": true,
+                    "valid": true,
+                    "message": ""
+                  }
+                ],
+                "state": {
+                  "email": "test@eshop.com",
+                  "login_attempts": 0,
+                  "locked_until": null
+                }
+              }
+            }
+          ],
+          "assertions": [
+            {
+              "check": "browser blocks submit; no login request",
+              "ok": true
+            },
+            {
+              "check": "counter unchanged",
+              "ok": true
+            }
+          ],
+          "images": [],
+          "reason": "All target assertions satisfied.",
+          "ended_at": "2026-10-20T12:26:46.744920+00:00"
+        }
+      ]
+    },
+    {
+      "id": "FR02-W10",
+      "trace": "Domain; D05; A02",
+      "precondition": "F0",
+      "input_steps": "U, password rỗng; submit",
+      "expected": "Chặn thiếu password, không login request/không đổi counter; A02",
+      "results": [
+        {
+          "run_id": "FR02-RUN03",
+          "started_at": "2026-10-20T12:26:46.746535+00:00",
+          "status": "passed",
+          "observations": [
+            {
+              "at": "2026-10-20T12:26:46.748598+00:00",
+              "step": "F0",
+              "value": {
+                "email": "test@eshop.com",
+                "login_attempts": 0,
+                "locked_until": null
+              }
+            },
+            {
+              "at": "2026-10-20T12:26:47.201869+00:00",
+              "step": "UI submit",
+              "value": {
+                "started_at": "2026-10-20T12:26:47.009839+00:00",
+                "email": "test@eshop.com",
+                "password": "",
+                "url": "http://localhost:5173/login",
+                "responses": [],
+                "text": "Đăng Ký\nUsername\nMật khẩu\nQuên mật khẩu?\nSign In\nChưa có tài khoản? Đăng ký ngay",
+                "token_present": false,
+                "fields": [
+                  {
+                    "type": "text",
+                    "required": true,
+                    "valid": true,
+                    "message": ""
+                  },
+                  {
+                    "type": "text",
+                    "required": true,
+                    "valid": false,
+                    "message": "Please fill out this field."
+                  }
+                ],
+                "state": {
+                  "email": "test@eshop.com",
+                  "login_attempts": 0,
+                  "locked_until": null
+                }
+              }
+            }
+          ],
+          "assertions": [
+            {
+              "check": "browser blocks submit; no login request",
+              "ok": true
+            },
+            {
+              "check": "counter unchanged",
+              "ok": true
+            }
+          ],
+          "images": [],
+          "reason": "All target assertions satisfied.",
+          "ended_at": "2026-10-20T12:26:47.209115+00:00"
+        }
+      ]
+    },
+    {
+      "id": "FR02-W11",
+      "trace": "Domain; D06; R03,A01",
+      "precondition": "FL",
+      "input_steps": "Tại τ=10s login U/P",
+      "expected": "Không đăng nhập dù P đúng; S1. Counter/deadline không đổi theo A01",
+      "results": [
+        {
+          "run_id": "FR02-RUN03",
+          "started_at": "2026-10-20T12:26:47.211895+00:00",
+          "status": "passed",
+          "observations": [
+            {
+              "at": "2026-10-20T12:26:47.214406+00:00",
+              "step": "F0",
+              "value": {
+                "email": "test@eshop.com",
+                "login_attempts": 0,
+                "locked_until": null
+              }
+            },
+            {
+              "at": "2026-10-20T12:26:47.295324+00:00",
+              "step": "FL direct fixture (not natural three-failure sequence)",
+              "value": {
+                "t0_ms": 1792499197285.7034,
+                "deadline_ms": 1792499227285.7034,
+                "state": {
+                  "email": "test@eshop.com",
+                  "login_attempts": 3,
+                  "locked_until": "2026-10-20T12:27:07.285Z"
+                }
+              }
+            },
+            {
+              "at": "2026-10-20T12:26:47.770769+00:00",
+              "step": "UI submit",
+              "value": {
+                "started_at": "2026-10-20T12:26:47.465056+00:00",
+                "email": "test@eshop.com",
+                "password": "Test1234!",
+                "url": "http://localhost:5173/login",
+                "responses": [
+                  {
+                    "status": 403,
+                    "body": {
+                      "error": "Tài khoản đã bị khóa. Vui lòng thử lại sau."
+                    }
+                  }
+                ],
+                "text": "Đăng Ký\nUsername\nMật khẩu\nQuên mật khẩu?\nSign In\nChưa có tài khoản? Đăng ký ngay\nĐăng nhập thất bại. Vui lòng kiểm tra lại.",
+                "token_present": false,
+                "fields": [
+                  {
+                    "type": "text",
+                    "required": true,
+                    "valid": true,
+                    "message": ""
+                  },
+                  {
+                    "type": "text",
+                    "required": true,
+                    "valid": true,
+                    "message": ""
+                  }
+                ],
+                "state": {
+                  "email": "test@eshop.com",
+                  "login_attempts": 3,
+                  "locked_until": "2026-10-20T12:27:07.285Z"
+                }
+              }
+            }
+          ],
+          "assertions": [
+            {
+              "check": "locked correct P rejected; state unchanged",
+              "ok": true
+            }
+          ],
+          "images": [],
+          "reason": "All target assertions satisfied.",
+          "ended_at": "2026-10-20T12:26:47.777141+00:00"
+        }
+      ]
+    },
+    {
+      "id": "FR02-W12",
+      "trace": "Domain+BVA; D06; B01=4; R03,A01",
+      "precondition": "FL tạo từ đúng 3 lần sai đã hoàn tất",
+      "input_steps": "Tại τ=10s gửi U/Z, lần sai thứ 4; đọc counter/deadline",
+      "expected": "Vẫn khóa, không token; S1. Counter giữ 3, deadline không gia hạn là A01",
+      "results": [
+        {
+          "run_id": "FR02-RUN03",
+          "started_at": "2026-10-20T12:26:47.779276+00:00",
+          "status": "blocked",
+          "observations": [
+            {
+              "at": "2026-10-20T12:26:47.793056+00:00",
+              "step": "F0",
+              "value": {
+                "email": "test@eshop.com",
+                "login_attempts": 0,
+                "locked_until": null
+              }
+            },
+            {
+              "at": "2026-10-20T12:26:48.430003+00:00",
+              "step": "UI submit",
+              "value": {
+                "started_at": "2026-10-20T12:26:48.102900+00:00",
+                "email": "test@eshop.com",
+                "password": "Wrong123!",
+                "url": "http://localhost:5173/login",
+                "responses": [
+                  {
+                    "status": 401,
+                    "body": {
+                      "error": "Invalid email or password"
+                    }
+                  }
+                ],
+                "text": "Đăng Ký\nUsername\nMật khẩu\nQuên mật khẩu?\nSign In\nChưa có tài khoản? Đăng ký ngay\nĐăng nhập thất bại. Vui lòng kiểm tra lại.",
+                "token_present": false,
+                "fields": [
+                  {
+                    "type": "text",
+                    "required": true,
+                    "valid": true,
+                    "message": ""
+                  },
+                  {
+                    "type": "text",
+                    "required": true,
+                    "valid": true,
+                    "message": ""
+                  }
+                ],
+                "state": {
+                  "email": "test@eshop.com",
+                  "login_attempts": 2,
+                  "locked_until": null
+                }
+              }
+            }
+          ],
+          "assertions": [],
+          "images": [],
+          "reason": "Fn không đạt sau lần sai 1: counter=2, lock=None; chưa chạy request mục tiêu.",
+          "ended_at": "2026-10-20T12:26:48.436143+00:00"
+        }
+      ]
+    },
+    {
+      "id": "FR02-W13",
+      "trace": "Domain+BVA; D06; B02=29.999; R04",
+      "precondition": "FL mới; có clock/trace đủ chính xác",
+      "input_steps": "Login U/P để server xử lý tại t0+29999ms",
+      "expected": "Vẫn bị khóa, không token; S1/R04 với quy ước đo design §4",
+      "results": [
+        {
+          "run_id": "FR02-RUN03",
+          "started_at": "2026-10-20T12:26:48.438112+00:00",
+          "status": "blocked",
+          "observations": [
+            {
+              "at": "2026-10-20T12:26:48.451187+00:00",
+              "step": "F0",
+              "value": {
+                "email": "test@eshop.com",
+                "login_attempts": 0,
+                "locked_until": null
+              }
+            }
+          ],
+          "assertions": [],
+          "images": [],
+          "reason": "Không có server clock/trace đủ chính xác ±1ms; chưa submit Web tại điểm biên yêu cầu.",
+          "ended_at": "2026-10-20T12:26:48.451228+00:00"
+        }
+      ]
+    },
+    {
+      "id": "FR02-W14",
+      "trace": "Domain+BVA; D07; B02=30.000; R04",
+      "precondition": "FL mới; có clock/trace đủ chính xác",
+      "input_steps": "Login U/P để xử lý tại t0+30000ms",
+      "expected": "Không từ chối vì khóa cũ; login thành công; S1/R04, quy ước equality design §4",
+      "results": [
+        {
+          "run_id": "FR02-RUN03",
+          "started_at": "2026-10-20T12:26:48.452911+00:00",
+          "status": "blocked",
+          "observations": [
+            {
+              "at": "2026-10-20T12:26:48.455093+00:00",
+              "step": "F0",
+              "value": {
+                "email": "test@eshop.com",
+                "login_attempts": 0,
+                "locked_until": null
+              }
+            }
+          ],
+          "assertions": [],
+          "images": [],
+          "reason": "Không có server clock/trace đủ chính xác ±1ms; chưa submit Web tại điểm biên yêu cầu.",
+          "ended_at": "2026-10-20T12:26:48.455130+00:00"
+        }
+      ]
+    },
+    {
+      "id": "FR02-W15",
+      "trace": "Domain+BVA; D07; B02=30.001; R04",
+      "precondition": "FL mới; có clock/trace đủ chính xác",
+      "input_steps": "Login U/P để xử lý tại t0+30001ms",
+      "expected": "Thành công; S1/R04 với protocol đo design §4",
+      "results": [
+        {
+          "run_id": "FR02-RUN03",
+          "started_at": "2026-10-20T12:26:48.457295+00:00",
+          "status": "blocked",
+          "observations": [
+            {
+              "at": "2026-10-20T12:26:48.459515+00:00",
+              "step": "F0",
+              "value": {
+                "email": "test@eshop.com",
+                "login_attempts": 0,
+                "locked_until": null
+              }
+            }
+          ],
+          "assertions": [],
+          "images": [],
+          "reason": "Không có server clock/trace đủ chính xác ±1ms; chưa submit Web tại điểm biên yêu cầu.",
+          "ended_at": "2026-10-20T12:26:48.459552+00:00"
+        }
+      ]
+    },
+    {
+      "id": "FR02-W16",
+      "trace": "Domain; D08; R08,A01",
+      "precondition": "F0",
+      "input_steps": "Login Z,Z,P; logout/clear client session không đổi DB; login Z,Z,P; tất cả trên U",
+      "expected": "Hai P đều thành công; sau success, hai sai sau không cộng vào chuỗi cũ gây khóa. S1/R08. Counter mỗi success=0 theo A01",
+      "results": [
+        {
+          "run_id": "FR02-RUN03",
+          "started_at": "2026-10-20T12:26:48.461273+00:00",
+          "status": "blocked",
+          "observations": [
+            {
+              "at": "2026-10-20T12:26:48.463507+00:00",
+              "step": "F0",
+              "value": {
+                "email": "test@eshop.com",
+                "login_attempts": 0,
+                "locked_until": null
+              }
+            },
+            {
+              "at": "2026-10-20T12:26:49.054729+00:00",
+              "step": "UI submit",
+              "value": {
+                "started_at": "2026-10-20T12:26:48.758979+00:00",
+                "email": "test@eshop.com",
+                "password": "Wrong123!",
+                "url": "http://localhost:5173/login",
+                "responses": [
+                  {
+                    "status": 401,
+                    "body": {
+                      "error": "Invalid email or password"
+                    }
+                  }
+                ],
+                "text": "Đăng Ký\nUsername\nMật khẩu\nQuên mật khẩu?\nSign In\nChưa có tài khoản? Đăng ký ngay\nĐăng nhập thất bại. Vui lòng kiểm tra lại.",
+                "token_present": false,
+                "fields": [
+                  {
+                    "type": "text",
+                    "required": true,
+                    "valid": true,
+                    "message": ""
+                  },
+                  {
+                    "type": "text",
+                    "required": true,
+                    "valid": true,
+                    "message": ""
+                  }
+                ],
+                "state": {
+                  "email": "test@eshop.com",
+                  "login_attempts": 2,
+                  "locked_until": null
+                }
+              }
+            },
+            {
+              "at": "2026-10-20T12:26:49.459468+00:00",
+              "step": "UI submit",
+              "value": {
+                "started_at": "2026-10-20T12:26:49.134846+00:00",
+                "email": "test@eshop.com",
+                "password": "Wrong123!",
+                "url": "http://localhost:5173/login",
+                "responses": [
+                  {
+                    "status": 401,
+                    "body": {
+                      "error": "Invalid email or password"
+                    }
+                  }
+                ],
+                "text": "Đăng Ký\nUsername\nMật khẩu\nQuên mật khẩu?\nSign In\nChưa có tài khoản? Đăng ký ngay\nĐăng nhập thất bại. Vui lòng kiểm tra lại.",
+                "token_present": false,
+                "fields": [
+                  {
+                    "type": "text",
+                    "required": true,
+                    "valid": true,
+                    "message": ""
+                  },
+                  {
+                    "type": "text",
+                    "required": true,
+                    "valid": true,
+                    "message": ""
+                  }
+                ],
+                "state": {
+                  "email": "test@eshop.com",
+                  "login_attempts": 4,
+                  "locked_until": "2026-10-20T12:29:49.175Z"
+                }
+              }
+            },
+            {
+              "at": "2026-10-20T12:26:49.908930+00:00",
+              "step": "UI submit",
+              "value": {
+                "started_at": "2026-10-20T12:26:49.582425+00:00",
+                "email": "test@eshop.com",
+                "password": "Test1234!",
+                "url": "http://localhost:5173/login",
+                "responses": [
+                  {
+                    "status": 403,
+                    "body": {
+                      "error": "Tài khoản đã bị khóa. Vui lòng thử lại sau."
+                    }
+                  }
+                ],
+                "text": "Đăng Ký\nUsername\nMật khẩu\nQuên mật khẩu?\nSign In\nChưa có tài khoản? Đăng ký ngay\nĐăng nhập thất bại. Vui lòng kiểm tra lại.",
+                "token_present": false,
+                "fields": [
+                  {
+                    "type": "text",
+                    "required": true,
+                    "valid": true,
+                    "message": ""
+                  },
+                  {
+                    "type": "text",
+                    "required": true,
+                    "valid": true,
+                    "message": ""
+                  }
+                ],
+                "state": {
+                  "email": "test@eshop.com",
+                  "login_attempts": 4,
+                  "locked_until": "2026-10-20T12:29:49.175Z"
+                }
+              }
+            }
+          ],
+          "assertions": [],
+          "images": [],
+          "reason": "Success bước 3 bị khóa sớm, chưa tới chuỗi sau success.",
+          "ended_at": "2026-10-20T12:26:49.915452+00:00"
+        }
+      ]
+    },
+    {
+      "id": "FR02-W17",
+      "trace": "Domain; D09; A03",
+      "precondition": "FL(U), F0(V)",
+      "input_steps": "Trong khóa U login V đúng",
+      "expected": "V thành công, U vẫn khóa; A03; phát hiện khóa dùng chung toàn cục",
+      "results": [
+        {
+          "run_id": "FR02-RUN03",
+          "started_at": "2026-10-20T12:26:49.917111+00:00",
+          "status": "passed",
+          "observations": [
+            {
+              "at": "2026-10-20T12:26:49.929560+00:00",
+              "step": "F0",
+              "value": {
+                "email": "test@eshop.com",
+                "login_attempts": 0,
+                "locked_until": null
+              }
+            },
+            {
+              "at": "2026-10-20T12:26:50.028068+00:00",
+              "step": "FL direct fixture (not natural three-failure sequence)",
+              "value": {
+                "t0_ms": 1792499200015.2332,
+                "deadline_ms": 1792499230015.2332,
+                "state": {
+                  "email": "test@eshop.com",
+                  "login_attempts": 3,
+                  "locked_until": "2026-10-20T12:27:10.015Z"
+                }
+              }
+            },
+            {
+              "at": "2026-10-20T12:26:50.563162+00:00",
+              "step": "UI submit",
+              "value": {
+                "started_at": "2026-10-20T12:26:50.253643+00:00",
+                "email": "admin@eshop.com",
+                "password": "Admin123!",
+                "url": "http://localhost:5173/",
+                "responses": [
+                  {
+                    "status": 200,
+                    "body": {
+                      "message": "Login successful",
+                      "token": "[present]",
+                      "user": {
+                        "id": 1,
+                        "name": "Admin User",
+                        "email": "admin@eshop.com",
+                        "password": "Admin123!",
+                        "role": "admin",
+                        "login_attempts": 0,
+                        "locked_until": null,
+                        "reset_token": null,
+                        "shipping_address": null,
+                        "phone": null
+                      }
+                    }
+                  }
+                ],
+                "text": "Danh sách sản phẩm\nTìm\niPhone 15 Pro Max\n\n30,000,000 VND\n\nXem chi tiết\nThêm vào giỏ\nSamsung Galaxy S24 Ultra\n\n28,000,000 VND\n\nXem chi tiết\nThêm vào giỏ\nMacBook Pro M3\n\n45,000,000 VND\n\nXem chi tiết\nThêm vào giỏ\nTai nghe AirPods Pro 2\n\n6,000,000 VND\n\nXem chi tiết\nThêm vào giỏ\nBàn phím cơ Keychron Q1\n\n4,000,000 VND\n\nXem chi tiết\nThêm vào giỏ\nHiển thị 5 sản phẩm",
+                "token_present": true,
+                "fields": [],
+                "state": {
+                  "email": "test@eshop.com",
+                  "login_attempts": 3,
+                  "locked_until": "2026-10-20T12:27:10.015Z"
+                }
+              }
+            }
+          ],
+          "assertions": [
+            {
+              "check": "V success while U remains locked",
+              "ok": true
+            }
+          ],
+          "images": [],
+          "reason": "All target assertions satisfied.",
+          "ended_at": "2026-10-20T12:26:50.571381+00:00"
+        }
+      ]
+    },
+    {
+      "id": "FR02-W18",
+      "trace": "Domain; D09; A03",
+      "precondition": "FL(U)",
+      "input_steps": "Reload trang; thử U/P; mở phiên trình duyệt độc lập thử U/P trước 30s",
+      "expected": "Cả hai vẫn từ chối, không né khóa bằng state client; A03",
+      "results": [
+        {
+          "run_id": "FR02-RUN03",
+          "started_at": "2026-10-20T12:26:50.574112+00:00",
+          "status": "passed",
+          "observations": [
+            {
+              "at": "2026-10-20T12:26:50.586272+00:00",
+              "step": "F0",
+              "value": {
+                "email": "test@eshop.com",
+                "login_attempts": 0,
+                "locked_until": null
+              }
+            },
+            {
+              "at": "2026-10-20T12:26:50.673615+00:00",
+              "step": "FL direct fixture (not natural three-failure sequence)",
+              "value": {
+                "t0_ms": 1792499200665.883,
+                "deadline_ms": 1792499230665.883,
+                "state": {
+                  "email": "test@eshop.com",
+                  "login_attempts": 3,
+                  "locked_until": "2026-10-20T12:27:10.665Z"
+                }
+              }
+            },
+            {
+              "at": "2026-10-20T12:26:51.296831+00:00",
+              "step": "UI submit",
+              "value": {
+                "started_at": "2026-10-20T12:26:50.989580+00:00",
+                "email": "test@eshop.com",
+                "password": "Test1234!",
+                "url": "http://localhost:5173/login",
+                "responses": [
+                  {
+                    "status": 403,
+                    "body": {
+                      "error": "Tài khoản đã bị khóa. Vui lòng thử lại sau."
+                    }
+                  }
+                ],
+                "text": "Đăng Ký\nUsername\nMật khẩu\nQuên mật khẩu?\nSign In\nChưa có tài khoản? Đăng ký ngay\nĐăng nhập thất bại. Vui lòng kiểm tra lại.",
+                "token_present": false,
+                "fields": [
+                  {
+                    "type": "text",
+                    "required": true,
+                    "valid": true,
+                    "message": ""
+                  },
+                  {
+                    "type": "text",
+                    "required": true,
+                    "valid": true,
+                    "message": ""
+                  }
+                ],
+                "state": {
+                  "email": "test@eshop.com",
+                  "login_attempts": 3,
+                  "locked_until": "2026-10-20T12:27:10.665Z"
+                }
+              }
+            },
+            {
+              "at": "2026-10-20T12:26:51.931653+00:00",
+              "step": "UI submit",
+              "value": {
+                "started_at": "2026-10-20T12:26:51.593138+00:00",
+                "email": "test@eshop.com",
+                "password": "Test1234!",
+                "url": "http://localhost:5173/login",
+                "responses": [
+                  {
+                    "status": 403,
+                    "body": {
+                      "error": "Tài khoản đã bị khóa. Vui lòng thử lại sau."
+                    }
+                  }
+                ],
+                "text": "Đăng Ký\nUsername\nMật khẩu\nQuên mật khẩu?\nSign In\nChưa có tài khoản? Đăng ký ngay\nĐăng nhập thất bại. Vui lòng kiểm tra lại.",
+                "token_present": false,
+                "fields": [
+                  {
+                    "type": "text",
+                    "required": true,
+                    "valid": true,
+                    "message": ""
+                  },
+                  {
+                    "type": "text",
+                    "required": true,
+                    "valid": true,
+                    "message": ""
+                  }
+                ],
+                "state": {
+                  "email": "test@eshop.com",
+                  "login_attempts": 3,
+                  "locked_until": "2026-10-20T12:27:10.665Z"
+                }
+              }
+            }
+          ],
+          "assertions": [
+            {
+              "check": "reload and independent browser session cannot bypass",
+              "ok": true
+            }
+          ],
+          "images": [],
+          "reason": "All target assertions satisfied.",
+          "ended_at": "2026-10-20T12:26:51.949568+00:00"
+        }
+      ]
+    },
+    {
+      "id": "FR02-W19",
+      "trace": "Domain; D10; R01",
+      "precondition": "Fixture tài khoản riêng short.fr02@example.com có credential đúng `Ab1!`, n=0, không khóa",
+      "input_steps": "Login short.fr02@example.com / Ab1!",
+      "expected": "Thành công theo R01/S1; FR-02 không yêu cầu password ≥8. Fixture tạo trực tiếp có kiểm soát; không tính thành test đăng ký",
+      "results": [
+        {
+          "run_id": "FR02-RUN03",
+          "started_at": "2026-10-20T12:26:51.951673+00:00",
+          "status": "passed",
+          "observations": [
+            {
+              "at": "2026-10-20T12:26:51.963504+00:00",
+              "step": "F0",
+              "value": {
+                "email": "test@eshop.com",
+                "login_attempts": 0,
+                "locked_until": null
+              }
+            },
+            {
+              "at": "2026-10-20T12:26:52.503721+00:00",
+              "step": "UI submit",
+              "value": {
+                "started_at": "2026-10-20T12:26:52.201227+00:00",
+                "email": "short.fr02@example.com",
+                "password": "Ab1!",
+                "url": "http://localhost:5173/",
+                "responses": [
+                  {
+                    "status": 200,
+                    "body": {
+                      "message": "Login successful",
+                      "token": "[present]",
+                      "user": {
+                        "id": 3,
+                        "name": "FR02 short credential",
+                        "email": "short.fr02@example.com",
+                        "password": "Ab1!",
+                        "role": "user",
+                        "login_attempts": 0,
+                        "locked_until": null,
+                        "reset_token": null,
+                        "shipping_address": null,
+                        "phone": null
+                      }
+                    }
+                  }
+                ],
+                "text": "Danh sách sản phẩm\nTìm\niPhone 15 Pro Max\n\n30,000,000 VND\n\nXem chi tiết\nThêm vào giỏ\nSamsung Galaxy S24 Ultra\n\n28,000,000 VND\n\nXem chi tiết\nThêm vào giỏ\nMacBook Pro M3\n\n45,000,000 VND\n\nXem chi tiết\nThêm vào giỏ\nTai nghe AirPods Pro 2\n\n6,000,000 VND\n\nXem chi tiết\nThêm vào giỏ\nBàn phím cơ Keychron Q1\n\n4,000,000 VND\n\nXem chi tiết\nThêm vào giỏ\nHiển thị 5 sản phẩm",
+                "token_present": true,
+                "fields": [],
+                "state": {
+                  "email": "test@eshop.com",
+                  "login_attempts": 0,
+                  "locked_until": null
+                }
+              }
+            }
+          ],
+          "assertions": [
+            {
+              "check": "UI success and token stored",
+              "ok": true
+            }
+          ],
+          "images": [],
+          "reason": "All target assertions satisfied.",
+          "ended_at": "2026-10-20T12:26:52.512248+00:00"
+        }
+      ]
+    },
+    {
+      "id": "FR02-A01",
+      "trace": "Domain; D01,D11; R01,R06",
+      "precondition": "F0",
+      "input_steps": "POST {email:U,password:P}; dùng token GET /api/users/me với Bearer",
+      "expected": "200, token JWT, user đúng U; token được chấp nhận và hồ sơ đúng U. S1/S2; client storage kiểm riêng W01",
+      "results": [
+        {
+          "run_id": "FR02-RUN03",
+          "started_at": "2026-10-20T12:26:52.514865+00:00",
+          "status": "passed",
+          "observations": [
+            {
+              "at": "2026-10-20T12:26:52.517081+00:00",
+              "step": "F0",
+              "value": {
+                "email": "test@eshop.com",
+                "login_attempts": 0,
+                "locked_until": null
+              }
+            },
+            {
+              "at": "2026-10-20T12:26:52.698152+00:00",
+              "step": "POST /api/login",
+              "value": {
+                "request": {
+                  "email": "test@eshop.com",
+                  "password": "Test1234!"
+                },
+                "response": {
+                  "status": 200,
+                  "body": {
+                    "message": "Login successful",
+                    "token": "[present]",
+                    "user": {
+                      "id": 2,
+                      "name": "Test User",
+                      "email": "test@eshop.com",
+                      "password": "Test1234!",
+                      "role": "user",
+                      "login_attempts": 0,
+                      "locked_until": null,
+                      "reset_token": null,
+                      "shipping_address": null,
+                      "phone": null
+                    }
+                  },
+                  "request_interval_ms": [
+                    1792499212517.462,
+                    1792499212636.1555
+                  ]
+                },
+                "state": {
+                  "email": "test@eshop.com",
+                  "login_attempts": 0,
+                  "locked_until": null
+                }
+              }
+            },
+            {
+              "at": "2026-10-20T12:26:52.701439+00:00",
+              "step": "GET /users/me with Bearer",
+              "value": {
+                "status": 200,
+                "body": {
+                  "id": 2,
+                  "name": "Test User",
+                  "email": "test@eshop.com",
+                  "password": "Test1234!",
+                  "role": "user",
+                  "login_attempts": 0,
+                  "locked_until": null,
+                  "reset_token": null,
+                  "shipping_address": null,
+                  "phone": null
+                },
+                "request_interval_ms": [
+                  1792499212698.2722,
+                  1792499212701.431
+                ]
+              }
+            }
+          ],
+          "assertions": [
+            {
+              "check": "200 JWT login",
+              "ok": true
+            },
+            {
+              "check": "Bearer authenticates U",
+              "ok": true
+            }
+          ],
+          "images": [],
+          "reason": "All target assertions satisfied.",
+          "ended_at": "2026-10-20T12:26:52.701473+00:00"
+        }
+      ]
+    },
+    {
+      "id": "FR02-A02",
+      "trace": "Domain; D02; R02",
+      "precondition": "F0",
+      "input_steps": "POST U/Z; đọc counter và lock",
+      "expected": "Từ chối; counter 0→1, chưa khóa; S1",
+      "results": [
+        {
+          "run_id": "FR02-RUN03",
+          "started_at": "2026-10-20T12:26:52.703231+00:00",
+          "status": "failed",
+          "observations": [
+            {
+              "at": "2026-10-20T12:26:52.705163+00:00",
+              "step": "F0",
+              "value": {
+                "email": "test@eshop.com",
+                "login_attempts": 0,
+                "locked_until": null
+              }
+            },
+            {
+              "at": "2026-10-20T12:26:52.794623+00:00",
+              "step": "POST /api/login",
+              "value": {
+                "request": {
+                  "email": "test@eshop.com",
+                  "password": "Wrong123!"
+                },
+                "response": {
+                  "status": 401,
+                  "body": {
+                    "error": "Invalid email or password"
+                  },
+                  "request_interval_ms": [
+                    1792499212705.2444,
+                    1792499212729.8408
+                  ]
+                },
+                "state": {
+                  "email": "test@eshop.com",
+                  "login_attempts": 2,
+                  "locked_until": null
+                }
+              }
+            }
+          ],
+          "assertions": [
+            {
+              "check": "0→1, rejected and unlocked",
+              "ok": false
+            }
+          ],
+          "images": [],
+          "reason": "0→1, rejected and unlocked",
+          "ended_at": "2026-10-20T12:26:52.796876+00:00"
+        }
+      ]
+    },
+    {
+      "id": "FR02-A03",
+      "trace": "Domain+BVA; D02; B01=2; R02,R03",
+      "precondition": "F1",
+      "input_steps": "POST U/Z; đọc counter; POST U/P sau đó",
+      "expected": "1→2, chưa khóa; đúng P thành công. S1",
+      "results": [
+        {
+          "run_id": "FR02-RUN03",
+          "started_at": "2026-10-20T12:26:52.801434+00:00",
+          "status": "blocked",
+          "observations": [
+            {
+              "at": "2026-10-20T12:26:52.824339+00:00",
+              "step": "F0",
+              "value": {
+                "email": "test@eshop.com",
+                "login_attempts": 0,
+                "locked_until": null
+              }
+            },
+            {
+              "at": "2026-10-20T12:26:52.897012+00:00",
+              "step": "POST /api/login",
+              "value": {
+                "request": {
+                  "email": "test@eshop.com",
+                  "password": "Wrong123!"
+                },
+                "response": {
+                  "status": 401,
+                  "body": {
+                    "error": "Invalid email or password"
+                  },
+                  "request_interval_ms": [
+                    1792499212824.5195,
+                    1792499212829.7085
+                  ]
+                },
+                "state": {
+                  "email": "test@eshop.com",
+                  "login_attempts": 2,
+                  "locked_until": null
+                }
+              }
+            }
+          ],
+          "assertions": [],
+          "images": [],
+          "reason": "Fn không đạt sau lần sai 1: counter=2, lock=None; chưa chạy request mục tiêu.",
+          "ended_at": "2026-10-20T12:26:52.897849+00:00"
+        }
+      ]
+    },
+    {
+      "id": "FR02-A04",
+      "trace": "Domain+BVA; D02; B01=3; R02,R03",
+      "precondition": "F2",
+      "input_steps": "POST U/Z; đọc counter/t0; POST U/P trước 30s",
+      "expected": "2→3, khóa bắt đầu; P đúng không cấp token. S1",
+      "results": [
+        {
+          "run_id": "FR02-RUN03",
+          "started_at": "2026-10-20T12:26:52.901380+00:00",
+          "status": "blocked",
+          "observations": [
+            {
+              "at": "2026-10-20T12:26:52.918773+00:00",
+              "step": "F0",
+              "value": {
+                "email": "test@eshop.com",
+                "login_attempts": 0,
+                "locked_until": null
+              }
+            },
+            {
+              "at": "2026-10-20T12:26:52.992400+00:00",
+              "step": "POST /api/login",
+              "value": {
+                "request": {
+                  "email": "test@eshop.com",
+                  "password": "Wrong123!"
+                },
+                "response": {
+                  "status": 401,
+                  "body": {
+                    "error": "Invalid email or password"
+                  },
+                  "request_interval_ms": [
+                    1792499212918.877,
+                    1792499212923.2397
+                  ]
+                },
+                "state": {
+                  "email": "test@eshop.com",
+                  "login_attempts": 2,
+                  "locked_until": null
+                }
+              }
+            }
+          ],
+          "assertions": [],
+          "images": [],
+          "reason": "Fn không đạt sau lần sai 1: counter=2, lock=None; chưa chạy request mục tiêu.",
+          "ended_at": "2026-10-20T12:26:52.993209+00:00"
+        }
+      ]
+    },
+    {
+      "id": "FR02-A05",
+      "trace": "Domain; D03; R05",
+      "precondition": "Hai F0 độc lập",
+      "input_steps": "POST U/Z và X/P; so body lỗi",
+      "expected": "Cả hai từ chối; không tiết lộ account tồn tại/field sai. S1; status lỗi cụ thể chưa chốt",
+      "results": [
+        {
+          "run_id": "FR02-RUN03",
+          "started_at": "2026-10-20T12:26:52.995567+00:00",
+          "status": "passed",
+          "observations": [
+            {
+              "at": "2026-10-20T12:26:53.005516+00:00",
+              "step": "F0",
+              "value": {
+                "email": "test@eshop.com",
+                "login_attempts": 0,
+                "locked_until": null
+              }
+            },
+            {
+              "at": "2026-10-20T12:26:53.073959+00:00",
+              "step": "POST /api/login",
+              "value": {
+                "request": {
+                  "email": "test@eshop.com",
+                  "password": "Wrong123!"
+                },
+                "response": {
+                  "status": 401,
+                  "body": {
+                    "error": "Invalid email or password"
+                  },
+                  "request_interval_ms": [
+                    1792499213005.6023,
+                    1792499213008.923
+                  ]
+                },
+                "state": {
+                  "email": "test@eshop.com",
+                  "login_attempts": 2,
+                  "locked_until": null
+                }
+              }
+            },
+            {
+              "at": "2026-10-20T12:26:53.167026+00:00",
+              "step": "POST /api/login",
+              "value": {
+                "request": {
+                  "email": "fr02.absent@example.com",
+                  "password": "Test1234!"
+                },
+                "response": {
+                  "status": 401,
+                  "body": {
+                    "error": "Invalid email or password"
+                  },
+                  "request_interval_ms": [
+                    1792499213083.0935,
+                    1792499213104.913
+                  ]
+                },
+                "state": {
+                  "email": "test@eshop.com",
+                  "login_attempts": 0,
+                  "locked_until": null
+                }
+              }
+            }
+          ],
+          "assertions": [
+            {
+              "check": "generic failure body",
+              "ok": true
+            }
+          ],
+          "images": [],
+          "reason": "All target assertions satisfied.",
+          "ended_at": "2026-10-20T12:26:53.167063+00:00"
+        }
+      ]
+    },
+    {
+      "id": "FR02-A06",
+      "trace": "Domain; D06; R03,A01",
+      "precondition": "FL",
+      "input_steps": "POST U/P tại τ=10s",
+      "expected": "Từ chối vì đang khóa; S1. Không thay counter/deadline theo A01",
+      "results": [
+        {
+          "run_id": "FR02-RUN03",
+          "started_at": "2026-10-20T12:26:53.169289+00:00",
+          "status": "passed",
+          "observations": [
+            {
+              "at": "2026-10-20T12:26:53.173392+00:00",
+              "step": "F0",
+              "value": {
+                "email": "test@eshop.com",
+                "login_attempts": 0,
+                "locked_until": null
+              }
+            },
+            {
+              "at": "2026-10-20T12:26:53.187444+00:00",
+              "step": "FL direct fixture (not natural three-failure sequence)",
+              "value": {
+                "t0_ms": 1792499203173.467,
+                "deadline_ms": 1792499233173.467,
+                "state": {
+                  "email": "test@eshop.com",
+                  "login_attempts": 3,
+                  "locked_until": "2026-10-20T12:27:13.173Z"
+                }
+              }
+            },
+            {
+              "at": "2026-10-20T12:26:53.253995+00:00",
+              "step": "POST /api/login",
+              "value": {
+                "request": {
+                  "email": "test@eshop.com",
+                  "password": "Test1234!"
+                },
+                "response": {
+                  "status": 403,
+                  "body": {
+                    "error": "Tài khoản đã bị khóa. Vui lòng thử lại sau."
+                  },
+                  "request_interval_ms": [
+                    1792499213190.4067,
+                    1792499213192.6318
+                  ]
+                },
+                "state": {
+                  "email": "test@eshop.com",
+                  "login_attempts": 3,
+                  "locked_until": "2026-10-20T12:27:13.173Z"
+                }
+              }
+            }
+          ],
+          "assertions": [
+            {
+              "check": "locked correct P rejected, no counter/deadline mutation",
+              "ok": true
+            }
+          ],
+          "images": [],
+          "reason": "All target assertions satisfied.",
+          "ended_at": "2026-10-20T12:26:53.255862+00:00"
+        }
+      ]
+    },
+    {
+      "id": "FR02-A07",
+      "trace": "Domain+BVA; D06; B01=4; R03,A01",
+      "precondition": "FL bằng chuỗi 3 sai",
+      "input_steps": "POST U/Z lần thứ 4 tại τ=10s; quan sát deadline",
+      "expected": "Vẫn khóa; S1. Không tăng counter/gia hạn theo A01",
+      "results": [
+        {
+          "run_id": "FR02-RUN03",
+          "started_at": "2026-10-20T12:26:53.257583+00:00",
+          "status": "blocked",
+          "observations": [
+            {
+              "at": "2026-10-20T12:26:53.264558+00:00",
+              "step": "F0",
+              "value": {
+                "email": "test@eshop.com",
+                "login_attempts": 0,
+                "locked_until": null
+              }
+            },
+            {
+              "at": "2026-10-20T12:26:53.329372+00:00",
+              "step": "POST /api/login",
+              "value": {
+                "request": {
+                  "email": "test@eshop.com",
+                  "password": "Wrong123!"
+                },
+                "response": {
+                  "status": 401,
+                  "body": {
+                    "error": "Invalid email or password"
+                  },
+                  "request_interval_ms": [
+                    1792499213264.635,
+                    1792499213267.1682
+                  ]
+                },
+                "state": {
+                  "email": "test@eshop.com",
+                  "login_attempts": 2,
+                  "locked_until": null
+                }
+              }
+            }
+          ],
+          "assertions": [],
+          "images": [],
+          "reason": "Fn không đạt sau lần sai 1: counter=2, lock=None; chưa chạy request mục tiêu.",
+          "ended_at": "2026-10-20T12:26:53.329824+00:00"
+        }
+      ]
+    },
+    {
+      "id": "FR02-A08",
+      "trace": "Domain+BVA; D06; B02=29.999; R04",
+      "precondition": "FL mới, protocol timing",
+      "input_steps": "POST U/P được xử lý t0+29999ms",
+      "expected": "Từ chối, không token; S1/R04 + protocol design §4",
+      "results": [
+        {
+          "run_id": "FR02-RUN03",
+          "started_at": "2026-10-20T12:26:53.331080+00:00",
+          "status": "blocked",
+          "observations": [
+            {
+              "at": "2026-10-20T12:26:53.341866+00:00",
+              "step": "F0",
+              "value": {
+                "email": "test@eshop.com",
+                "login_attempts": 0,
+                "locked_until": null
+              }
+            }
+          ],
+          "assertions": [],
+          "images": [],
+          "reason": "Không có server clock/trace điều khiển và xác minh được ±1ms; chưa gửi request tại điểm biên yêu cầu.",
+          "ended_at": "2026-10-20T12:26:53.341891+00:00"
+        }
+      ]
+    },
+    {
+      "id": "FR02-A09",
+      "trace": "Domain+BVA; D07; B02=30.000; R04",
+      "precondition": "FL mới, protocol timing",
+      "input_steps": "POST U/P xử lý t0+30000ms",
+      "expected": "200/token/user đúng U; S1/S2, quy ước equality",
+      "results": [
+        {
+          "run_id": "FR02-RUN03",
+          "started_at": "2026-10-20T12:26:53.342984+00:00",
+          "status": "blocked",
+          "observations": [
+            {
+              "at": "2026-10-20T12:26:53.344563+00:00",
+              "step": "F0",
+              "value": {
+                "email": "test@eshop.com",
+                "login_attempts": 0,
+                "locked_until": null
+              }
+            }
+          ],
+          "assertions": [],
+          "images": [],
+          "reason": "Không có server clock/trace điều khiển và xác minh được ±1ms; chưa gửi request tại điểm biên yêu cầu.",
+          "ended_at": "2026-10-20T12:26:53.344584+00:00"
+        }
+      ]
+    },
+    {
+      "id": "FR02-A10",
+      "trace": "Domain+BVA; D07; B02=30.001; R04",
+      "precondition": "FL mới, protocol timing",
+      "input_steps": "POST U/P xử lý t0+30001ms",
+      "expected": "200/token/user đúng U; S1/S2",
+      "results": [
+        {
+          "run_id": "FR02-RUN03",
+          "started_at": "2026-10-20T12:26:53.345567+00:00",
+          "status": "blocked",
+          "observations": [
+            {
+              "at": "2026-10-20T12:26:53.346364+00:00",
+              "step": "F0",
+              "value": {
+                "email": "test@eshop.com",
+                "login_attempts": 0,
+                "locked_until": null
+              }
+            }
+          ],
+          "assertions": [],
+          "images": [],
+          "reason": "Không có server clock/trace điều khiển và xác minh được ±1ms; chưa gửi request tại điểm biên yêu cầu.",
+          "ended_at": "2026-10-20T12:26:53.346406+00:00"
+        }
+      ]
+    },
+    {
+      "id": "FR02-A11",
+      "trace": "Domain; D07; A01,R02",
+      "precondition": "FL mới",
+      "input_steps": "Sau t0+31s POST U/Z, đọc counter; tiếp tục U/Z; sau đó U/P",
+      "expected": "Chuỗi mới có counter 1 rồi 2, chưa khóa; P đúng thành công. Reset sau expiry thuộc A01; mỗi tăng +1 thuộc R02",
+      "results": [
+        {
+          "run_id": "FR02-RUN03",
+          "started_at": "2026-10-20T12:26:53.347587+00:00",
+          "status": "failed",
+          "observations": [
+            {
+              "at": "2026-10-20T12:26:53.348797+00:00",
+              "step": "F0",
+              "value": {
+                "email": "test@eshop.com",
+                "login_attempts": 0,
+                "locked_until": null
+              }
+            },
+            {
+              "at": "2026-10-20T12:26:53.355163+00:00",
+              "step": "FL at real t0",
+              "value": {
+                "t0_ms": 1792499213348.836,
+                "state": {
+                  "email": "test@eshop.com",
+                  "login_attempts": 3,
+                  "locked_until": "2026-10-20T12:27:23.348Z"
+                }
+              }
+            },
+            {
+              "at": "2026-10-20T12:27:24.443070+00:00",
+              "step": "POST /api/login",
+              "value": {
+                "request": {
+                  "email": "test@eshop.com",
+                  "password": "Wrong123!"
+                },
+                "response": {
+                  "status": 401,
+                  "body": {
+                    "error": "Invalid email or password"
+                  },
+                  "request_interval_ms": [
+                    1792499244355.7122,
+                    1792499244375.8635
+                  ]
+                },
+                "state": {
+                  "email": "test@eshop.com",
+                  "login_attempts": 5,
+                  "locked_until": "2026-10-20T12:30:24.373Z"
+                }
+              }
+            },
+            {
+              "at": "2026-10-20T12:27:24.533584+00:00",
+              "step": "POST /api/login",
+              "value": {
+                "request": {
+                  "email": "test@eshop.com",
+                  "password": "Wrong123!"
+                },
+                "response": {
+                  "status": 403,
+                  "body": {
+                    "error": "Tài khoản đã bị khóa. Vui lòng thử lại sau."
+                  },
+                  "request_interval_ms": [
+                    1792499244444.3547,
+                    1792499244471.9492
+                  ]
+                },
+                "state": {
+                  "email": "test@eshop.com",
+                  "login_attempts": 5,
+                  "locked_until": "2026-10-20T12:30:24.373Z"
+                }
+              }
+            },
+            {
+              "at": "2026-10-20T12:27:24.627909+00:00",
+              "step": "POST /api/login",
+              "value": {
+                "request": {
+                  "email": "test@eshop.com",
+                  "password": "Test1234!"
+                },
+                "response": {
+                  "status": 403,
+                  "body": {
+                    "error": "Tài khoản đã bị khóa. Vui lòng thử lại sau."
+                  },
+                  "request_interval_ms": [
+                    1792499244534.8281,
+                    1792499244564.9834
+                  ]
+                },
+                "state": {
+                  "email": "test@eshop.com",
+                  "login_attempts": 5,
+                  "locked_until": "2026-10-20T12:30:24.373Z"
+                }
+              }
+            }
+          ],
+          "assertions": [
+            {
+              "check": "first failure after expiry starts fresh at 1 (A01)",
+              "ok": false
+            },
+            {
+              "check": "second failure stays unlocked",
+              "ok": false
+            },
+            {
+              "check": "P succeeds after two new failures",
+              "ok": false
+            }
+          ],
+          "images": [],
+          "reason": "first failure after expiry starts fresh at 1 (A01); second failure stays unlocked; P succeeds after two new failures",
+          "ended_at": "2026-10-20T12:27:24.627995+00:00"
+        }
+      ]
+    },
+    {
+      "id": "FR02-A12",
+      "trace": "Domain; D05; A02",
+      "precondition": "F0",
+      "input_steps": "POST {password:P} (thiếu email)",
+      "expected": "Từ chối có kiểm soát, không 500/token, counter không đổi; A02",
+      "results": [
+        {
+          "run_id": "FR02-RUN03",
+          "started_at": "2026-10-20T12:27:24.631671+00:00",
+          "status": "passed",
+          "observations": [
+            {
+              "at": "2026-10-20T12:27:24.645280+00:00",
+              "step": "F0",
+              "value": {
+                "email": "test@eshop.com",
+                "login_attempts": 0,
+                "locked_until": null
+              }
+            },
+            {
+              "at": "2026-10-20T12:27:24.716717+00:00",
+              "step": "POST /api/login",
+              "value": {
+                "request": {
+                  "password": "Test1234!"
+                },
+                "response": {
+                  "status": 401,
+                  "body": {
+                    "error": "Invalid email or password"
+                  },
+                  "request_interval_ms": [
+                    1792499244646.3271,
+                    1792499244653.521
+                  ]
+                },
+                "state": {
+                  "email": "test@eshop.com",
+                  "login_attempts": 0,
+                  "locked_until": null
+                }
+              }
+            }
+          ],
+          "assertions": [
+            {
+              "check": "controlled rejection without token/500",
+              "ok": true
+            },
+            {
+              "check": "invalid payload does not mutate counter (A02)",
+              "ok": true
+            }
+          ],
+          "images": [],
+          "reason": "All target assertions satisfied.",
+          "ended_at": "2026-10-20T12:27:24.718545+00:00"
+        }
+      ]
+    },
+    {
+      "id": "FR02-A13",
+      "trace": "Domain; D05; A02",
+      "precondition": "F0",
+      "input_steps": "POST {email:U} (thiếu password)",
+      "expected": "Như A12; A02; phân biệt absent với chuỗi rỗng",
+      "results": [
+        {
+          "run_id": "FR02-RUN03",
+          "started_at": "2026-10-20T12:27:24.722790+00:00",
+          "status": "failed",
+          "observations": [
+            {
+              "at": "2026-10-20T12:27:24.726085+00:00",
+              "step": "F0",
+              "value": {
+                "email": "test@eshop.com",
+                "login_attempts": 0,
+                "locked_until": null
+              }
+            },
+            {
+              "at": "2026-10-20T12:27:24.797479+00:00",
+              "step": "POST /api/login",
+              "value": {
+                "request": {
+                  "email": "test@eshop.com"
+                },
+                "response": {
+                  "status": 401,
+                  "body": {
+                    "error": "Invalid email or password"
+                  },
+                  "request_interval_ms": [
+                    1792499244727.6382,
+                    1792499244732.9485
+                  ]
+                },
+                "state": {
+                  "email": "test@eshop.com",
+                  "login_attempts": 2,
+                  "locked_until": null
+                }
+              }
+            }
+          ],
+          "assertions": [
+            {
+              "check": "controlled rejection without token/500",
+              "ok": true
+            },
+            {
+              "check": "invalid payload does not mutate counter (A02)",
+              "ok": false
+            }
+          ],
+          "images": [],
+          "reason": "invalid payload does not mutate counter (A02)",
+          "ended_at": "2026-10-20T12:27:24.798728+00:00"
+        }
+      ]
+    },
+    {
+      "id": "FR02-A14",
+      "trace": "Domain; D05; A02",
+      "precondition": "F0",
+      "input_steps": "POST {email:\"\",password:P}",
+      "expected": "Từ chối có kiểm soát, không token/500, counter không đổi; A02",
+      "results": [
+        {
+          "run_id": "FR02-RUN03",
+          "started_at": "2026-10-20T12:27:24.801841+00:00",
+          "status": "passed",
+          "observations": [
+            {
+              "at": "2026-10-20T12:27:24.813151+00:00",
+              "step": "F0",
+              "value": {
+                "email": "test@eshop.com",
+                "login_attempts": 0,
+                "locked_until": null
+              }
+            },
+            {
+              "at": "2026-10-20T12:27:24.893378+00:00",
+              "step": "POST /api/login",
+              "value": {
+                "request": {
+                  "email": "",
+                  "password": "Test1234!"
+                },
+                "response": {
+                  "status": 401,
+                  "body": {
+                    "error": "Invalid email or password"
+                  },
+                  "request_interval_ms": [
+                    1792499244813.909,
+                    1792499244831.854
+                  ]
+                },
+                "state": {
+                  "email": "test@eshop.com",
+                  "login_attempts": 0,
+                  "locked_until": null
+                }
+              }
+            }
+          ],
+          "assertions": [
+            {
+              "check": "controlled rejection without token/500",
+              "ok": true
+            },
+            {
+              "check": "invalid payload does not mutate counter (A02)",
+              "ok": true
+            }
+          ],
+          "images": [],
+          "reason": "All target assertions satisfied.",
+          "ended_at": "2026-10-20T12:27:24.894592+00:00"
+        }
+      ]
+    },
+    {
+      "id": "FR02-A15",
+      "trace": "Domain; D05; A02",
+      "precondition": "F0",
+      "input_steps": "POST {email:U,password:\"\"}",
+      "expected": "Từ chối có kiểm soát, không token/500, counter không đổi; A02",
+      "results": [
+        {
+          "run_id": "FR02-RUN03",
+          "started_at": "2026-10-20T12:27:24.897887+00:00",
+          "status": "failed",
+          "observations": [
+            {
+              "at": "2026-10-20T12:27:24.903563+00:00",
+              "step": "F0",
+              "value": {
+                "email": "test@eshop.com",
+                "login_attempts": 0,
+                "locked_until": null
+              }
+            },
+            {
+              "at": "2026-10-20T12:27:24.983560+00:00",
+              "step": "POST /api/login",
+              "value": {
+                "request": {
+                  "email": "test@eshop.com",
+                  "password": ""
+                },
+                "response": {
+                  "status": 401,
+                  "body": {
+                    "error": "Invalid email or password"
+                  },
+                  "request_interval_ms": [
+                    1792499244905.3684,
+                    1792499244913.145
+                  ]
+                },
+                "state": {
+                  "email": "test@eshop.com",
+                  "login_attempts": 2,
+                  "locked_until": null
+                }
+              }
+            }
+          ],
+          "assertions": [
+            {
+              "check": "controlled rejection without token/500",
+              "ok": true
+            },
+            {
+              "check": "invalid payload does not mutate counter (A02)",
+              "ok": false
+            }
+          ],
+          "images": [],
+          "reason": "invalid payload does not mutate counter (A02)",
+          "ended_at": "2026-10-20T12:27:24.986746+00:00"
+        }
+      ]
+    },
+    {
+      "id": "FR02-A16",
+      "trace": "Domain; D05; A02",
+      "precondition": "F0",
+      "input_steps": "POST {email:null,password:P}",
+      "expected": "Từ chối có kiểm soát, không token/500, counter không đổi; A02",
+      "results": [
+        {
+          "run_id": "FR02-RUN03",
+          "started_at": "2026-10-20T12:27:24.991873+00:00",
+          "status": "passed",
+          "observations": [
+            {
+              "at": "2026-10-20T12:27:25.018394+00:00",
+              "step": "F0",
+              "value": {
+                "email": "test@eshop.com",
+                "login_attempts": 0,
+                "locked_until": null
+              }
+            },
+            {
+              "at": "2026-10-20T12:27:25.089377+00:00",
+              "step": "POST /api/login",
+              "value": {
+                "request": {
+                  "email": null,
+                  "password": "Test1234!"
+                },
+                "response": {
+                  "status": 401,
+                  "body": {
+                    "error": "Invalid email or password"
+                  },
+                  "request_interval_ms": [
+                    1792499245020.5808,
+                    1792499245027.3508
+                  ]
+                },
+                "state": {
+                  "email": "test@eshop.com",
+                  "login_attempts": 0,
+                  "locked_until": null
+                }
+              }
+            }
+          ],
+          "assertions": [
+            {
+              "check": "controlled rejection without token/500",
+              "ok": true
+            },
+            {
+              "check": "invalid payload does not mutate counter (A02)",
+              "ok": true
+            }
+          ],
+          "images": [],
+          "reason": "All target assertions satisfied.",
+          "ended_at": "2026-10-20T12:27:25.090297+00:00"
+        }
+      ]
+    },
+    {
+      "id": "FR02-A17",
+      "trace": "Domain; D05; A02",
+      "precondition": "F0",
+      "input_steps": "POST {email:U,password:null}",
+      "expected": "Từ chối có kiểm soát, không token/500, counter không đổi; A02",
+      "results": [
+        {
+          "run_id": "FR02-RUN03",
+          "started_at": "2026-10-20T12:27:25.092994+00:00",
+          "status": "failed",
+          "observations": [
+            {
+              "at": "2026-10-20T12:27:25.095362+00:00",
+              "step": "F0",
+              "value": {
+                "email": "test@eshop.com",
+                "login_attempts": 0,
+                "locked_until": null
+              }
+            },
+            {
+              "at": "2026-10-20T12:27:25.174762+00:00",
+              "step": "POST /api/login",
+              "value": {
+                "request": {
+                  "email": "test@eshop.com",
+                  "password": null
+                },
+                "response": {
+                  "status": 401,
+                  "body": {
+                    "error": "Invalid email or password"
+                  },
+                  "request_interval_ms": [
+                    1792499245096.2385,
+                    1792499245111.3538
+                  ]
+                },
+                "state": {
+                  "email": "test@eshop.com",
+                  "login_attempts": 2,
+                  "locked_until": null
+                }
+              }
+            }
+          ],
+          "assertions": [
+            {
+              "check": "controlled rejection without token/500",
+              "ok": true
+            },
+            {
+              "check": "invalid payload does not mutate counter (A02)",
+              "ok": false
+            }
+          ],
+          "images": [],
+          "reason": "invalid payload does not mutate counter (A02)",
+          "ended_at": "2026-10-20T12:27:25.175638+00:00"
+        }
+      ]
+    },
+    {
+      "id": "FR02-A18",
+      "trace": "Domain; D05; A02",
+      "precondition": "F0",
+      "input_steps": "POST {email:[\"test@eshop.com\"],password:P}",
+      "expected": "Từ chối sai kiểu, không ép thành tài khoản hợp lệ; không 500/token/counter đổi; A02",
+      "results": [
+        {
+          "run_id": "FR02-RUN03",
+          "started_at": "2026-10-20T12:27:25.177719+00:00",
+          "status": "passed",
+          "observations": [
+            {
+              "at": "2026-10-20T12:27:25.188782+00:00",
+              "step": "F0",
+              "value": {
+                "email": "test@eshop.com",
+                "login_attempts": 0,
+                "locked_until": null
+              }
+            },
+            {
+              "at": "2026-10-20T12:27:25.261866+00:00",
+              "step": "POST /api/login",
+              "value": {
+                "request": {
+                  "email": [
+                    "test@eshop.com"
+                  ],
+                  "password": "Test1234!"
+                },
+                "response": {
+                  "status": 401,
+                  "body": {
+                    "error": "Invalid email or password"
+                  },
+                  "request_interval_ms": [
+                    1792499245196.311,
+                    1792499245200.079
+                  ]
+                },
+                "state": {
+                  "email": "test@eshop.com",
+                  "login_attempts": 0,
+                  "locked_until": null
+                }
+              }
+            }
+          ],
+          "assertions": [
+            {
+              "check": "controlled rejection without token/500",
+              "ok": true
+            },
+            {
+              "check": "invalid payload does not mutate counter (A02)",
+              "ok": true
+            }
+          ],
+          "images": [],
+          "reason": "All target assertions satisfied.",
+          "ended_at": "2026-10-20T12:27:25.263208+00:00"
+        }
+      ]
+    },
+    {
+      "id": "FR02-A19",
+      "trace": "Domain; D05; A02",
+      "precondition": "F0",
+      "input_steps": "POST {email:U,password:{value:\"Test1234!\"}}",
+      "expected": "Từ chối sai kiểu có kiểm soát, không 500/token/counter đổi; A02",
+      "results": [
+        {
+          "run_id": "FR02-RUN03",
+          "started_at": "2026-10-20T12:27:25.265811+00:00",
+          "status": "failed",
+          "observations": [
+            {
+              "at": "2026-10-20T12:27:25.268096+00:00",
+              "step": "F0",
+              "value": {
+                "email": "test@eshop.com",
+                "login_attempts": 0,
+                "locked_until": null
+              }
+            },
+            {
+              "at": "2026-10-20T12:27:25.362782+00:00",
+              "step": "POST /api/login",
+              "value": {
+                "request": {
+                  "email": "test@eshop.com",
+                  "password": {
+                    "value": "Test1234!"
+                  }
+                },
+                "response": {
+                  "status": 401,
+                  "body": {
+                    "error": "Invalid email or password"
+                  },
+                  "request_interval_ms": [
+                    1792499245269.1753,
+                    1792499245298.836
+                  ]
+                },
+                "state": {
+                  "email": "test@eshop.com",
+                  "login_attempts": 2,
+                  "locked_until": null
+                }
+              }
+            }
+          ],
+          "assertions": [
+            {
+              "check": "controlled rejection without token/500",
+              "ok": true
+            },
+            {
+              "check": "invalid payload does not mutate counter (A02)",
+              "ok": false
+            }
+          ],
+          "images": [],
+          "reason": "invalid payload does not mutate counter (A02)",
+          "ended_at": "2026-10-20T12:27:25.363703+00:00"
+        }
+      ]
+    },
+    {
+      "id": "FR02-A20",
+      "trace": "Domain; D08; R08,A01",
+      "precondition": "F0",
+      "input_steps": "POST U với Z,Z,P,Z,Z,P nối tiếp; đọc state sau mỗi request",
+      "expected": "Hai success đều 200/token; success ngắt chuỗi, không khóa do cộng dồn qua success. R08/S1; DB reset=0 theo A01",
+      "results": [
+        {
+          "run_id": "FR02-RUN03",
+          "started_at": "2026-10-20T12:27:25.389353+00:00",
+          "status": "blocked",
+          "observations": [
+            {
+              "at": "2026-10-20T12:27:25.400597+00:00",
+              "step": "F0",
+              "value": {
+                "email": "test@eshop.com",
+                "login_attempts": 0,
+                "locked_until": null
+              }
+            },
+            {
+              "at": "2026-10-20T12:27:25.469776+00:00",
+              "step": "POST /api/login",
+              "value": {
+                "request": {
+                  "email": "test@eshop.com",
+                  "password": "Wrong123!"
+                },
+                "response": {
+                  "status": 401,
+                  "body": {
+                    "error": "Invalid email or password"
+                  },
+                  "request_interval_ms": [
+                    1792499245400.6921,
+                    1792499245404.8118
+                  ]
+                },
+                "state": {
+                  "email": "test@eshop.com",
+                  "login_attempts": 2,
+                  "locked_until": null
+                }
+              }
+            },
+            {
+              "at": "2026-10-20T12:27:25.546846+00:00",
+              "step": "POST /api/login",
+              "value": {
+                "request": {
+                  "email": "test@eshop.com",
+                  "password": "Wrong123!"
+                },
+                "response": {
+                  "status": 401,
+                  "body": {
+                    "error": "Invalid email or password"
+                  },
+                  "request_interval_ms": [
+                    1792499245469.9485,
+                    1792499245482.0134
+                  ]
+                },
+                "state": {
+                  "email": "test@eshop.com",
+                  "login_attempts": 4,
+                  "locked_until": "2026-10-20T12:30:25.478Z"
+                }
+              }
+            },
+            {
+              "at": "2026-10-20T12:27:25.640607+00:00",
+              "step": "POST /api/login",
+              "value": {
+                "request": {
+                  "email": "test@eshop.com",
+                  "password": "Test1234!"
+                },
+                "response": {
+                  "status": 403,
+                  "body": {
+                    "error": "Tài khoản đã bị khóa. Vui lòng thử lại sau."
+                  },
+                  "request_interval_ms": [
+                    1792499245547.0027,
+                    1792499245577.773
+                  ]
+                },
+                "state": {
+                  "email": "test@eshop.com",
+                  "login_attempts": 4,
+                  "locked_until": "2026-10-20T12:30:25.478Z"
+                }
+              }
+            }
+          ],
+          "assertions": [],
+          "images": [],
+          "reason": "Success bước 3 bị khóa sớm chặn; chưa tới chuỗi sau success.",
+          "ended_at": "2026-10-20T12:27:25.640705+00:00"
+        }
+      ]
+    },
+    {
+      "id": "FR02-A21",
+      "trace": "Domain; D09; A03",
+      "precondition": "FL(U), F0(V)",
+      "input_steps": "Client HTTP mới POST U/P; POST V đúng password",
+      "expected": "U vẫn bị khóa; V thành công; A03, không suy khóa theo IP",
+      "results": [
+        {
+          "run_id": "FR02-RUN03",
+          "started_at": "2026-10-20T12:27:25.644603+00:00",
+          "status": "passed",
+          "observations": [
+            {
+              "at": "2026-10-20T12:27:25.658566+00:00",
+              "step": "F0",
+              "value": {
+                "email": "test@eshop.com",
+                "login_attempts": 0,
+                "locked_until": null
+              }
+            },
+            {
+              "at": "2026-10-20T12:27:25.668443+00:00",
+              "step": "FL direct fixture (not natural three-failure sequence)",
+              "value": {
+                "t0_ms": 1792499235658.6143,
+                "deadline_ms": 1792499265658.6143,
+                "state": {
+                  "email": "test@eshop.com",
+                  "login_attempts": 3,
+                  "locked_until": "2026-10-20T12:27:45.658Z"
+                }
+              }
+            },
+            {
+              "at": "2026-10-20T12:27:25.735913+00:00",
+              "step": "POST /api/login",
+              "value": {
+                "request": {
+                  "email": "test@eshop.com",
+                  "password": "Test1234!"
+                },
+                "response": {
+                  "status": 403,
+                  "body": {
+                    "error": "Tài khoản đã bị khóa. Vui lòng thử lại sau."
+                  },
+                  "request_interval_ms": [
+                    1792499245669.2793,
+                    1792499245673.2307
+                  ]
+                },
+                "state": {
+                  "email": "test@eshop.com",
+                  "login_attempts": 3,
+                  "locked_until": "2026-10-20T12:27:45.658Z"
+                }
+              }
+            },
+            {
+              "at": "2026-10-20T12:27:25.805066+00:00",
+              "step": "POST /api/login",
+              "value": {
+                "request": {
+                  "email": "admin@eshop.com",
+                  "password": "Admin123!"
+                },
+                "response": {
+                  "status": 200,
+                  "body": {
+                    "message": "Login successful",
+                    "token": "[present]",
+                    "user": {
+                      "id": 1,
+                      "name": "Admin User",
+                      "email": "admin@eshop.com",
+                      "password": "Admin123!",
+                      "role": "admin",
+                      "login_attempts": 0,
+                      "locked_until": null,
+                      "reset_token": null,
+                      "shipping_address": null,
+                      "phone": null
+                    }
+                  },
+                  "request_interval_ms": [
+                    1792499245736.1035,
+                    1792499245742.3452
+                  ]
+                },
+                "state": {
+                  "email": "test@eshop.com",
+                  "login_attempts": 3,
+                  "locked_until": "2026-10-20T12:27:45.658Z"
+                }
+              }
+            }
+          ],
+          "assertions": [
+            {
+              "check": "account isolation and new HTTP client cannot bypass",
+              "ok": true
+            }
+          ],
+          "images": [],
+          "reason": "All target assertions satisfied.",
+          "ended_at": "2026-10-20T12:27:25.806677+00:00"
+        }
+      ]
+    },
+    {
+      "id": "FR02-A22",
+      "trace": "Domain; D10; A04",
+      "precondition": "F0",
+      "input_steps": "POST U/password=`test1234!`",
+      "expected": "Từ chối, không token; tăng đúng 1 nếu coi đây là attempt xác thực sai; A04/R02. Phát hiện đổi case password",
+      "results": [
+        {
+          "run_id": "FR02-RUN03",
+          "started_at": "2026-10-20T12:27:25.813236+00:00",
+          "status": "failed",
+          "observations": [
+            {
+              "at": "2026-10-20T12:27:25.829582+00:00",
+              "step": "F0",
+              "value": {
+                "email": "test@eshop.com",
+                "login_attempts": 0,
+                "locked_until": null
+              }
+            },
+            {
+              "at": "2026-10-20T12:27:25.902824+00:00",
+              "step": "POST /api/login",
+              "value": {
+                "request": {
+                  "email": "test@eshop.com",
+                  "password": "test1234!"
+                },
+                "response": {
+                  "status": 401,
+                  "body": {
+                    "error": "Invalid email or password"
+                  },
+                  "request_interval_ms": [
+                    1792499245829.7468,
+                    1792499245837.6475
+                  ]
+                },
+                "state": {
+                  "email": "test@eshop.com",
+                  "login_attempts": 2,
+                  "locked_until": null
+                }
+              }
+            }
+          ],
+          "assertions": [
+            {
+              "check": "case/space P rejected",
+              "ok": true
+            },
+            {
+              "check": "wrong credential increments by 1",
+              "ok": false
+            }
+          ],
+          "images": [],
+          "reason": "wrong credential increments by 1",
+          "ended_at": "2026-10-20T12:27:25.903956+00:00"
+        }
+      ]
+    },
+    {
+      "id": "FR02-A23",
+      "trace": "Domain; D10; A04",
+      "precondition": "F0",
+      "input_steps": "POST U/password=` Test1234! `",
+      "expected": "Từ chối, không trim password; counter +1; A04/R02",
+      "results": [
+        {
+          "run_id": "FR02-RUN03",
+          "started_at": "2026-10-20T12:27:25.907048+00:00",
+          "status": "failed",
+          "observations": [
+            {
+              "at": "2026-10-20T12:27:25.918742+00:00",
+              "step": "F0",
+              "value": {
+                "email": "test@eshop.com",
+                "login_attempts": 0,
+                "locked_until": null
+              }
+            },
+            {
+              "at": "2026-10-20T12:27:25.993354+00:00",
+              "step": "POST /api/login",
+              "value": {
+                "request": {
+                  "email": "test@eshop.com",
+                  "password": " Test1234! "
+                },
+                "response": {
+                  "status": 401,
+                  "body": {
+                    "error": "Invalid email or password"
+                  },
+                  "request_interval_ms": [
+                    1792499245925.669,
+                    1792499245929.252
+                  ]
+                },
+                "state": {
+                  "email": "test@eshop.com",
+                  "login_attempts": 2,
+                  "locked_until": null
+                }
+              }
+            }
+          ],
+          "assertions": [
+            {
+              "check": "case/space P rejected",
+              "ok": true
+            },
+            {
+              "check": "wrong credential increments by 1",
+              "ok": false
+            }
+          ],
+          "images": [],
+          "reason": "wrong credential increments by 1",
+          "ended_at": "2026-10-20T12:27:25.994727+00:00"
+        }
+      ]
+    },
+    {
+      "id": "FR02-A24",
+      "trace": "Domain; D12; A04",
+      "precondition": "F0",
+      "input_steps": "POST email=`' OR 1=1 --`, password=Z",
+      "expected": "Không bypass/không token, lỗi có kiểm soát không lộ SQL/stack; A04. Không dùng payload này thay TC HTML5 Web",
+      "results": [
+        {
+          "run_id": "FR02-RUN03",
+          "started_at": "2026-10-20T12:27:26.001090+00:00",
+          "status": "passed",
+          "observations": [
+            {
+              "at": "2026-10-20T12:27:26.015745+00:00",
+              "step": "F0",
+              "value": {
+                "email": "test@eshop.com",
+                "login_attempts": 0,
+                "locked_until": null
+              }
+            },
+            {
+              "at": "2026-10-20T12:27:26.085988+00:00",
+              "step": "POST /api/login",
+              "value": {
+                "request": {
+                  "email": "' OR 1=1 --",
+                  "password": "Wrong123!"
+                },
+                "response": {
+                  "status": 401,
+                  "body": {
+                    "error": "Invalid email or password"
+                  },
+                  "request_interval_ms": [
+                    1792499246015.9,
+                    1792499246023.4033
+                  ]
+                },
+                "state": {
+                  "email": "test@eshop.com",
+                  "login_attempts": 0,
+                  "locked_until": null
+                }
+              }
+            }
+          ],
+          "assertions": [
+            {
+              "check": "no SQL bypass or SQL/stack exposure",
+              "ok": true
+            }
+          ],
+          "images": [],
+          "reason": "All target assertions satisfied.",
+          "ended_at": "2026-10-20T12:27:26.086323+00:00"
+        }
+      ]
+    },
+    {
+      "id": "FR02-A25",
+      "trace": "Domain; D12; A04",
+      "precondition": "F0; fixture U có reset_token marker `FR02_PRIVATE` để phát hiện leak, không gọi reset flow",
+      "input_steps": "POST U/P; inspect toàn response body",
+      "expected": "Thành công nhưng không lộ password P hay reset_token marker trong user/body; A04. S2 cho phép user nhưng không mô tả field nhạy cảm",
+      "results": [
+        {
+          "run_id": "FR02-RUN03",
+          "started_at": "2026-10-20T12:27:26.090180+00:00",
+          "status": "failed",
+          "observations": [
+            {
+              "at": "2026-10-20T12:27:26.092844+00:00",
+              "step": "F0",
+              "value": {
+                "email": "test@eshop.com",
+                "login_attempts": 0,
+                "locked_until": null
+              }
+            },
+            {
+              "at": "2026-10-20T12:27:26.175340+00:00",
+              "step": "POST /api/login",
+              "value": {
+                "request": {
+                  "email": "test@eshop.com",
+                  "password": "Test1234!"
+                },
+                "response": {
+                  "status": 200,
+                  "body": {
+                    "message": "Login successful",
+                    "token": "[present]",
+                    "user": {
+                      "id": 2,
+                      "name": "Test User",
+                      "email": "test@eshop.com",
+                      "password": "Test1234!",
+                      "role": "user",
+                      "login_attempts": 0,
+                      "locked_until": null,
+                      "reset_token": "FR02_PRIVATE",
+                      "shipping_address": null,
+                      "phone": null
+                    }
+                  },
+                  "request_interval_ms": [
+                    1792499246104.2373,
+                    1792499246110.8843
+                  ]
+                },
+                "state": {
+                  "email": "test@eshop.com",
+                  "login_attempts": 0,
+                  "locked_until": null
+                }
+              }
+            }
+          ],
+          "assertions": [
+            {
+              "check": "success",
+              "ok": true
+            },
+            {
+              "check": "no password/reset_token fields in response (A04)",
+              "ok": false
+            }
+          ],
+          "images": [],
+          "reason": "no password/reset_token fields in response (A04)",
+          "ended_at": "2026-10-20T12:27:26.175435+00:00"
+        }
+      ]
+    },
+    {
+      "id": "FR02-A26",
+      "trace": "Domain; D13; A05",
+      "precondition": "F1; hai kết nối sẵn sàng; ghi thời điểm server nhận/xử lý",
+      "input_steps": "Phát hai POST U/Z chồng lấn; chờ cả hai hoàn tất, đọc counter/lock; thử U/P trong khóa",
+      "expected": "Hai attempt được ghi đủ, counter cuối=3, khóa; P đúng bị từ chối. A05/R02/R03; nếu không có overlap thì chưa chạm mục tiêu concurrency",
+      "results": [
+        {
+          "run_id": "FR02-RUN03",
+          "started_at": "2026-10-20T12:27:26.179037+00:00",
+          "status": "blocked",
+          "observations": [
+            {
+              "at": "2026-10-20T12:27:26.189809+00:00",
+              "step": "F0",
+              "value": {
+                "email": "test@eshop.com",
+                "login_attempts": 0,
+                "locked_until": null
+              }
+            },
+            {
+              "at": "2026-10-20T12:27:26.285812+00:00",
+              "step": "POST /api/login",
+              "value": {
+                "request": {
+                  "email": "test@eshop.com",
+                  "password": "Wrong123!"
+                },
+                "response": {
+                  "status": 401,
+                  "body": {
+                    "error": "Invalid email or password"
+                  },
+                  "request_interval_ms": [
+                    1792499246189.9214,
+                    1792499246219.7239
+                  ]
+                },
+                "state": {
+                  "email": "test@eshop.com",
+                  "login_attempts": 2,
+                  "locked_until": null
+                }
+              }
+            }
+          ],
+          "assertions": [],
+          "images": [],
+          "reason": "Fn không đạt sau lần sai 1: counter=2, lock=None; chưa chạy request mục tiêu.",
+          "ended_at": "2026-10-20T12:27:26.287552+00:00"
+        }
+      ]
+    }
+  ],
+  "runs": [
+    {
+      "id": "FR02-RUN01",
+      "started_at": "2026-10-20T12:26:01.809383+00:00",
+      "timezone": "Asia/Bangkok (UTC+7)",
+      "revision": "4bb5158fd5d550f201eb1c3d8ce2a47c7dfae509",
+      "browser": "156.0.8078.4",
+      "web": "http://localhost:5173",
+      "api": "http://localhost:3000/api",
+      "runtime_database": "D:\\Workspace\\SoftwareTesting\\HW02\\.runtime\\T05-execution-20261020\\backend\\database.sqlite",
+      "fixture": "isolated T05 DB; reset only U/V between TC; FL direct fixture explicitly logged",
+      "timestamp_precision": "client wall-clock intervals, not server processing trace; exact ±1ms cases blocked",
+      "hashes": {
+        "design.md": "d5f82918c947e90142907c4fdfbba73fc70c182fbcbc6da3b90be94fd9669a73",
+        "test-cases.md": "e0160e7f237359191df7b45408df682d1b50a9810b498656b622f9aa658f5bfe",
+        "scripts/run.py": "219aec8115a1147b85e98d6d0bf6f7a58b7a3606dff1756c75f14c5abb1e73b2"
+      }
+    },
+    {
+      "id": "FR02-RUN02",
+      "started_at": "2026-10-20T12:26:34.097697+00:00",
+      "timezone": "Asia/Bangkok (UTC+7)",
+      "revision": "4bb5158fd5d550f201eb1c3d8ce2a47c7dfae509",
+      "browser": "156.0.8078.4",
+      "web": "http://localhost:5173",
+      "api": "http://localhost:3000/api",
+      "runtime_database": "D:\\Workspace\\SoftwareTesting\\HW02\\.runtime\\T05-execution-20261020\\backend\\database.sqlite",
+      "fixture": "isolated T05 DB; reset only U/V between TC; FL direct fixture explicitly logged",
+      "timestamp_precision": "client wall-clock intervals, not server processing trace; exact ±1ms cases blocked",
+      "hashes": {
+        "design.md": "d5f82918c947e90142907c4fdfbba73fc70c182fbcbc6da3b90be94fd9669a73",
+        "test-cases.md": "e0160e7f237359191df7b45408df682d1b50a9810b498656b622f9aa658f5bfe",
+        "scripts/run.py": "b65c3c58340e71eb23fa88bd87303db60c63e610937fc829ea766d0c03cffcad"
+      }
+    },
+    {
+      "id": "FR02-RUN03",
+      "started_at": "2026-10-20T12:26:40.945806+00:00",
+      "timezone": "Asia/Bangkok (UTC+7)",
+      "revision": "4bb5158fd5d550f201eb1c3d8ce2a47c7dfae509",
+      "browser": "156.0.8078.4",
+      "web": "http://localhost:5173",
+      "api": "http://localhost:3000/api",
+      "runtime_database": "D:\\Workspace\\SoftwareTesting\\HW02\\.runtime\\T05-execution-20261020\\backend\\database.sqlite",
+      "fixture": "isolated T05 DB; reset only U/V between TC; FL direct fixture explicitly logged",
+      "timestamp_precision": "client wall-clock intervals, not server processing trace; exact ±1ms cases blocked",
+      "hashes": {
+        "design.md": "d5f82918c947e90142907c4fdfbba73fc70c182fbcbc6da3b90be94fd9669a73",
+        "test-cases.md": "e0160e7f237359191df7b45408df682d1b50a9810b498656b622f9aa658f5bfe",
+        "scripts/run.py": "2048f8ffced9701e21d244a1dac37c163c023e7d4e4e55dc1d7d2da38eebcd02"
+      },
+      "ended_at": "2026-10-20T12:27:26.303730+00:00"
+    }
+  ],
+  "selected_results": {
+    "FR02-W01": "FR02-RUN03",
+    "FR02-W03": "FR02-RUN03",
+    "FR02-W02": "FR02-RUN03",
+    "FR02-W04": "FR02-RUN03",
+    "FR02-W05": "FR02-RUN03",
+    "FR02-W06": "FR02-RUN03",
+    "FR02-W07": "FR02-RUN03",
+    "FR02-W08": "FR02-RUN03",
+    "FR02-W09": "FR02-RUN03",
+    "FR02-W10": "FR02-RUN03",
+    "FR02-W11": "FR02-RUN03",
+    "FR02-W12": "FR02-RUN03",
+    "FR02-W13": "FR02-RUN03",
+    "FR02-W14": "FR02-RUN03",
+    "FR02-W15": "FR02-RUN03",
+    "FR02-W16": "FR02-RUN03",
+    "FR02-W17": "FR02-RUN03",
+    "FR02-W18": "FR02-RUN03",
+    "FR02-W19": "FR02-RUN03",
+    "FR02-A01": "FR02-RUN03",
+    "FR02-A02": "FR02-RUN03",
+    "FR02-A03": "FR02-RUN03",
+    "FR02-A04": "FR02-RUN03",
+    "FR02-A05": "FR02-RUN03",
+    "FR02-A06": "FR02-RUN03",
+    "FR02-A07": "FR02-RUN03",
+    "FR02-A08": "FR02-RUN03",
+    "FR02-A09": "FR02-RUN03",
+    "FR02-A10": "FR02-RUN03",
+    "FR02-A11": "FR02-RUN03",
+    "FR02-A12": "FR02-RUN03",
+    "FR02-A13": "FR02-RUN03",
+    "FR02-A14": "FR02-RUN03",
+    "FR02-A15": "FR02-RUN03",
+    "FR02-A16": "FR02-RUN03",
+    "FR02-A17": "FR02-RUN03",
+    "FR02-A18": "FR02-RUN03",
+    "FR02-A19": "FR02-RUN03",
+    "FR02-A20": "FR02-RUN03",
+    "FR02-A21": "FR02-RUN03",
+    "FR02-A22": "FR02-RUN03",
+    "FR02-A23": "FR02-RUN03",
+    "FR02-A24": "FR02-RUN03",
+    "FR02-A25": "FR02-RUN03",
+    "FR02-A26": "FR02-RUN03"
+  },
+  "supplementary": [
+    {
+      "id": "FR02-VERIFY01",
+      "started_at": "2026-10-20T12:28:10.313272+00:00",
+      "purpose": "Runtime reproductions and JPG symptoms; no additional TC or precise boundary credit",
+      "observations": [
+        {
+          "at": "2026-10-20T12:28:10.919547+00:00",
+          "step": "wrong #1",
+          "before": {
+            "email": "test@eshop.com",
+            "login_attempts": 0,
+            "locked_until": null
+          },
+          "response": {
+            "request": {
+              "email": "test@eshop.com",
+              "password": "Wrong123!"
+            },
+            "status": 401,
+            "body": {
+              "error": "Invalid email or password"
+            },
+            "clientIntervalMs": [
+              1792499290800,
+              1792499290816
+            ]
+          },
+          "after": {
+            "email": "test@eshop.com",
+            "login_attempts": 2,
+            "locked_until": null
+          }
+        },
+        {
+          "at": "2026-10-20T12:28:11.102425+00:00",
+          "step": "wrong #2",
+          "before": {
+            "email": "test@eshop.com",
+            "login_attempts": 2,
+            "locked_until": null
+          },
+          "response": {
+            "request": {
+              "email": "test@eshop.com",
+              "password": "Wrong123!"
+            },
+            "status": 401,
+            "body": {
+              "error": "Invalid email or password"
+            },
+            "clientIntervalMs": [
+              1792499290981,
+              1792499290995
+            ]
+          },
+          "after": {
+            "email": "test@eshop.com",
+            "login_attempts": 4,
+            "locked_until": "2026-10-20T12:31:10.982Z"
+          }
+        },
+        {
+          "at": "2026-10-20T12:28:11.270175+00:00",
+          "step": "correct password immediately after two failures",
+          "before": {
+            "email": "test@eshop.com",
+            "login_attempts": 4,
+            "locked_until": "2026-10-20T12:31:10.982Z"
+          },
+          "response": {
+            "request": {
+              "email": "test@eshop.com",
+              "password": "Test1234!"
+            },
+            "status": 403,
+            "body": {
+              "error": "Tài khoản đã bị khóa. Vui lòng thử lại sau."
+            },
+            "clientIntervalMs": [
+              1792499291150,
+              1792499291162
+            ]
+          },
+          "after": {
+            "email": "test@eshop.com",
+            "login_attempts": 4,
+            "locked_until": "2026-10-20T12:31:10.982Z"
+          }
+        },
+        {
+          "at": "2026-10-20T12:28:11.516710+00:00",
+          "step": "wrong #1",
+          "before": {
+            "email": "test@eshop.com",
+            "login_attempts": 0,
+            "locked_until": null
+          },
+          "response": {
+            "request": {
+              "email": "test@eshop.com",
+              "password": "Wrong123!"
+            },
+            "status": 401,
+            "body": {
+              "error": "Invalid email or password"
+            },
+            "clientIntervalMs": [
+              1792499291398,
+              1792499291412
+            ]
+          },
+          "after": {
+            "email": "test@eshop.com",
+            "login_attempts": 2,
+            "locked_until": null
+          }
+        },
+        {
+          "at": "2026-10-20T12:28:11.680645+00:00",
+          "step": "wrong #2 triggers actual lock",
+          "before": {
+            "email": "test@eshop.com",
+            "login_attempts": 2,
+            "locked_until": null
+          },
+          "response": {
+            "request": {
+              "email": "test@eshop.com",
+              "password": "Wrong123!"
+            },
+            "status": 401,
+            "body": {
+              "error": "Invalid email or password"
+            },
+            "clientIntervalMs": [
+              1792499291564,
+              1792499291578
+            ]
+          },
+          "after": {
+            "email": "test@eshop.com",
+            "login_attempts": 4,
+            "locked_until": "2026-10-20T12:31:11.565Z"
+          }
+        },
+        {
+          "step": "duration bounds from triggering request and stored deadline",
+          "at": "2026-10-20T12:28:11.688251+00:00",
+          "seconds_bounds": [
+            179.987,
+            180.001
+          ],
+          "trigger_interval_ms": [
+            1792499291564,
+            1792499291578
+          ],
+          "locked_until": "2026-10-20T12:31:11.565Z"
+        },
+        {
+          "at": "2026-10-20T12:28:42.846517+00:00",
+          "step": "correct P after real 31-second wait",
+          "before": {
+            "email": "test@eshop.com",
+            "login_attempts": 4,
+            "locked_until": "2026-10-20T12:31:11.565Z"
+          },
+          "response": {
+            "request": {
+              "email": "test@eshop.com",
+              "password": "Test1234!"
+            },
+            "status": 403,
+            "body": {
+              "error": "Tài khoản đã bị khóa. Vui lòng thử lại sau."
+            },
+            "clientIntervalMs": [
+              1792499322730,
+              1792499322745
+            ]
+          },
+          "after": {
+            "email": "test@eshop.com",
+            "login_attempts": 4,
+            "locked_until": "2026-10-20T12:31:11.565Z"
+          }
+        },
+        {
+          "step": "elapsed since trigger bracket",
+          "at": "2026-10-20T12:28:42.855118+00:00",
+          "seconds_bounds": [
+            31.152,
+            31.181
+          ]
+        },
+        {
+          "at": "2026-10-20T12:28:43.078132+00:00",
+          "step": "missing password",
+          "before": {
+            "email": "test@eshop.com",
+            "login_attempts": 0,
+            "locked_until": null
+          },
+          "response": {
+            "request": {
+              "email": "test@eshop.com"
+            },
+            "status": 401,
+            "body": {
+              "error": "Invalid email or password"
+            },
+            "clientIntervalMs": [
+              1792499322963,
+              1792499322978
+            ]
+          },
+          "after": {
+            "email": "test@eshop.com",
+            "login_attempts": 2,
+            "locked_until": null
+          }
+        },
+        {
+          "at": "2026-10-20T12:28:43.280125+00:00",
+          "step": "successful login",
+          "before": {
+            "email": "test@eshop.com",
+            "login_attempts": 0,
+            "locked_until": null
+          },
+          "response": {
+            "request": {
+              "email": "test@eshop.com",
+              "password": "Test1234!"
+            },
+            "status": 200,
+            "body": {
+              "message": "Login successful",
+              "token": "[JWT present, redacted]",
+              "user": {
+                "id": 2,
+                "name": "Test User",
+                "email": "test@eshop.com",
+                "password": "Test1234!",
+                "role": "user",
+                "login_attempts": 0,
+                "locked_until": null,
+                "reset_token": "FR02_PRIVATE",
+                "shipping_address": null,
+                "phone": null
+              }
+            },
+            "clientIntervalMs": [
+              1792499323164,
+              1792499323177
+            ]
+          },
+          "after": {
+            "email": "test@eshop.com",
+            "login_attempts": 0,
+            "locked_until": null
+          }
+        },
+        {
+          "at": "2026-10-20T12:28:43.499711+00:00",
+          "step": "first wrong attempt after expired FL",
+          "before": {
+            "email": "test@eshop.com",
+            "login_attempts": 3,
+            "locked_until": "2026-10-20T12:28:42.335Z"
+          },
+          "response": {
+            "request": {
+              "email": "test@eshop.com",
+              "password": "Wrong123!"
+            },
+            "status": 401,
+            "body": {
+              "error": "Invalid email or password"
+            },
+            "clientIntervalMs": [
+              1792499323379,
+              1792499323394
+            ]
+          },
+          "after": {
+            "email": "test@eshop.com",
+            "login_attempts": 5,
+            "locked_until": "2026-10-20T12:31:43.381Z"
+          }
+        }
+      ],
+      "images": [
+        {
+          "path": "images/FR02-BUG01-FR02-VERIFY01.jpg",
+          "captured_at": "2026-10-20T12:28:11.347860+00:00",
+          "bug": "FR02-BUG01",
+          "kind": "live API client harness + read-only DB observer"
+        },
+        {
+          "path": "images/FR02-BUG02-FR02-VERIFY01.jpg",
+          "captured_at": "2026-10-20T12:28:42.910242+00:00",
+          "bug": "FR02-BUG02",
+          "kind": "live API client harness + read-only DB observer"
+        },
+        {
+          "path": "images/FR02-BUG04-FR02-VERIFY01.jpg",
+          "captured_at": "2026-10-20T12:28:43.111307+00:00",
+          "bug": "FR02-BUG04",
+          "kind": "live API client harness + read-only DB observer"
+        },
+        {
+          "path": "images/FR02-BUG05-FR02-VERIFY01.jpg",
+          "captured_at": "2026-10-20T12:28:43.329097+00:00",
+          "bug": "FR02-BUG05",
+          "kind": "live API client harness + read-only DB observer"
+        },
+        {
+          "path": "images/FR02-BUG06-FR02-VERIFY01.jpg",
+          "captured_at": "2026-10-20T12:28:43.545735+00:00",
+          "bug": "FR02-BUG06",
+          "kind": "live API client harness + read-only DB observer"
+        }
+      ],
+      "ended_at": "2026-10-20T12:28:43.553539+00:00",
+      "environment_run_id": "FR02-RUN03",
+      "revision": "4bb5158fd5d550f201eb1c3d8ce2a47c7dfae509"
+    }
+  ],
+  "bugs": [
+    {
+      "id": "FR02-BUG01",
+      "title": "Counter tăng 2 mỗi lần sai, khóa sau hai lần thay vì ba",
+      "kind": "confirmed",
+      "oracle": "S1 FR-02 / R02,R03",
+      "cases": [
+        "FR02-W03",
+        "FR02-A02",
+        "FR02-A22",
+        "FR02-A23"
+      ],
+      "steps": "F0 U; POST U/Wrong123! hai lần nối tiếp; sau đó U/Test1234!. Web cũng tái hiện lần sai đầu qua submit.",
+      "expected": "Counter0→1→2; sau hai sai chưa khóa, đúng P được login.",
+      "actual": "Counter0→2→4, locked_until được đặt ngay lần sai thứ2; đúng P→403.",
+      "frequency": "Counter +2: W03 RUN02/RUN03, A02 RUN03 và VERIFY01; early lock: W16/A20 RUN03 và VERIFY01. Không suy tỷ lệ cho môi trường khác.",
+      "priority": "P1: khóa nhầm tài khoản sớm",
+      "symptom_image": {
+        "path": "images/FR02-BUG01-FR02-VERIFY01.jpg",
+        "captured_at": "2026-10-20T12:28:11.347860+00:00",
+        "bug": "FR02-BUG01",
+        "kind": "live API client harness + read-only DB observer"
+      },
+      "issue": {
+        "url": "https://github.com/tranquocvy/eshop-sut/issues/21",
+        "number": 21,
+        "captured_at": "2026-10-20T12:31:13.741Z",
+        "image": "images/FR02-BUG01-issue.jpg",
+        "verification": "Đã mở trang issue, kiểm tra tiêu đề/nội dung và ảnh bug tải hoàn tất"
+      }
+    },
+    {
+      "id": "FR02-BUG02",
+      "title": "Thời hạn khóa được đặt khoảng 180 giây, vẫn từ chối sau hơn31 giây",
+      "kind": "confirmed",
+      "oracle": "S1 FR-02 / R04",
+      "cases": [],
+      "steps": "F0; gửi hai sai để tái hiện khóa thực tế; ghi bracket request kích hoạt và DB deadline; đợi31s thật rồi gửi đúng P.",
+      "expected": "Khóa chỉ30s kể từ khi kích hoạt; sau31s đúng P được đăng nhập.",
+      "actual": "VERIFY01: deadline cách request kích hoạt khoảng180s; đúng P sau31s vẫn403. Không credit các điểm ±1ms blocked.",
+      "frequency": "1/1 sequence VERIFY01 đo thời lượng; timestamp/bracket trong supplementary.",
+      "priority": "P1: người dùng bị khóa lâu hơn yêu cầu",
+      "symptom_image": {
+        "path": "images/FR02-BUG02-FR02-VERIFY01.jpg",
+        "captured_at": "2026-10-20T12:28:42.910242+00:00",
+        "bug": "FR02-BUG02",
+        "kind": "live API client harness + read-only DB observer"
+      },
+      "issue": {
+        "url": "https://github.com/tranquocvy/eshop-sut/issues/22",
+        "number": 22,
+        "captured_at": "2026-10-20T12:31:55.794Z",
+        "image": "images/FR02-BUG02-issue.jpg",
+        "verification": "Đã mở trang issue, đối chiếu tiêu đề/nội dung và ảnh bug hiển thị"
+      }
+    },
+    {
+      "id": "FR02-BUG03",
+      "title": "Email Web dùng type=text, email sai vẫn gửi login request",
+      "kind": "confirmed",
+      "oracle": "S1 FR-02 / R07",
+      "cases": [
+        "FR02-W07",
+        "FR02-W08"
+      ],
+      "steps": "Mở /login; nhập plainaddress hoặc a@ cùng Test1234!, bấm Sign In; kiểm tra DOM và network.",
+      "expected": "type=email, HTML5 chặn email sai trước khi gửi login request.",
+      "actual": "type=text, validity=true; cả hai input phát POST /api/login, server401.",
+      "frequency": "2/2 input đã thử trong RUN03; không quy thành tỷ lệ mọi email.",
+      "priority": "P2: thiếu validation HTML5 đã đặc tả",
+      "symptom_image": {
+        "path": "images/FR02-W07-FR02-RUN03-symptom.jpg",
+        "captured_at": "2026-10-20T12:26:45.646704+00:00",
+        "state": "symptom"
+      },
+      "issue": {
+        "url": "https://github.com/tranquocvy/eshop-sut/issues/23",
+        "number": 23,
+        "captured_at": "2026-10-20T12:32:22.165Z",
+        "image": "images/FR02-BUG03-issue.jpg",
+        "verification": "Đã mở trang issue, đối chiếu tiêu đề/nội dung và ảnh bug hiển thị"
+      }
+    },
+    {
+      "id": "FR02-BUG04",
+      "title": "[A02] Password thiếu/rỗng/null/object vẫn làm tăng counter tài khoản",
+      "kind": "assumption",
+      "oracle": "A02 đề xuất; API §1.2 không chốt validation/counter invalid payload",
+      "cases": [
+        "FR02-A13",
+        "FR02-A15",
+        "FR02-A17",
+        "FR02-A19"
+      ],
+      "steps": "Mỗi payload từ F0 riêng: email U và password absent, chuỗi rỗng, null, hoặc object {value:Test1234!}; POST /api/login.",
+      "expected": "Theo A02: từ chối có kiểm soát, counter không đổi; chưa phải requirement xác nhận.",
+      "actual": "Đều401 nhưng counter0→2. Bản thiếu password được tái hiện trong VERIFY01.",
+      "frequency": "4/4 biến thể RUN03; biến thể absent thêm1 lượt VERIFY01.",
+      "priority": "P2 đề xuất: invalid request có thể gây khóa; cần chốt policy",
+      "symptom_image": {
+        "path": "images/FR02-BUG04-FR02-VERIFY01.jpg",
+        "captured_at": "2026-10-20T12:28:43.111307+00:00",
+        "bug": "FR02-BUG04",
+        "kind": "live API client harness + read-only DB observer"
+      },
+      "issue": {
+        "url": "https://github.com/tranquocvy/eshop-sut/issues/24",
+        "number": 24,
+        "captured_at": "2026-10-20T12:32:54.443Z",
+        "image": "images/FR02-BUG04-issue.jpg",
+        "verification": "Đã mở trang issue, đối chiếu tiêu đề/nội dung và ảnh bug hiển thị"
+      }
+    },
+    {
+      "id": "FR02-BUG05",
+      "title": "[A04] Login response lộ password và reset_token trong user",
+      "kind": "assumption",
+      "oracle": "A04 đề xuất; S2 cho user nhưng chưa mô tả field nhạy cảm",
+      "cases": [
+        "FR02-A25"
+      ],
+      "steps": "F0; đặt marker reset_token=FR02_PRIVATE qua fixture; POST U/Test1234!, inspect JSON user.",
+      "expected": "Theo A04: token/user cần thiết, không password/reset_token.",
+      "actual": "200 trả user.password=Test1234! và user.reset_token=FR02_PRIVATE; JWT đã che trong evidence.",
+      "frequency": "2/2 lượt A25 RUN03 và VERIFY01.",
+      "priority": "P1 đề xuất: lộ credential/reset marker; finding bảo mật theo A04",
+      "symptom_image": {
+        "path": "images/FR02-BUG05-FR02-VERIFY01.jpg",
+        "captured_at": "2026-10-20T12:28:43.329097+00:00",
+        "bug": "FR02-BUG05",
+        "kind": "live API client harness + read-only DB observer"
+      },
+      "issue": {
+        "url": "https://github.com/tranquocvy/eshop-sut/issues/25",
+        "number": 25,
+        "captured_at": "2026-10-20T12:33:24.082Z",
+        "image": "images/FR02-BUG05-issue.jpg",
+        "verification": "Đã mở trang issue, đối chiếu tiêu đề/nội dung và ảnh bug hiển thị"
+      }
+    },
+    {
+      "id": "FR02-BUG06",
+      "title": "[A01] Counter của khóa đã hết được dùng lại, lần sai đầu tái khóa",
+      "kind": "assumption",
+      "oracle": "A01 đề xuất reset chuỗi sau hết khóa; S1 chưa quy định reset storage",
+      "cases": [
+        "FR02-A11"
+      ],
+      "steps": "FL trực tiếp n=3, deadline=t0+30s; đợi31s thật; gửi U/Z hai lần rồi U/P. VERIFY01 cô lập lại với FL đã hết1s.",
+      "expected": "Theo A01: lần sai đầu chuỗi mới n=1, lần2 n=2 chưa khóa; đúng P thành công.",
+      "actual": "Sai đầu dùng n=3 cũ thành5 và khóa180s; hai request sau403. Increment+2 là BUG01; việc dùng counter cũ là finding riêng.",
+      "frequency": "A11 RUN03 với wait31s và VERIFY01 expired fixture; 2 lượt.",
+      "priority": "P2 đề xuất: tái khóa sau expiry; cần chốt policy",
+      "symptom_image": {
+        "path": "images/FR02-BUG06-FR02-VERIFY01.jpg",
+        "captured_at": "2026-10-20T12:28:43.545735+00:00",
+        "bug": "FR02-BUG06",
+        "kind": "live API client harness + read-only DB observer"
+      },
+      "issue": {
+        "url": "https://github.com/tranquocvy/eshop-sut/issues/26",
+        "number": 26,
+        "captured_at": "2026-10-20T12:34:09.892Z",
+        "image": "images/FR02-BUG06-issue.jpg",
+        "verification": "Đã mở trang issue, đối chiếu tiêu đề/nội dung và ảnh bug hiển thị"
+      }
+    }
+  ],
+  "tracker_overview": {
+    "url": "https://github.com/tranquocvy/eshop-sut/issues?q=is%3Aissue+in%3Atitle+T05",
+    "captured_at": "2026-10-20T12:35:35.607Z",
+    "image": "images/T05-issues-overview.jpg",
+    "verified_issue_numbers": [
+      21,
+      22,
+      23,
+      24,
+      25,
+      26
+    ]
+  },
+  "student_review": {
+    "reviewer": "Trần Quốc Vỹ",
+    "scope": "report",
+    "confirmed_at": "2026-10-20T12:40:43.751Z",
+    "quote": "tôi đã check report rồi, tôi confirm."
+  }
+}
