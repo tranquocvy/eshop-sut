@@ -2,8 +2,8 @@
 
 Hồ sơ của Trần Quốc Vỹ (23120410), được bổ sung vào Git ngày 20/10/2026 sau khi trước đó được quản lý local. Timestamp trong log giữ theo hội thoại gốc ngày 19–20/10/2026.
 
-- [Prompt Log](23120410_HW02_PromptLog.md): 39 mục P-000–P-038 theo phạm vi đã được giao ghi log.
-- [AI Audit Report](ai-audit.md): 12 artifact, có nhận xét và lịch sử sửa.
+- [Prompt Log](23120410_HW02_PromptLog.md): 41 mục P-000–P-040 theo phạm vi đã được giao ghi log.
+- [AI Audit Report](ai-audit.md): 13 artifact, có nhận xét và lịch sử sửa.
 - [AI Disclosure](ai-disclosure.md): khai báo công cụ, đóng góp và cách rà soát.
 - [Các phiên bản artifact](artifacts.md): output đầu, bản sửa và commit đối chiếu.
 - [Đề HW02](references/hw02-assignment.md), [mẫu Audit](references/ai-audit-template.md), [mẫu Disclosure](references/ai-disclosure-template.md).
@@ -23,3 +23,5 @@ Hồ sơ gồm xây/sửa skill, thiết kế/implementation/execution Mobile Re
 Đợt T03 bổ sung đúng **hai prompt P-031/P-032 và 13 phản hồi AI**: code từ hai tài liệu đã duyệt, sau đó execution/report theo skill. Thêm A-07 (implementation) và A-08 (execution/report); giữ bản code ban đầu trong history và diff thay đổi harness. Report/results/12 JPG đã commit local `94fd43c`, sinh viên đã kiểm tra report. Không thêm các lượt hỏi loại test, đồng bộ T02 hoặc commit thành prompt; không chạy lại SUT trong lúc ghi log. Phần Category “Not Run” trong bản thiết kế giữ đúng mốc lịch sử.
 
 Đợt T05 bổ sung **hai prompt P-037/P-038 và bảy phản hồi AI nguyên văn**, cùng phần đối chiếu năm lượt hỏi/đáp/sửa trạng thái review. Thêm một artifact A-11 cho cặp design/TC FR-02, không thêm artifact cho thao tác Git. Giữ bản đầu thực tế, diff trạng thái và bản đã review tại commit `4bb5158`. Các phần Prompt Log cũ chỉnh tay được bảo toàn; helper chỉ render trên staging canonical rồi nối phần mới. Không đưa prompt execution/report vào phạm vi lần này. Vỹ đã xác nhận report; dữ kiện này được ghi nhận riêng, chưa thay việc bổ sung log execution khi được giao.
+
+Đợt T05 execution/report bổ sung **P-039/P-040 với hai prompt và chín phản hồi AI nguyên văn**. Thêm A-12 cho bộ implementation/execution/report tại commit local `911185e`:45 TC,18 passed/12 failed/15 blocked; Issues#21–#26 và16 JPG. Vỹ đã kiểm tra report và giao commit. Các dữ liệu log cũ và ghi chú phạm vi đợt trước giữ nguyên; không thực thi lại SUT, không đăng issue mới, không commit/push trong lượt ghi log này.

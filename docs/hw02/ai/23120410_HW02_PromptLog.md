@@ -2230,3 +2230,147 @@ Commit: [`b3f0f6d`](https://github.com/tranquocvy/eshop-sut/commit/b3f0f6ddc050e
 ## Trao đổi liên quan T05
 
 Hai prompt chính P-037/P-038 giữ nguyên văn và đủ phản hồi ở trên. Năm lượt hỏi/đáp về phạm vi thiết kế, BVA, rule/oracle và sửa trạng thái đã review được giữ [nguyên văn tại đây](history/fr02-review-context.md). Không đưa execution/report vào hai prompt được chọn.
+
+Phạm vi: Hai lượt T05 được chỉ định: dùng test-execution-reporting thực thi/sinh report FR-02 và yêu cầu commit report sau khi sinh viên kiểm tra. Giữ nguyên prompt và tất cả phản hồi tiến độ/kết quả; không thêm lượt ghi log, quản lý file hoặc commit khác.
+
+<a id="msg-b06191d493ae9fd1411e"></a>
+
+## P-039
+
+- Timestamp: 19:23:50 20/10/2026 (UTC+07:00)
+- Công cụ: OpenAI Codex
+- Model: gpt-6.1-sol
+
+### Prompt
+
+```text
+dùng [$test-execution-reporting](C:\Users\DELL\\.codex\skills\test-execution-reporting\SKILL.md) để execution và sinh report như các task trước đó
+```
+
+<a id="msg-1d32205dcb2790cd5d3a"></a>
+
+### Output
+
+#### Phản hồi 1 — 19:23:53 20/10/2026 (UTC+07:00)
+
+- Công cụ: OpenAI Codex
+- Model: gpt-6.1-sol
+
+```text
+Mình sẽ dùng skill **test-execution-reporting** để chạy 45 TC đã duyệt, lưu kết quả và evidence, rồi sinh report và đăng các bug được xác nhận lên tracker như các task trước. Mình sẽ giữ nguyên bộ TC và không tự commit/push.
+```
+
+<a id="msg-17647c7389f0b560da14"></a>
+
+#### Phản hồi 2 — 19:24:55 20/10/2026 (UTC+07:00)
+
+- Công cụ: OpenAI Codex
+- Model: gpt-6.1-sol
+
+```text
+Backend của lần trước đã dừng, nên mình đang chạy bản source không đổi với database riêng cho T05 để giữ dữ liệu cũ. Sáu TC tại mốc 30 giây ±1ms cần đồng hồ server được kiểm soát; nếu môi trường không đáp ứng, mình sẽ ghi blocked và kiểm tra thời lượng khóa bằng một phép đo bổ trợ có timestamp rõ ràng.
+```
+
+<a id="msg-2df972e06d4243d1e387"></a>
+
+#### Phản hồi 3 — 19:27:11 20/10/2026 (UTC+07:00)
+
+- Công cụ: OpenAI Codex
+- Model: gpt-6.1-sol
+
+```text
+Lượt chạy đã ghi nhận counter tăng **0→2 sau một lần sai** và Web vẫn gửi request với email sai định dạng. Lỗi counter làm một số TC không đạt được precondition nên các ca đó được ghi blocked. Hai lỗi harness ban đầu đã được sửa và giữ lịch sử riêng; lượt chạy đầy đủ hiện đang kiểm tra nhóm API.
+```
+
+<a id="msg-d0e50e8aa18d2382ca41"></a>
+
+#### Phản hồi 4 — 19:30:02 20/10/2026 (UTC+07:00)
+
+- Công cụ: OpenAI Codex
+- Model: gpt-6.1-sol
+
+```text
+Đã có kết quả cho 45 TC: **18 passed, 12 failed, 15 blocked**. Phép đo bổ trợ xác nhận deadline khóa khoảng **180 giây**, và mật khẩu đúng vẫn bị từ chối sau hơn 31 giây. Mình đang hoàn thiện report và Issues, tách rõ lỗi theo FR-02 với các finding theo giả định A01/A02/A04.
+```
+
+<a id="msg-eb4904ad945860921bfe"></a>
+
+#### Phản hồi 5 — 19:32:29 20/10/2026 (UTC+07:00)
+
+- Công cụ: OpenAI Codex
+- Model: gpt-6.1-sol
+
+```text
+Ba lỗi theo FR-02 đã được đăng thành Issues **#21–#23**, kèm ảnh evidence. Ba finding còn lại liên quan counter của input thiếu/sai kiểu, lộ password/reset token trong response và counter sau hết khóa; mình sẽ ghi rõ chúng dựa trên các giả định đã có trong thiết kế.
+```
+
+<a id="msg-fd839571dc5d453b53e9"></a>
+
+#### Phản hồi 6 — 19:34:23 20/10/2026 (UTC+07:00)
+
+- Công cụ: OpenAI Codex
+- Model: gpt-6.1-sol
+
+```text
+Đã đăng đủ **Issues #21–#26**, kiểm tra ảnh đính kèm và chụp trang từng issue. Mình đang rà lại số liệu và link evidence trong report. Các ca blocked gồm **9 ca bị lỗi SUT chặn precondition/sequence** và **6 ca thiếu khả năng kiểm soát thời gian ±1ms**.
+```
+
+<a id="msg-c3243974e7c86b9ee980"></a>
+
+#### Phản hồi 7 — 19:35:57 20/10/2026 (UTC+07:00)
+
+- Công cụ: OpenAI Codex
+- Model: gpt-6.1-sol
+
+```text
+Đã thực hiện theo [test-execution-reporting](C:/Users/DELL/.codex/skills/test-execution-reporting/SKILL.md) và tạo [report T05](D:/Workspace/SoftwareTesting/HW02/eshop-sut/tests/hw02/fr02-login/report.md).
+
+- **18 passed, 12 failed, 15 blocked**.
+- Blocked: 9 ca do lỗi SUT chặn; 6 ca thiếu kiểm soát thời gian ±1ms.
+- Đã đăng **Issues #21–#26**: 3 lỗi theo đặc tả, 3 finding theo giả định; đủ ảnh bug và ảnh trang issue.
+- Giữ nguyên bộ TC đã duyệt. **Chưa commit/push hoặc cập nhật AI log.**
+
+![Sáu Issues T05](D:/Workspace/SoftwareTesting/HW02/eshop-sut/tests/hw02/fr02-login/images/T05-issues-overview.jpg)
+```
+
+<a id="msg-96c5bfd21eb522b4817c"></a>
+
+## P-040
+
+- Timestamp: 19:52:25 20/10/2026 (UTC+07:00)
+- Công cụ: OpenAI Codex
+- Model: gpt-6.1-sol
+
+### Prompt
+
+```text
+tiếp đến là commit về report hiện tại, tôi check report rồi
+```
+
+<a id="msg-8dc83dd970591c1cdb50"></a>
+
+### Output
+
+#### Phản hồi 1 — 19:52:29 20/10/2026 (UTC+07:00)
+
+- Công cụ: OpenAI Codex
+- Model: gpt-6.1-sol
+
+```text
+Mình sẽ commit bộ execution/report T05 đã được bạn kiểm tra, gồm report, kết quả, script và ảnh bằng chứng liên quan.
+```
+
+<a id="msg-e1984daf4b3f12fe7fcd"></a>
+
+#### Phản hồi 2 — 19:52:43 20/10/2026 (UTC+07:00)
+
+- Công cụ: OpenAI Codex
+- Model: gpt-6.1-sol
+
+```text
+Đã commit bộ execution/report T05 bạn đã duyệt, gồm report, results, script và 16 ảnh JPG.
+
+Commit: `911185e` — `test(fr02): record reviewed execution report and evidence`.
+
+Kết quả giữ nguyên **18 passed / 12 failed / 15 blocked**. Chưa push.
+```
