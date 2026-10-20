@@ -1,0 +1,38 @@
+diff --git a/tests/hw02/fr02-login/design.md b/tests/hw02/fr02-login/design.md
+index 8339855..6f10c9e 100644
+--- a/tests/hw02/fr02-login/design.md
++++ b/tests/hw02/fr02-login/design.md
+@@ -1,6 +1,6 @@
+ # T05 — FR-02: Login and Account Lockout
+ 
+-Thiết kế AI v0.1, ngày 20/10/2026 (UTC+7), chờ Vỹ review. Chỉ thiết kế; chưa thực thi. Bộ TC tại [test-cases.md](test-cases.md). Git giữ bản AI đầu và lịch sử sửa; không đánh dấu T05 hoàn tất.
++Thiết kế v0.1, ngày 20/10/2026 (UTC+7). Vỹ đã đọc, review và xác nhận cả design.md và test-cases.md trong hội thoại. Chỉ thiết kế; chưa thực thi. Bộ TC tại [test-cases.md](test-cases.md). Không đánh dấu T05 hoàn tất toàn chu trình.
+ 
+ ## 1. Test basis và phương pháp
+ 
+@@ -87,4 +87,4 @@ Inventory miền: D01–D13 đều có TC, 13/13 mục tiêu thiết kế (D05/0
+ 
+ Khảo sát chưa tính vào 45 TC hay tỷ lệ coverage: email `TEST@eshop.com`, ` test@eshop.com `; token đã cấp trước khi khóa; lỗi định dạng API và counter; phản hồi thời gian có cho phép suy tài khoản tồn tại hay không. Ghi hành vi/cần chốt policy trước verdict. Giới hạn: không kiểm thử mọi request xác thực của hệ thống, refresh token, logout, phân quyền toàn bộ hay brute force theo IP.
+ 
+-AI đã tự rà đường vào, trạng thái, kiểu dữ liệu và sequence; đây chưa phải human review. Giữ v0.1 bằng commit trước phản hồi của Vỹ. Không tạo kết quả chạy, issue, AI gap report hoặc cập nhật AI log trong lượt này.
++AI đã tự rà đường vào, trạng thái, kiểu dữ liệu và sequence. Sau đó Vỹ xác nhận đã đọc và review cả hai file; bộ thiết kế v0.1 được chấp nhận, không có yêu cầu sửa nội dung TC trong phản hồi review. Các oracle A01–A05 vẫn là chính sách đề xuất, không trở thành requirement đã xác nhận chỉ vì bộ test được duyệt. Hai file được lưu chung một commit theo yêu cầu của Vỹ. Chưa tạo kết quả chạy, issue, AI gap report hoặc cập nhật AI log cho lượt thiết kế này.
+diff --git a/tests/hw02/fr02-login/test-cases.md b/tests/hw02/fr02-login/test-cases.md
+index 5f51cd6..c5a4da3 100644
+--- a/tests/hw02/fr02-login/test-cases.md
++++ b/tests/hw02/fr02-login/test-cases.md
+@@ -1,6 +1,6 @@
+ # FR-02 — Bộ TC v0.1
+ 
+-Ngày 20/10/2026; AI initial, chờ Vỹ review. **Tất cả 45 TC: Not Run.** Rule/miền/biên và nguồn S1/S2/Axx theo [design.md](design.md). W=Web, A=API; Domain+BVA là hai nhãn của cùng TC.
++Ngày 20/10/2026; Vỹ đã đọc, review và xác nhận cả design.md và test-cases.md trong hội thoại. Bộ TC v0.1 đã được duyệt về thiết kế. **Tất cả 45 TC: Not Run.** Rule/miền/biên và nguồn S1/S2/Axx theo [design.md](design.md). W=Web, A=API; Domain+BVA là hai nhãn của cùng TC.
+ 
+ ## Quy ước thực hiện
+ 
+@@ -69,6 +69,6 @@ Ngày 20/10/2026; AI initial, chờ Vỹ review. **Tất cả 45 TC: Not Run.**
+ 
+ ## Ghi chú coverage và bàn giao
+ 
+-Các field JSON U/P/Z là ký hiệu thay bằng giá trị chuỗi ở quy ước, không gửi nguyên ký hiệu. Setup không phải verdict. Counter tăng +1 áp dụng các attempt sai có tài khoản tồn tại và credential hợp lệ về kiểu; invalid input theo A02 là policy riêng cần review.
++Các field JSON U/P/Z là ký hiệu thay bằng giá trị chuỗi ở quy ước, không gửi nguyên ký hiệu. Setup không phải verdict. Counter tăng +1 áp dụng các attempt sai có tài khoản tồn tại và credential hợp lệ về kiểu; invalid input theo A02 là policy đề xuất đã được giữ trong bộ thiết kế Vỹ duyệt, chưa phải requirement được đặc tả xác nhận.
+ 
+ 45 ID unique, không tính các request trong sequence là TC mới. 19 Web + 26 API. Hai lớp có B01={2,3,4}, B02={29.999,30,30.001}; kết quả API không chứng minh Web đã chạy. Ca có assumption được giữ riêng nguồn expected, không chuyển thành confirmed chỉ vì được AI bổ sung. Các khảo sát Q01 nằm ở design, chưa tính là TC có oracle xác định.

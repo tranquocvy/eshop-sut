@@ -1,0 +1,90 @@
+# T05 — FR-02: Login and Account Lockout
+
+Thiết kế AI v0.1, ngày 20/10/2026 (UTC+7), chờ Vỹ review. Chỉ thiết kế; chưa thực thi. Bộ TC tại [test-cases.md](test-cases.md). Git giữ bản AI đầu và lịch sử sửa; không đánh dấu T05 hoàn tất.
+
+## 1. Test basis và phương pháp
+
+Baseline đọc tĩnh: `9ad495bef076ab8d50e00640df7d2ea415d487b9`. Giữ nguyên thay đổi Mobile và cache đang có.
+
+| Nguồn | Vị trí và vai trò |
+| --- | --- |
+| S1 | [README](../../../README.md), FR-02, dòng 38–44: oracle nghiệp vụ; tài khoản seed ở phần tổng quan |
+| S2 | [API specification](../../../api_specification.md), §1.2, §2.1: POST /api/login, 200/token/user và GET /api/users/me có xác thực |
+| S3 | [Login.jsx](../../../frontend-web/src/pages/Login.jsx), [AuthContext.jsx](../../../frontend-web/src/context/AuthContext.jsx), [server.js](../../../backend/server.js) phần /api/login, [database.js](../../../backend/database.js) schema users: chỉ dùng xác định đường vào/điểm quan sát |
+| S4 | Đề HW02 §6.1–6.2, §12; quyết định phương pháp tại `HW02/T01-setup/ENVIRONMENT.md` §Phạm vi và nguồn phương pháp |
+| S5 | Skill domain-bva-testing và ba references domain-testing, boundary-value-analysis, test-case-contract đã đọc trong lượt thiết kế |
+
+`method_profile: reference-provisional`. Chưa có slide Domain riêng; dùng mô hình biến/miền/ràng buộc và lấy mẫu theo rủi ro của skill, không nhận đã áp dụng mọi biến thể Domain hay ON/OFF/IN/OUT. BVA kế thừa quyết định T01: `course-guide-3-value`, quanh biên hợp lệ b lấy b−δ, b, b+δ (tài liệu tự học môn trang 44 đã đối chiếu tại T01, chưa đọc lại trong lượt này). Không gọi là helper `istqb-3`.
+
+Lớp chính: Web `/login`; API bổ trợ độc lập. API/DB dùng quan sát bộ đếm và đồng hồ không thay kết quả giao diện Web. Không mở rộng đăng ký, reset password, admin hay Mobile; fixture riêng không là test đăng ký.
+
+## 2. Rule và oracle
+
+| ID | Quy tắc | Trạng thái/nguồn |
+| --- | --- | --- |
+| R01 | Email và mật khẩu đúng của tài khoản chưa khóa cho đăng nhập thành công | Confirmed, ngữ nghĩa S1; S2 quy định 200, token, user cho API |
+| R02 | Mỗi lần xác thực sai tăng bộ đếm đúng 1 | Confirmed S1; kiểm tra mật khẩu sai của tài khoản tồn tại để có counter xác định |
+| R03 | Từ lần sai liên tiếp thứ 3 tài khoản bị khóa; trong khóa kể cả đúng mật khẩu cũng không đăng nhập | Confirmed S1, ngữ nghĩa khóa tài khoản |
+| R04 | Khóa tạm thời kéo dài 30 giây | Confirmed S1; quy ước dấu bằng và phép đo bên dưới |
+| R05 | Đăng nhập sai có thông báo phù hợp, không tiết lộ chi tiết nguyên nhân | Confirmed S1; không ấn định câu lỗi hay mã HTTP lỗi; không tiết lộ tồn tại tài khoản/sai riêng email hoặc mật khẩu |
+| R06 | Thành công trả JWT; client lưu và gửi Authorization: Bearer token cho request cần xác thực | Confirmed S1/S2; không ấn định localStorage hay thời hạn token |
+| R07 | Email trên Web có type=email và validation HTML5 | Confirmed S1; không suy regex API hay max length từ HTML5 |
+| R08 | Thành công ngắt chuỗi sai liên tiếp; hai lần sai trước thành công không cộng sang chuỗi sau | Suy ra từ “liên tiếp” S1; reset counter vật lý về 0 là A01 |
+
+| ID | Oracle đề xuất/chưa rõ | Lý do |
+| --- | --- | --- |
+| A01 | Sau thành công counter vật lý =0, cleared lock; hết khóa bắt đầu chuỗi mới; request trong khóa không tăng counter hay kéo dài hạn khóa | Chính sách trạng thái đề xuất; S1 không chốt storage/reset khi hết khóa và gia hạn |
+| A02 | Thiếu/rỗng/null/sai kiểu credential bị từ chối có kiểm soát, không token/500, không tăng counter; HTML form chặn thiếu dữ liệu | Robustness/required-input policy; S1 chưa có contract validation chi tiết |
+| A03 | Khóa gắn tài khoản, độc lập phiên/browser và không ảnh hưởng tài khoản khác | Suy luận đề xuất từ “tài khoản”; kiểm tra né khóa và khóa nhầm |
+| A04 | Mật khẩu so khớp chính xác, không trim/đổi case; payload SQL không bypass; password/reset_token không xuất hiện trong response | Chính sách bảo toàn credential và bảo mật đề xuất; không gọi tất cả là nguyên văn S1 |
+| A05 | Hai request sai đồng thời được ghi nhận đủ 2 lần (không mất cập nhật), ngưỡng vẫn 3 | Oracle đề xuất về tính nguyên tử; R02 cho mức tăng mỗi lần, chưa quy định concurrency |
+| Q01 | Chuẩn hóa email (case/space), lỗi định dạng API có tính lần sai không, counter tài khoản không tồn tại, token cũ khi khóa, token expiry | Chưa có oracle đủ chắc; ghi khảo sát riêng, không đưa vào coverage confirmed |
+
+Không áp min 8/complexity FR-01 vào login. Không có max độ dài email/password được FR-02 quy định. Nhìn thấy nghi vấn source về counter/timing và dữ liệu response không là verdict runtime.
+
+## 3. Domain Testing: biến, miền, điểm đại diện
+
+Biến: E=email (chuỗi, tập tài khoản/định dạng), P=password (chuỗi, quan hệ bằng credential); n=số sai liên tiếp đã hoàn tất trước request (nguyên không âm, bước 1); L=khóa chưa hết/hết/chưa khóa; τ=t−t0 (giây); U=tài khoản; C=client/session; O=kết quả success/failure. Nominal E=`test@eshop.com`, P=`Test1234!`, n=0, chưa khóa. n ở TC là trạng thái nghiệp vụ mong muốn, phải ghi cả giá trị DB quan sát thực tế, không suy DB đã đúng.
+
+Quan hệ: chưa khóa & sai ⇒ n′=n+1; n′≥3 ⇒ bắt đầu khóa tại t0; đúng trước khóa ⇒ ngắt chuỗi; τ<30 ⇒ từ chối; τ≥30 ⇒ không còn từ chối vì khóa cũ. Không dùng toàn bộ tích Descartes: lấy mẫu cô lập từng credential, chuyển trạng thái và tương tác tài khoản/phiên có rủi ro. Các mục tiêu dưới đây thuộc nhiều chiều, có thể chồng nhau.
+
+| Miền | Predicate/điểm và lỗi mục tiêu | Rule | TC (tiền tố FR02-) |
+| --- | --- | --- | --- |
+| D01 | Tài khoản tồn tại, P đúng, chưa khóa: user/admin | R01/R06 | W01,W02,A01 |
+| D02 | Tài khoản tồn tại, P sai; n=0/1/2: phân biệt tăng 1 và khóa sớm/muộn | R02/R03 | W03–W05,A02–A04 |
+| D03 | Email hợp lệ nhưng không tồn tại so với email tồn tại/P sai | R05 | W06,A05 |
+| D04 | Email sai HTML5: `plainaddress`, `a@`; kiểm tra type và submit không gửi request | R07 | W07,W08 |
+| D05 | Một credential rỗng hoặc thiếu/null/sai kiểu: cô lập mỗi field | A02 | W09,W10,A12–A19 |
+| D06 | Đúng/sai credential trong khóa, τ=10 giây | R03/A01 | W11,W12,A06,A07 |
+| D07 | Hết khóa tại và sau 30 giây, đúng/sai credential | R04/A01 | W14,W15,A09,A10,A11 |
+| D08 | Sai,sai,đúng,sai,sai,đúng: phát hiện counter không reset | R08/A01 | W16,A20 |
+| D09 | Khác U và khác C; khóa không lan/không né được bằng reload/phiên khác | A03 | W17,W18,A21 |
+| D10 | Credential đúng ngắn, đổi case/thêm space P: không dùng registration validator ở login | R01/A04 | W19,A22,A23 |
+| D11 | Thành công: JWT, lưu client, request có Bearer, đúng danh tính | R06 | W01,A01 |
+| D12 | SQL payload và dữ liệu nhạy cảm response | A04 | A24,A25 |
+| D13 | Đồng thời 2 request sai từ n=1 | A05 | A26 |
+
+## 4. Boundary Value Analysis
+
+| Boundary | Hai miền, dấu bằng, đơn vị/δ | Điểm | TC |
+| --- | --- | --- | --- |
+| B01 | Tổng lần sai n′<3 chưa khóa / n′≥3 khóa; số nguyên, δ=1 | 2,3,4 | W04,W05,W12; A03,A04,A07 |
+| B02 | τ<30 khóa / τ≥30 hết khóa; b=30 giây, δ=0.001 giây theo độ phân giải kiểm tra đề xuất | 29.999,30.000,30.001 | W13–W15; A08–A10 |
+
+B01: 4 là request sai thứ tư trong cùng chuỗi không có thành công, phải bị khóa; không giả sử counter lưu thành 4, vì policy trong khóa là A01. Giá trị 1 ở W03/A02 là điểm Domain kiểm tra bước tăng, không đếm như item B01 mới. n=0 là precondition nền, không có boundary validation input n từ người dùng.
+
+B02: dấu bằng chọn theo ngữ nghĩa hết đủ 30 giây (quy ước mô hình của R04); δ=1ms là độ phân giải kiểm tra, không phải SLA precision do S1 xác nhận. Phải thử từng điểm trên fixture/chuỗi mới để request trước không sửa deadline. Nếu không kiểm soát thời gian đủ chính xác, đánh dấu không chạm điểm, không dùng thời điểm bấm UI làm thời điểm server nhận.
+
+Thiết kế phép đo: t0 là thời điểm server xử lý thất bại thứ ba để thiết lập khóa, deadline yêu cầu=t0+30000ms. Ghi clock server và timestamp xử lý request; đọc `locked_until` chỉ là actual để so sánh, không lấy deadline sai của implementation làm oracle. Ưu tiên clock được điều khiển trong môi trường kiểm thử mà không thay logic SUT, hoặc trace server với độ phân giải/sai số đủ nhỏ. Với Web, request vẫn khởi phát bằng UI; API trực tiếp là TC API. Khoảng bất định timestamp cắt qua 30s thì không kết luận điểm equality đã đạt. Nếu chỉ đo wall clock/network, dùng khoảng trước/sau rộng hơn để kiểm tra hành vi và giữ điểm ±1ms/equality chưa thực thi. Không yêu cầu sửa SUT/thiết lập clock ở lượt thiết kế này.
+
+Không coi chuỗi email, enum trạng thái, null/sai kiểu là BVA số. Empty input thuộc Domain vì chưa có biên độ dài nghiệp vụ được chốt.
+
+## 5. Kiểm tra thiết kế và coverage
+
+Inventory miền: D01–D13 đều có TC, 13/13 mục tiêu thiết kế (D05/09/10/12/13 có oracle đề xuất); không phải mọi partition/phối hợp toàn feature. Rule confirmed R01–R08: 8/8 có TC, trong đó R08 kiểm tra ngắt chuỗi qua hành vi; số 0 lưu DB thuộc A01. BVA B01/B02: 6/6 item thiết kế cho từng lớp Web và API (12 ánh xạ item/lớp), phụ thuộc khả năng kiểm soát clock ở execution. Không có coverage đã thực thi.
+
+45 unique TC: 19 Web và 26 API; cùng TC Domain+BVA chỉ đếm một. Mỗi TC có precondition/input/steps/expected/source; lỗi HTTP không có contract exact code thì không ép 401/403. A02–A04 phải tiếp cận n bằng chuỗi thật trước khi gửi request mục tiêu: nếu khóa sớm, ghi không tiếp cận được, không âm thầm ép DB rồi coi sequence pass. Fixture trạng thái có kiểm soát được dùng riêng cho timing và luôn công bố, tránh lỗi counter che lỗi thời lượng.
+
+Khảo sát chưa tính vào 45 TC hay tỷ lệ coverage: email `TEST@eshop.com`, ` test@eshop.com `; token đã cấp trước khi khóa; lỗi định dạng API và counter; phản hồi thời gian có cho phép suy tài khoản tồn tại hay không. Ghi hành vi/cần chốt policy trước verdict. Giới hạn: không kiểm thử mọi request xác thực của hệ thống, refresh token, logout, phân quyền toàn bộ hay brute force theo IP.
+
+AI đã tự rà đường vào, trạng thái, kiểu dữ liệu và sequence; đây chưa phải human review. Giữ v0.1 bằng commit trước phản hồi của Vỹ. Không tạo kết quả chạy, issue, AI gap report hoặc cập nhật AI log trong lượt này.
